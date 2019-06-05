@@ -10,6 +10,7 @@
 
   <modules>
       <module>scenario-001-getting-started</module>
+      <module>scenario-101-getting-started</module>
   </modules>
 
   <properties>
