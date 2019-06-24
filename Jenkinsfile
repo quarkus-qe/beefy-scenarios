@@ -22,23 +22,33 @@ pipeline {
         }
         stage('Test JVM') {
             steps {
-                sh './mvnw verify'
+                sh './mvnw clean verify'
+            }
+            post {
+                always {
+                    junit '**/target/surefire-reports/**/*.xml'
+                }
             }
         }
         stage('Test Native') {
             steps {
-                sh './mvnw verify -Dnative'
+                sh 'GRAALVM_HOME=$JAVA_HOME ./mvnw clean verify -Dnative'
+            }
+            post {
+                always {
+                    junit '**/target/surefire-reports/**/*.xml'
+                }
             }
         }
         stage('Results') {
             steps {
                 sh 'du -cskh */target/* | grep -E "target/scenario|target/lib"'
             }
-            post {
-                always {
-                    junit '**/target/surefire-reports/**/*.xml' 
-                }
-            }
+            // post {
+            //     always {
+            //         junit '**/target/surefire-reports/**/*.xml'
+            //     }
+            // }
         }
     }
 }
