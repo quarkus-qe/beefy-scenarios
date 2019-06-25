@@ -26,7 +26,7 @@ pipeline {
             }
             post {
                 always {
-                    junit '**/target/surefire-reports/**/*.xml'
+                    junit '**/target/*-reports/TEST*.xml'
                 }
             }
         }
@@ -36,7 +36,7 @@ pipeline {
             }
             post {
                 always {
-                    junit '**/target/surefire-reports/**/*.xml'
+                    junit '**/target/*-reports/TEST*.xml'
                 }
             }
         }
@@ -44,11 +44,6 @@ pipeline {
             steps {
                 sh 'du -cskh */target/* | grep -E "target/scenario|target/lib"'
             }
-            // post {
-            //     always {
-            //         junit '**/target/surefire-reports/**/*.xml'
-            //     }
-            // }
         }
     }
 }
