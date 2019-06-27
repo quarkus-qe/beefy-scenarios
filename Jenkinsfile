@@ -4,6 +4,10 @@ pipeline {
         // maven 'maven-3.5.4'
         jdk 'graalvm'
     }
+    options {
+        timestamps()
+        ansiColor("xterm")
+    }
     stages {
         stage ('Initialize') {
             steps {
@@ -43,7 +47,13 @@ pipeline {
         stage('Results') {
             steps {
                 sh 'du -cskh */target/* | grep -E "target/scenario|target/lib"'
+                archiveArtifacts artifacts: '**/target/*-reports/TEST*.xml', fingerprint: false
             }
+        }
+    }
+    post {
+        always {
+            deleteDir()
         }
     }
 }
