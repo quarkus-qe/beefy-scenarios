@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'maven-3.5.4'
+        // maven 'maven-3.5.4'
         jdk 'graalvm'
     }
     stages {
@@ -9,9 +9,9 @@ pipeline {
             steps {
                 sh '''
                     echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
                     which java
-                    which mvn
+                    ## echo "M2_HOME = ${M2_HOME}"
+                    ## which mvn
                 ''' 
             }
         }
