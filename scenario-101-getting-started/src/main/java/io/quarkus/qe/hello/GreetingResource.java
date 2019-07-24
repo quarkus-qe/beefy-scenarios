@@ -12,7 +12,7 @@ public class GreetingResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    @Counted(name = "hello_invocation_count", absolute = true, monotonic = true)
+    @Counted(name = "hello_invocation_count", absolute = true)
     public String hello() {
         return "hello";
     }
