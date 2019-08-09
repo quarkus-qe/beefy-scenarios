@@ -40,14 +40,14 @@ pipeline {
             }
             post {
                 always {
-                    junit '**/target/*-reports/TEST*.xml'
+                    junit '**/target/failsafe-reports/TEST*.xml'
                 }
             }
         }
         stage('Results') {
             steps {
                 sh 'du -cskh */target/* | grep -E "target/scenario|target/lib"'
-                archiveArtifacts artifacts: '**/target/failsafe-reports/TEST*.xml', fingerprint: false
+                archiveArtifacts artifacts: '**/target/*-reports/TEST*.xml', fingerprint: false
             }
         }
     }
