@@ -9,9 +9,9 @@
   <packaging>pom</packaging>
 
   <modules>
-      <module>scenario-001-getting-started</module>
-      <module>scenario-101-getting-started</module>
-      <module>scenario-201-static</module>
+      <module>001-quarkus-getting-started</module>
+      <module>101-javaee-like-getting-started</module>
+      <module>201-large-static-content</module>
   </modules>
 
   <properties>
