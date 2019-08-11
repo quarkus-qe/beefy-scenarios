@@ -10,7 +10,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>201-huge-static-content</artifactId>
+    <artifactId>201-large-static-content</artifactId>
 
     <dependencies>
         <dependency>
