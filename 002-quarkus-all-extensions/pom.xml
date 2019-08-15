@@ -215,10 +215,10 @@
             <artifactId>quarkus-amazon-dynamodb</artifactId>
         </dependency>
         <!--   trouble in NATIVE  -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-tika</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>io.quarkus</groupId>-->
+            <!--<artifactId>quarkus-tika</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-vertx</artifactId>
