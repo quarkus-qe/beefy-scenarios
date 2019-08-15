@@ -12,6 +12,7 @@
       <module>001-quarkus-getting-started</module>
       <module>101-javaee-like-getting-started</module>
       <module>201-large-static-content</module>
+      <module>002-quarkus-all-extensions</module>
   </modules>
 
   <properties>

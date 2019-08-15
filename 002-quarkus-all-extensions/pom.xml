@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>beefy-scenarios</artifactId>
+        <groupId>io.quarkus.qe</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>002-quarkus-all-extensions</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--
+    [ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 10.596 s <<< FAILURE! - in org.acme.quickstart.GreetingResourceTest
+    [ERROR] testHelloEndpoint  Time elapsed: 0.023 s  <<< ERROR!
+    org.junit.jupiter.api.extension.TestInstantiationException:
+    TestInstanceFactory [io.quarkus.test.junit.QuarkusTestExtension] failed to instantiate test class [org.acme.quickstart.GreetingResourceTest]: io.quarkus.builder.BuildException: Build failure: Build failed due to errors
+        [error]: Build step io.quarkus.kubernetes.deployment.KubernetesProcessor#build threw an exception: java.lang.NullPointerException
+    Caused by: java.lang.RuntimeException:
+    io.quarkus.builder.BuildException: Build failure: Build failed due to errors
+        [error]: Build step io.quarkus.kubernetes.deployment.KubernetesProcessor#build threw an exception: java.lang.NullPointerException
+    Caused by: io.quarkus.builder.BuildException:
+    Build failure: Build failed due to errors
+        [error]: Build step io.quarkus.kubernetes.deployment.KubernetesProcessor#build threw an exception: java.lang.NullPointerException
+    Caused by: java.lang.NullPointerException
+
+        <dependency>
+          <groupId>io.quarkus</groupId>
+          <artifactId>quarkus-kubernetes</artifactId>
+        </dependency> -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-agroal</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-swagger-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-amazon-lambda</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-scheduler</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-rest-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-reactive-type-converters</artifactId>
+        </dependency>
+        <!-- trouble in NATIVE  https://github.com/quarkusio/quarkus/issues/2482  -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-hibernate-orm-panache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-h2</artifactId>
+        </dependency>
+        <!--
+        2019-07-23 12:56:42,626 INFO  [org.mon.dri.cluster] (cluster-ClusterId{value='5d36e7ea7d4d8601c575f4bd', description='null'}-127.0.0.1:27017) Exception in monitor thread while connecting to server 127.0.0.1:27017: com.mongodb.MongoSocketOpenException: Exception opening socket
+            at com.mongodb.internal.connection.SocketChannelStream.open(SocketChannelStream.java:63)
+            at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:126)
+            at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:117)
+            at java.lang.Thread.run(Thread.java:748)
+        Caused by: java.net.ConnectException: Connection refused
+         -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-mongodb-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-fault-tolerance</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-context-propagation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-openapi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-mailer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-kogito</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-reactive-pg-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-jsonb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-metrics</artifactId>
+        </dependency>
+        <!--
+        [ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 11.977 s <<< FAILURE! - in org.acme.quickstart.GreetingResourceTest
+        [ERROR] testHelloEndpoint  Time elapsed: 0.02 s  <<< ERROR!
+        org.junit.jupiter.api.extension.TestInstantiationException: TestInstanceFactory [io.quarkus.test.junit.QuarkusTestExtension] failed to instantiate test class [org.acme.quickstart.GreetingResourceTest]
+        Caused by: java.lang.ExceptionInInitializerError
+        Caused by: java.lang.RuntimeException: Failed to start quarkus
+        Caused by: java.lang.IllegalStateException: Keycloak configuration not found, please refer to the Quarkus documentation to learn how to configure your application
+            <dependency>
+              <groupId>io.quarkus</groupId>
+              <artifactId>quarkus-keycloak</artifactId>
+            </dependency> -->
+        <!--  NATIVE mode issue, depends on quarkus-hibernate-orm ... https://github.com/quarkusio/quarkus/issues/2482 -->
+        <!-- there is also something else which breaks native in minimal code mode -->
+        <!-- <dependency>
+          <groupId>io.quarkus</groupId>
+          <artifactId>quarkus-hibernate-search-elasticsearch</artifactId>
+        </dependency> -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-undertow</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-infinispan-client</artifactId>
+        </dependency>
+        <!--
+        2019-07-23 12:56:43,845 ERROR [io.und.req.io] (executor-thread-1) Exception handling request d62de77d-df47-47e1-9bef-31d47e7b9057-1 to /hello: java.lang.IllegalStateException: JWTAuthContextInfo has not been initialized. Please make sure that either 'mp.jwt.verify.publickey' or 'mp.jwt.verify.publickey.location' properties are set.
+            at io.smallrye.jwt.config.JWTAuthContextInfoProvider.lambda$throwException$0(JWTAuthContextInfoProvider.java:355)
+            at java.util.Optional.orElseThrow(Optional.java:290)
+            at io.smallrye.jwt.config.JWTAuthContextInfoProvider.getContextInfo(JWTAuthContextInfoProvider.java:349)
+            at io.smallrye.jwt.config.JWTAuthContextInfoProvider_ProducerMethod_getContextInfo_21d111677ae04ef1a7cf911100af3482e4c3b30a_Bean.create(JWTAuthContextInfoProvider_ProducerMethod_getContextInfo_21d111677ae04ef1a7cf911100af3482e4c3b30a_Bean.zig:72)
+            <dependency>
+              <groupId>io.quarkus</groupId>
+              <artifactId>quarkus-smallrye-jwt</artifactId>
+            </dependency> -->
+
+        <!-- <dependency>  trouble in NATIVE
+          <groupId>io.quarkus</groupId>
+          <artifactId>quarkus-jdbc-mariadb</artifactId>
+        </dependency> -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-narayana-jta</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-neo4j</artifactId>
+        </dependency>
+        <dependency>  <!-- trouble in NATIVE https://github.com/quarkusio/quarkus/issues/2482 -->
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-hibernate-orm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-undertow-websockets</artifactId>
+        </dependency>
+        <!-- <dependency> trouble in NATIVE
+          <groupId>io.quarkus</groupId>
+          <artifactId>quarkus-spring-di</artifactId>
+        </dependency>
+      -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-opentracing</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-reactive-messaging-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-arc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-health</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-elytron-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-amazon-dynamodb</artifactId>
+        </dependency>
+        <!--   trouble in NATIVE  -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-tika</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-vertx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-kafka-streams</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jsonp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jsonb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-kotlin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-reactive-messaging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-kafka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-reactive-streams-operators</artifactId>
+        </dependency>
+
+        <!--
+          [ERROR] Failed to execute goal io.quarkus:quarkus-maven-plugin:999-SNAPSHOT:build (default) on project getting-started: Failed to build a runnable JAR: Failed to build a runner jar: Failed to augment application classes: Build failure: Build failed due to errors
+    [ERROR] 	[error]: Build step io.quarkus.arc.deployment.ArcProcessor#validate threw an exception: javax.enterprise.inject.spi.DeploymentException: javax.enterprise.inject.UnsatisfiedResolutionException: Unsatisfied dependency for type io.agroal.api.AgroalDataSource and qualifiers [@Default]
+    [ERROR] 	- java member: io.quarkus.flyway.runtime.FlywayProducer#dataSource
+    [ERROR] 	- declared on CLASS bean [types=[io.quarkus.flyway.runtime.FlywayProducer, java.lang.Object], qualifiers=[@Default, @Any], target=io.quarkus.flyway.runtime.FlywayProducer]
+    [ERROR] -> [Help 1]
+    [ERROR]
+      ==> adjust application.properties
+     -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-flyway</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-kubernetes-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-hibernate-validator</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
