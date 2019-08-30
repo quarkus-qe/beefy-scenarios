@@ -26,28 +26,30 @@ pipeline {
         }
         stage('Test JVM') {
             steps {
-                sh './mvnw -B -fn clean verify'
+                sh './mvnw -B -fae clean verify'
             }
             post {
                 always {
                     junit '**/target/surefire-reports/TEST*.xml'
+                    archiveArtifacts artifacts: '**/target/*-reports/TEST*.xml', fingerprint: false
                 }
             }
         }
         stage('Test Native') {
             steps {
-                sh 'GRAALVM_HOME=$JAVA_HOME ./mvnw -B -fn clean verify -Dnative'
+                sh 'GRAALVM_HOME=$JAVA_HOME ./mvnw -B -fae clean verify -Dnative'
             }
             post {
                 always {
                     junit '**/target/failsafe-reports/TEST*.xml'
+                    archiveArtifacts artifacts: '**/target/*-reports/TEST*.xml', fingerprint: false
                 }
             }
         }
         stage('Results') {
             steps {
                 sh 'du -cskh */target/* | grep -E "target/scenario|target/lib"'
-                archiveArtifacts artifacts: '**/target/*-reports/TEST*.xml', fingerprint: false
+                // archiveArtifacts artifacts: '**/target/*-reports/TEST*.xml', fingerprint: false
             }
         }
     }
