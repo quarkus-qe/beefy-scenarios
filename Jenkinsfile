@@ -24,38 +24,32 @@ pipeline {
                 sh './mvnw clean install -DskipTests -DskipITs'
             }
         }
-        stage('Tests') {
-            parallel {
-                stage('Test JVM') {
-                    steps {
-                        sh './mvnw clean verify'
-                    }
-                    post {
-                        always {
-                            junit '**/target/surefire-reports/TEST*.xml'
-                            archiveArtifacts artifacts: '**/target/*-reports/TEST*.xml', fingerprint: false
-                        }
-                    }
-                }
-                stage('Test Native') {
-                    steps {
-                        sh 'GRAALVM_HOME=$JAVA_HOME ./mvnw clean verify -Dnative'
-                    }
-                    post {
-                        always {
-                            junit '**/target/failsafe-reports/TEST*.xml'
-                            archiveArtifacts artifacts: '**/target/*-reports/TEST*.xml', fingerprint: false
-                        }
-                    }
+        stage('Test JVM') {
+            steps {
+                sh './mvnw clean verify'
+            }
+            post {
+                always {
+                    junit '**/target/surefire-reports/TEST*.xml'
                 }
             }
         }
-        // stage('Results') {
-        //     steps {
-        //         sh 'du -cskh */target/* | grep -E "target/scenario|target/lib"'
-        //         archiveArtifacts artifacts: '**/target/*-reports/TEST*.xml', fingerprint: false
-        //     }
-        // }
+        stage('Test Native') {
+            steps {
+                sh 'GRAALVM_HOME=$JAVA_HOME ./mvnw clean verify -Dnative'
+            }
+            post {
+                always {
+                    junit '**/target/failsafe-reports/TEST*.xml'
+                }
+            }
+        }
+        stage('Results') {
+            steps {
+                sh 'du -cskh */target/* | grep -E "target/scenario|target/lib"'
+                archiveArtifacts artifacts: '**/target/*-reports/TEST*.xml', fingerprint: false
+            }
+        }
     }
     post {
         always {
