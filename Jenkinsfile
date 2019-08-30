@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Test JVM') {
             steps {
-                sh './mvnw -B clean verify'
+                sh './mvnw -B -fn clean verify'
             }
             post {
                 always {
@@ -36,7 +36,7 @@ pipeline {
         }
         stage('Test Native') {
             steps {
-                sh 'GRAALVM_HOME=$JAVA_HOME ./mvnw -B clean verify -Dnative'
+                sh 'GRAALVM_HOME=$JAVA_HOME ./mvnw -B -fn clean verify -Dnative'
             }
             post {
                 always {
