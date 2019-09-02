@@ -1,4 +1,4 @@
-package org.acme.quickstart;
+package io.quarkus.qe.core;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;

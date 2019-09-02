@@ -1,4 +1,4 @@
-package org.acme.quickstart;
+package io.quarkus.qe.core;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
