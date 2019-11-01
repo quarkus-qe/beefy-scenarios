@@ -11,6 +11,7 @@
 
     <artifactId>002-quarkus-all-extensions</artifactId>
 
+    <!-- TODO add new dependencies -->
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -59,6 +60,10 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-amazon-lambda</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-amazon-lambda-http</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -213,6 +218,10 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-amazon-dynamodb</artifactId>
+        </dependency>
+        <dependency>  <!-- workaround for https://github.com/quarkusio/quarkus/issues/5115 -->
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>url-connection-client</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>

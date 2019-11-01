@@ -84,6 +84,7 @@
       </activation>
       <build>
         <plugins>
+          <!-- TODO update project structure - https://github.com/quarkusio/quarkus/issues/5111 -->
           <plugin>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-maven-plugin</artifactId>
@@ -95,7 +96,8 @@
                 </goals>
                 <configuration>
                   <enableHttpUrlHandler>true</enableHttpUrlHandler>
-                  <additionalBuildArgs></additionalBuildArgs>
+                  <!-- workaround for https://github.com/quarkusio/quarkus/issues/5110 -->
+                  <!-- <additionalBuildArgs></additionalBuildArgs> -->
                 </configuration>
               </execution>
             </executions>
