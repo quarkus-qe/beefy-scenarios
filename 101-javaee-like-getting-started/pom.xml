@@ -26,11 +26,11 @@
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
     </dependency>
-    <!-- https://github.com/quarkusio/quarkus/issues/2482  https://github.com/quarkusio/quarkus/issues/2710
+    <!-- https://github.com/quarkusio/quarkus/issues/2482  https://github.com/quarkusio/quarkus/issues/2710  -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-orm</artifactId>
-    </dependency> -->
+    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-jsonb</artifactId>
