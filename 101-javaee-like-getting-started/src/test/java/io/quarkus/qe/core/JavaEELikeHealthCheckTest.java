@@ -16,7 +16,7 @@ public class JavaEELikeHealthCheckTest {
                 .then()
                 .statusCode(200)
                 .body("status", is("UP"),
-                        "checks.name", containsInAnyOrder("liveness", "readiness", "greeting", "Database connection(s) health check"),
+                        "checks.name", containsInAnyOrder("liveness", "readiness", "greeting", "Database connections health check"),
                         "checks.status", hasSize(4),
                         "checks.status", hasItem("UP"),
                         "checks.status", not(hasItem("DOWN"))
@@ -29,7 +29,7 @@ public class JavaEELikeHealthCheckTest {
                 .then()
                 .statusCode(200)
                 .body("status", is("UP"),
-                        "checks.name", containsInAnyOrder("readiness", "Database connection(s) health check"),
+                        "checks.name", containsInAnyOrder("readiness", "Database connections health check"),
                         "checks.status", hasSize(2),
                         "checks.status", hasItem("UP")
                 );
