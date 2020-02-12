@@ -1,8 +1,8 @@
 package io.quarkus.qe.core;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class NativeManyQuarkusExtensionsIT extends ManyQuarkusExtensionsTest {
 
     // Execute the same tests but in native mode.
