@@ -37,7 +37,7 @@ pipeline {
         }
         stage('Test Native') {
             steps {
-                sh 'GRAALVM_HOME=$JAVA_HOME ./mvnw -B -fae clean verify -Dnative'
+                sh 'GRAALVM_HOME=$JAVA_HOME ./mvnw -B -fae clean verify -Dnative -Dnative-image.xmx=6g'
             }
             post {
                 always {
