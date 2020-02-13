@@ -34,6 +34,7 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-spring-data-jpa</artifactId>
         </dependency>
+<!--        https://github.com/quarkusio/quarkus/issues/7185  for pom-deprecated-way.xml  -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-kubernetes</artifactId>
