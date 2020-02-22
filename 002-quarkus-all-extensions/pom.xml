@@ -138,17 +138,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-infinispan-client</artifactId>
         </dependency>
-        <!--
-        2019-07-23 12:56:43,845 ERROR [io.und.req.io] (executor-thread-1) Exception handling request d62de77d-df47-47e1-9bef-31d47e7b9057-1 to /hello: java.lang.IllegalStateException: JWTAuthContextInfo has not been initialized. Please make sure that either 'mp.jwt.verify.publickey' or 'mp.jwt.verify.publickey.location' properties are set.
-            at io.smallrye.jwt.config.JWTAuthContextInfoProvider.lambda$throwException$0(JWTAuthContextInfoProvider.java:355)
-            at java.util.Optional.orElseThrow(Optional.java:290)
-            at io.smallrye.jwt.config.JWTAuthContextInfoProvider.getContextInfo(JWTAuthContextInfoProvider.java:349)
-            at io.smallrye.jwt.config.JWTAuthContextInfoProvider_ProducerMethod_getContextInfo_21d111677ae04ef1a7cf911100af3482e4c3b30a_Bean.create(JWTAuthContextInfoProvider_ProducerMethod_getContextInfo_21d111677ae04ef1a7cf911100af3482e4c3b30a_Bean.zig:72)
-            <dependency>
-              <groupId>io.quarkus</groupId>
-              <artifactId>quarkus-smallrye-jwt</artifactId>
-            </dependency> -->
-
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-jwt</artifactId>
+        </dependency>
         <!-- <dependency>  trouble in NATIVE
           <groupId>io.quarkus</groupId>
           <artifactId>quarkus-jdbc-mariadb</artifactId>
