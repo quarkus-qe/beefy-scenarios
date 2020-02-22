@@ -73,14 +73,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-h2</artifactId>
         </dependency>
-        <!--
-        2019-07-23 12:56:42,626 INFO  [org.mon.dri.cluster] (cluster-ClusterId{value='5d36e7ea7d4d8601c575f4bd', description='null'}-127.0.0.1:27017) Exception in monitor thread while connecting to server 127.0.0.1:27017: com.mongodb.MongoSocketOpenException: Exception opening socket
-            at com.mongodb.internal.connection.SocketChannelStream.open(SocketChannelStream.java:63)
-            at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:126)
-            at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:117)
-            at java.lang.Thread.run(Thread.java:748)
-        Caused by: java.net.ConnectException: Connection refused
-         -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-mongodb-client</artifactId>
