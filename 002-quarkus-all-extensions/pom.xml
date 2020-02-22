@@ -181,6 +181,7 @@
         </dependency>
 
         <!--  Exception: Provider com.ctc.wstx.stax.WstxInputFactory not found  -->
+        <!-- https://github.com/quarkusio/quarkus/issues/7359  -->
         <dependency>
             <groupId>com.fasterxml.woodstox</groupId>
             <artifactId>woodstox-core</artifactId>
