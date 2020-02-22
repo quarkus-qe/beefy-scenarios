@@ -124,8 +124,8 @@
               <groupId>io.quarkus</groupId>
               <artifactId>quarkus-keycloak</artifactId>
             </dependency> -->
-        <!--  NATIVE mode issue, depends on quarkus-hibernate-orm ... https://github.com/quarkusio/quarkus/issues/2482 -->
-        <!-- there is also something else which breaks native in minimal code mode -->
+
+        <!--  NATIVE mode issue -->
         <!-- <dependency>
           <groupId>io.quarkus</groupId>
           <artifactId>quarkus-hibernate-search-elasticsearch</artifactId>
