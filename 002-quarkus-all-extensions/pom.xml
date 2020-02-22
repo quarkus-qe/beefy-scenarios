@@ -243,21 +243,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-reactive-streams-operators</artifactId>
         </dependency>
-
-        <!--
-          [ERROR] Failed to execute goal io.quarkus:quarkus-maven-plugin:999-SNAPSHOT:build (default) on project getting-started: Failed to build a runnable JAR: Failed to build a runner jar: Failed to augment application classes: Build failure: Build failed due to errors
-    [ERROR] 	[error]: Build step io.quarkus.arc.deployment.ArcProcessor#validate threw an exception: javax.enterprise.inject.spi.DeploymentException: javax.enterprise.inject.UnsatisfiedResolutionException: Unsatisfied dependency for type io.agroal.api.AgroalDataSource and qualifiers [@Default]
-    [ERROR] 	- java member: io.quarkus.flyway.runtime.FlywayProducer#dataSource
-    [ERROR] 	- declared on CLASS bean [types=[io.quarkus.flyway.runtime.FlywayProducer, java.lang.Object], qualifiers=[@Default, @Any], target=io.quarkus.flyway.runtime.FlywayProducer]
-    [ERROR] -> [Help 1]
-    [ERROR]
-      ==> adjust application.properties
-     -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-flyway</artifactId>
         </dependency>
-
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-kubernetes-client</artifactId>
