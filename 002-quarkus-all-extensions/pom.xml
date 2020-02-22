@@ -64,7 +64,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-reactive-type-converters</artifactId>
         </dependency>
-        <!-- trouble in NATIVE  https://github.com/quarkusio/quarkus/issues/2482  -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-orm-panache</artifactId>
@@ -117,7 +116,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-keycloak-authorization</artifactId>
         </dependency>
-
         <!--  NATIVE mode issue -->
         <!-- <dependency>
           <groupId>io.quarkus</groupId>
@@ -143,7 +141,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-narayana-jta</artifactId>
         </dependency>
-
         <!--  Exception: Provider com.ctc.wstx.stax.WstxInputFactory not found  -->
         <!-- https://github.com/quarkusio/quarkus/issues/7359  -->
         <dependency>
@@ -151,12 +148,11 @@
             <artifactId>woodstox-core</artifactId>
             <version>6.0.3</version>
         </dependency>
-
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-neo4j</artifactId>
         </dependency>
-        <dependency>  <!-- trouble in NATIVE https://github.com/quarkusio/quarkus/issues/2482 -->
+        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-orm</artifactId>
         </dependency>
