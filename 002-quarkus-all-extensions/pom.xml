@@ -27,24 +27,10 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--
-    [ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 10.596 s <<< FAILURE! - in org.acme.quickstart.GreetingResourceTest
-    [ERROR] testHelloEndpoint  Time elapsed: 0.023 s  <<< ERROR!
-    org.junit.jupiter.api.extension.TestInstantiationException:
-    TestInstanceFactory [io.quarkus.test.junit.QuarkusTestExtension] failed to instantiate test class [org.acme.quickstart.GreetingResourceTest]: io.quarkus.builder.BuildException: Build failure: Build failed due to errors
-        [error]: Build step io.quarkus.kubernetes.deployment.KubernetesProcessor#build threw an exception: java.lang.NullPointerException
-    Caused by: java.lang.RuntimeException:
-    io.quarkus.builder.BuildException: Build failure: Build failed due to errors
-        [error]: Build step io.quarkus.kubernetes.deployment.KubernetesProcessor#build threw an exception: java.lang.NullPointerException
-    Caused by: io.quarkus.builder.BuildException:
-    Build failure: Build failed due to errors
-        [error]: Build step io.quarkus.kubernetes.deployment.KubernetesProcessor#build threw an exception: java.lang.NullPointerException
-    Caused by: java.lang.NullPointerException
-
         <dependency>
           <groupId>io.quarkus</groupId>
           <artifactId>quarkus-kubernetes</artifactId>
-        </dependency> -->
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-postgresql</artifactId>
