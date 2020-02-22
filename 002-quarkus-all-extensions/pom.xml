@@ -113,17 +113,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-metrics</artifactId>
         </dependency>
-        <!--
-        [ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 11.977 s <<< FAILURE! - in org.acme.quickstart.GreetingResourceTest
-        [ERROR] testHelloEndpoint  Time elapsed: 0.02 s  <<< ERROR!
-        org.junit.jupiter.api.extension.TestInstantiationException: TestInstanceFactory [io.quarkus.test.junit.QuarkusTestExtension] failed to instantiate test class [org.acme.quickstart.GreetingResourceTest]
-        Caused by: java.lang.ExceptionInInitializerError
-        Caused by: java.lang.RuntimeException: Failed to start quarkus
-        Caused by: java.lang.IllegalStateException: Keycloak configuration not found, please refer to the Quarkus documentation to learn how to configure your application
-            <dependency>
-              <groupId>io.quarkus</groupId>
-              <artifactId>quarkus-keycloak</artifactId>
-            </dependency> -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-keycloak-authorization</artifactId>
+        </dependency>
 
         <!--  NATIVE mode issue -->
         <!-- <dependency>
