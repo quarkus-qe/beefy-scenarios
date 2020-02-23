@@ -43,7 +43,7 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-swagger-ui</artifactId>
         </dependency>
-<!--        To be able to run in native-->
+<!--        To be able to run in native  -  https://github.com/quarkusio/quarkus/issues/7362 -->
 <!--        <dependency>-->
 <!--            <groupId>io.quarkus</groupId>-->
 <!--            <artifactId>quarkus-amazon-lambda</artifactId>-->
