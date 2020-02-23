@@ -160,11 +160,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-undertow-websockets</artifactId>
         </dependency>
-        <!-- <dependency> trouble in NATIVE
+        <dependency>
           <groupId>io.quarkus</groupId>
           <artifactId>quarkus-spring-di</artifactId>
         </dependency>
-      -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-opentracing</artifactId>
