@@ -1,0 +1,36 @@
+name: "Pull Request Build"
+on:
+  - pull_request
+jobs:
+  build:
+    name: JVM build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [ 11 ]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Install JDK {{ matrix.java }}
+        uses: joschi/setup-jdk@v1.0.0
+        with:
+          java-version: openjdk${{ matrix.java }}
+      - name: Build Quarkus master
+        run: |
+          git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B clean install -DskipTests -DskipITs
+      - name: Test in JVM mode
+        run: |
+          mvn -V -B clean test
+      - name: Zip Artifacts
+        run: |
+          zip -R artifacts-jvm${{ matrix.java }}.zip '*-reports/*'
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: ci-artifacts
+          path: artifacts-jvm${{ matrix.java }}.zip
