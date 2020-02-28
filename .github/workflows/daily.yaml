@@ -29,7 +29,7 @@ jobs:
           mvn -V -B -fae clean verify
       - name: Test in Native mode
         run: |
-          mvn -V -B -fae clean verify -Dnative -Dquarkus.native.native-image-xmx=4g -pl '!002-quarkus-all-extensions'
+          mvn -V -B -fae clean verify -Dnative -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g -pl '!002-quarkus-all-extensions'
       - name: Zip Artifacts
         run: |
           zip -R artifacts-jvm${{ matrix.java }}.zip '*-reports/*'
