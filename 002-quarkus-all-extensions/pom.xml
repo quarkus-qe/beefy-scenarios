@@ -265,10 +265,15 @@
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-spring-security</artifactId>
       </dependency>
-      <dependency>
-        <groupId>io.quarkus</groupId>
-        <artifactId>quarkus-elytron-security-oauth2</artifactId>
-      </dependency>
+        <!-- 2020-03-27 09:23:35,830 ERROR [io.qua.ver.htt.run.QuarkusErrorHandler] (vert.x-eventloop-thread-15) HTTP Request to /hello
+        failed, error id: aa6dc63d-c1d5-4242-822d-30287a84457b-1: java.lang.RuntimeException: Multiple mechanisms present that use the
+         same credential transport HttpCredentialTransport{transportType=AUTHORIZATION, typeTarget='bearer'}.
+          Mechanisms are io.quarkus.elytron.security.oauth2.runtime.auth.OAuth2AuthMechanism@3a1587a5 and
+          io.quarkus.smallrye.jwt.runtime.auth.JWTAuthMechanism@256c0690 -->
+<!--      <dependency>-->
+<!--        <groupId>io.quarkus</groupId>-->
+<!--        <artifactId>quarkus-elytron-security-oauth2</artifactId>-->
+<!--      </dependency>-->
       <dependency>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-jackson</artifactId>
