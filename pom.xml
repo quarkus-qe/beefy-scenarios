@@ -14,6 +14,7 @@
       <module>201-large-static-content</module>
       <module>002-quarkus-all-extensions</module>
       <module>003-quarkus-many-extensions</module>
+      <module>004-quarkus-HHH-and-HV</module>
   </modules>
 
   <properties>
