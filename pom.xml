@@ -15,6 +15,7 @@
       <module>002-quarkus-all-extensions</module>
       <module>003-quarkus-many-extensions</module>
       <module>004-quarkus-HHH-and-HV</module>
+      <module>005-quarkus-and-maven-profiles</module>
   </modules>
 
   <properties>
