@@ -37,7 +37,7 @@ pipeline {
         }
         stage('Test Native') {
             steps {
-                sh "GRAALVM_HOME=$JAVA_HOME ./mvnw -B -fae clean verify -Dnative -Dquarkus.native.native-image-xmx=6g -pl '!002-quarkus-all-extensions,!004-quarkus-HHH-and-HV'"
+                sh "GRAALVM_HOME=$JAVA_HOME ./mvnw -B -fae clean verify -Dnative -Dquarkus.native.native-image-xmx=6g -pl '!002-quarkus-all-extensions'"
             }
             post {
                 always {

@@ -32,7 +32,7 @@ jobs:
           mvn -V -B -fae clean verify -Dnative \
             -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
             -Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-native-image:19.3.1-java${{ matrix.java }} \
-            -pl '!002-quarkus-all-extensions,!004-quarkus-HHH-and-HV'
+            -pl '!002-quarkus-all-extensions'
       - name: Zip Artifacts
         run: |
           zip -R artifacts-jvm${{ matrix.java }}.zip '*-reports/*'
