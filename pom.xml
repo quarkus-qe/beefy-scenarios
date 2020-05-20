@@ -16,6 +16,7 @@
       <module>003-quarkus-many-extensions</module>
       <module>004-quarkus-HHH-and-HV</module>
       <module>005-quarkus-and-maven-profiles</module>
+      <module>006-quartz-manually-scheduled-job</module>
       <module>601-spring-data-primitive-types</module>
   </modules>
 
