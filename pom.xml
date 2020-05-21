@@ -15,6 +15,7 @@
       <module>004-quarkus-HHH-and-HV</module>
       <module>005-quarkus-and-maven-profiles</module>
       <module>006-quartz-manually-scheduled-job</module>
+      <module>007-openshift-yaml-health-probes</module>
       <module>101-javaee-like-getting-started</module>
       <module>201-large-static-content</module>
       <module>601-spring-data-primitive-types</module>
