@@ -10,13 +10,13 @@
 
   <modules>
       <module>001-quarkus-getting-started</module>
-      <module>101-javaee-like-getting-started</module>
-      <module>201-large-static-content</module>
       <module>002-quarkus-all-extensions</module>
       <module>003-quarkus-many-extensions</module>
       <module>004-quarkus-HHH-and-HV</module>
       <module>005-quarkus-and-maven-profiles</module>
       <module>006-quartz-manually-scheduled-job</module>
+      <module>101-javaee-like-getting-started</module>
+      <module>201-large-static-content</module>
       <module>601-spring-data-primitive-types</module>
   </modules>
 
