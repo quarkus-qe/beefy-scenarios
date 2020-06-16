@@ -11,3 +11,14 @@ Beefy scenarios for Quarkus
 | 400 - 499     | QuarkConf | Quarkus scenarios presented at conferences |
 | 500 - 599     | QuarkUser | Quarkus scenarios adopted by end users |
 | 600 - 699     | QuarkSpring | Quarkus scenarios with Spring experience |
+
+## Tips
+### LargeStaticResourceTest - testBigFileAvailability failure
+On some system you may hit `LargeStaticResourceTest.testBigFileAvailability:35 » Connect Connection refuse` issue.
+
+The root cause is that the standard JDK code can't handle properly `sun.net.www.protocol.http.HttpURLConnection` with value `http://0.0.0.0:8081/big-file`.
+
+Use `quarkus.http.host` property to explicitly specify `127.0.0.1` as the bind address.
+```
+mvn clean verify -pl 201-large-static-content -Dquarkus.http.host=127.0.0.1
+```
