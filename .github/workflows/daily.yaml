@@ -41,6 +41,7 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
+        image: [ "ubi-quarkus-native-image:20.1.0-java", "ubi-quarkus-mandrel:20.1.0.1.Alpha2-java" ]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/cache@v1
@@ -60,7 +61,7 @@ jobs:
         run: |
           mvn -V -B -fae clean verify -Dnative \
             -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
-            -Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-native-image:20.1.0-java${{ matrix.java }} \
+            -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }}${{ matrix.java }} \
             -pl '!002-quarkus-all-extensions'
       - name: Zip Artifacts
         run: |
