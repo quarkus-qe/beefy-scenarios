@@ -41,7 +41,7 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
-        image: [ "ubi-quarkus-native-image:20.1.0-java", "ubi-quarkus-mandrel:20.1.0.1.Alpha2-java" ]
+        image: [ "ubi-quarkus-native-image:20.1.0-java", "ubi-quarkus-mandrel:20.1.0.1.Final-java" ]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/cache@v1
