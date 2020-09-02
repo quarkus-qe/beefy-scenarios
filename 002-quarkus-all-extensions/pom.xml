@@ -544,26 +544,5 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-webjars-locator</artifactId>
         </dependency>
-
     </dependencies>
-    <profiles>
-        <profile>
-            <id>extensions-from-quarkus-universe</id>
-            <dependencies>
-                <dependency>
-                    <groupId>io.quarkus</groupId>
-                    <artifactId>quarkus-outbox</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>io.quarkus</groupId>
-                    <artifactId>quarkus-hazelcast-client</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>io.quarkus</groupId>
-                    <artifactId>quarkus-client</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
-
 </project>
