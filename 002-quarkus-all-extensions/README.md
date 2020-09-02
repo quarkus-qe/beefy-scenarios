@@ -9,16 +9,14 @@ mvn io.quarkus:quarkus-maven-plugin:0.20.0:create \
     -DclassName="org.acme.quickstart.GreetingResource" \
     -Dpath="/hello"
 
-mvn io.quarkus:quarkus-maven-plugin:0.20.0:list-extensions > ext-0.20.0
-mvn io.quarkus:quarkus-maven-plugin:999-SNAPSHOT:list-extensions > ext-999-SNAPSHOT
+mvn quarkus:list-extensions > ext-0.20.0
 
-cat ext-0.20.0 | grep -v 'INFO' | grep -v camel | grep 'quarkus-' | sed 's/.*quarkus-/quarkus-/g' | sed 's/ //g' | sort > extensions-0.20.0
-cat ext-999-SNAPSHOT | grep -v 'INFO' | grep -v camel | grep 'quarkus-' | sed 's/.*quarkus-/quarkus-/g' | sed 's/ //g' | sort > extensions-999-SNAPSHOT
+cat ext-1.3.4 | grep -v 'INFO' | grep -v camel  | grep -v kogito | grep -v optaplanner | grep 'quarkus-' | sed 's/.*quarkus-/quarkus-/g' | sed 's/ //g' | sort > extensions-1.3.4
+cat ext-1.7.1 | grep -v 'INFO' | grep -v camel  | grep -v kogito | grep -v optaplanner | grep 'quarkus-' | sed 's/.*quarkus-/quarkus-/g' | sed 's/ //g' | sort > extensions-1.7.1
 
-code --diff  extensions-0.20.0 extensions-999-SNAPSHOT
+code --diff  extensions-1.3.4 extensions-1.7.1
 
-mvn quarkus:add-extensions -Dextensions=`cat extensions-0.20.0 | tr '\n' ',' | sed 's/,$//g'`
-mvn quarkus:add-extensions -Dextensions=`cat extensions-999-SNAPSHOT | tr '\n' ',' | sed 's/,$//g'`
+mvn quarkus:add-extensions -Dextensions=`cat extensions-1.7.1 | tr '\n' ',' | sed 's/,$//g'`
 ```
 
 ## Issues in JVM and Native mode
