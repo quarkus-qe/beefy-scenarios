@@ -3,18 +3,26 @@
 ## Import all extensions
 Similar process to this:
 ```
-mvn io.quarkus:quarkus-maven-plugin:0.20.0:create \
+mvn io.quarkus:quarkus-maven-plugin:1.8.0.Final:create \
     -DprojectGroupId=org.acme \
-    -DprojectArtifactId=getting-started \
-    -DclassName="org.acme.quickstart.GreetingResource" \
+    -DprojectArtifactId=getting-started-17 \
+    -DplatformVersion=1.7.3.Final \
+    -DclassName="org.acme.getting.started.GreetingResource" \
     -Dpath="/hello"
 
-mvn quarkus:list-extensions > ext-0.20.0
+mvn io.quarkus:quarkus-maven-plugin:1.8.0.Final:create \
+    -DprojectGroupId=org.acme \
+    -DprojectArtifactId=getting-started-18 \
+    -DclassName="org.acme.getting.started.GreetingResource" \
+    -Dpath="/hello"
 
-cat ext-1.3.4 | grep -v 'INFO' | grep -v camel  | grep -v kogito | grep -v optaplanner | grep 'quarkus-' | sed 's/.*quarkus-/quarkus-/g' | sed 's/ //g' | sort > extensions-1.3.4
-cat ext-1.7.1 | grep -v 'INFO' | grep -v camel  | grep -v kogito | grep -v optaplanner | grep 'quarkus-' | sed 's/.*quarkus-/quarkus-/g' | sed 's/ //g' | sort > extensions-1.7.1
+mvn -f getting-started-17/pom.xml quarkus:list-extensions > ext-17
+mvn -f getting-started-18/pom.xml quarkus:list-extensions > ext-18
 
-code --diff  extensions-1.3.4 extensions-1.7.1
+cat ext-17 | grep -v 'INFO' | grep -v camel  | grep -v kogito | grep -v optaplanner | grep 'quarkus-' | sed 's/.*quarkus-/quarkus-/g' | sed 's/ //g' | sort > extensions-17
+cat ext-18 | grep -v 'INFO' | grep -v camel  | grep -v kogito | grep -v optaplanner | grep 'quarkus-' | sed 's/.*quarkus-/quarkus-/g' | sed 's/ //g' | sort > extensions-18
+
+code --diff  extensions-17 extensions-18
 
 mvn quarkus:add-extensions -Dextensions=`cat extensions-1.7.1 | tr '\n' ',' | sed 's/,$//g'`
 ```
