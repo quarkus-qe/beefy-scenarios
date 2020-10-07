@@ -61,7 +61,7 @@ jobs:
         run: |
           mvn -V -B -fae clean verify -Dnative \
             -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
-            -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }}${{ matrix.java }} \
+            -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }} \
             -pl '!002-quarkus-all-extensions'
       - name: Zip Artifacts
         run: |
