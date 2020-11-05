@@ -1,6 +1,10 @@
 # beefy-scenarios
 Beefy scenarios for Quarkus
 
+## Prerequisites
+ - JDK 11
+ - Docker
+
 ## Scenarios IDs
 | Range         | Name          | Description  |
 | ------------- |:-------------:| ----- |
