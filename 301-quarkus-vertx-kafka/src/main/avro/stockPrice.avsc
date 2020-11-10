@@ -1,0 +1,25 @@
+{
+  "namespace": "io.quarkus.qe.vertx.kafka",
+  "type": "record",
+  "name": "StockPrice",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "price",
+      "type": "double"
+    },
+    {
+    "name": "status",
+    "type": [
+        "null", {
+            "type": "enum",
+            "name": "status",
+            "symbols": ["PENDING", "COMPLETED"]
+            }
+    ]
+    }
+  ]
+}

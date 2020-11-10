@@ -19,6 +19,8 @@
       <module>008-infinispan-getting-started</module>
       <module>101-javaee-like-getting-started</module>
       <module>201-large-static-content</module>
+      <module>300-quarkus-vertx-webClient</module>
+      <module>301-quarkus-vertx-kafka</module>
       <module>601-spring-data-primitive-types</module>
   </modules>
 
@@ -30,11 +32,17 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
+    <testcontainers.version>1.15.0</testcontainers.version>
+    <strimzi.testcontainers.version>0.20.0</strimzi.testcontainers.version>
+    <wiremock.version>2.27.2</wiremock.version>
+    <apicurio-registry-utils-serde.version>1.2.2.Final</apicurio-registry-utils-serde.version>
+    <confluent.kafka-avro-serializer.version>6.0.0</confluent.kafka-avro-serializer.version>
 
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
     <quarkus-plugin.version>999-SNAPSHOT</quarkus-plugin.version>
+
   </properties>
 
   <dependencyManagement>
@@ -45,6 +53,35 @@
         <version>${quarkus.platform.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.github.tomakehurst</groupId>
+        <artifactId>wiremock-jre8</artifactId>
+        <scope>test</scope>
+        <version>${wiremock.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers-bom</artifactId>
+        <version>${testcontainers.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.strimzi</groupId>
+        <artifactId>test-container</artifactId>
+        <version>${strimzi.testcontainers.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.apicurio</groupId>
+        <artifactId>apicurio-registry-utils-serde</artifactId>
+        <version>${apicurio-registry-utils-serde.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.confluent</groupId>
+        <artifactId>kafka-avro-serializer</artifactId>
+        <version>${confluent.kafka-avro-serializer.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
