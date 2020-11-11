@@ -1,13 +1,16 @@
 package org.acme.quickstart;
 
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
+import org.acme.quickstart.containers.InfinispanTestResource;
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.QuarkusTest;
+
 @QuarkusTest
-@QuarkusTestResource(CacheResource.class)
+@QuarkusTestResource(InfinispanTestResource.class)
 class InfinispanServerResourceTest {
 
     @Test

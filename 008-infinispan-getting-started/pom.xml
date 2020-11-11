@@ -9,10 +9,6 @@
   </parent>
   <artifactId>008-infinispan-getting-started</artifactId>
 
-  <properties>
-    <testcontainers.version>1.14.3</testcontainers.version>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -25,7 +21,6 @@
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>testcontainers</artifactId>
-      <version>${testcontainers.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
