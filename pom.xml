@@ -18,6 +18,7 @@
       <module>007-openshift-yaml-health-probes</module>
       <module>008-infinispan-getting-started</module>
       <module>009-quarkus-infinispan-grpc-kafka</module>
+      <module>012-quarkus-kafka-streams</module>
       <module>101-javaee-like-getting-started</module>
       <module>201-large-static-content</module>
       <module>300-quarkus-vertx-webClient</module>

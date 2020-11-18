@@ -9,17 +9,8 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>011-quarkus-kafka-streams</artifactId>
+    <artifactId>012-quarkus-kafka-streams</artifactId>
 
-    <repositories>
-        <repository>
-            <id>confluent</id>
-            <url>http://packages.confluent.io/maven/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <dependencies>
 
