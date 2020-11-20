@@ -7,11 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.stream.Stream;
 
-import javax.transaction.Transactional;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -30,10 +29,9 @@ public class PostgreSqlApplicationResourceTest {
     private ApplicationEntity actualEntity;
     private ApplicationEntity[] actualList;
 
-    @BeforeEach
-    @Transactional
-    public void setup() {
-        ApplicationEntity.deleteAll();
+    @AfterEach
+    public void tearDown() {
+        deleteEntityIfExists();
     }
 
     @Test
@@ -95,6 +93,8 @@ public class PostgreSqlApplicationResourceTest {
     private void whenDeleteApplication() {
         applicationPath().delete("/" + actualEntity.id)
                 .then().statusCode(HttpStatus.SC_NO_CONTENT);
+
+        actualEntity = null;
     }
 
     private void whenGetApplications() {
@@ -114,6 +114,12 @@ public class PostgreSqlApplicationResourceTest {
     private void thenApplicationsContainsAnItemWithName(String expectedAppName) {
         assertNotNull(actualList);
         assertTrue(Stream.of(actualList).anyMatch(item -> expectedAppName.equals(item.name)));
+    }
+
+    private void deleteEntityIfExists() {
+        if (actualEntity != null) {
+            whenDeleteApplication();
+        }
     }
 
     private static final RequestSpecification applicationPath() {
