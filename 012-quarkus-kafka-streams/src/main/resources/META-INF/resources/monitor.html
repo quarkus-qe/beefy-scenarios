@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A-Monitor</title>
+
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
+</head>
+<body>
+<div class="container">
+    A-Monitor
+    <h2>Alert Monitor</h2>
+    <div class="row">
+        <p class="col-md-12">Item <strong><span id="content">N/A</span>&nbsp;</strong>.</p>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    var source = new EventSource("/monitor/stream");
+    source.onmessage = function (event) {
+        document.getElementById("content").innerHTML = event.data;
+    };
+</script>
+</html>
