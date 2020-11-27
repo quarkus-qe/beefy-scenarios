@@ -12,8 +12,6 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class PostgreSqlDatabaseTestResource implements QuarkusTestResourceLifecycleManager {
 
-    public static final int PORT = 5432;
-
     private static final String QUARKUS_DB_KIND = "quarkus.datasource.db-kind";
     private static final String QUARKUS_DB_JDBC_URL = "quarkus.datasource.jdbc.url";
     private static final String QUARKUS_DB_USER = "quarkus.datasource.username";

@@ -16,8 +16,8 @@ import static org.hamcrest.CoreMatchers.containsStringIgnoringCase;
 @QuarkusTestResource(WireMockChuckNorrisResource.class)
 public class ChuckNorrisResourceTest {
 
-    final String EXPECTED_ID = "aBanNLDwR-SAz7iMHuCiyw";
-    final String EXPECTED_VALUE = "Chuck Norris has already been to mars; that why there's no signs of life";
+    final static String EXPECTED_ID = "aBanNLDwR-SAz7iMHuCiyw";
+    final static String EXPECTED_VALUE = "Chuck Norris has already been to mars; that why there's no signs of life";
 
     @Test
     @DisplayName("Vert.x WebClient [flavor: mutiny] -> Map json response body to POJO")
