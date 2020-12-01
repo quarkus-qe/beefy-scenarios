@@ -22,7 +22,7 @@ jobs:
           java-version: ${{ matrix.java }}
       - name: Build Quarkus master
         run: |
-          git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B clean install -DskipTests -DskipITs
+          git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B -s .github/mvn-settings.xml clean install -DskipTests -DskipITs
       - name: Test in JVM mode
         run: |
           mvn -V -B clean test
