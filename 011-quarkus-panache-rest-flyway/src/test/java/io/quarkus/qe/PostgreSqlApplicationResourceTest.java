@@ -25,6 +25,7 @@ import io.restassured.specification.RequestSpecification;
 public class PostgreSqlApplicationResourceTest {
 
     private static final String APPLICATION_PATH = "/application";
+    private static final String EXPECTED_VERSION = "1.2.0";
 
     private ApplicationEntity actualEntity;
     private ApplicationEntity[] actualList;
@@ -78,6 +79,8 @@ public class PostgreSqlApplicationResourceTest {
     private void whenCreateApplication(String appName) {
         ApplicationEntity request = new ApplicationEntity();
         request.name = appName;
+        request.version = new VersionEntity();
+        request.version.id = EXPECTED_VERSION;
         actualEntity = applicationPath().body(request).post()
                 .then()
                 .statusCode(HttpStatus.SC_CREATED)
@@ -104,6 +107,7 @@ public class PostgreSqlApplicationResourceTest {
     private void thenApplicationMatches(String expectedAppName) {
         assertNotNull(actualEntity.id);
         assertEquals(expectedAppName, actualEntity.name);
+        assertEquals(EXPECTED_VERSION, actualEntity.version.id);
     }
 
     private void thenApplicationsCountIs(int expectedCount) {
