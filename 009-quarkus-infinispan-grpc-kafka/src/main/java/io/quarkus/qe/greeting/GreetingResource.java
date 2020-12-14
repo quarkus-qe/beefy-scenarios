@@ -8,20 +8,33 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import io.quarkus.example.GreeterGrpc;
+import io.quarkus.example.HelloReply;
 import io.quarkus.example.HelloRequest;
+import io.quarkus.example.MutinyGreeterGrpc;
 import io.quarkus.grpc.runtime.annotations.GrpcService;
+import io.smallrye.mutiny.Uni;
 
 @Path("/hello")
 public class GreetingResource {
 
     @Inject
     @GrpcService("hello")
-    GreeterGrpc.GreeterBlockingStub client;
+    GreeterGrpc.GreeterBlockingStub blockingClient;
+
+    @Inject
+    @GrpcService("hello")
+    MutinyGreeterGrpc.MutinyGreeterStub mutinyClient;
 
     @GET
-    @Path("/{name}")
+    @Path("/blocking/{name}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String hello(@PathParam("name") String name) {
-        return client.sayHello(HelloRequest.newBuilder().setName(name).build()).getMessage();
+    public String blockingHello(@PathParam("name") String name) {
+        return blockingClient.sayHello(HelloRequest.newBuilder().setName(name).build()).getMessage();
+    }
+
+    @GET
+    @Path("/mutiny/{name}")
+    public Uni<String> hello(@PathParam("name") String name) {
+        return mutinyClient.sayHello(HelloRequest.newBuilder().setName(name).build()).map(HelloReply::getMessage);
     }
 }
