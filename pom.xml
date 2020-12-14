@@ -21,6 +21,7 @@
       <module>010-quarkus-opentracing-reactive-grpc</module>
       <module>011-quarkus-panache-rest-flyway</module>
       <module>012-quarkus-kafka-streams</module>
+      <module>013-quarkus-oidc-restclient</module>
       <module>101-javaee-like-getting-started</module>
       <module>201-large-static-content</module>
       <module>300-quarkus-vertx-webClient</module>
