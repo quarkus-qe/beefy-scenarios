@@ -16,6 +16,7 @@
       <module>005-quarkus-and-maven-profiles</module>
       <module>006-quartz-manually-scheduled-job</module>
       <module>007-openshift-yaml-health-probes</module>
+      <module>009-quarkus-infinispan-grpc-kafka</module>
       <module>101-javaee-like-getting-started</module>
       <module>201-large-static-content</module>
       <module>601-spring-data-primitive-types</module>
@@ -29,11 +30,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
+    <testcontainers.version>1.15.0</testcontainers.version>
 
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-    <quarkus.platform.version>1.7.3.Final</quarkus.platform.version>
-    <quarkus-plugin.version>1.7.3.Final</quarkus-plugin.version>
+    <quarkus.platform.version>1.7.6.Final</quarkus.platform.version>
+    <quarkus-plugin.version>1.7.6.Final</quarkus-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -42,6 +44,13 @@
         <groupId>${quarkus.platform.group-id}</groupId>
         <artifactId>${quarkus.platform.artifact-id}</artifactId>
         <version>${quarkus.platform.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers-bom</artifactId>
+        <version>${testcontainers.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
