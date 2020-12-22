@@ -1,16 +1,22 @@
-package io.quarkus.qe.spring.data;
+package io.quarkus.qe.spring.data.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Book extends NamedEntity {
-
+    @Id
     private Integer bid;
 
     private Integer publicationYear;
 
     private Long isbn;
+
+    @ManyToOne(targetEntity=Address.class)
+    @JoinColumn(name = "addressId")
+    private Address publisherAddress;
 
     public Book() {
     }
@@ -21,7 +27,6 @@ public class Book extends NamedEntity {
         this.publicationYear = publicationYear;
     }
 
-    @Id
     public Integer getBid() {
         return bid;
     }
@@ -44,5 +49,13 @@ public class Book extends NamedEntity {
 
     public void setIsbn(Long isbn) {
         this.isbn = isbn;
+    }
+
+    public Address getPublisherAddress() {
+        return publisherAddress;
+    }
+
+    public void setPublisherAddress(Address publisherAddress) {
+        this.publisherAddress = publisherAddress;
     }
 }
