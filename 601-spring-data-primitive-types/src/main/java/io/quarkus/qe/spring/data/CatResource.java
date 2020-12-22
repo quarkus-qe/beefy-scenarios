@@ -1,5 +1,7 @@
 package io.quarkus.qe.spring.data;
 
+import io.quarkus.qe.spring.data.model.Cat;
+import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -26,5 +28,12 @@ public class CatResource {
     @Produces("text/plain")
     public Boolean customFindDistinctiveObject(@PathParam("id") Long id) {
         return catRepository.customFindDistinctiveObject(id);
+    }
+
+    @GET
+    @Path("/findCatsByMappedSuperclassField/{deathReason}")
+    @Produces("application/json")
+    public List<Cat> findCatsByMappedSuperclassField(@PathParam("deathReason") String deathReason) {
+        return catRepository.findCatsByDeathReason(deathReason);
     }
 }

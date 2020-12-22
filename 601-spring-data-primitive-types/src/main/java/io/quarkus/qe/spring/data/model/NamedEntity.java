@@ -1,4 +1,4 @@
-package io.quarkus.qe.spring.data;
+package io.quarkus.qe.spring.data.model;
 
 import javax.persistence.MappedSuperclass;
 
