@@ -17,6 +17,7 @@
       <module>006-quartz-manually-scheduled-job</module>
       <module>007-openshift-yaml-health-probes</module>
       <module>009-quarkus-infinispan-grpc-kafka</module>
+      <module>014-quarkus-panache-with-transactions-xa</module>
       <module>101-javaee-like-getting-started</module>
       <module>201-large-static-content</module>
       <module>601-spring-data-primitive-types</module>
