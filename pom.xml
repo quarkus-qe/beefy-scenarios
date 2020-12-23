@@ -27,6 +27,7 @@
       <module>201-large-static-content</module>
       <module>300-quarkus-vertx-webClient</module>
       <module>301-quarkus-vertx-kafka</module>
+      <module>302-quarkus-vertx-jwt</module>
       <module>601-spring-data-primitive-types</module>
   </modules>
 
