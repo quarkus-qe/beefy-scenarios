@@ -42,6 +42,7 @@
     <testcontainers.version>1.15.0</testcontainers.version>
     <strimzi.testcontainers.version>0.20.0</strimzi.testcontainers.version>
     <wiremock.version>2.27.2</wiremock.version>
+    <bcpkix-jdk15on.version>1.68</bcpkix-jdk15on.version>
     <apicurio-registry-utils-serde.version>1.2.2.Final</apicurio-registry-utils-serde.version>
     <confluent.kafka-avro-serializer.version>6.0.0</confluent.kafka-avro-serializer.version>
 
@@ -89,6 +90,11 @@
         <groupId>io.confluent</groupId>
         <artifactId>kafka-avro-serializer</artifactId>
         <version>${confluent.kafka-avro-serializer.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.bouncycastle</groupId>
+        <artifactId>bcpkix-jdk15on</artifactId>
+        <version>${bcpkix-jdk15on.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

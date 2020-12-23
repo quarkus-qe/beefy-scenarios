@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+body {
+    background-color: #333
+}
+
+.container {
+    background-color: #555;
+    color: #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    max-width: 700px
+}
+
+.container>p title {
+    font-size: 20px
+}
+
+.container>p {
+    font-size: 32px
+}
+
+.question {
+    width: 75%
+}
+
+.options {
+    position: relative;
+    padding-left: 40px
+}
+
+#options label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 14px;
+    cursor: pointer
+}
+
+.options input {
+    opacity: 0
+}
+
+.checkmark {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #555;
+    border: 1px solid #ddd;
+    border-radius: 50%
+}
+
+.options input:checked~.checkmark:after {
+    display: block
+}
+
+.options .checkmark:after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    display: block;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 300ms ease-in-out 0s
+}
+
+.options input[type="radio"]:checked~.checkmark {
+    background: #21bf73;
+    transition: 300ms ease-in-out 0s
+}
+
+.options input[type="radio"]:checked~.checkmark:after {
+    transform: translate(-50%, -50%) scale(1)
+}
+
+.btn-primary {
+    background-color: #555;
+    color: #ddd;
+    border: 1px solid #ddd
+}
+
+.btn-primary:hover {
+    background-color: #21bf73;
+    border: 1px solid #21bf73
+}
+
+.btn-success {
+    padding: 5px 25px;
+    background-color: #21bf73
+}
+
+@media(max-width:576px) {
+    .question {
+        width: 100%;
+        word-spacing: 2px
+    }
+}
+
+  </style>
+
+    <script>
+    var SERVER_HOST = "http://localhost:8080/"
+    var bladeRunnerCount = 0;
+    var replicantCount = 0;
+
+    function submitResult(){
+          $.get(SERVER_HOST + "jwt", function(data, status){
+            if (status == "success") {
+                var jwt = jQuery.parseJSON(JSON.stringify(data)).jwt;
+                var path = "bladeRunner";
+                var entity = defaultBladeRunner();
+                var testResult = "BladeRunner";
+
+                if(bladeRunnerCount < replicantCount){
+                     path = "replicant";
+                     entity = defaultReplicant();
+                     testResult = "Replicant"
+                }
+
+                $.ajax({
+                    url: SERVER_HOST + path,
+                    headers: { 'Access-Control-Allow-Origin': '*', 'Authorization': 'bearer ' + jwt},
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    crossDomain: true,
+                    data: JSON.stringify(entity),
+                    success: function( data, textStatus, jQxhr ){
+                        document.getElementById("head").style="display:none;"
+                        document.getElementById("quiz-7").style="display:none;"
+                        document.getElementById("result").style="display:block;"
+                        document.getElementById("result-content").innerHTML = "You are a " + testResult + ". Your ID is " + jQuery.parseJSON(JSON.stringify(data)).id;
+                    },
+                    error: function( jqXhr, textStatus, errorThrown ){
+                        console.log( errorThrown );
+                    }
+                });
+            }
+        });
+    }
+
+    function defaultReplicant() {
+        return {
+            "model": "nexus 5",
+            "liveSpanYears": 5,
+            "name": "fakeName",
+            "lastName": "fakeLastName",
+            "iq": 105
+        }
+    }
+
+    function defaultBladeRunner(){
+        return {
+            "dailyRate": 200.00,
+            "retirements": 0,
+            "voightKampffTestAmount": 0,
+            "name": "fakeName",
+            "lastName": "fakeLastName",
+            "iq": 105
+        }
+    }
+
+    function nextQuestion(idDisable, idEnable) {
+        document.getElementById(idDisable).style="display:none;"
+        document.getElementById(idEnable).style="display:block;"
+    }
+
+    function nextButtonEnabled(id) {
+        document.getElementById(id).disabled = false;
+    }
+  </script>
+</head>
+<body>
+<div id="container">
+    <div id="head" class="container">
+        <div class="py-2 h5"><b>Reaction time is a factor in this, so please pay attention...</b></div>
+    </div>
+    <div id="quiz-1" class="container mt-sm-5 my-1" style="display:block;">
+        <div class="question ml-sm-5 pl-sm-5 pt-2">
+            <div class="py-2 h5"><b>You're watching TV. Suddenly you realise there's a wasp crawling on your arm. You...</b></div>
+            <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+                <label class="options">Swat
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-1');bladeRunnerCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Squash
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-1');bladeRunnerCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Savour
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-1');replicantCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Trap
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-1');replicantCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        <div class="d-flex align-items-center pt-3">
+            <div class="ml-auto mr-sm-5"> <button id="btn-quiz-1" class="btn btn-success" disabled onclick="nextQuestion('quiz-1', 'quiz-2')">Next</button> </div>
+        </div>
+    </div>
+
+
+    <div id="quiz-2" class="container mt-sm-5 my-1" style="display:none;">
+        <div class="question ml-sm-5 pl-sm-5 pt-2">
+            <div class="py-2 h5"><b>You pass a homeless person. Cold night. Big city. You fumble for change, but a £10 note drops into their lap. You...</b></div>
+            <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+                <label class="options">Leave it
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-2');bladeRunnerCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Swap it for small change
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-2');bladeRunnerCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Say it was deliberate
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-2');replicantCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Double it
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-2');replicantCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        <div class="d-flex align-items-center pt-3">
+            <div class="ml-auto mr-sm-5"> <button id="btn-quiz-2" class="btn btn-success" disabled onclick="nextQuestion('quiz-2', 'quiz-3')">Next</button> </div>
+        </div>
+    </div>
+
+
+    <div id="quiz-3" class="container mt-sm-5 my-1" style="display:none;">
+        <div class="question ml-sm-5 pl-sm-5 pt-2">
+            <div class="py-2 h5"><b>A friend offers you tequila. In the glass lies a worm. Time to...</b></div>
+            <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+                <label class="options">Drink it and enjoy the ritual
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-3');bladeRunnerCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Do nothing to mask your disgust
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-3');bladeRunnerCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Refuse it, politely
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-3');replicantCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Pick it out
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-3');replicantCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        <div class="d-flex align-items-center pt-3">
+            <div class="ml-auto mr-sm-5"> <button id="btn-quiz-3" class="btn btn-success" disabled onclick="nextQuestion('quiz-3', 'quiz-4')">Next</button> </div>
+        </div>
+    </div>
+
+    <div id="quiz-4" class="container mt-sm-5 my-1" style="display:none;">
+        <div class="question ml-sm-5 pl-sm-5 pt-2">
+            <div class="py-2 h5"><b>Now and then you contemplate life alone. It is...</b></div>
+            <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+                <label class="options">Independent
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-4');bladeRunnerCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Inconceivable
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-4');bladeRunnerCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Insulting
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-4');replicantCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Intriguing
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-4');replicantCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        <div class="d-flex align-items-center pt-3">
+            <div class="ml-auto mr-sm-5"> <button id="btn-quiz-4" class="btn btn-success" disabled onclick="nextQuestion('quiz-4', 'quiz-5')">Next</button> </div>
+        </div>
+    </div>
+
+
+    <div id="quiz-5" class="container mt-sm-5 my-1" style="display:none;">
+        <div class="question ml-sm-5 pl-sm-5 pt-2">
+            <div class="py-2 h5"><b>You see a friend who has suffered bereavement. Afterwards you feel...</b></div>
+            <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+                <label class="options">Annoyed at their lack of engagement
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-5');bladeRunnerCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Powerless to help
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-5');bladeRunnerCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Saddened
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-5');replicantCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Bored
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-5');replicantCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        <div class="d-flex align-items-center pt-3">
+            <div class="ml-auto mr-sm-5"> <button id="btn-quiz-5" class="btn btn-success" disabled onclick="nextQuestion('quiz-5', 'quiz-6')">Next</button> </div>
+        </div>
+    </div>
+
+
+    <div id="quiz-6" class="container mt-sm-5 my-1" style="display:none;">
+        <div class="question ml-sm-5 pl-sm-5 pt-2">
+            <div class="py-2 h5"><b>At a party, a guest boasts of their perfect life. How do you respond?</b></div>
+            <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+                <label class="options">I indulge them
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-6');bladeRunnerCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">I try to outdo them
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-6');bladeRunnerCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">I sit silently
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-6');replicantCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">I mock them
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-6');replicantCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        <div class="d-flex align-items-center pt-3">
+            <div class="ml-auto mr-sm-5"> <button id="btn-quiz-6" class="btn btn-success" disabled onclick="nextQuestion('quiz-6', 'quiz-7')">Next</button> </div>
+        </div>
+    </div>
+
+    <div id="quiz-7" class="container mt-sm-5 my-1" style="display:none;">
+        <div class="question ml-sm-5 pl-sm-5 pt-2">
+            <div class="py-2 h5"><b>Finally, it is Bring Your Kids to Work Day. Your child misbehaves, and is slapped by the boss. What is your reaction?</b></div>
+            <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+                <label class="options">Horror
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-7');bladeRunnerCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Acceptance
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-7');bladeRunnerCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Fury
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-7');replicantCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="options">Fear
+                    <input type="radio" onclick="nextButtonEnabled('btn-quiz-7');replicantCount++" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        <div class="d-flex align-items-center pt-3">
+            <div class="ml-auto mr-sm-5"> <button id="btn-quiz-7" class="btn btn-success" disabled onclick="submitResult();">Submit</button> </div>
+        </div>
+    </div>
+
+    <div id="result" class="container" style="display:none;">
+        <div class="py-2 h5"><b id="result-content"></b></div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
