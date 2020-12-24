@@ -11,9 +11,17 @@ import io.quarkus.test.junit.QuarkusTest;
 public class GreetingServiceTest {
 
     @Test
-    public void testGreetingResource() {
+    public void testBlockingGreetingResource() {
         given()
-        .when().get("/hello/neo")
+        .when().get("/hello/blocking/neo")
+        .then().statusCode(200)
+                .body(is("Hello neo"));
+    }
+    
+    @Test
+    public void testMutinyGreetingResource() {
+        given()
+        .when().get("/hello/mutiny/neo")
         .then().statusCode(200)
                 .body(is("Hello neo"));
     }
