@@ -2,9 +2,13 @@ package io.quarkus.qe;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.ws.rs.core.MediaType;
@@ -53,7 +57,7 @@ public class PostgreSqlApplicationResourceTest {
         whenCreateApplication("my-app-name");
         whenGetApplications();
         thenApplicationsCountIs(1);
-        thenApplicationsContainsAnItemWithName("my-app-name");
+        thenApplicationsContainWithName("my-app-name");
     }
 
     @Test
@@ -76,11 +80,59 @@ public class PostgreSqlApplicationResourceTest {
                 .statusCode(HttpStatus.SC_CONFLICT);
     }
 
+    @Test
+    public void shouldFindApplicationWhenFilteringByName() {
+        whenCreateApplication("my-app-name");
+        whenFilterApplicationByName("useLikeByName", "name", "-app-");
+        thenApplicationsCountIs(1);
+    }
+
+    @Test
+    public void shouldNotFindApplicationWhenFilteringByName() {
+        whenCreateApplication("my-app-name");
+        whenFilterApplicationByName("useLikeByName", "name", "not-exist");
+        thenApplicationsCountIs(0);
+    }
+
+    @Test
+    public void shouldFindApplicationWhenFilteringByServiceName() {
+        givenApplicationWithServices("service-a", "service-b");
+        whenFilterApplicationByName("useServiceByName", "name", "service-a");
+        thenApplicationsContainService("service-a");
+        thenApplicationsDoNotContainService("service-b");
+    }
+
+    private void givenApplicationWithServices(String... services) {
+        whenCreateApplication("my-app-name");
+
+        for (String service : services) {
+            whenCreateService(service);
+            thenServiceIsFound(service);
+        }
+    }
+
+    private void whenCreateService(String serviceName) {
+        ServiceEntity service = new ServiceEntity();
+        service.name = serviceName;
+        actualEntity.services.add(service);
+        applicationPath().body(actualEntity).put("/" + actualEntity.id)
+                .then().statusCode(HttpStatus.SC_NO_CONTENT);
+        whenGetApplication();
+    }
+
+    private void whenFilterApplicationByName(String filterName, String paramName, String paramValue) {
+        String params = String.format("?%s=%s", paramName, paramValue);
+
+        actualList = applicationPath().get("filterBy/" + filterName + params).then()
+                .statusCode(HttpStatus.SC_OK).and().extract().as(ApplicationEntity[].class);
+    }
+
     private void whenCreateApplication(String appName) {
         ApplicationEntity request = new ApplicationEntity();
         request.name = appName;
         request.version = new VersionEntity();
         request.version.id = EXPECTED_VERSION;
+
         actualEntity = applicationPath().body(request).post()
                 .then()
                 .statusCode(HttpStatus.SC_CREATED)
@@ -100,6 +152,11 @@ public class PostgreSqlApplicationResourceTest {
         actualEntity = null;
     }
 
+    private void whenGetApplication() {
+        actualEntity = applicationPath().get("/" + actualEntity.id).then().statusCode(HttpStatus.SC_OK).and().extract()
+                .as(ApplicationEntity.class);
+    }
+
     private void whenGetApplications() {
         actualList = applicationPath().get().then().statusCode(HttpStatus.SC_OK).and().extract().as(ApplicationEntity[].class);
     }
@@ -115,9 +172,30 @@ public class PostgreSqlApplicationResourceTest {
         assertEquals(expectedCount, actualList.length);
     }
 
-    private void thenApplicationsContainsAnItemWithName(String expectedAppName) {
+    private void thenApplicationsContainWithName(String expectedAppName) {
         assertNotNull(actualList);
-        assertTrue(Stream.of(actualList).anyMatch(item -> expectedAppName.equals(item.name)));
+        assertTrue(Stream.of(actualList).allMatch(item -> expectedAppName.equals(item.name)));
+    }
+
+    private void thenApplicationsContainService(String expectedServiceName) {
+        thenApplicationsMatchServicesCondition(actualServices -> actualServices.contains(expectedServiceName));
+    }
+
+    private void thenApplicationsDoNotContainService(String expectedServiceName) {
+        thenApplicationsMatchServicesCondition(actualServices -> !actualServices.contains(expectedServiceName));
+    }
+
+    private void thenApplicationsMatchServicesCondition(Predicate<List<String>> servicePredicate) {
+        for (ApplicationEntity actualApplication : actualList) {
+            List<String> actualServices = actualApplication.services.stream().map(s -> s.name).collect(Collectors.toList());
+            assertTrue(servicePredicate.test(actualServices), "Service not expected. Found: " + actualServices);
+        }
+    }
+
+    private void thenServiceIsFound(String expectedServiceName) {
+        assertNotNull(actualEntity.services);
+        assertFalse(actualEntity.services.isEmpty(), "No services found");
+        assertTrue(actualEntity.getServiceByName(expectedServiceName).isPresent());
     }
 
     private void deleteEntityIfExists() {
