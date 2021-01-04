@@ -1,5 +1,7 @@
 package io.quarkus.qe.spring.data;
 
+import io.quarkus.qe.spring.data.model.Book;
+import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -40,6 +42,13 @@ public class BookResource {
     @Produces("text/plain")
     public Long customFindPublicationIsbnObject(@PathParam("bid") Integer bid) {
         return bookRepository.customFindPublicationIsbnObject(bid);
+    }
+
+    @GET
+    @Path("/publisher/zipcode/{zipCode}")
+    @Produces("application/json")
+    public List<Book> findBooksByPublicationYear(@PathParam("zipCode") String zipCode) {
+        return bookRepository.findByPublisherAddressZipCode(zipCode);
     }
 
 }
