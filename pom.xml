@@ -22,6 +22,8 @@
       <module>011-quarkus-panache-rest-flyway</module>
       <module>012-quarkus-kafka-streams</module>
       <module>013-quarkus-oidc-restclient</module>
+      <module>009-quarkus-infinispan-grpc-kafka</module>
+      <module>014-quarkus-panache-with-transactions-xa</module>
       <module>101-javaee-like-getting-started</module>
       <module>201-large-static-content</module>
       <module>300-quarkus-vertx-webClient</module>
@@ -42,12 +44,14 @@
     <wiremock.version>2.27.2</wiremock.version>
     <apicurio-registry-utils-serde.version>1.2.2.Final</apicurio-registry-utils-serde.version>
     <confluent.kafka-avro-serializer.version>6.0.0</confluent.kafka-avro-serializer.version>
-
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
     <quarkus-plugin.version>999-SNAPSHOT</quarkus-plugin.version>
-
+    <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+    <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
+    <quarkus.platform.version>1.7.6.Final</quarkus.platform.version>
+    <quarkus-plugin.version>1.7.6.Final</quarkus-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -60,18 +64,18 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.github.tomakehurst</groupId>
-        <artifactId>wiremock-jre8</artifactId>
-        <scope>test</scope>
-        <version>${wiremock.version}</version>
-      </dependency>
-      <dependency>
         <groupId>org.testcontainers</groupId>
         <artifactId>testcontainers-bom</artifactId>
         <version>${testcontainers.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock-jre8</artifactId>
+            <scope>test</scope>
+            <version>${wiremock.version}</version>
+        </dependency>
       <dependency>
         <groupId>io.strimzi</groupId>
         <artifactId>test-container</artifactId>
