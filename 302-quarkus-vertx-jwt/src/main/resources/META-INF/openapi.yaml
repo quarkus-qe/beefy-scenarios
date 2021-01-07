@@ -1,0 +1,273 @@
+openapi: 3.0.1
+info:
+  title: BladeRunner / Replicant API
+  description: This API allow us to register blade runners and replicants in our database. Most API method are secured, but is possible to get replicant details from his barcode ID (used by indoor scanners)
+  termsOfService: 'https://swagger.io/tools/swaggerhub/'
+  contact:
+    email: pablo.gonzalez.granados@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 2.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+servers:
+  - url: 'http://localhost:8080'
+    description: local enviroment
+tags:
+  - name: Replicant
+    description: CRUD Replicant API
+  - name: BladeRunner
+    description: CRUD BladeRunner API
+paths:
+  /replicant/{id}:
+    get:
+      tags:
+        - Replicant
+      summary: retrieve replicant by ID
+      description: retrive replicant
+      operationId: replicantById
+      parameters:
+        - name: id
+          in: path
+          description: replicant ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successfull
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/replicant'
+    delete:
+      tags:
+        - Replicant
+      security:
+        - bearerAuth: [ ]
+      summary: delete replicant by ID
+      description: delete replicant
+      operationId: deleteReplicantById
+      parameters:
+        - name: id
+          in: path
+          description: replicant ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: successfull
+  /replicant:
+    get:
+      tags:
+        - Replicant
+      security:
+        - bearerAuth: [ ]
+      summary: retrieve all replicants
+      description: retrive all replicants
+      operationId: allReplicants
+      responses:
+        '200':
+          description: successfull
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/replicant'
+    post:
+      tags:
+        - Replicant
+      security:
+        - bearerAuth: [ ]
+      summary: create or update replicant record
+      description: create replicant record (updated if already exist)
+      operationId: upsertReplicant
+      requestBody:
+        description: new replicant
+        required: true
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/replicant'
+      responses:
+        '200':
+          description: successfull
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/id'
+
+  /bladeRunner/{id}:
+    get:
+      tags:
+        - bladeRunner
+      security:
+        - bearerAuth: [ ]
+      summary: retrieve bladeRunner by ID
+      description: retrive bladeRunner
+      operationId: bladeRunnerById
+      parameters:
+        - name: id
+          in: path
+          description: bladeRunner ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successfull
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/bladeRunner'
+    delete:
+      tags:
+        - bladeRunner
+      security:
+        - bearerAuth: [ ]
+      summary: delete bladeRunner by ID
+      description: delete bladeRunner
+      operationId: deletebladeRunnerById
+      parameters:
+        - name: id
+          in: path
+          description: bladeRunner ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: successfull
+  /bladeRunner:
+      get:
+        tags:
+          - bladeRunner
+        security:
+          - bearerAuth: [ ]
+        summary: retrieve all bladeRunner
+        description: retrive all bladeRunner
+        operationId: allbladeRunner
+        responses:
+          '200':
+            description: successfull
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/bladeRunner'
+      post:
+        tags:
+          - bladeRunner
+        security:
+          - bearerAuth: [ ]
+        summary: create or update bladeRunner record
+        description: create bladeRunner record (updated if already exist)
+        operationId: upsertbladeRunner
+        requestBody:
+          description: new bladeRunner
+          required: true
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/bladeRunner'
+        responses:
+          '200':
+            description: successfull
+            content:
+              application/json:
+                schema:
+                  items:
+                    $ref: '#/components/schemas/id'
+
+components:
+  schemas:
+    replicant:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        lastName:
+          type: string
+        createdAt:
+          type: integer
+        updatedAt:
+          type: integer
+        born:
+          type: integer
+        died:
+          type: integer
+        iq:
+          type: integer
+        lat:
+          type: number
+        lon:
+          type: number
+        geneticsModifications:
+          type: array
+          items:
+            type: string
+        specialAbilities:
+          type: array
+          items:
+            type: string
+        model:
+          type: string
+        liveSpanYears:
+          type: integer
+        telepathy:
+          type: boolean
+        fugitive:
+          type: boolean
+    bladeRunner:
+      type: object
+      required: [ "id", "name", "lastName" ]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        lastName:
+          type: string
+        createdAt:
+          type: integer
+        updatedAt:
+          type: integer
+        born:
+          type: integer
+        died:
+          type: integer
+        iq:
+          type: integer
+        lat:
+          type: string
+        lon:
+          type: string
+        geneticsModifications:
+          type: array
+          items:
+            type: string
+    id:
+      type: object
+      properties:
+        ID:
+          type: string
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
