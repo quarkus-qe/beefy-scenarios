@@ -35,10 +35,10 @@ public class AuthN {
     private JWTOptions getJwtOptions() {
         return new JWTOptions()
                 .setIgnoreExpiration(false)
-                .setIssuer(authNConf.claims.iss)
-                .setAudience(Arrays.asList((authNConf.claims.aud)))
-                .setSubject(authNConf.claims.sub)
-                .setExpiresInMinutes(authNConf.liveSpan)
+                .setIssuer(authNConf.jwt.claims.iss)
+                .setAudience(Arrays.asList((authNConf.jwt.claims.aud)))
+                .setSubject(authNConf.jwt.claims.sub)
+                .setExpiresInMinutes(authNConf.jwt.livespam)
                 .setAlgorithm(authNConf.alg);
     }
 
