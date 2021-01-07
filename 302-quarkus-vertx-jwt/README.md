@@ -48,7 +48,8 @@ Quarkus / Vertx JWT (AuthN/Z) exploratory testing
 * AuthN
     * Validate JWT token: iss, ext, iat, aud
     * Validate JWT signature
-* AuthZ (pending)
+* AuthZ
+    * Validate that Vertx User belongs to the admin group
 * Quarkus Vertx Reactive Routes
 * OpenAPI from static yaml
 * Reactive Redis
