@@ -37,18 +37,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <profiles>
-    <profile>
-      <id>native</id>
-      <activation>
-        <property>
-          <name>native</name>
-        </property>
-      </activation>
-      <properties>
-        <quarkus.package.type>none</quarkus.package.type>
-      </properties>
-    </profile>
-  </profiles>
 </project>
