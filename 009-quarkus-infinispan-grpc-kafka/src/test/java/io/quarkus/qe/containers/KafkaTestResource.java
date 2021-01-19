@@ -8,6 +8,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.KafkaContainer;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.testcontainers.utility.DockerImageName;
 
 public class KafkaTestResource implements QuarkusTestResourceLifecycleManager {
 
@@ -15,7 +16,7 @@ public class KafkaTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        container = new KafkaContainer();
+        container = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:5.4.3"));
         container.start();
 
         final String hosts = container.getContainerIpAddress() + ":" + container.getMappedPort(KafkaContainer.KAFKA_PORT);
