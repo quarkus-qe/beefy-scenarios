@@ -6,9 +6,9 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ConfigProperties(prefix = "vertx.webclient")
 public class VertxWebClientConfig {
 
-    @ConfigProperty(name = "timeoutSec", defaultValue = "50")
+    @ConfigProperty(name = "timeoutSec")
     public long timeout;
 
-    @ConfigProperty(name = "retries", defaultValue = "1")
+    @ConfigProperty(name = "retries")
     public long retries;
 }
