@@ -21,15 +21,16 @@ jobs:
         uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
         with:
           java-version: ${{ matrix.java }}
-      - name: Build Quarkus master
-        run: |
-          git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B -s .github/mvn-settings.xml clean install -Dquickly
+#      - name: Build Quarkus master
+#        run: |
+#          git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B -s .github/mvn-settings.xml clean install -Dquickly
       - name: Test in Native mode
         run: |
           mvn -V -B -s .github/mvn-settings.xml -fae clean verify -Dnative \
             -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
             -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }} \
-            -pl '003-quarkus-many-extensions'
+            -pl '003-quarkus-many-extensions' \
+            -Dquarkus-plugin.version=1.11.0.Final -Dquarkus.platform.version=1.11.0.Final
       - name: Zip Artifacts
         run: |
           zip -R artifacts-native${{ matrix.java }}.zip '*-reports/*'
