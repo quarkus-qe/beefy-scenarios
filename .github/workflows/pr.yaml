@@ -3,11 +3,12 @@ on:
   - pull_request
 jobs:
   build:
-    name: JVM build
+    name: PR build
     runs-on: ubuntu-latest
     strategy:
       matrix:
         java: [ 11 ]
+        image: [ "ubi-quarkus-native-image:20.3.1-java11"]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/cache@v1
@@ -26,6 +27,12 @@ jobs:
       - name: Test in JVM mode
         run: |
           mvn -V -B -s .github/mvn-settings.xml clean test
+      - name: Smoke Test in Native mode
+        run: |
+          mvn -V -B -s .github/mvn-settings.xml -fae clean verify -Dnative \
+            -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
+            -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }} \
+            -pl '003-quarkus-many-extensions'
       - name: Zip Artifacts
         run: |
           zip -R artifacts-jvm${{ matrix.java }}.zip '*-reports/*'
