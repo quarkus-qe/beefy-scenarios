@@ -2,12 +2,13 @@ name: "Pull Request Build"
 on:
   - pull_request
 jobs:
-  build:
-    name: JVM build
+  build-native:
+    name: Build - Native
     runs-on: ubuntu-latest
     strategy:
       matrix:
         java: [ 11 ]
+        image: [ "ubi-quarkus-native-image:20.3-java11", "ubi-quarkus-mandrel:20.3-java11" ]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/cache@v1
@@ -22,15 +23,18 @@ jobs:
           java-version: ${{ matrix.java }}
       - name: Build Quarkus master
         run: |
-          git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B -s .github/mvn-settings.xml clean install -DskipTests -DskipITs
-      - name: Test in JVM mode
+          git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B -s .github/mvn-settings.xml clean install -Dquickly
+      - name: Test in Native mode
         run: |
-          mvn -V -B -s .github/mvn-settings.xml clean test
+          mvn -V -B -s .github/mvn-settings.xml -fae clean verify -Dnative \
+            -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
+            -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }} \
+            -pl '003-quarkus-many-extensions'
       - name: Zip Artifacts
         run: |
-          zip -R artifacts-jvm${{ matrix.java }}.zip '*-reports/*'
+          zip -R artifacts-native${{ matrix.java }}.zip '*-reports/*'
       - name: Archive artifacts
         uses: actions/upload-artifact@v1
         with:
           name: ci-artifacts
-          path: artifacts-jvm${{ matrix.java }}.zip
+          path: artifacts-native${{ matrix.java }}.zip
