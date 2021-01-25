@@ -6,10 +6,10 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ConfigProperties(prefix = "vertx.kafka.producer")
 public class VertxKProducerConfig {
 
-    @ConfigProperty(name = "delaySec", defaultValue = "1000")
+    @ConfigProperty(name = "delaySec")
     public long delay;
 
-    @ConfigProperty(name = "batchSize", defaultValue = "100")
+    @ConfigProperty(name = "batchSize")
     public int batchSize;
 
 }
