@@ -1,8 +1,13 @@
 package io.quarkus.qe;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 
+
+import io.quarkus.qe.model.Score;
+import io.restassured.http.ContentType;
+import java.util.UUID;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 import org.keycloak.authorization.client.AuthzClient;
@@ -63,6 +68,60 @@ public abstract class AbstractPingPongResourceTest {
                 .when().get(pingEndpoint())
                 .then().statusCode(HttpStatus.SC_OK)
                 .body(is("ping pong"));
+    }
+
+    @Test
+    public void testNotFoundIsAuthorized() {
+        given().auth().oauth2(createToken())
+                .when().get(pongEndpoint() + "/notFound/id")
+                .then().statusCode(HttpStatus.SC_NOT_FOUND);
+    }
+
+    @Test
+    public void testNotFoundUnauthorized() {
+        given()
+                .when().get(pongEndpoint() + "/notFound/id")
+                .then().statusCode(HttpStatus.SC_UNAUTHORIZED);
+    }
+
+    @Test
+    public void testPingPongWithPathParam() {
+        final String name = "helloWorld";
+        given().auth().oauth2(createToken())
+                .when()
+                .get(pingEndpoint() + "/name/" + name)
+                .then().statusCode(HttpStatus.SC_OK).body(containsString("ping pong " + name));
+    }
+
+    @Test
+    public void testPingPongCreate() {
+        Score score = new Score(15, 30);
+        given().auth().oauth2(createToken())
+                .contentType(ContentType.JSON)
+                .body(score)
+                .when()
+                .post(pingEndpoint() + "/withBody")
+                .then().statusCode(HttpStatus.SC_OK).body(containsString("ping -> " + score.toString()));
+    }
+
+    @Test
+    public void testPingPongUpdate() {
+        Score score = new Score(15, 30);
+        given().auth().oauth2(createToken())
+                .contentType(ContentType.JSON)
+                .body(score)
+                .when()
+                .put(pingEndpoint() + "/withBody")
+                .then().statusCode(HttpStatus.SC_OK).body(containsString("ping -> " + score.toString()));
+    }
+
+    @Test
+    public void testPingPongDelete() {
+        given().auth().oauth2(createToken())
+                .contentType(ContentType.JSON)
+                .when()
+                .delete(pingEndpoint() + "/" + UUID.randomUUID().toString())
+                .then().statusCode(HttpStatus.SC_OK).body(containsString("ping -> true"));
     }
 
     protected abstract String endpointPrefix();
