@@ -1,4 +1,4 @@
-package io.quarkus.qe.vertx.webclient;
+package io.quarkus.qe.webclient;
 
 import io.quarkus.test.junit.NativeImageTest;
 

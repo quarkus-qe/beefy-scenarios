@@ -1,7 +1,7 @@
-package io.quarkus.qe.vertx.webclient;
+package io.quarkus.qe.webclient;
 
-import io.quarkus.qe.vertx.webclient.config.ChuckEndpointValue;
-import io.quarkus.qe.vertx.webclient.config.VertxWebClientConfig;
+import io.quarkus.qe.webclient.config.ChuckEndpointValue;
+import io.quarkus.qe.webclient.config.VertxWebClientConfig;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.json.Json;
 import io.vertx.mutiny.core.Vertx;

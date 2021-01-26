@@ -1,4 +1,4 @@
-package io.quarkus.qe.vertx.webclient;
+package io.quarkus.qe.webclient;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;

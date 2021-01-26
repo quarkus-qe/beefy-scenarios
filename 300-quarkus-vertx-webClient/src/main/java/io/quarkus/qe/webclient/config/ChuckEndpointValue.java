@@ -1,4 +1,4 @@
-package io.quarkus.qe.vertx.webclient.config;
+package io.quarkus.qe.webclient.config;
 
 public class ChuckEndpointValue {
 

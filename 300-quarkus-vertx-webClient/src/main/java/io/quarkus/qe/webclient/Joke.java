@@ -1,4 +1,4 @@
-package io.quarkus.qe.vertx.webclient;
+package io.quarkus.qe.webclient;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

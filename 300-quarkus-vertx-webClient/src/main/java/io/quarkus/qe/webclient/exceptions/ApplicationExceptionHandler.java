@@ -1,4 +1,4 @@
-package io.quarkus.qe.vertx.webclient.exceptions;
+package io.quarkus.qe.webclient.exceptions;
 
 import io.smallrye.mutiny.TimeoutException;
 
