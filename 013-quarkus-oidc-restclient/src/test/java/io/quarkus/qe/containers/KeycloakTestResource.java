@@ -3,6 +3,7 @@ package io.quarkus.qe.containers;
 import java.lang.reflect.Field;
 import java.time.Duration;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -18,6 +19,7 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 public class KeycloakTestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final String OIDC_AUTH_URL_PROPERTY = "quarkus.oidc.auth-server-url";
+    private static final String OIDC_CLIENT_AUTH_URL_PROPERTY = "quarkus.oidc-client.auth-server-url";
 
     private static final String USER = "admin";
     private static final String PASSWORD = "admin";
@@ -42,7 +44,11 @@ public class KeycloakTestResource implements QuarkusTestResourceLifecycleManager
         container.addExposedPort(PORT);
         container.start();
 
-        return Collections.singletonMap(OIDC_AUTH_URL_PROPERTY, oidcAuthUrl());
+        Map<String, String> properties = new HashMap<>();
+        properties.put(OIDC_AUTH_URL_PROPERTY, oidcAuthUrl());
+        properties.put(OIDC_CLIENT_AUTH_URL_PROPERTY, oidcAuthUrl());
+
+        return properties;
     }
 
     @Override
