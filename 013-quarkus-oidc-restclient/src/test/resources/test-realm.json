@@ -32,6 +32,7 @@
       "standardFlowEnabled": true,
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true,
       "clientAuthenticatorType": "client-secret",
       "secret": "test-application-client-secret",
       "redirectUris": [

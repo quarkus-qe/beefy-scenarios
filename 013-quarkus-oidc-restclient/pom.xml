@@ -35,6 +35,16 @@
             <artifactId>quarkus-rest-client-mutiny</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-oidc-client-filter</artifactId>
+        </dependency>
+        <!-- TODO: Can't use both OIDC Client Filter and OIDC Token extensions. 
+        Reported in https://github.com/quarkusio/quarkus/issues/14466 -->
+        <!-- <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-oidc-token-propagation</artifactId>
+        </dependency> -->
+        <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-authz-client</artifactId>
         </dependency>
