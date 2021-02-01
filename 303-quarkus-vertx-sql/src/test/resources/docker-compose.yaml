@@ -1,0 +1,39 @@
+version: '2'
+services:
+  postgresql:
+    image: quay.io/debezium/postgres
+    hostname: postgresql
+    container_name: postgresql
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: amadeus
+
+  mysql:
+    image: quay.io/bitnami/mysql:5.7.32
+    hostname: mysql
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_DATABASE: amadeus
+
+  db2:
+    image: quay.io/pjgg/db2:11.5.5.0
+    hostname: db2
+    container_name: db2
+    privileged: true
+    ports:
+      - "50000:50000"
+    environment:
+      LICENSE: accept
+      DB2INST1_PASSWORD: test
+      DB2INSTANCE: test
+      AUTOCONFIG: "false"
+      ARCHIVE_LOGS: "false"
+      DBNAME: amadeus
