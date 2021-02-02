@@ -31,7 +31,7 @@ public class UsingMicroProfilePingPongResourceTest {
 
     private void thenCounterIs(int expectedCounter) {
         when().get("/q/metrics").then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body(containsString(String.format(COUNTER_FORMAT, expectedCounter)));
     }
 }
