@@ -1,0 +1,141 @@
+{
+  "Response": "Success",
+  "Message": "Coin list succesfully returned!",
+  "Data": {
+    "42": {
+      "Id": "4321",
+      "Url": "/coins/42/overview",
+      "ImageUrl": "/media/35650717/42.jpg",
+      "ContentCreatedOn": 1427211129,
+      "Name": "42",
+      "Symbol": "42",
+      "CoinName": "42 Coin",
+      "FullName": "42 Coin (42)",
+      "Description": "Everything about 42 coin is 42 - apart from the transaction fees and difficulty retargetting - 0.00000001 and 7.5mins. A scrypt coin with 42 coins max, a 42 second block time, with superblocks giving 10 times the standard block reward of 0.0000420 42&#39;s.42 coin is a cryptocurrency with completed emission, fair distribution (no ICO, premine or instamine) and both private and public transaction support. The maximum supply of 42 coins makes the remaining 41.99 extremely rare. The innovative deflationary model provides a constant rise in incentives both for miners and long term investors. 42-coin delivers a hybrid of Proof-of-Work and Proof-of-Stake transaction confirmation methods and represents a new way of securing the network against 51% attacks.",
+      "AssetTokenStatus": "N/A",
+      "Algorithm": "Scrypt",
+      "ProofType": "PoW/PoS",
+      "SortOrder": "34",
+      "Sponsored": false,
+      "Taxonomy": {
+        "Access": "",
+        "FCA": "",
+        "FINMA": "",
+        "Industry": "",
+        "CollateralizedAsset": "",
+        "CollateralizedAssetType": "",
+        "CollateralType": "",
+        "CollateralInfo": ""
+      },
+      "Rating": {
+        "Weiss": {
+          "Rating": "",
+          "TechnologyAdoptionRating": "",
+          "MarketPerformanceRating": ""
+        }
+      },
+      "IsTrading": true,
+      "TotalCoinsMined": 0,
+      "BlockNumber": 0,
+      "NetHashesPerSecond": 0,
+      "BlockReward": 0,
+      "BlockTime": 0,
+      "AssetLaunchDate": "0000-00-00",
+      "MaxSupply": 0,
+      "MktCapPenalty": 0
+    },
+    "300": {
+      "Id": "749869",
+      "Url": "/coins/300/overview",
+      "ImageUrl": "/media/27010595/300.png",
+      "ContentCreatedOn": 1517935016,
+      "Name": "300",
+      "Symbol": "300",
+      "CoinName": "300 token",
+      "FullName": "300 token (300)",
+      "Description": "300 token is an ERC20 token. This Token was created in memory of the 300 Spartan Soldiers from the Battle of Thermopylae.",
+      "AssetTokenStatus": "N/A",
+      "Algorithm": "N/A",
+      "ProofType": "N/A",
+      "SortOrder": "2212",
+      "Sponsored": false,
+      "Taxonomy": {
+        "Access": "",
+        "FCA": "",
+        "FINMA": "",
+        "Industry": "",
+        "CollateralizedAsset": "",
+        "CollateralizedAssetType": "",
+        "CollateralType": "",
+        "CollateralInfo": ""
+      },
+      "Rating": {
+        "Weiss": {
+          "Rating": "",
+          "TechnologyAdoptionRating": "",
+          "MarketPerformanceRating": ""
+        }
+      },
+      "IsTrading": true,
+      "TotalCoinsMined": 300,
+      "BlockNumber": 0,
+      "NetHashesPerSecond": 0,
+      "BlockReward": 0,
+      "BlockTime": 0,
+      "AssetLaunchDate": "2017-07-01",
+      "MaxSupply": 300,
+      "MktCapPenalty": 0,
+      "PlatformType": "token",
+      "BuiltOn": "ETH",
+      "SmartContractAddress": "0xaec98a708810414878c3bcdf46aad31ded4a4557",
+      "DecimalPoints": 18
+    },
+    "365": {
+      "Id": "33639",
+      "Url": "/coins/365/overview",
+      "ImageUrl": "/media/352070/365.png",
+      "ContentCreatedOn": 1480032918,
+      "Name": "365",
+      "Symbol": "365",
+      "CoinName": "365Coin",
+      "FullName": "365Coin (365)",
+      "Description": "365Coin is a Proof of Work and Proof of Stake cryptocurrency. This coin has a 50% APR in staking rewards and a 13% premine (299 million coins). The 365Coin is a free open source project derived from Bitcoin, with the goal of providing a long-term energy-efficient script-based cryptocurrency. Build on the foundation of Bitcoin and PPCoin, innovations such as POS help further advance the field of cryptocurrency. ",
+      "AssetTokenStatus": "N/A",
+      "Algorithm": "X11",
+      "ProofType": "PoW/PoS",
+      "SortOrder": "916",
+      "Sponsored": false,
+      "Taxonomy": {
+        "Access": "",
+        "FCA": "",
+        "FINMA": "",
+        "Industry": "",
+        "CollateralizedAsset": "",
+        "CollateralizedAssetType": "",
+        "CollateralType": "",
+        "CollateralInfo": ""
+      },
+      "Rating": {
+        "Weiss": {
+          "Rating": "",
+          "TechnologyAdoptionRating": "",
+          "MarketPerformanceRating": ""
+        }
+      },
+      "IsTrading": true,
+      "TotalCoinsMined": 0,
+      "BlockNumber": 0,
+      "NetHashesPerSecond": 0,
+      "BlockReward": 0,
+      "BlockTime": 0,
+      "AssetLaunchDate": "0000-00-00",
+      "MaxSupply": 0,
+      "MktCapPenalty": 0
+    }
+  },
+  "BaseImageUrl": "https://www.cryptocompare.com",
+  "BaseLinkUrl": "https://www.cryptocompare.com",
+  "RateLimit": {},
+  "HasWarning": false,
+  "Type": 100
+}

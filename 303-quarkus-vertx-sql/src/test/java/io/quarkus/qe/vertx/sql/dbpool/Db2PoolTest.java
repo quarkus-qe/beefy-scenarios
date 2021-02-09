@@ -1,6 +1,5 @@
 package io.quarkus.qe.vertx.sql.dbpool;
 
-import io.quarkus.arc.profile.IfBuildProfile;
 import io.quarkus.qe.vertx.sql.test.resources.Db2TestProfile;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
@@ -21,7 +20,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
