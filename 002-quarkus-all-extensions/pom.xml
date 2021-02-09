@@ -393,10 +393,12 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-amazon-kms</artifactId>
         </dependency>
-        <dependency>
+        <!-- The Amazon Lambda extensions is not compatible with uber-jar package type.
+         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-amazon-lambda-common</artifactId>
-        </dependency>
+        </dependency> 
+        -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-amazon-s3</artifactId>
