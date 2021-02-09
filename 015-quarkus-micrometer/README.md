@@ -5,4 +5,6 @@ The `MeterRegistry` approach includes three scenarios:
 - `forloop`: will increment the counter a number of times.
 - `forloop parallel`: will increment the counter a number of times using a parallel flow.
 
-The `MicroProfile API` approach will include only the `simple` scenario.   
+The `MicroProfile API` approach will include only the `simple` scenario.
+
+Moreover, we also cover the `HTTP Server` metrics in order to verify the `count`, `sum` and `count` metrics work as expected.
