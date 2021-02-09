@@ -63,7 +63,7 @@ public class stockCryptoCurrency {
     @Inject
     private Vertx vertx;
 
-    // TODO: looks that doesn't pick up properties that are not quarkus properties.
+    // issue ref: https://github.com/jbangdev/jbang/issues/717
     static String cryptoPath = "https://min-api.cryptocompare.com";
     static final int TIMEOUT = 30;
     static final int RETRIES_AMOUNT = 3;
@@ -83,6 +83,7 @@ public class stockCryptoCurrency {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         //TODO: this will not be required if we can use custom properties
+        // issue ref: https://github.com/jbangdev/jbang/issues/717
         Optional.ofNullable(System.getenv(CRYPTO_PATH_ENV)).ifPresent(value -> cryptoPath = value);
     }
 
@@ -94,6 +95,8 @@ public class stockCryptoCurrency {
     Uni<CryptoCurrencyIndex> currencyNames() {
         return new CryptoCurrencyIndex().retrieveCryptoCurrenciesNames();
     }
+
+// TODO: Reported issue -> https://github.com/jbangdev/jbang/issues/716
 
 //    @Route(methods = HttpMethod.GET, path = "/currency/values")
 //    Uni<List<CryptoCurrencyValues>> currencyValues() {
@@ -175,7 +178,7 @@ public class stockCryptoCurrency {
                     .onFailure().retry().atMost(RETRIES_AMOUNT);
         }
 
-        // TODO: Doesn't support .collect() - compile time issue
+        // TODO: Reported issue -> https://github.com/jbangdev/jbang/issues/716
 //        public Uni<List<CryptoCurrencyValues>> getCurrencyValues(Set<String> currencies) {
 //            List<CryptoCurrencyValues> result = new ArrayList<>();
 //            return Multi.createFrom().iterable(currencies).onItem()
