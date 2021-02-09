@@ -8,8 +8,8 @@ To compile and run this demo you will need:
 
 - JDK 11+
 - Docker
-- Postgresql
-- Mysql
+- PostgreSQL
+- MySQL
 - DB2
 
 ## Scope of the testing
@@ -18,7 +18,7 @@ Quarkus / Vertx SQL exploratory testing
 
 * Quarkus Vertx Reactive Routes (annotations)
 * OpenAPI from annotations
-* Reactive SQL / Postgresql / Mysql / DB2
+* Reactive SQL / PostgreSQL / MySQL / DB2
     * Select / insert statements
     * Transaction statement between several tables 
 * Error mapping through routes
