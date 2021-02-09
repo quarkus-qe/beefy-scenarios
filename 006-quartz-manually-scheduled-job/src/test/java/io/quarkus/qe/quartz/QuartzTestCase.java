@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.response.Response;
 
 @QuarkusTest
 public class QuartzTestCase {
@@ -27,14 +26,16 @@ public class QuartzTestCase {
         assertCounter("/scheduler/count/manual", 1);
     }
 
-    private void assertCounter(String counterPath, int minCount) {
-        Response response = given().when().get(counterPath);
-        String body = response.asString();
-        int count = Integer.valueOf(body);
-        assertTrue(count > minCount);
-        response
-                .then()
-                .statusCode(200);
+    private void assertCounter(String counterPath, int expectedCount) {
+        String body = given()
+                .when().get(counterPath)
+                .then().statusCode(200)
+                .extract().asString();
+
+        int actualCounter = Integer.valueOf(body);
+
+        assertTrue(actualCounter > expectedCount,
+                "Actual counter '" + actualCounter + "' must be greater than the expected '" + expectedCount + "'");
     }
 
 }

@@ -1,7 +1,5 @@
 package io.quarkus.qe.quartz;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -16,6 +14,7 @@ import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 
+import io.quarkus.qe.quartz.services.CounterService;
 import io.quarkus.runtime.Startup;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
@@ -25,10 +24,11 @@ public class ManuallyScheduledCounter {
     @Inject
     org.quartz.Scheduler quartz;
 
-    private static AtomicInteger counter = new AtomicInteger();
+    @Inject
+    CounterService service;
 
     public int get() {
-        return counter.get();
+        return service.get(caller());
     }
 
     @Transactional
@@ -48,9 +48,21 @@ public class ManuallyScheduledCounter {
 
     @RegisterForReflection
     public static class CountingJob implements Job {
+        @Inject
+        CounterService service;
+
+        @PostConstruct
+        void init() {
+            service.reset(caller());
+        }
+
         @Override
         public void execute(JobExecutionContext jobExecutionContext) {
-            counter.incrementAndGet();
+            service.invoke(caller());
         }
+    }
+
+    private static final String caller() {
+        return ManuallyScheduledCounter.class.getName();
     }
 }
