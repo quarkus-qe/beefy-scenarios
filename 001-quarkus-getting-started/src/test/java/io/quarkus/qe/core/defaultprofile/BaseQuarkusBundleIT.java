@@ -1,9 +1,9 @@
-package io.quarkus.qe.core;
+package io.quarkus.qe.core.defaultprofile;
 
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-public class NativeBaseQuarkusBundleIT extends BaseQuarkusBundleTest {
+public class BaseQuarkusBundleIT extends BaseQuarkusBundleTest {
 
     // Execute the same tests but in native mode.
 }
