@@ -9,7 +9,7 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>001-quarkus-getting-started</artifactId>
+  <artifactId>001-quarkus-getting-started-with-jaxrs</artifactId>
   
   <dependencies>
     <dependency>

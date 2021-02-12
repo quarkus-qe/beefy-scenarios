@@ -12,9 +12,9 @@ public class MultipartBody {
     @PartType(MediaType.TEXT_PLAIN)
     public String text;
 
-    @FormParam("file")
+    @FormParam("image")
     @PartType("image/png")
-    public InputStream file;
+    public InputStream image;
 
     @FormParam("data")
     @PartType(MediaType.APPLICATION_OCTET_STREAM)

@@ -9,7 +9,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 @Path("/multipart")
 public class MultipartResource {
@@ -31,18 +30,26 @@ public class MultipartResource {
     }
 
     @POST
-    @Path("/file")
+    @Path("/image")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String postFormReturnFile(@MultipartForm MultipartBody multipartBody) throws IOException {
-        return IOUtils.toString(multipartBody.file, StandardCharsets.UTF_8);
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public byte[] postFormReturnFile(@MultipartForm MultipartBody multipartBody) throws IOException {
+        return IOUtils.toByteArray(multipartBody.image);
     }
 
     @POST
     @Path("/data")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public byte[] postFormReturnData(@MultipartForm MultipartBody multipartBody) throws IOException {
+        return IOUtils.toByteArray(multipartBody.data);
+    }
+
+    @POST
+    @Path("/echo")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_PLAIN)
-    public String postFormReturnData(@MultipartForm MultipartBody multipartBody) throws IOException {
-        return IOUtils.toString(multipartBody.data, StandardCharsets.UTF_8);
+    public String echo(String requestBody) throws Exception {
+        return requestBody;
     }
 }
