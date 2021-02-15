@@ -29,7 +29,7 @@ jobs:
           mvn -V -B -s .github/mvn-settings.xml -fae clean verify -Dnative \
             -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
             -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }} \
-            -pl '003-quarkus-many-extensions'
+            -pl '003-quarkus-many-extensions' -Dquarkus.native.additional-build-args=--report-unsupported-elements-at-runtime
       - name: Zip Artifacts
         run: |
           zip -R artifacts-jvm${{ matrix.java }}.zip '*-reports/*'
