@@ -164,6 +164,23 @@
               </execution>
             </executions>
           </plugin>
+          <plugin>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-maven-plugin</artifactId>
+            <version>${quarkus-plugin.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+                <configuration>
+                    <enableHttpUrlHandler>true</enableHttpUrlHandler>
+                    <additionalBuildArgs>--report-unsupported-elements-at-runtime</additionalBuildArgs>
+                    <reportErrorsAtRuntime>true</reportErrorsAtRuntime>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
         </plugins>
       </build>
       <properties>
