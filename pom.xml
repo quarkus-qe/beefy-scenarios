@@ -106,17 +106,6 @@
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
     </dependency>
-
-    <dependency>
-	<groupId>net.java.dev.jna</groupId>
-	<artifactId>jna</artifactId>
-</dependency>
-
-<dependency>
-	<groupId>net.java.dev.jna</groupId>
-	<artifactId>jna-platform</artifactId>
-  <version>5.3.1</version>
-</dependency>
   </dependencies>
 
   <build>
@@ -181,9 +170,12 @@
             <version>${quarkus-plugin.version}</version>
             <executions>
               <execution>
+                <goals>
+                  <goal>build</goal>
+                </goals>
                 <configuration>
                     <enableHttpUrlHandler>true</enableHttpUrlHandler>
-                    <additionalBuildArgs>-H:+ReportUnsupportedElementsAtRuntime</additionalBuildArgs>
+                    <additionalBuildArgs>--report-unsupported-elements-at-runtime</additionalBuildArgs>
                     <reportErrorsAtRuntime>true</reportErrorsAtRuntime>
                 </configuration>
               </execution>
