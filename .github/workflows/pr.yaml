@@ -23,13 +23,13 @@ jobs:
           java-version: ${{ matrix.java }}
       - name: Build Quarkus master
         run: |
-          git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B -s .github/mvn-settings.xml clean install -Dquickly -f bom/application && mvn -B -s .github/mvn-settings.xml clean install -Dquickly -f bom/test && mvn -B -s .github/mvn-settings.xml clean install -Dquickly -f build-parent && mvn -B -s .github/mvn-settings.xml clean install -Dquickly -f core && mvn -B -s .github/mvn-settings.xml clean install -Dquickly -f extensions && mvn -B -s .github/mvn-settings.xml clean install -Dquickly -f test-framework
+          git clone https://github.com/Sgitario/quarkus.git && cd quarkus && git checkout fix_master && mvn -B -s .github/mvn-settings.xml clean install -Dquickly -f bom/application && mvn -B -s .github/mvn-settings.xml clean install -Dquickly -f bom/test && mvn -B -s .github/mvn-settings.xml clean install -Dquickly -f build-parent && mvn -B -s .github/mvn-settings.xml clean install -Dquickly -f core && mvn -B -s .github/mvn-settings.xml clean install -Dquickly -f extensions && mvn -B -s .github/mvn-settings.xml clean install -Dquickly -f test-framework
       - name: Smoke Test in Native mode
         run: |
           mvn -V -B -s .github/mvn-settings.xml -fae clean verify -Dnative \
             -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
             -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }} \
-            -pl '003-quarkus-many-extensions' -Dquarkus.native.additional-build-args=--report-unsupported-elements-at-runtime
+            -pl '003-quarkus-many-extensions'
       - name: Zip Artifacts
         run: |
           zip -R artifacts-jvm${{ matrix.java }}.zip '*-reports/*'
