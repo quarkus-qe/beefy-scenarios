@@ -26,10 +26,10 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-artemis-jms</artifactId>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-elytron-security</artifactId>
