@@ -216,10 +216,12 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-kafka-client</artifactId>
         </dependency>
+        <!-- This dependency is incompatible with mutiny reactive engine implementation. 
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-reactive-streams-operators</artifactId>
         </dependency>
+         -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-flyway</artifactId>
