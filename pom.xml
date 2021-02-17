@@ -9,7 +9,7 @@
   <packaging>pom</packaging>
 
   <modules>
-      <module>001-quarkus-getting-started</module>
+      <module>001-quarkus-getting-started-with-jaxrs</module>
       <module>002-quarkus-all-extensions</module>
       <module>003-quarkus-many-extensions</module>
       <module>004-quarkus-HHH-and-HV</module>
