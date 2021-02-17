@@ -25,6 +25,7 @@
       <module>014-quarkus-panache-with-transactions-xa</module>
       <module>015-quarkus-micrometer</module>
       <module>017-quartz-cluster</module>
+      <module>018-quarkus-runtime-properties</module>
       <module>101-javaee-like-getting-started</module>
       <module>201-large-static-content</module>
       <module>300-quarkus-vertx-webClient</module>
@@ -160,6 +161,7 @@
                 <configuration>
                   <systemProperties>
                     <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                    <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                   </systemProperties>
                 </configuration>
               </execution>
