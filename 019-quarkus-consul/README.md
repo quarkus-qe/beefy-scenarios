@@ -1,0 +1,2 @@
+Module that covers the integration with Consul and ensure that changes in consul will take effect in the application.
+Concretely, this module implements a resource that returns `Hello {some.property}`. By default, `some.property` is `Default`. If we change this property in consul and reload the application, we verify that the new property is taken from consul.
