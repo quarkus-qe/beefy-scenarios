@@ -1,20 +1,22 @@
-package io.quarkus.qe.vertx.sql.handlers.Flights;
+package io.quarkus.qe.vertx.sql.handlers.flights;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import io.quarkus.qe.vertx.sql.domain.Basket;
 import io.quarkus.qe.vertx.sql.domain.Flight;
 import io.quarkus.qe.vertx.sql.domain.QueryFlightSearch;
 import io.restassured.http.ContentType;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class FlightsHandlerTest {
     @Test
@@ -27,6 +29,7 @@ public abstract class FlightsHandlerTest {
                 .statusCode(200)
                 .assertThat().body("size()", is(89));
     }
+
     @Test
     @DisplayName("Retrieve all flights by origin and destination")
     public void retrieveFlightByOriginDestination() {
@@ -43,6 +46,7 @@ public abstract class FlightsHandlerTest {
                 hasProperty("destination", is("CDG"))
         ));
     }
+
     @Test
     @DisplayName("Retrieve infant flights prices")
     public void retrieveInfantFlightPrices() {
@@ -60,6 +64,7 @@ public abstract class FlightsHandlerTest {
                 hasProperty("price", is(15.0))
         ));
     }
+
     @Test
     @DisplayName("Retrieve child flights prices")
     public void retrieveChildFlightPrices() {
@@ -77,6 +82,7 @@ public abstract class FlightsHandlerTest {
                 hasProperty("price", is(233.16))
         ));
     }
+
     @Test
     @DisplayName("Retrieve adult flights prices")
     public void retrieveAdultFlightPrices() {
@@ -94,6 +100,7 @@ public abstract class FlightsHandlerTest {
                 hasProperty("price", is(348.0))
         ));
     }
+
     @Test
     @DisplayName("Retrieve flights prices")
     public void retrieveFlightPrices() {
@@ -113,6 +120,7 @@ public abstract class FlightsHandlerTest {
                 hasProperty("price", is(789.88))
         ));
     }
+
     @Test
     @DisplayName("Retrieve multiple flights prices")
     public void retrieveMultiplesFlightPrices() {
@@ -134,6 +142,7 @@ public abstract class FlightsHandlerTest {
         List<Basket> basket = thenMakeFlightSearchQuery(query, 200,3);
         assertEquals(basket, expectedBasket);
     }
+
     @Test
     @DisplayName("Wrong flight search format")
     public void wrongFlightSearchFormat() {

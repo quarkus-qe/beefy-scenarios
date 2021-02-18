@@ -1,22 +1,24 @@
 package io.quarkus.qe.vertx.sql.services;
 
-import io.quarkus.qe.vertx.sql.domain.Airline;
-import io.quarkus.qe.vertx.sql.domain.Flight;
-import io.quarkus.qe.vertx.sql.domain.Basket;
-import io.quarkus.qe.vertx.sql.domain.PricingRules;
-import io.quarkus.qe.vertx.sql.domain.QueryFlightSearch;
-import io.quarkus.runtime.StartupEvent;
-import io.smallrye.mutiny.Uni;
+import static io.quarkus.qe.vertx.sql.domain.Airline.codeFromFlight;
+import static io.quarkus.qe.vertx.sql.domain.PricingRules.daysToDepartureFilter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import static io.quarkus.qe.vertx.sql.domain.Airline.codeFromFlight;
-import static io.quarkus.qe.vertx.sql.domain.PricingRules.daysToDepartureFilter;
+import io.quarkus.qe.vertx.sql.domain.Airline;
+import io.quarkus.qe.vertx.sql.domain.Basket;
+import io.quarkus.qe.vertx.sql.domain.Flight;
+import io.quarkus.qe.vertx.sql.domain.PricingRules;
+import io.quarkus.qe.vertx.sql.domain.QueryFlightSearch;
+import io.quarkus.runtime.StartupEvent;
+import io.smallrye.mutiny.Uni;
 
 @Singleton
 public class FlightSearchService {
@@ -37,7 +39,7 @@ public class FlightSearchService {
         return Flight.findByOriginDestination(connection, query.from, query.to)
                 .onItem()
                 .transform(flight -> calculatePrice(query, flight))
-                .collectItems().in(ArrayList::new, List::add);
+                .collect().in(ArrayList::new, List::add);
     }
 
     private Basket calculatePrice(QueryFlightSearch query, Flight flight) {

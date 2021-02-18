@@ -1,4 +1,4 @@
-package io.quarkus.qe.vertx.sql.handlers.Airline;
+package io.quarkus.qe.vertx.sql.handlers.airline;
 
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
