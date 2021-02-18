@@ -14,9 +14,12 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import io.quarkus.qe.quartz.resources.QuartzNodeApplicationResource;
 import io.quarkus.qe.quartz.resources.RestApplicationResource;
 import io.quarkus.test.QuarkusProdModeTest;
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.restassured.RestAssured;
 
-public class AnnotationScheduledJobsQuartzTestCase {
+@QuarkusTestResource(H2DatabaseTestResource.class)
+public class AnnotationScheduledJobsQuartzTest {
 
     private static final int REST_PORT = 8081;
     private static final String NODE_ONE_NAME = "node-one";
@@ -50,9 +53,8 @@ public class AnnotationScheduledJobsQuartzTestCase {
         assertFalse(nodeTwoApp.getStartupConsoleOutput().isEmpty(), "Node Two should be up and running");
     }
 
-    private void whenShutdownNodeOne() throws Exception {
-        // TODO: Workaround for https://github.com/quarkusio/quarkus/issues/14961
-        nodeOneApp.afterAll(null);
+    private void whenShutdownNodeOne() {
+        nodeOneApp.stop();
     }
 
     private void thenJobIsExecutedWithOwner(String expectedOwner) {
