@@ -1,20 +1,20 @@
 package io.quarkus.qe.vertx.sql.test.resources;
 
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import static io.quarkus.qe.vertx.sql.test.resources.PostgresqlTestProfile.PROFILE;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.HostPortWaitStrategy;
 import org.testcontainers.shaded.org.apache.commons.lang.StringUtils;
 import org.testcontainers.utility.DockerImageName;
 
-
-import static io.quarkus.qe.vertx.sql.test.resources.PostgresqlTestProfile.PROFILE;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class PostgresqlResource implements QuarkusTestResourceLifecycleManager {
 
-    GenericContainer postgresContainer;
+    private GenericContainer<?> postgresContainer;
 
     @Override
     public Map<String, String> start() {
@@ -25,8 +25,9 @@ public class PostgresqlResource implements QuarkusTestResourceLifecycleManager {
         return config;
     }
 
+    @SuppressWarnings("resource")
     private void defaultPostgresContainer(Map<String, String> config) {
-        postgresContainer = new GenericContainer(DockerImageName.parse("quay.io/debezium/postgres:latest"))
+        postgresContainer = new GenericContainer<>(DockerImageName.parse("quay.io/debezium/postgres:latest"))
                 .withEnv("POSTGRES_USER", "test")
                 .withEnv("POSTGRES_PASSWORD", "test")
                 .withEnv("POSTGRES_DB", "amadeus")
@@ -43,6 +44,8 @@ public class PostgresqlResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public void stop() {
-        if (Objects.nonNull(postgresContainer)) postgresContainer.stop();
+        if (postgresContainer != null) {
+            postgresContainer.stop();
+        }
     }
 }

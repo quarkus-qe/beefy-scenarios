@@ -1,12 +1,12 @@
 package io.quarkus.qe.vertx.sql.services;
 
-import io.vertx.sqlclient.PropertyKind;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.sqlclient.Pool;
 import io.vertx.mutiny.sqlclient.SqlClientHelper;
-import java.util.stream.Collectors;
+import io.vertx.sqlclient.PropertyKind;
 
 public class DbPoolService extends Pool {
 
@@ -53,7 +53,7 @@ public class DbPoolService extends Pool {
             return tx.preparedQuery("INSERT INTO " + getDatabaseName() + "." + tableName + " (" + fields + ") VALUES (" + values + ")")
                     .execute()
                     .onItem().invoke(r->this.query("SELECT LAST_INSERT_ID();"))
-                    .onItem().transform(id -> (Long)id.getDelegate().property(LAST_INSERTED_ID));
+                    .onItem().transform(id -> (Long) id.getDelegate().property(LAST_INSERTED_ID));
         });
     }
 

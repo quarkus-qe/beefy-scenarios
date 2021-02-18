@@ -1,16 +1,17 @@
 package io.quarkus.qe.vertx.sql.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+
 import io.quarkus.qe.vertx.sql.services.DbPoolService;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.sqlclient.Row;
 import io.vertx.mutiny.sqlclient.RowSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import javax.validation.constraints.NotBlank;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 @Schema(name="Airport", description="Airport entity")
 @RegisterForReflection
@@ -18,12 +19,10 @@ public class Airport extends Record{
 
     private static final String QUALIFIED_CODE_NAME = "iata_code";
     @Schema(description="IATA code")
-    @NotBlank(message="Airport code must be not blank")
     private String code;
 
     private static final String QUALIFIED_CITY_NAME = "city";
     @Schema(description="City name")
-    @NotBlank(message="Airport city must be not blank")
     private String city;
 
     public Airport(long id, String code, String city) {

@@ -6,5 +6,5 @@ import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
 @QuarkusTestResource(PostgresqlResource.class)
-public class PostgresqlHandlerIT extends BasketHandlerTest {
+public class PostgresqlBasketHandlerIT extends BasketHandlerTest {
 }

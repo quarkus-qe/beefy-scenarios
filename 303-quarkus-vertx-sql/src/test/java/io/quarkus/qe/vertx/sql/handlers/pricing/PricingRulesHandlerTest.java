@@ -1,4 +1,4 @@
-package io.quarkus.qe.vertx.sql.handlers.PricingRules;
+package io.quarkus.qe.vertx.sql.handlers.pricing;
 
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
