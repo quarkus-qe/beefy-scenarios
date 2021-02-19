@@ -33,6 +33,7 @@
       <module>301-quarkus-vertx-kafka</module>
       <module>302-quarkus-vertx-jwt</module>
       <module>303-quarkus-vertx-sql</module>
+      <module>304-quarkus-vertx-routes</module>
       <module>601-spring-data-primitive-types</module>
   </modules>
 
