@@ -1,16 +1,17 @@
 package io.quarkus.qe.vertx.sql.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+
 import io.quarkus.qe.vertx.sql.services.DbPoolService;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.sqlclient.Row;
 import io.vertx.mutiny.sqlclient.RowSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import javax.validation.constraints.NotBlank;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 @Schema(name="Flight", description="Flight entity")
 @RegisterForReflection
@@ -18,17 +19,14 @@ public class Flight extends Record{
 
     private static final String QUALIFIED_ORIGIN_NAME = "origin";
     @Schema(description="origin")
-    @NotBlank(message="Flight origin must be not blank")
     private String origin;
 
     private static final String QUALIFIED_DESTINATION_NAME = "destination";
     @Schema(description="destination")
-    @NotBlank(message="Flight destination must be not blank")
     private String destination;
 
     private static final String QUALIFIED_AIRLINE_NAME = "flight_code";
     @Schema(description="flightCode")
-    @NotBlank(message="Flight code must be not blank")
     private String flightCode;
 
     private static final String QUALIFIED_PRICE_NAME = "base_price";

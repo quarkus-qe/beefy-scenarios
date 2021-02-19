@@ -1,0 +1,2 @@
+Module that covers the runtime configuration to ensure the changes take effect. The configuration that is covered is:
+- Allow disabling/enabling `Swagger/GraphQL/Heatlh/OpenAPI` endpoints on DEV, JVM and Native modes

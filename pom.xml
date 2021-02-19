@@ -25,6 +25,7 @@
       <module>014-quarkus-panache-with-transactions-xa</module>
       <module>015-quarkus-micrometer</module>
       <module>017-quartz-cluster</module>
+      <module>018-quarkus-runtime-properties</module>
       <module>019-quarkus-consul</module>
       <module>101-javaee-like-getting-started</module>
       <module>201-large-static-content</module>

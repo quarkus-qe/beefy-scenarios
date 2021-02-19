@@ -1,20 +1,21 @@
 package io.quarkus.qe.vertx.sql.test.resources;
 
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import static io.quarkus.qe.vertx.sql.test.resources.Db2TestProfile.PROFILE;
+
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.HostPortWaitStrategy;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 
-import static io.quarkus.qe.vertx.sql.test.resources.Db2TestProfile.PROFILE;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class Db2Resource implements QuarkusTestResourceLifecycleManager {
 
-    GenericContainer db2Container;
+    private GenericContainer<?> db2Container;
 
     @Override
     public Map<String, String> start() {
@@ -25,8 +26,9 @@ public class Db2Resource implements QuarkusTestResourceLifecycleManager {
         return config;
     }
 
+    @SuppressWarnings("resource")
     private void defaultDb2Container(Map<String, String> config) {
-        db2Container = new GenericContainer(DockerImageName.parse("quay.io/pjgg/db2:11.5.5.0"))
+        db2Container = new GenericContainer<>(DockerImageName.parse("quay.io/pjgg/db2:11.5.5.0"))
                 .withPrivilegedMode(true)
                 .withEnv("LICENSE", "accept")
                 .withEnv("DB2INST1_PASSWORD", "test")
@@ -49,7 +51,9 @@ public class Db2Resource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public void stop() {
-        if (Objects.nonNull(db2Container)) db2Container.stop();
+        if (db2Container != null) {
+            db2Container.stop();
+        }
     }
 
 }
