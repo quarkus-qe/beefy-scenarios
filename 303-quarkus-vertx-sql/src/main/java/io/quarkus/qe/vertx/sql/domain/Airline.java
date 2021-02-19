@@ -74,11 +74,11 @@ public class Airline extends Record{
     }
 
     public static Uni<List<Airline>> findAllAsList(DbPoolService client) {
-        return findAll(client).collect().in(ArrayList::new, List::add);
+        return findAll(client).collectItems().in(ArrayList::new, List::add);
     }
 
     public static Uni<Map<String, Airline>> findAirlineAsMap(DbPoolService client) {
-        return findAll(client).collect().asMap(airline -> airline.code);
+        return findAll(client).collectItems().asMap(airline -> airline.code);
     }
 
     public static String codeFromFlight(String flightCode) {

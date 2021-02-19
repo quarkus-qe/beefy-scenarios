@@ -56,7 +56,7 @@ public class Flight extends Record{
     }
 
     public static Uni<List<Flight>> findAllAsList(DbPoolService client) {
-        return findAll(client).collect().in(ArrayList::new, List::add);
+        return findAll(client).collectItems().in(ArrayList::new, List::add);
     }
 
     public static Multi<Flight> findByOriginDestination(DbPoolService client, String origin, String destination) {
@@ -65,7 +65,7 @@ public class Flight extends Record{
     }
 
     public static Uni<List<Flight>> findByOriginDestinationAsList(DbPoolService client, String origin, String destination) {
-        return findByOriginDestination(client, origin, destination).collect().in(ArrayList::new, List::add);
+        return findByOriginDestination(client, origin, destination).collectItems().in(ArrayList::new, List::add);
     }
 
     public String getOrigin() {

@@ -39,7 +39,7 @@ public class FlightSearchService {
         return Flight.findByOriginDestination(connection, query.from, query.to)
                 .onItem()
                 .transform(flight -> calculatePrice(query, flight))
-                .collect().in(ArrayList::new, List::add);
+                .collectItems().in(ArrayList::new, List::add);
     }
 
     private Basket calculatePrice(QueryFlightSearch query, Flight flight) {

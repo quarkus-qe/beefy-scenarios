@@ -73,7 +73,7 @@ public class PricingRules extends Record{
     }
 
     public static Uni<List<PricingRules>> findAllAsList(DbPoolService client) {
-        return findAll(client).collect().in(ArrayList::new, List::add);
+        return findAll(client).collectItems().in(ArrayList::new, List::add);
     }
 
     public static double applyChildPercentage(double adultFinalPrice) {
