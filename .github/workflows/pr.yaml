@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
-        image: [ "ubi-quarkus-native-image:21.0-java11"]
+        image: [ "ubi-quarkus-native-image:20.3.1-java11"]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/cache@v1
@@ -23,7 +23,7 @@ jobs:
           java-version: ${{ matrix.java }}
       - name: Build Quarkus master
         run: |
-          git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B -s .github/mvn-settings.xml clean install -Dquickly
+          git clone https://github.com/gsmet/quarkus.git && cd quarkus && git checkout java-serialization && mvn -B -s .github/mvn-settings.xml clean install -Dquickly
       - name: Test in JVM mode
         run: |
           mvn -V -B -s .github/mvn-settings.xml clean test
