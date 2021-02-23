@@ -2,12 +2,14 @@ package io.quarkus.qe.vertx.webclient;
 
 import io.quarkus.qe.vertx.webclient.config.ChuckEndpointValue;
 import io.quarkus.qe.vertx.webclient.config.VertxWebClientConfig;
+import io.quarkus.scheduler.Scheduled;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.json.Json;
 import io.vertx.mutiny.core.Vertx;
 import io.vertx.mutiny.ext.web.client.WebClient;
 import io.vertx.mutiny.ext.web.client.predicate.ResponsePredicate;
 import io.vertx.mutiny.ext.web.codec.BodyCodec;
+import javax.transaction.Transactional;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.annotation.PostConstruct;
@@ -39,6 +41,12 @@ public class ChuckNorrisResource {
     @PostConstruct
     void initialize() {
         this.client = WebClient.create(vertx);
+    }
+
+    @Transactional
+    @Scheduled(cron = "0/1 * * * * ?")
+    void increment() {
+        System.out.println("hello Scheduler");
     }
 
     @GET
