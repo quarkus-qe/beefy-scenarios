@@ -35,6 +35,7 @@
       <module>303-quarkus-vertx-sql</module>
       <module>304-quarkus-vertx-routes</module>
       <module>601-spring-data-primitive-types</module>
+      <module>602-spring-data-rest</module>
   </modules>
 
   <properties>
