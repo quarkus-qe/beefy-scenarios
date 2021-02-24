@@ -25,14 +25,15 @@
       <module>014-quarkus-panache-with-transactions-xa</module>
       <module>015-quarkus-micrometer</module>
       <module>017-quartz-cluster</module>
-      <module>018-quarkus-runtime-properties</module>
-      <module>019-quarkus-consul</module>
+     <!-- <module>018-quarkus-runtime-properties</module>
+      <module>019-quarkus-consul</module> -->
       <module>101-javaee-like-getting-started</module>
       <module>201-large-static-content</module>
       <module>300-quarkus-vertx-webClient</module>
       <module>301-quarkus-vertx-kafka</module>
       <module>302-quarkus-vertx-jwt</module>
       <module>303-quarkus-vertx-sql</module>
+      <module>304-quarkus-vertx-routes</module>
       <module>601-spring-data-primitive-types</module>
       <module>602-spring-data-rest</module>
   </modules>
@@ -53,8 +54,8 @@
 
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-    <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
-    <quarkus-plugin.version>999-SNAPSHOT</quarkus-plugin.version>
+    <quarkus.platform.version>1.11.3.Final</quarkus.platform.version>
+    <quarkus-plugin.version>1.11.3.Final</quarkus-plugin.version>
 
   </properties>
 

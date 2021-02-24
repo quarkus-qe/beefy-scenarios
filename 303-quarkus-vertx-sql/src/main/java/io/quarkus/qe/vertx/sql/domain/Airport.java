@@ -60,7 +60,7 @@ public class Airport extends Record{
     }
 
     public static Uni<List<Airport>> findAllAsList(DbPoolService client) {
-        return findAll(client).collect().in(ArrayList::new, List::add);
+        return findAll(client).collectItems().in(ArrayList::new, List::add);
     }
 
     @Override

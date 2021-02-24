@@ -69,7 +69,7 @@ public class MysqlPoolTest extends AbstractCommons{
                                         }
                                         return result;
                                     }).toMulti();
-                        }).collect().in(ArrayList::new, List::add).subscribe().with(re -> {
+                        }).collectItems().in(ArrayList::new, List::add).subscribe().with(re -> {
                     LOGGER.info("Subscribe success: -> " + re.get(0));
                 }, Throwable::printStackTrace);
             };
