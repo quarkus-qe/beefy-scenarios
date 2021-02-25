@@ -4,14 +4,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.time.Duration;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
 import org.apache.commons.io.IOUtils;
 import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
 
 import com.orbitz.consul.Consul;
 import com.orbitz.consul.KeyValueClient;
@@ -19,18 +17,12 @@ import com.orbitz.consul.KeyValueClient;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class ConsulTestResource implements QuarkusTestResourceLifecycleManager {
-    private GenericContainer<?> resource;
 
-    @SuppressWarnings("resource")
+    private ConsulContainer resource;
+
     @Override
     public Map<String, String> start() {
-
-        resource = new GenericContainer<>("consul:1.7")
-                .waitingFor(new LogMessageWaitStrategy().withRegEx(".*Node info in sync.*\\s"))
-                .withStartupTimeout(Duration.ofMillis(20000))
-                .withNetworkMode("host")
-                .withCommand("agent -dev");
-
+        resource = new ConsulContainer();
         resource.start();
 
         Consul client = Consul.builder().build();
