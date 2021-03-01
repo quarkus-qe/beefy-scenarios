@@ -11,7 +11,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>014-quarkus-panache-agroal</artifactId>
+    <artifactId>014-quarkus-panache-with-transactions-xa</artifactId>
 
     <dependencies>
         <dependency>
