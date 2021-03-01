@@ -1,12 +1,13 @@
 package io.quarkus.qe.spring.data.model;
 
 import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-// issue QUARKUS-525
+//This is for regression test for https://github.com/quarkusio/quarkus/pull/13015
 @MappedSuperclass
 public class Animal {
 
