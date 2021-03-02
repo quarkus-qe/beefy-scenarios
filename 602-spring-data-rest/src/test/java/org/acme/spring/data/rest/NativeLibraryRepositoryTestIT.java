@@ -1,8 +1,10 @@
 package org.acme.spring.data.rest;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import org.junit.jupiter.api.Disabled;
+
 import io.quarkus.test.junit.NativeImageTest;
 
+@Disabled("TODO: Caused by https://github.com/quarkusio/quarkus/issues/15409")
 @NativeImageTest
 public class NativeLibraryRepositoryTestIT extends LibraryRepositoryTest{
 
