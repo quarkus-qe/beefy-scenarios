@@ -17,10 +17,9 @@ public class NonAppEndpointTestNonBaseRootPathTest extends CommonNonAppEndpoint 
             .overrideConfigKey("quarkus.http.root-path", "/")
             .overrideConfigKey("quarkus.http.non-application-root-path", BASE_PATH)
             .overrideConfigKey("quarkus.http.redirect-to-non-application-root-path", "false")
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(HelloResource.class))
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class).addClasses(HelloResource.class))
             .setRun(true);
-
+    
     @Test
     @DisplayName("Non-application endpoint with quarkus.http.root-path set to '/'")
     public void nonAppEndpointsBasePathSlash() {

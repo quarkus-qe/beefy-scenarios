@@ -1,7 +1,5 @@
 package io.quarkus.qe.non_application.endpoint;
 
-import java.util.Collections;
-
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.DisplayName;
@@ -16,13 +14,12 @@ public class RelativePathNonAppEndpointTest extends CommonNonAppEndpoint {
 
     @RegisterExtension
     static final QuarkusProdModeTest relativePathScenario = new QuarkusProdModeTest()
-            .setRuntimeProperties(Collections.singletonMap("quarkus.http.test-port", "8083"))
             .overrideConfigKey("quarkus.http.root-path", "/api")
             .overrideConfigKey("quarkus.http.non-application-root-path", BASE_PATH)
             .overrideConfigKey("quarkus.http.redirect-to-non-application-root-path", "false")
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClass(HelloResource.class))
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class).addClass(HelloResource.class))
             .setRun(true);
+
 
     @Test
     @DisplayName("Non-application relative path")
