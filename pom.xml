@@ -27,6 +27,7 @@
       <module>017-quartz-cluster</module>
       <module>018-quarkus-runtime-properties</module>
       <module>019-quarkus-consul</module>
+      <module>020-quarkus-http-non-application-endpoints</module>
       <module>101-javaee-like-getting-started</module>
       <module>201-large-static-content</module>
       <module>300-quarkus-vertx-webClient</module>
