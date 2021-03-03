@@ -1,5 +1,9 @@
 package io.quarkus.qe.spring.data.model;
 
+import java.util.Map;
+
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -14,9 +18,13 @@ public class Book extends NamedEntity {
 
     private Long isbn;
 
-    @ManyToOne(targetEntity=Address.class)
+    @ManyToOne(targetEntity = Address.class)
     @JoinColumn(name = "addressId")
     private Address publisherAddress;
+
+    @Column(name = "comments")
+    @Convert(converter = MapStringConverter.class)
+    private Map<String, String> comments;
 
     public Book() {
     }
@@ -57,5 +65,13 @@ public class Book extends NamedEntity {
 
     public void setPublisherAddress(Address publisherAddress) {
         this.publisherAddress = publisherAddress;
+    }
+
+    public Map<String, String> getComments() {
+        return comments;
+    }
+
+    public void setComments(Map<String, String> comments) {
+        this.comments = comments;
     }
 }
