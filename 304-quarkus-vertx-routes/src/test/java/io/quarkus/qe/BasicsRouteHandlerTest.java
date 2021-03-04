@@ -12,11 +12,19 @@ import io.quarkus.test.junit.QuarkusTest;
 public class BasicsRouteHandlerTest {
 
     @Test
-    @Disabled("TODO: It returns HTTP 404 Not Found. Reported in https://github.com/quarkusio/quarkus/issues/15185")
-    public void shouldWorkUsingParamsWithHyphen() {
+    public void shouldWorkUsingParamsWithUnderscore() {
         given().when()
-                .get("/param-with-hyphen/work")
+                .get("/basics/param-with-underscore/work")
                 .then()
                 .statusCode(HttpStatus.SC_OK);
+    }
+
+    @Disabled("TODO: Caused by https://github.com/quarkusio/quarkus/issues/15470")
+    @Test
+    public void shouldWorkCallingAMethodWithEmptyResponse() {
+        given().when()
+                .get("/basics/method-return-empty/work")
+                .then()
+                .statusCode(HttpStatus.SC_NO_CONTENT);
     }
 }
