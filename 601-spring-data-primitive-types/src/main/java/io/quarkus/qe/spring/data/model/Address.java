@@ -1,6 +1,7 @@
 package io.quarkus.qe.spring.data.model;
 
 import java.util.List;
+
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

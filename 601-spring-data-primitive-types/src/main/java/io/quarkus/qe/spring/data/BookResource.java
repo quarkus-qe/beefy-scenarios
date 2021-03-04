@@ -1,11 +1,15 @@
 package io.quarkus.qe.spring.data;
 
-import io.quarkus.qe.spring.data.model.Book;
 import java.util.List;
+
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+
+import io.quarkus.qe.spring.data.model.Book;
 
 @Path("/book")
 public class BookResource {
@@ -14,6 +18,15 @@ public class BookResource {
 
     public BookResource(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
+    }
+
+    @PUT
+    @Produces("application/json")
+    @Path("/{id}")
+    public Book updateBook(@PathParam("id") Integer id, final Book book) {
+        verifyBookExists(id);
+        book.setBid(id);
+        return bookRepository.save(book);
     }
 
     @GET
@@ -47,8 +60,13 @@ public class BookResource {
     @GET
     @Path("/publisher/zipcode/{zipCode}")
     @Produces("application/json")
-    public List<Book> findBooksByPublicationYear(@PathParam("zipCode") String zipCode) {
+    public List<Book> findBooksByZipCode(@PathParam("zipCode") String zipCode) {
         return bookRepository.findByPublisherAddressZipCode(zipCode);
     }
 
+    private void verifyBookExists(Integer id) {
+        if (!bookRepository.existsById(id)) {
+            throw new NotFoundException(String.format("book with id=%d was not found", id));
+        }
+    }
 }
