@@ -62,8 +62,7 @@ jobs:
         run: |
           mvn -fae -V -B -s .github/mvn-settings.xml -fae clean verify -Dnative \
             -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
-            -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }} \
-            -pl '!002-quarkus-all-extensions'
+            -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }}
       - name: Zip Artifacts
         run: |
           zip -R artifacts-native${{ matrix.java }}.zip '*-reports/*'
