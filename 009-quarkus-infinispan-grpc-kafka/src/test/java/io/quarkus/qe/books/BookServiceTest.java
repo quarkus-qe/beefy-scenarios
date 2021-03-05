@@ -1,6 +1,7 @@
 package io.quarkus.qe.books;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.http.HttpStatus;
@@ -32,5 +33,15 @@ public class BookServiceTest {
                 .as(Book.class);
 
         assertEquals(BOOK, actual);
+    }
+
+    @Test
+    public void testBookResourceShouldValidateBook() {
+        given()
+                .contentType(ContentType.JSON)
+                .body(new Book())
+                .when().post("/book/add")
+                .then().statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body(containsString("Title cannot be blank"));
     }
 }

@@ -24,7 +24,7 @@ public class Book {
         this.publicationYear = publicationYear;
     }
 
-    @NotBlank(message = "Title may not be blank")
+    @NotBlank(message = "Title cannot be blank")
     @ProtoField(number = 1)
     public String getTitle() {
         return title;
