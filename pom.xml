@@ -36,6 +36,7 @@
       <module>304-quarkus-vertx-routes</module>
       <module>601-spring-data-primitive-types</module>
       <module>602-spring-data-rest</module>
+      <module>603-spring-web-smallrye-openapi</module>
   </modules>
 
   <properties>
