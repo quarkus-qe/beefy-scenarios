@@ -14,4 +14,4 @@ Variants:
 - Using Reactive endpoints (quarkus-resteasy-mutiny extension)
 - Using Lookup authorization via `@ClientHeaderParam` annotation 
 - Using `OIDC Client Filter` extension to automatically acquire the access token from Keycloak when calling to the RestClient.
-- Using `OIDC Token Propagation` extension to propagate the tokens from the source REST call to the target RestClient. (Disabled because https://github.com/quarkusio/quarkus/issues/14466)
+- Using `OIDC Token Propagation` extension to propagate the tokens from the source REST call to the target RestClient. 
