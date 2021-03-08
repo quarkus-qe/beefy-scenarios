@@ -1,7 +1,10 @@
 package io.quarkus.qe.non_application.endpoint;
 
-import io.quarkus.test.junit.NativeImageTest;
+import static io.quarkus.qe.non_application.endpoint.CommonNonAppEndpoint.NATIVE;
+import static io.quarkus.qe.non_application.endpoint.CommonNonAppEndpoint.QUARKUS_PROFILE;
 
-@NativeImageTest
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
+
+@EnabledIfSystemProperty(named = QUARKUS_PROFILE, matches = NATIVE)
 public class RelativePathNonAppEndpointIT extends RelativePathNonAppEndpointTest {
 }

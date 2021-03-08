@@ -166,6 +166,7 @@
                   <systemProperties>
                     <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
                     <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                    <quarkus.profile>native</quarkus.profile>
                   </systemProperties>
                 </configuration>
               </execution>
