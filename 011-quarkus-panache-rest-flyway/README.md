@@ -8,7 +8,3 @@ Topics covered here:
 - https://quarkus.io/guides/flyway
 
 In the future, I would like to cover different database at the same time.
-
-## Disabled tests
-
-`PostgreSqlApplicationResourceTest#shouldReturnBadRequestIfApplicationNameIsNull` - see https://github.com/quarkusio/quarkus/issues/13307

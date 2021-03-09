@@ -28,7 +28,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 @Filter(name = "useLikeByName", condition = "name like '%' || :name || '%'")
 @FilterDef(name = "useServiceByName", parameters = { @ParamDef(name = "name", type = "string") })
 public class ApplicationEntity extends PanacheEntity {
-    @NotEmpty
+    @NotEmpty(message = "name can't be null")
     @Column(unique = true, nullable = false)
     public String name;
 

@@ -15,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.qe.containers.PostgreSqlDatabaseTestResource;
@@ -68,16 +67,13 @@ public class PostgreSqlApplicationResourceTest {
         thenApplicationsCountIs(0);
     }
 
-    /**
-     * This test is disabled because the conflict exception raised by hibernate validator is wrapping it up by the rollback
-     * exception which ends up in a HTTP 500 Internal Server Error instead of a HTTP 409 Conflict.
-     */
-    @Disabled("Caused by https://github.com/quarkusio/quarkus/issues/13307.")
     @Test
     public void shouldReturnBadRequestIfApplicationNameIsNull() {
         applicationPath().body(new ApplicationEntity()).post()
                 .then()
-                .statusCode(HttpStatus.SC_CONFLICT);
+                .statusCode(HttpStatus.SC_BAD_REQUEST);
+                // TODO: Body assertion is not working caused by https://github.com/quarkusio/quarkus/issues/15492
+                // .body(containsString("name can't be null"));
     }
 
     @Test
