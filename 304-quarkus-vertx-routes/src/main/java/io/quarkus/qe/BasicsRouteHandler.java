@@ -11,9 +11,4 @@ public class BasicsRouteHandler {
     boolean validateRequestSingleParam(@Param("first_param") String param) {
         return true;
     }
-
-    @Route(methods = HttpMethod.GET, path = "/method-return-empty/:first_param")
-    void validateMethodWithEmptyResponse(@Param("first_param") String param) {
-        // do nothing
-    }
 }
