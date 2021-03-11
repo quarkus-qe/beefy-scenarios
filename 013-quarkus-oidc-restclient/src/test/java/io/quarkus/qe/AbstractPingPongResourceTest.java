@@ -1,19 +1,23 @@
 package io.quarkus.qe;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.config.HttpClientConfig.httpClientConfig;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 
-
-import io.quarkus.qe.model.Score;
-import io.restassured.http.ContentType;
 import java.util.UUID;
+
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.keycloak.authorization.client.AuthzClient;
 
 import io.quarkus.qe.containers.KeycloakTestResource;
+import io.quarkus.qe.model.Score;
 import io.quarkus.test.common.QuarkusTestResource;
+import io.restassured.RestAssured;
+import io.restassured.config.RestAssuredConfig;
+import io.restassured.http.ContentType;
 
 @QuarkusTestResource(KeycloakTestResource.class)
 public abstract class AbstractPingPongResourceTest {
@@ -23,7 +27,19 @@ public abstract class AbstractPingPongResourceTest {
     private static final String USER = "test-user";
     private static final String WRONG_TOKEN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+    private static final String HTTP_SOCKET_TIMEOUT_PROPERTY = "http.socket.timeout";
+    private static final String HTTP_CONNECTION_TIMEOUT_PROPERTY = "http.connection.timeout";
+    private static final int TIMEOUT_IN_SECONDS = 1000;
+
     AuthzClient authzClient;
+
+    @BeforeEach
+    public void setup() {
+        RestAssured.config = RestAssuredConfig.config()
+                .httpClient(httpClientConfig()
+                        .setParam(HTTP_SOCKET_TIMEOUT_PROPERTY, TIMEOUT_IN_SECONDS)
+                        .setParam(HTTP_CONNECTION_TIMEOUT_PROPERTY, TIMEOUT_IN_SECONDS));
+    }
 
     @Test
     public void testPingUnauthorized() {
