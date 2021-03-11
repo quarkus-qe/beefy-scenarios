@@ -15,6 +15,8 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import io.quarkus.test.QuarkusProdModeTest;
 
 public abstract class ApplicationResource extends QuarkusProdModeTest {
+    public static final String QUARKUS_PROFILE = "quarkus.profile";
+    public static final String NATIVE = "native";
 
     private static final String RESOURCES_FOLDER = "src/main/resources/";
     private static final String FLYWAY_FOLDER = "db/migration/";
@@ -24,6 +26,8 @@ public abstract class ApplicationResource extends QuarkusProdModeTest {
     private static final String FLYWAY_ENTITIES_SQL = FLYWAY_FOLDER + "V1.0.0__init.sql";
     private static final String FLYWAY_QUARTZ_SQL = FLYWAY_FOLDER + "V2.0.0__QuarkusQuartz.sql";
 
+    private static final boolean IS_NATIVE = System.getProperty(QUARKUS_PROFILE, "").equals(NATIVE);
+
     public ApplicationResource(Class<?>[] classes, Map<String, String> customProps) {
         JavaArchive javaArchive = ShrinkWrap.create(JavaArchive.class)
                 .addClasses(classes);
@@ -32,7 +36,7 @@ public abstract class ApplicationResource extends QuarkusProdModeTest {
         javaArchive.addAsResource(new File(RESOURCES_FOLDER + FLYWAY_QUARTZ_SQL), FLYWAY_QUARTZ_SQL);
 
         setArchiveProducer(() -> javaArchive);
-        setRun(true);
+        setBuildNative(IS_NATIVE).setRun(true);
 
         Map<String, String> properties = new HashMap<>(toMap(COMMON_PROPERTIES));
         properties.putAll(customProps);
