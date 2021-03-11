@@ -17,7 +17,7 @@ public abstract class CommonNonAppEndpoint {
     protected final List<String> nonAppEndpoints = Arrays.asList(
             "/openapi", "/metrics/base", "/metrics/application",
             "/metrics/vendor", "/metrics", "/health/group", "/health/well", "/health/ready",
-            "/health/live", "/health");
+            "/health/live", "/health", "/swagger-ui");
 
     protected void givenBasePath(String basePath) {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
