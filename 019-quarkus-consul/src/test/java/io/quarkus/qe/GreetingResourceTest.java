@@ -28,9 +28,13 @@ public class GreetingResourceTest {
 
     private static final String APPLICATION_PROPERTIES = "application.properties";
     private static final String CUSTOM_PROPERTY = "my.property";
+    protected static final String QUARKUS_PROFILE = "quarkus.profile";
+    protected static final String NATIVE = "native";
+    protected static final boolean IS_NATIVE = System.getProperty(QUARKUS_PROFILE, "").equals(NATIVE);
 
     @RegisterExtension
     static final QuarkusProdModeTest app = new QuarkusProdModeTest()
+            .setBuildNative(IS_NATIVE)
             .setArchiveProducer(
                     () -> ShrinkWrap.create(JavaArchive.class)
                             .addClass(GreetingResource.class)
