@@ -7,8 +7,8 @@ import io.vertx.core.http.HttpMethod;
 
 @RouteBase(path = "/basics")
 public class BasicsRouteHandler {
-    @Route(methods = HttpMethod.GET, path = "/param-with-hyphen/:first-param")
-    void validateRequestSingleParam(@Param("first-param") String param) {
-        // do nothing
+    @Route(methods = HttpMethod.GET, path = "/param-with-underscore/:first_param")
+    boolean validateRequestSingleParam(@Param("first_param") String param) {
+        return true;
     }
 }

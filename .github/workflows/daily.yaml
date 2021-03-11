@@ -26,7 +26,7 @@ jobs:
           git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B -s .github/mvn-settings.xml clean install -Dquickly
       - name: Test in JVM mode
         run: |
-          mvn -V -B -s .github/mvn-settings.xml -fae clean verify
+          mvn -fae -V -B -s .github/mvn-settings.xml -fae clean verify
       - name: Zip Artifacts
         run: |
           zip -R artifacts-jvm${{ matrix.java }}.zip '*-reports/*'
@@ -60,10 +60,9 @@ jobs:
           git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B -s .github/mvn-settings.xml clean install -Dquickly
       - name: Test in Native mode
         run: |
-          mvn -V -B -s .github/mvn-settings.xml -fae clean verify -Dnative \
+          mvn -fae -V -B -s .github/mvn-settings.xml -fae clean verify -Dnative \
             -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
-            -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }} \
-            -pl '!002-quarkus-all-extensions'
+            -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }}
       - name: Zip Artifacts
         run: |
           zip -R artifacts-native${{ matrix.java }}.zip '*-reports/*'

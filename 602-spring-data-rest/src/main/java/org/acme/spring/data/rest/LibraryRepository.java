@@ -1,12 +1,12 @@
 package org.acme.spring.data.rest;
 
-import com.sun.xml.bind.v2.model.core.ID;
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RestResource;
 
-import java.util.Optional;
-
 public interface LibraryRepository extends CrudRepository<Library, Long> {
+    @Override
     @RestResource(path = "id")
-    Optional<Library> findById(ID id);
+    Optional<Library> findById(Long id);
 }

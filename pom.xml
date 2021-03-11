@@ -10,7 +10,6 @@
 
   <modules>
       <module>001-quarkus-getting-started-with-jaxrs</module>
-      <module>002-quarkus-all-extensions</module>
       <module>003-quarkus-many-extensions</module>
       <module>004-quarkus-HHH-and-HV</module>
       <module>005-quarkus-and-maven-profiles</module>
@@ -37,6 +36,7 @@
       <module>304-quarkus-vertx-routes</module>
       <module>601-spring-data-primitive-types</module>
       <module>602-spring-data-rest</module>
+      <module>603-spring-web-smallrye-openapi</module>
   </modules>
 
   <properties>
@@ -145,6 +145,16 @@
   </build>
   <profiles>
     <profile>
+      <id>high-memory-needed</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <modules>
+        <!-- This module only works when running it in JVM mode -->
+        <module>002-quarkus-all-extensions</module>
+      </modules>
+    </profile>
+    <profile>
       <id>native</id>
       <activation>
         <property>
@@ -166,6 +176,7 @@
                   <systemProperties>
                     <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
                     <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                    <quarkus.profile>native</quarkus.profile>
                   </systemProperties>
                 </configuration>
               </execution>
