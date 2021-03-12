@@ -247,10 +247,11 @@
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-resteasy-jackson</artifactId>
       </dependency>
+      <!-- Caused by https://github.com/quarkusio/quarkus/issues/15442
       <dependency>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-narayana-stm</artifactId>
-      </dependency>
+      </dependency> -->
       <dependency>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-elytron-security-properties-file</artifactId>
@@ -507,10 +508,11 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-minikube</artifactId>
         </dependency>
+        <!--  We cannot have picocli and REST assured at the same time.
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-picocli</artifactId>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-reactive-db2-client</artifactId>
@@ -547,5 +549,35 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-webjars-locator</artifactId>
         </dependency>
+        
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- TODO: Workaround for https://github.com/quarkusio/quarkus/issues/6327 -->
+        <dependency>
+            <groupId>jakarta.security.jacc</groupId>
+            <artifactId>jakarta.security.jacc-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>5.3.1</version>
+        </dependency>
+        <!-- end Workaround -->
+        
+        <!-- Workaround for https://github.com/quarkusio/quarkus/issues/15434 -->
+        <dependency>
+            <groupId>com.github.jnr</groupId>
+            <artifactId>jnr-unixsocket</artifactId>
+            <version>0.38.5</version>
+        </dependency>
+        
     </dependencies>
 </project>
