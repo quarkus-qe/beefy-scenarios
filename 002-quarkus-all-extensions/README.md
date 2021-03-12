@@ -30,3 +30,7 @@ mvn quarkus:add-extensions -Dextensions=`cat extensions-1.7.1 | tr '\n' ',' | se
 ## Issues in JVM and Native mode
 Several Issues were met in JVM and Native mode. Some extensions need initial configuration to build successfully in JVM mode,
 some extension need some code and configuration to build successfully in Native mode.
+
+Note that this module requires more than 12GB of RAM.
+
+The REST endpoints are not exposed when running the application in Native. This is preventing the Native test to work and it has been disabled.
