@@ -9,6 +9,18 @@
     </parent>
 
     <artifactId>303-quarkus-vertx-sql</artifactId>
+    
+    <properties>
+        <db.name>amadeus</db.name>
+        <db.user>test</db.user>
+        <db.password>test</db.password>
+    
+        <db2.image>ibmcom/db2:11.5.5.0</db2.image>        
+        <postgres.image>postgres:13.1</postgres.image>
+        <mysql.image>mysql:8.0.22</mysql.image>
+        
+        <build-helper-maven-plugin.version>3.2.0</build-helper-maven-plugin.version>
+    </properties>
 
     <dependencies>
        <dependency>
@@ -52,14 +64,192 @@
             <artifactId>quarkus-hibernate-validator</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>testcontainers</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>io.smallrye.reactive</groupId>
             <artifactId>smallrye-mutiny-vertx-web-client</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
+    
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${build-helper-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>reserve-network-port</id>
+                        <goals>
+                            <goal>reserve-network-port</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <portNames>
+                                <portName>postgres.port</portName>
+                                <portName>mysql.port</portName>
+                                <portName>db2.port</portName>
+                            </portNames>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+    
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <images>
+                        <image>
+                            <name>${postgres.image}</name>
+                            <alias>postgresql</alias>
+                            <run>
+                                <env>
+                                    <POSTGRES_USER>${db.user}</POSTGRES_USER>
+                                    <POSTGRES_PASSWORD>${db.password}</POSTGRES_PASSWORD>
+                                    <POSTGRES_DB>${db.name}</POSTGRES_DB>
+                                </env>
+                                <ports>
+                                    <port>postgres.port:5432</port>
+                                </ports>
+                                <wait>
+                                    <time>10000</time>
+                                    <!-- Kill the container, if it doesn't stop before this given time
+                                     duration since a graceful stop was issued -->
+                                    <kill>300000</kill>
+                                </wait>
+                            </run>
+                        </image>
+                        <image>
+                            <name>${mysql.image}</name>
+                            <alias>mysql</alias>
+                            <run>
+                                <ports>
+                                    <port>mysql.port:3306</port>
+                                </ports>
+                                <env>
+                                    <MYSQL_USER>${db.user}</MYSQL_USER>
+                                    <MYSQL_PASSWORD>${db.password}</MYSQL_PASSWORD>
+                                    <MYSQL_DATABASE>${db.name}</MYSQL_DATABASE>
+                                    <MYSQL_ROOT_PASSWORD>${db.password}</MYSQL_ROOT_PASSWORD>
+                                </env>
+                                <log>
+                                    <prefix>MySQL:</prefix>
+                                    <date>default</date>
+                                    <color>cyan</color>
+                                </log>
+                                <tmpfs>/var/lib/mysql</tmpfs>
+                                <wait>
+                                    <log>.*MySQL Community Server.*</log>
+                                    <time>20000</time>
+                                    <!-- Kill the container, if it doesn't stop before this given time
+                                     duration since a graceful stop was issued -->
+                                    <kill>300000</kill>
+                                </wait>
+                            </run>
+                        </image>
+                        <image>
+                            <name>${db2.image}</name>
+                            <alias>db2</alias>
+                            <run>
+                                <privileged>true</privileged>
+                                <ports>
+                                    <port>db2.port:50000</port>
+                                </ports>
+                                <env>
+                                    <DB2INSTANCE>test</DB2INSTANCE>
+                                    <DB2INST1_PASSWORD>${db.password}</DB2INST1_PASSWORD>
+                                    <DBNAME>${db.name}</DBNAME>
+                                    <LICENSE>accept</LICENSE>
+                                    <!-- These help the DB2 container start faster -->
+                                    <AUTOCONFIG>false</AUTOCONFIG>
+                                    <ARCHIVE_LOGS>false</ARCHIVE_LOGS>
+                                    <PERSISTENT_HOME>false</PERSISTENT_HOME>
+                                </env>
+                                <log>
+                                    <prefix>DB2:</prefix>
+                                    <date>default</date>
+                                    <color>cyan</color>
+                                </log>
+                                <wait>
+                                    <log>.*Setup has completed.*</log>
+                                    <!-- Unfortunately booting DB2 is slow, needs to set a generous (15m) timeout;
+                                     it generally starts in 2-3 minutes, but it's been occasionally slightly above 10m -->
+                                    <time>900000</time>
+                                    <!-- Kill the container, if it doesn't stop before this given time
+                                     duration since a graceful stop was issued -->
+                                    <kill>300000</kill>
+                                </wait>
+                            </run>
+                        </image>
+                    </images>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>docker-start</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>docker-stop</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <executions>
+                  <execution>
+                    <goals>
+                        <goal>integration-test</goal>
+                        <goal>verify</goal>
+                    </goals>
+                    <configuration>
+                        <includes>
+                            <include>**/*IT.java</include>
+                        </includes>
+                        <excludes>
+                            <exclude>**/Native*IT.java</exclude>
+                        </excludes>
+                    </configuration>
+                  </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>native</id>
+            <activation>
+                <property>
+                    <name>native</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <configuration>
+                                    <excludes combine.self="override"/>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

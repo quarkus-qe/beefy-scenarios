@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import io.quarkus.qe.vertx.sql.test.resources.PostgresqlTestProfile;
+import io.quarkus.qe.vertx.sql.test.profiles.PostgresqlTestProfile;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.smallrye.mutiny.Multi;
@@ -46,9 +46,9 @@ import io.vertx.mutiny.sqlclient.RowSet;
 @QuarkusTest
 @TestProfile(PostgresqlTestProfile.class)
 @TestMethodOrder(OrderAnnotation.class)
-public class PostgresPoolTest extends AbstractCommons{
+public class PostgresPoolIT extends AbstractCommons{
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PostgresPoolTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostgresPoolIT.class);
 
     static final int TIMEOUT_SEC = 60;
     static final int HTTP_OK = 200;

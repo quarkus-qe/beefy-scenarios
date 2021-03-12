@@ -1,6 +1,24 @@
 package io.quarkus.qe.vertx.sql.dbpool;
 
-import io.quarkus.qe.vertx.sql.test.resources.MysqlTestProfile;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.qe.vertx.sql.test.profiles.Db2TestProfile;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.smallrye.mutiny.Multi;
@@ -8,42 +26,26 @@ import io.vertx.core.Handler;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.mutiny.core.Vertx;
-import io.vertx.mutiny.mysqlclient.MySQLPool;
+import io.vertx.mutiny.db2client.DB2Pool;
 import io.vertx.mutiny.sqlclient.Row;
 import io.vertx.mutiny.sqlclient.RowSet;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-import javax.inject.Inject;
-import javax.inject.Named;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+@Disabled("Caused by https://github.com/quarkusio/quarkus/issues/14608")
 @QuarkusTest
-@TestProfile(MysqlTestProfile.class)
-public class MysqlPoolTest extends AbstractCommons{
+@TestProfile(Db2TestProfile.class)
+public class Db2PoolIT extends AbstractCommons{
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PostgresPoolTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Db2PoolIT.class);
 
-    @ConfigProperty(name = "quarkus.datasource.mysql.reactive.idle-timeout")
+    @ConfigProperty(name = "quarkus.datasource.db2.reactive.idle-timeout")
     int idle;
 
     @Inject
-    @Named("mysql")
-    MySQLPool mysql;
+    @Named("db2")
+    DB2Pool db2;
 
     @Test
-    @DisplayName("Idle issue: Fail to read any response from the server, the underlying connection might get lost unexpectedly.")
-    @Disabled("QUARKUS-719")
+    @DisplayName("Reproducer of Idle issue: Fail to read any response from the server, the underlying connection might get lost unexpectedly.")
     public void checkBorderConditionBetweenIdleAndGetConnection(){
         try {
             long idleMs = TimeUnit.SECONDS.toMillis(idle);
@@ -54,7 +56,7 @@ public class MysqlPoolTest extends AbstractCommons{
                 Multi.createFrom().range(1, 3)
                         .concatMap(n -> {
                             LOGGER.info("Connection #" + at.incrementAndGet());
-                            return mysql.preparedQuery("SELECT CURRENT_TIMESTAMP")
+                            return db2.preparedQuery("SELECT CURRENT TIMESTAMP result FROM sysibm.sysdummy1")
                                     .execute().onFailure().invoke(error -> {
                                         LOGGER.info("Error: " + at.get());
                                         LOGGER.error("Error on query: '" + error.getMessage() + "'");
@@ -75,10 +77,10 @@ public class MysqlPoolTest extends AbstractCommons{
             };
             Vertx.vertx().setPeriodic(idleMs + 3, l -> handler.handle(l));
             await(5, TimeUnit.MINUTES);
+            assertEquals(1, latch.getCount(), "An unexpected error was thrown.");
         }catch(IllegalStateException ex) {
         }finally {
             assertEquals(1, latch.getCount(), "An unexpected error was thrown.");
         }
     }
-
 }
