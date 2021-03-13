@@ -30,6 +30,7 @@ import io.vertx.mutiny.db2client.DB2Pool;
 import io.vertx.mutiny.sqlclient.Row;
 import io.vertx.mutiny.sqlclient.RowSet;
 
+@Disabled("Caused by https://github.com/quarkusio/quarkus/issues/14608")
 @QuarkusTest
 @TestProfile(Db2TestProfile.class)
 public class Db2PoolTest extends AbstractCommons{
@@ -45,7 +46,6 @@ public class Db2PoolTest extends AbstractCommons{
 
     @Test
     @DisplayName("Idle issue: Fail to read any response from the server, the underlying connection might get lost unexpectedly.")
-    @Disabled("Long running test.")
     public void checkBorderConditionBetweenIdleAndGetConnection(){
         try {
             long idleMs = TimeUnit.SECONDS.toMillis(idle);

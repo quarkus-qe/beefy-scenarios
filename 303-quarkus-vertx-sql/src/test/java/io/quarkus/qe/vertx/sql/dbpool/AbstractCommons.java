@@ -30,9 +30,9 @@ public abstract class AbstractCommons {
     private void rethrowError() {
         if (throwable != null) {
             if (throwable instanceof Error) {
-                throw (Error)throwable;
+                throw (Error) throwable;
             } else if (throwable instanceof RuntimeException) {
-                throw (RuntimeException)throwable;
+                throw (RuntimeException) throwable;
             } else {
                 throw new IllegalStateException(throwable);
             }
