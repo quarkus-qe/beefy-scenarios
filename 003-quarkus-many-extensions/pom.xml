@@ -38,12 +38,11 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-spring-data-jpa</artifactId>
         </dependency>
-<!--        High memory usage in native compilation with current Quarkus master,
-            4g in not enough, pulling a lot of io.fabric8 dependencies  -->
-<!--        <dependency>-->
-<!--            <groupId>io.quarkus</groupId>-->
-<!--            <artifactId>quarkus-kubernetes</artifactId>-->
-<!--        </dependency>-->
+<!--        https://github.com/quarkusio/quarkus/issues/7185  for pom-deprecated-way.xml  -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-kubernetes</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-fault-tolerance</artifactId>
