@@ -118,11 +118,7 @@ class BookRepositoryTest {
                 .body("{\"name\": \"Q\", \"author\": \"Li\"}")
                 .when().post("/books")
                 .then()
-                .statusCode(HttpStatus.SC_BAD_REQUEST);
-                // TODO: Body assertion is not working caused by https://github.com/quarkusio/quarkus/issues/15492
-                // .body(
-                //        containsString("length must be between 2 and 50"),
-                //        containsString("propertyPath=name")
-                //);
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body(containsString("length must be between 2 and 50"));
     }
 }

@@ -1,6 +1,7 @@
 package io.quarkus.qe;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -71,9 +72,8 @@ public class PostgreSqlApplicationResourceTest {
     public void shouldReturnBadRequestIfApplicationNameIsNull() {
         applicationPath().body(new ApplicationEntity()).post()
                 .then()
-                .statusCode(HttpStatus.SC_BAD_REQUEST);
-                // TODO: Body assertion is not working caused by https://github.com/quarkusio/quarkus/issues/15492
-                // .body(containsString("name can't be null"));
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body(containsString("name can't be null"));
     }
 
     @Test
