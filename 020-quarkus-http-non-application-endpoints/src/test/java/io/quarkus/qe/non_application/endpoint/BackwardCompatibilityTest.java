@@ -20,11 +20,12 @@ import io.quarkus.test.QuarkusProdModeTest;
 
 public class BackwardCompatibilityTest {
     private static final String BASE_PATH = "/q";
+    private static final String ROOT_PATH = "/api";
 
     @RegisterExtension
     static final QuarkusProdModeTest backwardScenario = new QuarkusProdModeTest()
             .setBuildNative(IS_NATIVE)
-            .overrideConfigKey("quarkus.http.root-path", "/api")
+            .overrideConfigKey("quarkus.http.root-path", ROOT_PATH)
             .overrideConfigKey("quarkus.http.non-application-root-path", BASE_PATH)
             .overrideConfigKey("quarkus.http.redirect-to-non-application-root-path", "true")
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
@@ -37,9 +38,9 @@ public class BackwardCompatibilityTest {
         for (String endpoint : nonAppEndpoints) {
             given().redirects().follow(false)
                     .log().uri()
-                    .expect().statusCode(301).header("Location", endsWith("/q" + endpoint)).when().get(endpoint);
+                    .expect().statusCode(301).header("Location", endsWith(BASE_PATH + endpoint)).when().get(ROOT_PATH + endpoint);
 
-            given().expect().statusCode(in(Collections.singletonList(200))).when().get(endpoint);
+            given().expect().statusCode(in(Collections.singletonList(200))).when().get(ROOT_PATH + endpoint);
         }
     }
 }
