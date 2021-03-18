@@ -1,19 +1,16 @@
-package io.quarkus.qe.vertx.sql.handlers.basket;
-
-import io.quarkus.qe.vertx.sql.domain.Address;
-import io.quarkus.qe.vertx.sql.domain.Basket;
-import io.quarkus.qe.vertx.sql.domain.Passenger;
-import io.restassured.http.ContentType;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+package io.quarkus.qe.vertx.sql.handlers.spec;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
-public abstract class BasketHandlerTest {
-    @Test
-    @DisplayName("basket checkout")
-    public void basketCheckout() {
+import io.netty.handler.codec.http.HttpResponseStatus;
+import io.quarkus.qe.vertx.sql.domain.Address;
+import io.quarkus.qe.vertx.sql.domain.Basket;
+import io.quarkus.qe.vertx.sql.domain.Passenger;
+import io.restassured.http.ContentType;
+
+public interface BasketHandlerSpec {
+    default void basketCheckout() {
         Basket basket = new Basket();
         basket.setBillingPassenger(defaultPassenger());
         basket.setFlight("IB9961");
@@ -23,13 +20,11 @@ public abstract class BasketHandlerTest {
                 .when()
                 .post("/basket/checkout")
                 .then()
-                .statusCode(201)
+                .statusCode(HttpResponseStatus.CREATED.code())
                 .assertThat().body("isEmpty()", is(false));
     }
 
-    @Test
-    @DisplayName("wrong basket format checkout")
-    public void wrongBasketFormatCheckout() {
+    default void wrongBasketFormatCheckout() {
         Basket basket = new Basket();
         basket.setBillingPassenger(defaultPassenger());
         basket.setFlight("IB9961");
@@ -41,10 +36,10 @@ public abstract class BasketHandlerTest {
                 .when()
                 .post("/basket/checkout")
                 .then()
-                .statusCode(400);
+                .statusCode(HttpResponseStatus.BAD_REQUEST.code());
     }
 
-    private Passenger defaultPassenger() {
+    default Passenger defaultPassenger() {
         Passenger passenger = new Passenger();
         passenger.setAddress(defaultAddress());
         passenger.setName("Walt");
@@ -55,7 +50,7 @@ public abstract class BasketHandlerTest {
         return passenger;
     }
 
-    private Address defaultAddress() {
+    default Address defaultAddress() {
         Address billingAddress = new Address();
         billingAddress.setStreet("Avd. del Tomillaron");
         billingAddress.setBlockNumber("4b");
