@@ -52,6 +52,8 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
+      - name: Reclaim Disk Space
+        run: .github/ci-prerequisites.sh
       - name: Install JDK {{ matrix.java }}
         uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
         with:
