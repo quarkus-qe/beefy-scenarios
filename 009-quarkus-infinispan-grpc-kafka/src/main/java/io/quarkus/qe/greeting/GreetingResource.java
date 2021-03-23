@@ -1,5 +1,9 @@
 package io.quarkus.qe.greeting;
 
+import io.quarkus.example.blocking.GreeterGrpc;
+import io.quarkus.example.dto.HelloReply;
+import io.quarkus.example.dto.HelloRequest;
+import io.quarkus.example.mutiny.MutinyGreeterGrpc;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -7,10 +11,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.quarkus.example.GreeterGrpc;
-import io.quarkus.example.HelloReply;
-import io.quarkus.example.HelloRequest;
-import io.quarkus.example.MutinyGreeterGrpc;
 import io.quarkus.grpc.runtime.annotations.GrpcService;
 import io.smallrye.mutiny.Uni;
 
@@ -35,6 +35,6 @@ public class GreetingResource {
     @GET
     @Path("/mutiny/{name}")
     public Uni<String> hello(@PathParam("name") String name) {
-        return mutinyClient.sayHello(HelloRequest.newBuilder().setName(name).build()).map(HelloReply::getMessage);
+        return mutinyClient.sayHello(HelloRequest.newBuilder().setName(name).build()).onItem().transform(HelloReply::getMessage);
     }
 }
