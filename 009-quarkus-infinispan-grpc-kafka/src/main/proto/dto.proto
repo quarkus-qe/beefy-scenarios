@@ -1,16 +1,10 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "io.quarkus.example";
-option java_outer_classname = "HelloWorldProto";
+option java_package = "io.quarkus.example.dto";
+option java_outer_classname = "dtos";
 
-package helloworld;
-
-// The greeting service definition.
-service Greeter {
-    // Sends a greeting
-    rpc SayHello (HelloRequest) returns (HelloReply) {}
-}
+package dto;
 
 // The request message containing the user's name.
 message HelloRequest {
