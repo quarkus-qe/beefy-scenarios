@@ -1,4 +1,4 @@
-package org.acme.quickstart;
+package io.quarkus.qe.openshift;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

@@ -1,4 +1,8 @@
-# Scenario 020: Quarkus http non-application endpoints
+# Table of Contents
+1. [Quarkus http non-application endpoints](#Quarkus-http-non-application-endpoints)
+2. [Quarkus - OpenShift extension](#Quarkus-openshift-extension)
+
+## Quarkus http non-application endpoints
 
 We have covered the following non-application endpoints:
 
@@ -68,3 +72,11 @@ quarkus.http.redirect-to-non-application-root-path=true
 ```
 
 Valid request example: `http://localhost:8080/api/health`, will be redirected to `http://localhost:8080/q/health`
+
+## Quarkus OpenShift extension 
+By adding *quarkus-openshift* extension, maven build creates */kubernetes* directory under the */target*
+which includes *.yml* files for deployment
+
+### Test goal
+The goal of the test is to ensure that *kubernetes.yml* file has been created
+under mentioned */kubernetes* directory and parse that file to see required fields are present.
