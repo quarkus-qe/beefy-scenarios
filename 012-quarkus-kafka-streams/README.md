@@ -1,4 +1,4 @@
-# Quarkus Kafka Streams
+# Quarkus Kafka Streams (moved to [301-quarkus-vertx-kafka](../301-quarkus-vertx-kafka))
 
 ## Recommended Readings
 
