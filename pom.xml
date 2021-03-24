@@ -14,7 +14,6 @@
       <module>004-quarkus-HHH-and-HV</module>
       <module>005-quarkus-and-maven-profiles</module>
       <module>006-quartz-manually-scheduled-job</module>
-      <module>007-openshift-yaml-health-probes</module>
       <module>008-infinispan-getting-started</module>
       <module>009-quarkus-infinispan-grpc-kafka</module>
       <module>010-quarkus-opentracing-reactive-grpc</module>
