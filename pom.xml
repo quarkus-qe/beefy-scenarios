@@ -18,7 +18,6 @@
       <module>009-quarkus-infinispan-grpc-kafka</module>
       <module>010-quarkus-opentracing-reactive-grpc</module>
       <module>011-quarkus-panache-rest-flyway</module>
-      <module>012-quarkus-kafka-streams</module>
       <module>013-quarkus-oidc-restclient</module>
       <module>014-quarkus-panache-with-transactions-xa</module>
       <module>015-quarkus-micrometer</module>

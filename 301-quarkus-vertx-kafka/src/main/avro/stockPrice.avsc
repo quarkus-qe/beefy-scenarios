@@ -1,5 +1,5 @@
 {
-  "namespace": "io.quarkus.qe.vertx.kafka",
+  "namespace": "io.quarkus.qe.kafka",
   "type": "record",
   "name": "StockPrice",
   "fields": [
