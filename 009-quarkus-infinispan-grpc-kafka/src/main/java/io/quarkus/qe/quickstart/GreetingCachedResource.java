@@ -1,15 +1,17 @@
-package org.acme.quickstart;
+package io.quarkus.qe.quickstart;
 
-import io.quarkus.infinispan.client.Remote;
-import org.infinispan.client.hotrod.RemoteCache;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.infinispan.client.hotrod.RemoteCache;
+
+import io.quarkus.infinispan.client.Remote;
+
 @Path("/infinispan")
-public class GreetingResource {
+public class GreetingCachedResource {
 
     @Inject
     @Remote("mycache")

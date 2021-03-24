@@ -1,11 +1,11 @@
-package org.acme.quickstart;
+package io.quarkus.qe.quickstart;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
-import org.acme.quickstart.containers.InfinispanTestResource;
 import org.junit.jupiter.api.Test;
 
+import io.quarkus.qe.containers.InfinispanTestResource;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 

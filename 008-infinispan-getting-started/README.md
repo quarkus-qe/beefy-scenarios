@@ -1,4 +1,4 @@
-# Quarkus - Infinispan scenario
+# Quarkus - Infinispan scenario ([Moved to 009-quarkus-infinispan-grpc-kafka](../009-quarkus-infinispan-grpc-kafka))
 
 ##hotrod-client.properties
 Test that hotrod-client.properties file is picked up at the build time (should be placed under src/main/resources/META-INF).    
