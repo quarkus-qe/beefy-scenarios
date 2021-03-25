@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
+import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
 
@@ -23,8 +24,14 @@ public class InfinispanTestResource implements QuarkusTestResourceLifecycleManag
         infinispan = new GenericContainer<>("infinispan/server:11.0.4.Final-2")
                 .waitingFor(new LogMessageWaitStrategy().withRegEx(".*Infinispan Server.*started in.*\\s"))
                 .withStartupTimeout(Duration.ofMillis(20000))
-                .withEnv("USER", "my_username")
-                .withEnv("PASS", "my_password");
+                .withClasspathResourceMapping("identities.yaml",
+                        "/user-config/identities.yaml", BindMode.READ_ONLY)
+                .withClasspathResourceMapping("config.yaml",
+                        "/user-config/config.yaml", BindMode.READ_ONLY)
+                .withClasspathResourceMapping("server.jks",
+                        "/user-config/server.jks", BindMode.READ_ONLY)
+                .withEnv("CONFIG_PATH", "/user-config/config.yaml")
+                .withEnv("IDENTITIES_PATH", "/user-config/identities.yaml");
 
         infinispan.start();
         final String hosts = infinispan.getContainerIpAddress() + ":" + infinispan.getMappedPort(INFINISPAN_PORT);

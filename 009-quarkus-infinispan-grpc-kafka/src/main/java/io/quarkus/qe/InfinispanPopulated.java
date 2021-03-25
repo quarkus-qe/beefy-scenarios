@@ -1,18 +1,20 @@
-package org.acme.quickstart;
+package io.quarkus.qe;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import io.quarkus.runtime.StartupEvent;
+
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.commons.configuration.XMLStringConfiguration;
 import org.jboss.logging.Logger;
 
-@ApplicationScoped
-public class InfinispanClientApp {
+import io.quarkus.runtime.StartupEvent;
 
-    private static final Logger LOGGER = Logger.getLogger(InfinispanClientApp.class);
+@ApplicationScoped
+public class InfinispanPopulated {
+
+    private static final Logger LOGGER = Logger.getLogger(InfinispanPopulated.class);
 
     @Inject
     RemoteCacheManager cacheManager;
