@@ -14,15 +14,29 @@
     A-Monitor
     <h2>Alert Monitor</h2>
     <div class="row">
-        <p class="col-md-12">Item <strong><span id="content">N/A</span>&nbsp;</strong>.</p>
+        <p class="col-md-12">Item <strong><span id="a-content">N/A</span>&nbsp;</strong>.</p>
+    </div>
+
+    S-Monitor
+    <h2>Stock Monitor</h2>
+    <div class="row">
+        <p class="col-md-12">Item <strong><span id="s-content">N/A</span>&nbsp;</strong>.</p>
     </div>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 <script>
     var source = new EventSource("/monitor/stream");
     source.onmessage = function (event) {
-        document.getElementById("content").innerHTML = event.data;
+        document.getElementById("a-content").innerHTML = event.data;
+    };
+</script>
+
+<script>
+    var source = new EventSource("/stock/stream");
+    source.onmessage = function (event) {
+        document.getElementById("s-content").innerHTML = event.data;
     };
 </script>
 </html>

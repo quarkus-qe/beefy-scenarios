@@ -36,6 +36,7 @@ public class StockPriceProducer {
         IntStream.range(0, config.batchSize).forEach(next -> {
             StockPrice event = StockPrice.newBuilder().setId("IBM").setPrice(random.nextDouble()).setStatus(status.PENDING)
                     .build();
+            LOG.infov("ID: {0}, PRICE: {1}", event.getId(), event.getPrice());
             emitter.send(event).whenComplete(handlerEmitterResponse(StockPriceProducer.class.getName()));
         });
 
