@@ -1,4 +1,4 @@
-package io.quarkus.qe.kafka.producers;
+package io.quarkus.qe.kafka.producer;
 
 import io.quarkus.qe.kafka.model.LoginAttempt;
 import io.smallrye.mutiny.Multi;
@@ -25,7 +25,7 @@ public class LoginEventsProducer {
     @ConfigProperty(name = "producer.loginUrls")
     List<String> LOGIN_URLs;
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     @Outgoing("login-http-response-values")
     public Multi<Record<String, String>> generate() {
@@ -52,4 +52,5 @@ public class LoginEventsProducer {
     private String encodeId(final String id) {
         return Base64.getEncoder().encodeToString(id.getBytes());
     }
+
 }

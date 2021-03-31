@@ -22,24 +22,26 @@
     </repositories>
 
     <dependencies>
+
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-vertx</artifactId>
         </dependency>
-
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-avro-serializer</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-avro</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>io.confluent</groupId>
-            <artifactId>kafka-avro-serializer</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-jsonb</artifactId>
         </dependency>
 
         <dependency>
@@ -53,15 +55,17 @@
             </exclusions>
         </dependency>
 
+        <!-- quarkiverse-apicurio-registry-client: native mode dependency -->
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-kafka-streams</artifactId>
+            <groupId>io.quarkiverse.apicurio</groupId>
+            <artifactId>quarkiverse-apicurio-registry-client</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-jsonb</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-retrofit</artifactId>
         </dependency>
+        <!-- quarkiverse-apicurio-registry-client: native mode dependency end-->
 
         <dependency>
             <groupId>org.testcontainers</groupId>

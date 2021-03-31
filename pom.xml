@@ -17,6 +17,7 @@
       <module>009-quarkus-infinispan-grpc-kafka</module>
       <module>010-quarkus-opentracing-reactive-grpc</module>
       <module>011-quarkus-panache-rest-flyway</module>
+      <module>012-quarkus-kafka-streams</module>
       <module>013-quarkus-oidc-restclient</module>
       <module>014-quarkus-panache-with-transactions-xa</module>
       <module>015-quarkus-micrometer</module>
@@ -48,8 +49,10 @@
     <testcontainers.version>1.15.2</testcontainers.version>
     <strimzi.testcontainers.version>0.20.0</strimzi.testcontainers.version>
     <wiremock.version>2.27.2</wiremock.version>
-    <apicurio-registry-utils-serde.version>1.2.2.Final</apicurio-registry-utils-serde.version>
+    <apicurio-registry-utils-serde.version>1.3.2.Final</apicurio-registry-utils-serde.version>
     <confluent.kafka-avro-serializer.version>6.0.0</confluent.kafka-avro-serializer.version>
+    <version.quarkiverse.apicurio.registry.client>0.0.1</version.quarkiverse.apicurio.registry.client>
+    <camel-quarkus-support-retrofit.version>1.7.0</camel-quarkus-support-retrofit.version>
 
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
@@ -95,6 +98,16 @@
         <groupId>io.confluent</groupId>
         <artifactId>kafka-avro-serializer</artifactId>
         <version>${confluent.kafka-avro-serializer.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.apicurio</groupId>
+        <artifactId>quarkiverse-apicurio-registry-client</artifactId>
+        <version>${version.quarkiverse.apicurio.registry.client}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-support-retrofit</artifactId>
+        <version>${camel-quarkus-support-retrofit.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

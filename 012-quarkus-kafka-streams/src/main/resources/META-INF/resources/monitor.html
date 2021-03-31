@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>S-Monitor</title>
+    <title>A-Monitor</title>
 
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
@@ -11,20 +11,18 @@
 </head>
 <body>
 <div class="container">
-
-    S-Monitor
-    <h2>Stock Monitor</h2>
+    A-Monitor
+    <h2>Alert Monitor</h2>
     <div class="row">
-        <p class="col-md-12">Item <strong><span id="s-content">N/A</span>&nbsp;</strong>.</p>
+        <p class="col-md-12">Item <strong><span id="content">N/A</span>&nbsp;</strong>.</p>
     </div>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
 <script>
-    var source = new EventSource("/stock/stream");
+    var source = new EventSource("/monitor/stream");
     source.onmessage = function (event) {
-        document.getElementById("s-content").innerHTML = event.data;
+        document.getElementById("content").innerHTML = event.data;
     };
 </script>
 </html>

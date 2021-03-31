@@ -24,7 +24,7 @@ abstract class KafkaCommonTest {
         SseEventSource source = SseEventSource.target(target).build();
         source.register(inboundSseEvent -> latch.countDown());
         source.open();
-        boolean completed = latch.await(1, TimeUnit.MINUTES);
+        boolean completed = latch.await(5, TimeUnit.MINUTES);
         assertEquals(true, completed);
         source.close();
     }
