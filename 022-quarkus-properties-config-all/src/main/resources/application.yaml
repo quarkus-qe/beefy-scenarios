@@ -1,0 +1,12 @@
+protagonist:
+  name: Sponge Bob
+  message: Hi, I am Sponge Bob
+  hobby: WillBeOverriden
+  friend:
+    name: Patrick Star
+    message: Hi, I am Patrick Star
+restaurant:
+  employees:
+    - Sponge Bob
+    - Squidward Tentacles
+    - Eugene Krabs

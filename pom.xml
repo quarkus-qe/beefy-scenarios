@@ -25,6 +25,7 @@
       <module>019-quarkus-consul</module>
       <module>020-quarkus-http-non-application-endpoints</module>
       <module>021-quarkus-panache-multiple-pus</module>
+      <module>022-quarkus-properties-config-all</module>
       <module>101-javaee-like-getting-started</module>
       <module>201-large-static-content</module>
       <module>300-quarkus-vertx-webClient</module>

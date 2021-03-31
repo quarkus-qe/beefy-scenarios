@@ -1,0 +1,28 @@
+# Quarkus - Cover application properties setup
+This module tests different ways of configuring properties for Quarkus application
+
+1. Configuring custom user properties through nested static class (done for Antagonist)  
+1.1 Configuration properties located in the *application.properties* file
+
+2. Configuring custom user properties through set of interfaces (done for Protagonist)  
+2.1 Configuration properties located in the *application.yaml* file (this file takes precedence over the
+*application.properties* file)
+
+3. Configuring custom config source provider  
+3.1 File org.eclipse.microprofile.config.spi.ConfigSourceProvider must be created under **META-INF/services/**
+    and contains fully qualified names of implementations  
+3.2 Source provider in this example has ordinal(priority) value of 999, which means it should take precedence over the
+value located in .env file.
+
+4. Configuring custom converter  
+4.1 File org.eclipse.microprofile.config.spi.Converter must be created under **META-INF/services/**
+and contains fully qualified names of implementations  
+4.2 To create the custom converter POJO class must be created if you're not overriding any of the
+supported classes (e.x. String, Boolean, Double, etc.)
+
+
+___
+#### Wiki:
+**Protagonist**: the leading character in the story, whose purpose is to move story to its final  
+**Antagonist**: the adversary of the leading character (or protagonist) in the story, whose purpose is to
+interfere with the protagonist
