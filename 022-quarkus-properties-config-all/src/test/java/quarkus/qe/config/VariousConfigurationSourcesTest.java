@@ -1,0 +1,71 @@
+package quarkus.qe.config;
+
+import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.Test;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
+
+@QuarkusTest
+public class VariousConfigurationSourcesTest {
+
+    @Test
+    public void testEnvFile() {
+        given()
+          .when().get("/hello")
+          .then()
+             .statusCode(200)
+             .body(is("Welcome message from .env file"));
+    }
+
+    @Test
+    public void testYamlPropertiesByInterface() {
+        // Property 'protagonist.hobby' overridden by ./configsource.properties file that has higher ordinal(priority)
+        given()
+                .when().get("/hello/protagonist")
+                .then()
+                .statusCode(200)
+                .body(is("Sponge Bob says: Hi, I am Sponge Bob. My hobie is: Jellyfishing"));
+    }
+
+    @Test
+    public void testYamlPropertiesByInterfaceNested() {
+        given()
+                .when().get("/hello/protagonist/friend")
+                .then()
+                .statusCode(200)
+                .body(is("Patrick Star says: Hi, I am Patrick Star"));
+    }
+
+    @Test
+    public void testApplicationPropertiesByClass() {
+        given()
+                .when().get("/hello/antagonist")
+                .then()
+                .statusCode(200)
+                .body(is("Sheldon Plankton says: Hi, I am Sheldon Plankton"));
+    }
+
+    @Test
+    public void testApplicationPropertiesByClassNested() {
+        given()
+                .when().get("/hello/antagonist/wife")
+                .then()
+                .statusCode(200)
+                .body(is("Karen says: Hi, I am Karen"));
+    }
+
+    @Test
+    public void testCustomEmailConverter() {
+        // File ./application.yaml takes precedence over ./application.properties
+        given()
+                .when().get("/hello/emails")
+                .then()
+                .statusCode(200)
+                .body(
+                        containsString("spongebob@krustykrab.com"),
+                        containsString("squidwardtentacles@krustykrab.com"),
+                        containsString("eugenekrabs@krustykrab.com"));
+    }
+}
