@@ -9,7 +9,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
-import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
 public class VerticleDeployer {
@@ -21,8 +20,7 @@ public class VerticleDeployer {
     StockPriceProducer producer;
 
     public void run(@Observes StartupEvent e, Vertx vertx, Instance<AbstractVerticle> verticles) {
-        long delayMs = TimeUnit.SECONDS.toMillis(config.delay);
-        vertx.setPeriodic(delayMs, c -> producer.generate().subscribe());
+        vertx.setPeriodic(config.delay, c -> producer.generate().subscribe());
 
         // Deploy all abstract verticles example.
         for (AbstractVerticle verticle : verticles) {
