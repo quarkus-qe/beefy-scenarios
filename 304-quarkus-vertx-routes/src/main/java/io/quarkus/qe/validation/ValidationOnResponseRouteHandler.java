@@ -4,10 +4,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import io.quarkus.vertx.web.Route;
+import io.quarkus.vertx.web.Route.HttpMethod;
 import io.quarkus.vertx.web.RouteBase;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
-import io.vertx.core.http.HttpMethod;
 
 @RouteBase(path = "/validate")
 public class ValidationOnResponseRouteHandler {
