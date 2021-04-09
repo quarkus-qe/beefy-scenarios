@@ -3,7 +3,7 @@ package io.quarkus.qe;
 import io.quarkus.vertx.web.Param;
 import io.quarkus.vertx.web.Route;
 import io.quarkus.vertx.web.RouteBase;
-import io.vertx.core.http.HttpMethod;
+import io.quarkus.vertx.web.Route.HttpMethod;
 
 @RouteBase(path = "/basics")
 public class BasicsRouteHandler {

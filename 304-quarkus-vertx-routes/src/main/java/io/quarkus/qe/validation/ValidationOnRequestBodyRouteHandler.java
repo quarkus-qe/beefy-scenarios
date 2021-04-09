@@ -5,7 +5,7 @@ import javax.validation.Valid;
 import io.quarkus.vertx.web.Body;
 import io.quarkus.vertx.web.Route;
 import io.quarkus.vertx.web.RouteBase;
-import io.vertx.core.http.HttpMethod;
+import io.quarkus.vertx.web.Route.HttpMethod;
 
 @RouteBase(path = "/validate")
 public class ValidationOnRequestBodyRouteHandler {
