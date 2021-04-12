@@ -1,7 +1,7 @@
 package io.quarkus.qe.vertx.sql.dbpool;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -108,8 +108,8 @@ public class PostgresPoolTest extends AbstractCommons{
                     .onItem().ifNotNull().transformToUni(resp -> activeConnections()));
 
             activeConnectionsAmount.subscribe().with(amount -> {
-                 // be sure that you have more than 2 connections
-                assertThat(amount, greaterThan(2L));
+                // be sure that you have more than 1 connections
+                assertThat(amount, greaterThanOrEqualTo(1L));
                 done.countDown();
             });
         }
@@ -174,8 +174,9 @@ public class PostgresPoolTest extends AbstractCommons{
         }
     }
 
+    // TODO: double check if we should care about `IDLE` state connections -> https://github.com/quarkusio/quarkus/issues/16444
     private Uni<Long> activeConnections() {
-        return postgresql.query("SELECT count(*) as active_con FROM pg_stat_activity where application_name = 'vertx-pg-client'").execute()
+        return postgresql.query("SELECT count(*) as active_con FROM pg_stat_activity where application_name like '%vertx%' and state = 'active'").execute()
                 .onItem().transform(RowSet::iterator).onItem()
                 .transform(iterator -> iterator.hasNext() ? iterator.next().getLong("active_con") : null);
     }
