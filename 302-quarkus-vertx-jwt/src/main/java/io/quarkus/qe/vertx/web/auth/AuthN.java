@@ -1,5 +1,10 @@
 package io.quarkus.qe.vertx.web.auth;
 
+import java.util.Arrays;
+
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
+
 import io.quarkus.qe.vertx.web.config.AuthNConfig;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.JWTOptions;
@@ -7,9 +12,6 @@ import io.vertx.ext.auth.PubSecKeyOptions;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.auth.jwt.JWTAuthOptions;
 import io.vertx.mutiny.core.Vertx;
-import java.util.Arrays;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
 
 public class AuthN {
 
@@ -22,14 +24,16 @@ public class AuthN {
     @Produces
     JWTAuth jwtAuth() {
         return JWTAuth.create(vertx.getDelegate(), new JWTAuthOptions().setJWTOptions(getJwtOptions())
-                .addPubSecKey(new PubSecKeyOptions(authConfig())));
+                .addPubSecKey(getPubSecKeyOptions()));
     }
 
-    private JsonObject authConfig(){
-        return new JsonObject()
+    private PubSecKeyOptions getPubSecKeyOptions() {
+        JsonObject authConfig = new JsonObject()
                 .put("symmetric", true)
                 .put("algorithm", authNConf.alg)
                 .put("publicKey", authNConf.secret);
+
+        return new PubSecKeyOptions(authConfig).setBuffer(authConfig.getBuffer("publicKey"));
     }
 
     private JWTOptions getJwtOptions() {

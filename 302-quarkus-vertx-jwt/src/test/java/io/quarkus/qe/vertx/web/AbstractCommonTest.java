@@ -1,5 +1,16 @@
 package io.quarkus.qe.vertx.web;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.is;
+
+import java.time.ZonedDateTime;
+import java.util.Arrays;
+
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+
 import io.quarkus.qe.vertx.web.model.BladeRunner;
 import io.quarkus.qe.vertx.web.model.Replicant;
 import io.restassured.http.ContentType;
@@ -8,16 +19,6 @@ import io.vertx.ext.auth.PubSecKeyOptions;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.auth.jwt.JWTAuthOptions;
 import io.vertx.mutiny.core.Vertx;
-import java.time.ZonedDateTime;
-import java.util.Arrays;
-import org.eclipse.microprofile.config.ConfigProvider;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.is;
 
 public class AbstractCommonTest {
 
@@ -78,7 +79,7 @@ public class AbstractCommonTest {
         JsonObject authConfig = defaultAuthConfig();
         JsonObject claims = defaultClaims(groups);
         JWTAuth jwt = JWTAuth.create(vertx.getDelegate(), new JWTAuthOptions()
-                .addPubSecKey(new PubSecKeyOptions(authConfig)));
+                .addPubSecKey(getPubSecKeyOptions(authConfig)));
         switch(invalidity){
             case WRONG_ISSUER:
                 claims.put("iss", "invalid");
@@ -95,18 +96,22 @@ public class AbstractCommonTest {
             case WRONG_KEY:
                 authConfig.put("publicKey", "invalid");
                 jwt = JWTAuth.create(vertx.getDelegate(), new JWTAuthOptions()
-                        .addPubSecKey(new PubSecKeyOptions(authConfig)));
+                        .addPubSecKey(getPubSecKeyOptions(authConfig)));
                 break;
         }
 
         return jwt.generateToken(claims);
     }
 
-    private JsonObject defaultAuthConfig(){
+    private JsonObject defaultAuthConfig() {
         return new JsonObject()
                 .put("symmetric", true)
                 .put("algorithm", ConfigProvider.getConfig().getValue("authN.alg", String.class))
                 .put("publicKey", ConfigProvider.getConfig().getValue("authN.secret", String.class));
+    }
+
+    private PubSecKeyOptions getPubSecKeyOptions(JsonObject authConfig) {
+        return new PubSecKeyOptions(authConfig).setBuffer(authConfig.getBuffer("publicKey"));
     }
 
     private JsonObject defaultClaims(String... groups){

@@ -1,11 +1,5 @@
 package io.quarkus.qe.vertx.web.services;
 
-import io.quarkus.qe.vertx.web.exceptions.NotFoundException;
-import io.quarkus.qe.vertx.web.model.Record;
-import io.quarkus.redis.client.reactive.ReactiveRedisClient;
-import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.Uni;
-import io.vertx.mutiny.redis.client.Response;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -13,7 +7,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import javax.inject.Inject;
+
+import io.quarkus.qe.vertx.web.exceptions.NotFoundException;
+import io.quarkus.qe.vertx.web.model.Record;
+import io.quarkus.redis.client.reactive.ReactiveRedisClient;
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.Uni;
+import io.vertx.mutiny.redis.client.Response;
 
 public abstract class AbstractRedisDao<E extends Record> {
 
