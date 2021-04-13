@@ -7,7 +7,9 @@ Uses MP health (https://quarkus.io/guides/microprofile-health) and MP metrics (h
 Application:
 - Define greeting resource with metrics.
 - Define health checks.
+- Define a bean to inject scoped HTTP beans.
 
 Tests:
 - Test the health endpoints responses.
 - Test greeting resource endpoint response.
+- Reproducer for [QUARKUS-662](https://issues.redhat.com/browse/QUARKUS-662): "Injection of HttpSession throws UnsatisfiedResolutionException during the build phase" is covered by the test `InjectingScopedBeansResourceTest` and `NativeInjectingScopedBeansResourceIT`. 
