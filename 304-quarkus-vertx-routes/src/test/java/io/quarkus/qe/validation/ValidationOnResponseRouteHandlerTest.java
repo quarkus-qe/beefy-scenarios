@@ -53,20 +53,4 @@ public class ValidationOnResponseRouteHandlerTest {
         assertValidationErrorDetails(response);
         assertValidationErrorStatus(response, HttpStatus.SC_INTERNAL_SERVER_ERROR);
     }
-
-    @Disabled("Not validating when using Multi. Reported in: https://github.com/quarkusio/quarkus/issues/15166")
-    @Test
-    public void shouldGetValidationErrorWhenMultiResponseIdIsWrong() {
-        ValidationErrorResponse response = given()
-                .when()
-                .get("/validate/response-multi-invalid-id")
-                .then()
-                .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
-                .extract().as(ValidationErrorResponse.class);
-
-        assertValidationErrorTitle(response);
-        assertValidationErrorDetails(response);
-        assertValidationErrorStatus(response, HttpStatus.SC_INTERNAL_SERVER_ERROR);
-        assertValidationErrorField(response, "id", "id can't be null");
-    }
 }

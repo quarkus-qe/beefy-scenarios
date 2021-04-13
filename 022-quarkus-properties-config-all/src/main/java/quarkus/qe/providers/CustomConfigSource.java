@@ -2,9 +2,9 @@ package quarkus.qe.providers;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.microprofile.config.spi.ConfigSource;
 
@@ -13,16 +13,15 @@ public class CustomConfigSource implements ConfigSource {
     private static final int ORDINAL = 999;
     private static final String PROPERTIES_FILE = "/configsource.properties";
 
-    Properties customProperties = new Properties();
+    private final Properties customProperties = new Properties();
+
+    public CustomConfigSource() {
+        loadProperties();
+    }
 
     @Override
-    public Map<String, String> getProperties() {
-        loadProperties();
-        Map<String, String> result = new HashMap<>();
-        for (Map.Entry<Object, Object> entry : customProperties.entrySet()) {
-            result.put(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()));
-        }
-        return result;
+    public Set<String> getPropertyNames() {
+        return customProperties.keySet().stream().map(Object::toString).collect(Collectors.toSet());
     }
 
     @Override
@@ -32,7 +31,6 @@ public class CustomConfigSource implements ConfigSource {
 
     @Override
     public String getValue(String propertyName) {
-        loadProperties();
         return customProperties.getProperty(propertyName);
     }
 

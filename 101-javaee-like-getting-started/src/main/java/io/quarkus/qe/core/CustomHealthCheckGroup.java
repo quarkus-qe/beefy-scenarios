@@ -4,14 +4,15 @@ import javax.enterprise.context.ApplicationScoped;
 
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
-import org.eclipse.microprofile.health.Readiness;
 
-@Readiness
+import io.smallrye.health.api.HealthGroup;
+
+@HealthGroup("customGroup")
 @ApplicationScoped
-public class GreetingHealthCheck implements HealthCheck {
+public class CustomHealthCheckGroup implements HealthCheck {
 
     @Override
     public HealthCheckResponse call() {
-        return HealthCheckResponse.builder().name("greeting").up().build();
+        return HealthCheckResponse.builder().name("custom-group").up().build();
     }
 }

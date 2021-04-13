@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
-import io.vertx.ext.jwt.JWK;
-import io.vertx.ext.jwt.JWT;
+import io.vertx.ext.auth.impl.jose.JWK;
+import io.vertx.ext.auth.impl.jose.JWT;
 
 public class JwtTest {
 

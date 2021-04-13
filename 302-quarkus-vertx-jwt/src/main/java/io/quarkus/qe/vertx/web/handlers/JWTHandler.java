@@ -1,13 +1,14 @@
 package io.quarkus.qe.vertx.web.handlers;
 
-import io.quarkus.qe.vertx.web.config.AuthNConfig;
+import java.time.ZonedDateTime;
+import java.util.Arrays;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.web.RoutingContext;
-import java.time.ZonedDateTime;
-import java.util.Arrays;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 @ApplicationScoped
 public class JWTHandler {

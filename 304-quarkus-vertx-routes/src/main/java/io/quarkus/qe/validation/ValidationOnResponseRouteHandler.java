@@ -4,10 +4,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import io.quarkus.vertx.web.Route;
+import io.quarkus.vertx.web.Route.HttpMethod;
 import io.quarkus.vertx.web.RouteBase;
-import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
-import io.vertx.core.http.HttpMethod;
 
 @RouteBase(path = "/validate")
 public class ValidationOnResponseRouteHandler {
@@ -31,14 +30,6 @@ public class ValidationOnResponseRouteHandler {
     @Size(min = 3, max = 3, message = "response must have 3 characters")
     Uni<String> validateUniResponseWithStringReturnsInvalidSize() {
         return Uni.createFrom().item("ASDASD");
-    }
-
-    @Route(methods = HttpMethod.GET, path = "/response-multi-invalid-id")
-    @Valid
-    Multi<Response> validateMultiResponseWithTypeReturnsInvalidID() {
-        Response response = createResponse();
-        response.setId(null); // it's not invalid!
-        return Multi.createFrom().items(response);
     }
 
     private static final Response createResponse() {

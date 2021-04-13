@@ -14,7 +14,10 @@
       <module>004-quarkus-HHH-and-HV</module>
       <module>005-quarkus-and-maven-profiles</module>
       <module>006-quartz-manually-scheduled-job</module>
+      <!--
+      TODO: Disabled as it's not working using latest 999-SNAPSHOT. Caused by https://github.com/quarkusio/quarkus/issues/16386. 
       <module>009-quarkus-infinispan-grpc-kafka</module>
+       -->
       <module>010-quarkus-opentracing-reactive-grpc</module>
       <module>011-quarkus-panache-rest-flyway</module>
       <module>012-quarkus-kafka-streams</module>

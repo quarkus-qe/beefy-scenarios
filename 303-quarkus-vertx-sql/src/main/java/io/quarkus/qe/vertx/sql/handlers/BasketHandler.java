@@ -16,10 +16,9 @@ import io.quarkus.qe.vertx.sql.domain.Record;
 import io.quarkus.qe.vertx.sql.services.DbPoolService;
 import io.quarkus.vertx.web.Body;
 import io.quarkus.vertx.web.Route;
+import io.quarkus.vertx.web.Route.HttpMethod;
 import io.quarkus.vertx.web.RouteBase;
-import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.RoutingContext;
-
 
 @Tag(name = "Basket", description = "Manage your basket")
 @Singleton
