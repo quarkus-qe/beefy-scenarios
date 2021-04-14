@@ -1,7 +1,9 @@
 Module that covers the RestClient integration with OIDC extension using Keycloak container.
-There are two applications:
+Applications:
 - Ping application that will invoke the Pong application using the RestClient and will return the expected "ping pong" output.
 - Pong application that will return the "pong" output.
+- Secured endpoints to output the claims data
+- Token generator endpoint to generate tokens using the OIDC Client
 
 Test cases:
 - When calling `/ping` or `/pong` endpoints without bearer token, then it should return 401 Unauthorized. 
