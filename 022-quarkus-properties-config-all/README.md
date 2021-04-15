@@ -20,6 +20,9 @@ and contains fully qualified names of implementations
 4.2 To create the custom converter POJO class must be created if you're not overriding any of the
 supported classes (e.x. String, Boolean, Double, etc.)
 
+5. Configuring using injection of Bulk Of Properties into an Scoped Bean that was introduced in MicroProfile Config 2.0
+
+6. Injecting a `ConfigValue` instance that was introduced in MicroProfile Config 2.0
 
 ___
 #### Wiki:
