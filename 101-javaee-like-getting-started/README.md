@@ -8,8 +8,10 @@ Application:
 - Define greeting resource with metrics.
 - Define health checks.
 - Define a bean to inject scoped HTTP beans.
+- Define Fallback resource.
 
 Tests:
 - Test the health endpoints responses.
 - Test greeting resource endpoint response.
-- Reproducer for [QUARKUS-662](https://issues.redhat.com/browse/QUARKUS-662): "Injection of HttpSession throws UnsatisfiedResolutionException during the build phase" is covered by the test `InjectingScopedBeansResourceTest` and `NativeInjectingScopedBeansResourceIT`. 
+- Reproducer for [QUARKUS-662](https://issues.redhat.com/browse/QUARKUS-662): "Injection of HttpSession throws UnsatisfiedResolutionException during the build phase" is covered by the test `InjectingScopedBeansResourceTest` and `NativeInjectingScopedBeansResourceIT`.
+- Test to cover the functionality of the Fallback feature and ensure the associated metrics are properly updated. 
