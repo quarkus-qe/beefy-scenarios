@@ -12,9 +12,7 @@ public class VertxAuthObjectMapperCustomizer implements ObjectMapperCustomizer {
 
     @Override
     public void customize(ObjectMapper objectMapper) {
-        // Not fail on empty beans, otherwise the module fails on Native because:
-        // Failed to encode as JSON: No serializer found for class io.vertx.ext.auth.impl.UserImpl and no properties discovered to create
-        // BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS)
+        // TODO https://github.com/quarkusio/quarkus/issues/16555
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
     }
 }
