@@ -2,7 +2,6 @@ package io.quarkus.qe;
 
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,7 +33,7 @@ public abstract class AbstractPingPongResourceTest {
         given()
                 .when().get(pingEndpoint())
                 .then().statusCode(HttpStatus.SC_OK)
-                .body(is("ping pong"));
+                .body(containsString("ping pong"));
 
         // Then both ping and pong rest endpoints should have the same trace Id.
         String pingTraceId = given()
