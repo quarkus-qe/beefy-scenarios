@@ -5,8 +5,6 @@ import io.quarkus.qe.kafka.status;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.vertx.core.AbstractVerticle;
 import io.smallrye.reactive.messaging.annotations.Broadcast;
-import io.vertx.core.json.JsonObject;
-import java.util.Collections;
 import java.util.function.BiConsumer;
 import org.eclipse.microprofile.reactive.messaging.*;
 import org.jboss.logging.Logger;
