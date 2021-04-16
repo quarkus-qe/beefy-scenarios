@@ -21,7 +21,7 @@ jobs:
   build:
     name: "Build against latest Quarkus snapshot"
     runs-on: ubuntu-latest
-    if: github.actor == 'quarkusbot'
+    if: github.actor == 'quarkusbot' || github.actor == 'Sgitario' || github.actor == 'rsvoboda'
 
     steps:
       - name: Install yq
@@ -36,13 +36,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: current-repo
-          ref: main
 
       - name: Checkout Ecosystem
         uses: actions/checkout@v2
         with:
           repository: ${{ env.ECOSYSTEM_CI_REPO }}
-          ref: master
           path: ecosystem-ci
 
       - name: Setup and Run Tests
