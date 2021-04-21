@@ -22,7 +22,7 @@ public class LibraryRepositoryTest {
                 .accept("application/json")
                 .when().get("/library")
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body(
                         containsString("Library1")
                 );
@@ -34,7 +34,7 @@ public class LibraryRepositoryTest {
                 .body("{\"name\": \"Library2\"}")
                 .when().post("/library")
                 .then()
-                .statusCode(201)
+                .statusCode(HttpStatus.SC_CREATED)
                 .body(containsString("Library2"))
                 .body("id", notNullValue())
                 .extract().body().jsonPath().getString("id");
@@ -43,7 +43,7 @@ public class LibraryRepositoryTest {
         given()
                 .when().get("/library/id/2")
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body(
                         containsString("Library2")
                 );
@@ -55,13 +55,13 @@ public class LibraryRepositoryTest {
                 .body("{\"name\": \"Library Two\"}")
                 .when().put("/library/2")
                 .then()
-                .statusCode(204);
+                .statusCode(HttpStatus.SC_NO_CONTENT);
 
         //GET{id} - Verify update
         given()
                 .when().get("/library/id/2")
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body(
                         containsString("Library Two")
                 );
@@ -70,11 +70,11 @@ public class LibraryRepositoryTest {
         given()
                 .when().delete("/library/2")
                 .then()
-                .statusCode(204);
+                .statusCode(HttpStatus.SC_NO_CONTENT);
     }
 
     @Test
-    void testRepositoryValidator() throws InterruptedException{
+    void testRepositoryValidator() throws InterruptedException {
         //Try to add a library with invalid constraints
         given()
                 .contentType("application/json")

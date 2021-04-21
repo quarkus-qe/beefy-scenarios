@@ -33,8 +33,10 @@ import io.vertx.mutiny.sqlclient.RowSet;
 @Disabled("Caused by https://github.com/quarkusio/quarkus/issues/14608")
 @QuarkusTest
 @TestProfile(Db2TestProfile.class)
-public class Db2PoolTest extends AbstractCommons{
+public class Db2PoolTest extends AbstractCommons {
 
+    private static final int ASSERT_TIMEOUT_MINUTES = 5;
+    private static final int THREE = 3;
     private static final Logger LOGGER = LoggerFactory.getLogger(Db2PoolTest.class);
 
     @ConfigProperty(name = "quarkus.datasource.db2.reactive.idle-timeout")
@@ -46,14 +48,14 @@ public class Db2PoolTest extends AbstractCommons{
 
     @Test
     @DisplayName("Idle issue: Fail to read any response from the server, the underlying connection might get lost unexpectedly.")
-    public void checkBorderConditionBetweenIdleAndGetConnection(){
+    public void checkBorderConditionBetweenIdleAndGetConnection() {
         try {
             long idleMs = TimeUnit.SECONDS.toMillis(idle);
             latch = new CountDownLatch(1); // ignore, this test will run until Timeout or get an error occurs.
             AtomicInteger at = new AtomicInteger(0);
             Handler<Long> handler = l -> {
                 LOGGER.info("###################################################: ");
-                Multi.createFrom().range(1, 3)
+                Multi.createFrom().range(1, THREE)
                         .concatMap(n -> {
                             LOGGER.info("Connection #" + at.incrementAndGet());
                             return db2.preparedQuery("SELECT CURRENT TIMESTAMP result FROM sysibm.sysdummy1")
@@ -75,11 +77,11 @@ public class Db2PoolTest extends AbstractCommons{
                     LOGGER.info("Subscribe success: -> " + re.get(0));
                 }, Throwable::printStackTrace);
             };
-            Vertx.vertx().setPeriodic(idleMs + 3, l -> handler.handle(l));
-            await(5, TimeUnit.MINUTES);
+            Vertx.vertx().setPeriodic(idleMs + THREE, l -> handler.handle(l));
+            await(ASSERT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
             assertEquals(1, latch.getCount(), "An unexpected error was thrown.");
-        }catch(IllegalStateException ex) {
-        }finally {
+        } catch (IllegalStateException ex) {
+        } finally {
             assertEquals(1, latch.getCount(), "An unexpected error was thrown.");
         }
     }

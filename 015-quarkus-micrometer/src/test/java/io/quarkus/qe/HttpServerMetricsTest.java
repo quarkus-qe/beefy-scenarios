@@ -19,7 +19,8 @@ public class HttpServerMetricsTest {
 
     private static final List<String> HTTP_SERVER_REQUESTS_METRICS_SUFFIX = Arrays.asList("count", "sum", "max");
 
-    private static final String HTTP_SERVER_REQUESTS_METRICS_FORMAT = "http_server_requests_seconds_%s{method=\"GET\",outcome=\"SUCCESS\",status=\"200\",uri=\"%s\",}";
+    private static final String HTTP_SERVER_REQUESTS_METRICS_FORMAT = "http_server_requests_seconds_%s"
+            + "{method=\"GET\",outcome=\"SUCCESS\",status=\"200\",uri=\"%s\",}";
     private static final String PING_PONG_ENDPOINT = "/without-metrics-pingpong";
 
     @Test

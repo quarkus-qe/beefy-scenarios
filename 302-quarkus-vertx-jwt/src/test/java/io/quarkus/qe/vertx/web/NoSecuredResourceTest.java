@@ -1,11 +1,14 @@
 package io.quarkus.qe.vertx.web;
 
+import static io.restassured.RestAssured.given;
+
+import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import io.quarkus.qe.vertx.resources.RedisResource;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import static io.restassured.RestAssured.given;
 
 @QuarkusTest
 @QuarkusTestResource(RedisResource.class)
@@ -15,6 +18,6 @@ public class NoSecuredResourceTest {
     public void httpServer() {
         given().when().get("/replicant/noExistID")
                 .then()
-                .statusCode(404);
+                .statusCode(HttpStatus.SC_NOT_FOUND);
     }
 }

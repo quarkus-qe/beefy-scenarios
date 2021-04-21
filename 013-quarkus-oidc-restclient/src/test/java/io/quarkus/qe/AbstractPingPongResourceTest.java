@@ -26,6 +26,8 @@ public abstract class AbstractPingPongResourceTest {
     private static final String PONG_ENDPOINT = "/%s-pong";
     private static final String USER = "test-user";
     private static final String WRONG_TOKEN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final int SCORE_TEAM_A_DEFAULT = 15;
+    private static final int SCORE_TEAM_B_DEFAULT = 30;
 
     private static final String HTTP_SOCKET_TIMEOUT_PROPERTY = "http.socket.timeout";
     private static final String HTTP_CONNECTION_TIMEOUT_PROPERTY = "http.connection.timeout";
@@ -111,7 +113,7 @@ public abstract class AbstractPingPongResourceTest {
 
     @Test
     public void testPingPongCreate() {
-        Score score = new Score(15, 30);
+        Score score = new Score(SCORE_TEAM_A_DEFAULT, SCORE_TEAM_B_DEFAULT);
         given().auth().oauth2(createToken())
                 .contentType(ContentType.JSON)
                 .body(score)
@@ -122,7 +124,7 @@ public abstract class AbstractPingPongResourceTest {
 
     @Test
     public void testPingPongUpdate() {
-        Score score = new Score(15, 30);
+        Score score = new Score(SCORE_TEAM_A_DEFAULT, SCORE_TEAM_B_DEFAULT);
         given().auth().oauth2(createToken())
                 .contentType(ContentType.JSON)
                 .body(score)

@@ -49,13 +49,13 @@ public class SpringDiTest {
     }
 
     @Test
-    public void givenAccountServiceAutowiredToUserService_WhenGetAccountServiceInvoked_ThenReturnValueIsNotNull() {
+    public void givenAccountServiceAutowiredToUserServiceWhenGetAccountServiceInvokedThenReturnValueIsNotNull() {
         UserService userService = CDI.current().select(UserService.class).get();
         assertNotNull(userService.getAccountService());
     }
 
     @Test
-    public void givenPersonDaoAutowiredToSpringPersonServiceBySetterInjection_WhenSpringPersonServiceRetrievedFromContext_ThenPersonDaoInitializedByTheSetter() {
+    public void givenPersonDaoAutowiredToServiceBySetterInjectionWhenServiceRetrievedFromContextThenPersonDaoInitialized() {
         SpringPersonService personService = CDI.current().select(SpringPersonService.class).get();
         assertNotNull(personService);
         assertNotNull(personService.getPersonDao());

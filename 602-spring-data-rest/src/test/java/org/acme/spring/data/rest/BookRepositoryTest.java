@@ -29,7 +29,7 @@ class BookRepositoryTest {
                 .accept("application/json")
                 .when().get("/books")
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body(
                         containsString("Aeneid"),
                         containsString("Beach House"),
@@ -44,7 +44,7 @@ class BookRepositoryTest {
                 .body("{\"name\": \"Early Asimov\", \"author\": \"Isaac Asimov\"}")
                 .when().post("/books")
                 .then()
-                .statusCode(201)
+                .statusCode(HttpStatus.SC_CREATED)
                 .body(containsString("Early Asimov"))
                 .body("id", notNullValue())
                 .extract().body().jsonPath().getString("id");
@@ -56,14 +56,13 @@ class BookRepositoryTest {
                 .body("{\"name\": \"Early Asimov 2nd Edition\", \"author\": \"Isaac Asimov\"}")
                 .when().put("/books/5")
                 .then()
-                .statusCode(204);
-
+                .statusCode(HttpStatus.SC_NO_CONTENT);
 
         //GET{id} - Find new book by id
         given()
                 .when().get("/books/id/5")
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body(
                         containsString("Early Asimov 2nd Edition")
                 );
@@ -72,7 +71,7 @@ class BookRepositoryTest {
         given()
                 .when().delete("/books/5")
                 .then()
-                .statusCode(405);
+                .statusCode(HttpStatus.SC_METHOD_NOT_ALLOWED);
 
         //Test repository pagination
         given()
@@ -81,7 +80,7 @@ class BookRepositoryTest {
                 .queryParam("page", "0")
                 .when().get("/books")
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body(
                         containsString("Aeneid"),
                         containsString("Beach House"),
@@ -103,7 +102,7 @@ class BookRepositoryTest {
                 .queryParam("sort", "-name")
                 .when().get("/books")
                 .then()
-                .statusCode(200).extract().response();
+                .statusCode(HttpStatus.SC_OK).extract().response();
         List<String> bookNamesRepositorySortedDesc = response.jsonPath().getList("name");
 
         Assert.assertEquals(bookNamesSortedDesc, bookNamesRepositorySortedDesc);
@@ -111,7 +110,7 @@ class BookRepositoryTest {
     }
 
     @Test
-    void testRepositoryValidator() throws InterruptedException{
+    void testRepositoryValidator() throws InterruptedException {
         //Try to add a book with invalid constraints
         given()
                 .contentType("application/json")

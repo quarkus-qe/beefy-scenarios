@@ -18,7 +18,8 @@ public class ValidationOnRequestParamRouteHandlerTest {
 
     @Test
     public void shouldGetValidationErrorWhenSingleParamIsWrong() {
-        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response. Reported by https://github.com/quarkusio/quarkus/issues/15159
+        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response.
+        // Reported by https://github.com/quarkusio/quarkus/issues/15159
         ValidationErrorResponse response = given().accept(ContentType.JSON)
                 .when()
                 .get("/validate/request-single-param/MA")
@@ -42,7 +43,8 @@ public class ValidationOnRequestParamRouteHandlerTest {
 
     @Test
     public void shouldGetValidationErrorsWhenAllParamsAreWrong() {
-        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response. Reported by https://github.com/quarkusio/quarkus/issues/15159
+        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response.
+        // Reported by https://github.com/quarkusio/quarkus/issues/15159
         ValidationErrorResponse response = given().accept(ContentType.JSON)
                 .get("/validate/request-multiple-param/MA/second/F12")
                 .then()
@@ -65,7 +67,8 @@ public class ValidationOnRequestParamRouteHandlerTest {
 
     @Test
     public void shouldGetValidationErrorWhenSingleParamIsLowercase() {
-        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response. Reported by https://github.com/quarkusio/quarkus/issues/15159
+        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response.
+        // Reported by https://github.com/quarkusio/quarkus/issues/15159
         ValidationErrorResponse response = given().accept(ContentType.JSON)
                 .when()
                 .get("/validate/request-single-param-custom-validation/lower")

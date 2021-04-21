@@ -17,12 +17,15 @@ import com.sun.istack.NotNull;
 @Entity
 public class Hello {
 
+    private static final int GREETING_MIN_LENGTH = 1;
+    private static final int GREETING_MAX_LENGTH = 100;
+
     @Id
     @GeneratedValue
     private Long id;
 
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = GREETING_MIN_LENGTH, max = GREETING_MAX_LENGTH)
     @Column(nullable = false)
     private String greetingText;
 

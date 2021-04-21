@@ -1,31 +1,36 @@
 package io.quarkus.qe.core;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.builder.MultiPartSpecBuilder;
-import io.restassured.http.ContentType;
-import io.restassured.response.ValidatableResponse;
-import io.restassured.specification.MultiPartSpecification;
-import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-import javax.ws.rs.core.MediaType;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import javax.ws.rs.core.MediaType;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.builder.MultiPartSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.response.ValidatableResponse;
+import io.restassured.specification.MultiPartSpecification;
 
 @QuarkusTest
 public class MultipartResourceTest {
 
     private static final String IMAGE_FILE_NAME = "/quarkus.png";
     private static final String TEXT_WITH_DIACRITICS = "Přikrášlený žloťoučký kůň úpěl ďábelské ódy.";
-    private static byte[] randomBytes = new byte[120];
+    private static final int RANDOM_BYTES_SIZE = 120;
+
+    private static byte[] randomBytes = new byte[RANDOM_BYTES_SIZE];
     private static File imageFile;
     private static byte[] imageBytes;
 
@@ -101,6 +106,6 @@ public class MultipartResourceTest {
                 .multiPart(dataSpec)
                 .post(path)
                 .then()
-                .statusCode(200);
+                .statusCode(HttpStatus.SC_OK);
     }
 }

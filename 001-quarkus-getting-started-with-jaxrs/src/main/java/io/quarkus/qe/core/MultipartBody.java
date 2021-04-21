@@ -1,10 +1,11 @@
 package io.quarkus.qe.core;
 
-import org.jboss.resteasy.annotations.providers.multipart.PartType;
+import java.io.InputStream;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.core.MediaType;
-import java.io.InputStream;
+
+import org.jboss.resteasy.annotations.providers.multipart.PartType;
 
 public class MultipartBody {
 

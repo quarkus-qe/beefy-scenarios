@@ -11,13 +11,13 @@ public class TogglablePropertiesOnDevModeTest extends BaseTogglablePropertiesTes
     private static final String APPLICATION_PROPERTIES = "application.properties";
 
     @RegisterExtension
-    static final QuarkusDevModeTest app = new QuarkusDevModeTest()
+    static final QuarkusDevModeTest APP = new QuarkusDevModeTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addAsResource(APPLICATION_PROPERTIES, APPLICATION_PROPERTIES));
 
     @Override
     protected void whenChangeServiceAtRuntime(TogglableServices service, boolean enable) {
-        app.modifyResourceFile(APPLICATION_PROPERTIES,
+        APP.modifyResourceFile(APPLICATION_PROPERTIES,
                 s -> s.replace(service.getToggleProperty() + "=" + !enable, service.getToggleProperty() + "=" + enable));
     }
 }

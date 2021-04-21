@@ -18,7 +18,6 @@ public class RestExceptionHandler {
         return new ResponseEntity<>("Book not found", HttpStatus.NOT_FOUND);
     }
 
-
     @ExceptionHandler({
             BookIdMismatchException.class,
             ConstraintViolationException.class,

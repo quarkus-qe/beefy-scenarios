@@ -20,24 +20,28 @@ public class UsingRegistryPingPongResourceTest {
     private static final String COUNTER_FORMAT = "%s_total %s.0";
     private static final String NO_QUERY_PARAMS = null;
 
+    private static final int ONE = 1;
+    private static final int FIFTY = 50;
+    private static final int MANY = 500;
+
     private String currentScenario;
 
     @Test
     public void testSimpleScenarioShouldReturnCountOne() {
         whenCallPingPongScenario(SIMPLE_SCENARIO);
-        thenCounterIs(1);
+        thenCounterIs(ONE);
     }
 
     @Test
     public void testIterativeScenarioShouldReturnCountOne() {
-        whenCallPingPongScenario(FORLOOP_SCENARIO, countQuery(50));
-        thenCounterIs(50);
+        whenCallPingPongScenario(FORLOOP_SCENARIO, countQuery(FIFTY));
+        thenCounterIs(FIFTY);
     }
 
     @Test
     public void testIterativeParallelScenarioShouldReturnCountOne() {
-        whenCallPingPongScenario(FORLOOP_PARALLEL_SCENARIO, countQuery(500));
-        thenCounterIs(500);
+        whenCallPingPongScenario(FORLOOP_PARALLEL_SCENARIO, countQuery(MANY));
+        thenCounterIs(MANY);
     }
 
     private void whenCallPingPongScenario(String scenario) {
@@ -63,7 +67,7 @@ public class UsingRegistryPingPongResourceTest {
                 .body(containsString(String.format(COUNTER_FORMAT, currentScenario, expectedCounter)));
     }
 
-    private static final String countQuery(int count) {
+    private static String countQuery(int count) {
         return "count=" + count;
     }
 }

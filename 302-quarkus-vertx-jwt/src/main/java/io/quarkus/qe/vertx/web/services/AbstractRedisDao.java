@@ -43,7 +43,8 @@ public abstract class AbstractRedisDao<E extends Record> {
     }
 
     public Uni<List<E>> get() {
-        Multi<E> objects = getKeys().onItem().transformToUniAndMerge(key -> redisClient.get(key).onItem().ifNotNull().transform(item -> Record.decodeJSON(item.toString(), type)));
+        Multi<E> objects = getKeys().onItem().transformToUniAndMerge(
+                key -> redisClient.get(key).onItem().ifNotNull().transform(item -> Record.decodeJSON(item.toString(), type)));
         return objects.collectItems().in(ArrayList::new, List::add);
     }
 
@@ -66,13 +67,19 @@ public abstract class AbstractRedisDao<E extends Record> {
     }
 
     private boolean isDeleted(Response resp) {
-        if (!"0".equalsIgnoreCase(resp.toString())) return true;
-        else throw new NotFoundException("Redis entity not deleted.");
+        if (!"0".equalsIgnoreCase(resp.toString())) {
+            return true;
+        }
+
+        throw new NotFoundException("Redis entity not deleted.");
     }
 
     private boolean isPersisted(Response resp) {
-        if ("OK".equalsIgnoreCase(resp.toString())) return true;
-        else throw new RuntimeException("Redis entity not persisted.");
+        if ("OK".equalsIgnoreCase(resp.toString())) {
+            return true;
+        }
+
+        throw new RuntimeException("Redis entity not persisted.");
     }
 
     private Set<String> getKeysValues(Response response) {

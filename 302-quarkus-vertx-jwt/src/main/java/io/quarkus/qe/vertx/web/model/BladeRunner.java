@@ -4,16 +4,16 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
 public class BladeRunner extends Person {
-    private int VoightKampffTestAmount;
+    private int voightKampffTestAmount;
     private int retirements;
     private double dailyRate;
 
     public int getVoightKampffTestAmount() {
-        return VoightKampffTestAmount;
+        return voightKampffTestAmount;
     }
 
     public void setVoightKampffTestAmount(int voightKampffTestAmount) {
-        VoightKampffTestAmount = voightKampffTestAmount;
+        this.voightKampffTestAmount = voightKampffTestAmount;
     }
 
     public int getRetirements() {

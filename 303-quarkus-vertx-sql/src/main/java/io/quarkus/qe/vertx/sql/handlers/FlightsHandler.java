@@ -31,11 +31,11 @@ import io.vertx.ext.web.RoutingContext;
 
 @OpenAPIDefinition(
         info = @Info(
-        title = "Flight Search API",
-        version = "1.0.1",
-        contact = @Contact(name = "Flight Search API Support", email = "techsupport@example.com"),
-        license = @License(name = "Apache 2.0",
-        url = "http://www.apache.org/licenses/LICENSE-2.0.html")))
+                title = "Flight Search API",
+                version = "1.0.1",
+                contact = @Contact(name = "Flight Search API Support", email = "techsupport@example.com"),
+                license = @License(name = "Apache 2.0",
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.html")))
 @Tag(name = "Flights", description = "Manage flights")
 @Singleton
 @RouteBase(path = "flights", produces = "application/json")
@@ -49,7 +49,9 @@ public class FlightsHandler {
     FlightSearchService flightSearchService;
 
     @Operation(summary = "Flight search")
-    @APIResponse(responseCode = "200", description = "search flights prices", content = @Content(mediaType = "application/json", schema = @Schema(type = SchemaType.STRING)))
+    @APIResponse(responseCode = "200",
+            description = "search flights prices",
+            content = @Content(mediaType = "application/json", schema = @Schema(type = SchemaType.STRING)))
     @Route(methods = HttpMethod.PUT, path = "/search")
     void search(@Body @Valid QueryFlightSearch query, RoutingContext context) {
         flightSearchService.search(query)
@@ -58,16 +60,20 @@ public class FlightsHandler {
     }
 
     @Operation(summary = "Retrieve all flights")
-    @APIResponse(responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(type = SchemaType.ARRAY, implementation = Flight.class)))
+    @APIResponse(responseCode = "200",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(type = SchemaType.ARRAY, implementation = Flight.class)))
     @Route(methods = HttpMethod.GET, path = "/*")
     void allFlights(RoutingContext context) {
-       Flight.findAllAsList(connection)
-               .onFailure().invoke(context::fail)
-               .subscribe().with(flights -> context.response().end(Record.toJsonStringify(flights)));
+        Flight.findAllAsList(connection)
+                .onFailure().invoke(context::fail)
+                .subscribe().with(flights -> context.response().end(Record.toJsonStringify(flights)));
     }
 
     @Operation(summary = "Retrieve all flights by origin and destination")
-    @APIResponse(responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(type = SchemaType.ARRAY, implementation = Flight.class)))
+    @APIResponse(responseCode = "200",
+            content = @Content(mediaType = "application/json",
+                    schema = @Schema(type = SchemaType.ARRAY, implementation = Flight.class)))
     @Route(methods = HttpMethod.GET, path = "/origin/:origin/destination/:destination")
     void allFlightOriginDest(@Param("origin") String origin, @Param("destination") String destination, RoutingContext context) {
         Flight.findByOriginDestinationAsList(connection, origin, destination)

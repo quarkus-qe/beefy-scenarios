@@ -1,1 +1,1 @@
-quarkus.qe.providers.CustomConfigSource
+io.quarkus.qe.providers.CustomConfigSource

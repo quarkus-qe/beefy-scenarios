@@ -16,12 +16,12 @@ public class InfinispanPopulated {
 
     private static final Logger LOGGER = Logger.getLogger(InfinispanPopulated.class);
 
+    private static final String CACHE_CONFIG = "<infinispan><cache-container>"
+            + "<distributed-cache name=\"mycache\"></distributed-cache>"
+            + "</cache-container></infinispan>";
+
     @Inject
     RemoteCacheManager cacheManager;
-
-    private static final String CACHE_CONFIG = "<infinispan><cache-container>" +
-            "<distributed-cache name=\"mycache\"></distributed-cache>" +
-            "</cache-container></infinispan>";
 
     void onStart(@Observes StartupEvent ev) {
         LOGGER.info("Create or get cache named mycache with the default configuration");

@@ -7,6 +7,7 @@ import static org.hamcrest.CoreMatchers.is;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 
+import org.apache.http.HttpStatus;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +23,16 @@ import io.vertx.mutiny.core.Vertx;
 
 public class AbstractCommonTest {
 
+    private static final long SECOND_IN_MILLIS = 1000L;
+
+    private static final double BLADE_RUNNER_DAILY_RATE_DEFAULT = 2000.00;
+    private static final int BLADE_RUNNER_RETIREMENTS_DEFAULT = 103;
+    private static final int BLADE_RUNNER_VOIGHT_KAMPFF_DEFAULT = 1500;
+    private static final int BLADE_RUNNER_SEQ_ID = 105;
+
+    private static final int REPLICANT_LIVE_SPAN_YEARS = 5;
+    private static final int REPLICANT_SEQ_ID = 185;
+
     BladeRunner bladeRunner;
     Replicant replicant;
     Vertx vertx;
@@ -31,39 +42,39 @@ public class AbstractCommonTest {
         this.vertx = Vertx.vertx();
         bladeRunner = defaultBladeRunner();
         given().accept(ContentType.JSON)
-                .headers("Authorization", "Bearer " + JWT(Invalidity.EMPTY, "admin"))
+                .headers("Authorization", "Bearer " + generateToken(Invalidity.EMPTY, "admin"))
                 .body(bladeRunner.toJsonEncoded())
                 .when()
                 .post("/bladeRunner/")
                 .then()
                 .log().body()
-                .statusCode(200);
+                .statusCode(HttpStatus.SC_OK);
 
         replicant = defaultReplicant();
         given().accept(ContentType.JSON)
-                .headers("Authorization", "Bearer " + JWT(Invalidity.EMPTY, "admin"))
+                .headers("Authorization", "Bearer " + generateToken(Invalidity.EMPTY, "admin"))
                 .body(replicant.toJsonEncoded())
                 .when()
                 .post("/replicant/")
                 .then()
-                .statusCode(200);
+                .statusCode(HttpStatus.SC_OK);
     }
 
     @AfterEach
-    public void teardown(){
+    public void teardown() {
         given().accept(ContentType.JSON)
-                .headers("Authorization", "Bearer " + JWT(Invalidity.EMPTY, "admin"))
+                .headers("Authorization", "Bearer " + generateToken(Invalidity.EMPTY, "admin"))
                 .when()
                 .delete("/bladeRunner/" + bladeRunner.getId())
                 .then()
-                .statusCode(anyOf(is(204),is(404)));
+                .statusCode(anyOf(is(HttpStatus.SC_NO_CONTENT), is(HttpStatus.SC_NOT_FOUND)));
 
         given().accept(ContentType.JSON)
-                .headers("Authorization", "Bearer " + JWT(Invalidity.EMPTY, "admin"))
+                .headers("Authorization", "Bearer " + generateToken(Invalidity.EMPTY, "admin"))
                 .when()
-                .delete("/replicant/"+replicant.getId())
+                .delete("/replicant/" + replicant.getId())
                 .then()
-                .statusCode(anyOf(is(204),is(404)));
+                .statusCode(anyOf(is(HttpStatus.SC_NO_CONTENT), is(HttpStatus.SC_NOT_FOUND)));
     }
 
     protected enum Invalidity {
@@ -75,12 +86,12 @@ public class AbstractCommonTest {
         WRONG_KEY
     }
 
-    protected String JWT(Invalidity invalidity, String... groups) {
+    protected String generateToken(Invalidity invalidity, String... groups) {
         JsonObject authConfig = defaultAuthConfig();
         JsonObject claims = defaultClaims(groups);
         JWTAuth jwt = JWTAuth.create(vertx.getDelegate(), new JWTAuthOptions()
                 .addPubSecKey(getPubSecKeyOptions(authConfig)));
-        switch(invalidity){
+        switch (invalidity) {
             case WRONG_ISSUER:
                 claims.put("iss", "invalid");
                 break;
@@ -98,6 +109,9 @@ public class AbstractCommonTest {
                 jwt = JWTAuth.create(vertx.getDelegate(), new JWTAuthOptions()
                         .addPubSecKey(getPubSecKeyOptions(authConfig)));
                 break;
+            default:
+                throw new IllegalStateException(
+                        String.format("Unexpected value %s of type %s", invalidity.name(), Invalidity.class.getName()));
         }
 
         return jwt.generateToken(claims);
@@ -114,7 +128,7 @@ public class AbstractCommonTest {
         return new PubSecKeyOptions(authConfig).setBuffer(authConfig.getBuffer("publicKey"));
     }
 
-    private JsonObject defaultClaims(String... groups){
+    private JsonObject defaultClaims(String... groups) {
         Long now = currentTimeEpoch();
         Long expiration = currentTimePLusOneEpoch();
         return new JsonObject()
@@ -128,38 +142,38 @@ public class AbstractCommonTest {
     }
 
     private Long currentTimeEpoch() {
-        return currentTime().toInstant().toEpochMilli() / 1000L;
+        return currentTime().toInstant().toEpochMilli() / SECOND_IN_MILLIS;
     }
 
-    private Long currentTimePLusOneEpoch(){
-        return currentTime().plusMinutes(1).toInstant().toEpochMilli() / 1000L;
+    private Long currentTimePLusOneEpoch() {
+        return currentTime().plusMinutes(1).toInstant().toEpochMilli() / SECOND_IN_MILLIS;
     }
 
     private ZonedDateTime currentTime() {
         return ZonedDateTime.now();
     }
 
-    protected BladeRunner defaultBladeRunner(){
+    protected BladeRunner defaultBladeRunner() {
         BladeRunner bladeRunner = new BladeRunner();
-        bladeRunner.setDailyRate(2000.00);
-        bladeRunner.setRetirements(103);
-        bladeRunner.setVoightKampffTestAmount(1500);
+        bladeRunner.setDailyRate(BLADE_RUNNER_DAILY_RATE_DEFAULT);
+        bladeRunner.setRetirements(BLADE_RUNNER_RETIREMENTS_DEFAULT);
+        bladeRunner.setVoightKampffTestAmount(BLADE_RUNNER_VOIGHT_KAMPFF_DEFAULT);
         bladeRunner.setName("Rick");
         bladeRunner.setLastName("Deckard");
-        bladeRunner.setIq(105);
+        bladeRunner.setIq(BLADE_RUNNER_SEQ_ID);
 
         return bladeRunner;
     }
 
-    protected Replicant defaultReplicant(){
+    protected Replicant defaultReplicant() {
         Replicant replicant = new Replicant();
         replicant.setFugitive(true);
-        replicant.setLiveSpanYears(5);
+        replicant.setLiveSpanYears(REPLICANT_LIVE_SPAN_YEARS);
         replicant.setModel("Nexus 5");
         replicant.setTelepathy(true);
         replicant.setName("Alan");
         replicant.setLastName("Greg");
-        replicant.setIq(185);
+        replicant.setIq(REPLICANT_SEQ_ID);
 
         return replicant;
     }

@@ -8,6 +8,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -15,15 +16,19 @@ import io.quarkus.test.junit.QuarkusTest;
 @QuarkusTest
 public class JavaEELikeHealthCheckTest {
 
+    private static final int EXPECTED_HEALTH_COUNT = 4;
+    private static final int EXPECTED_HEALTH_READY_COUNT = 3;
+
     @Test
     public void testHealthEndpoint() {
         given()
                 .when().get("/health")
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body("status", is("UP"),
-                        "checks.name", containsInAnyOrder("liveness", "readiness", "greeting", "Database connections health check"),
-                        "checks.status", hasSize(4),
+                        "checks.name",
+                        containsInAnyOrder("liveness", "readiness", "greeting", "Database connections health check"),
+                        "checks.status", hasSize(EXPECTED_HEALTH_COUNT),
                         "checks.status", hasItem("UP"),
                         "checks.status", not(hasItem("DOWN"))
                 );
@@ -31,11 +36,12 @@ public class JavaEELikeHealthCheckTest {
 
     @Test
     public void testHealthGroupEndpoint() {
-        // TODO: There is an inconsistency about the Health groups path. Reported by https://github.com/quarkusio/quarkus/issues/16389.
+        // TODO: There is an inconsistency about the Health groups path.
+        // Reported by https://github.com/quarkusio/quarkus/issues/16389.
         given()
                 .when().get("/health/group/customGroup")
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body("status", is("UP"),
                         "checks.name",
                         containsInAnyOrder("custom-group"),
@@ -48,19 +54,21 @@ public class JavaEELikeHealthCheckTest {
         given()
                 .when().get("/health/ready")
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body("status", is("UP"),
-                        "checks.name", containsInAnyOrder("readiness", "greeting", "Database connections health check"),
-                        "checks.status", hasSize(3),
+                        "checks.name",
+                        containsInAnyOrder("readiness", "greeting", "Database connections health check"),
+                        "checks.status", hasSize(EXPECTED_HEALTH_READY_COUNT),
                         "checks.status", hasItem("UP")
                 );
     }
+
     @Test
     public void testLivenessEndpoint() {
         given()
                 .when().get("/health/live")
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body("status", is("UP"),
                         "checks.name", hasItems("liveness"),
                         "checks.status", hasSize(1),

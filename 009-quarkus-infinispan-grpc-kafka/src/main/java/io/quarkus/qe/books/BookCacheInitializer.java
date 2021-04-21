@@ -14,12 +14,12 @@ public class BookCacheInitializer {
 
     public static final String CACHE_NAME = "booksCache";
 
+    private static final String CACHE_CONFIG = "<infinispan><cache-container>"
+            + "<distributed-cache name=\"%s\"></distributed-cache>"
+            + "</cache-container></infinispan>";
+
     @Inject
     RemoteCacheManager cacheManager;
-
-    private static final String CACHE_CONFIG = "<infinispan><cache-container>" +
-            "<distributed-cache name=\"%s\"></distributed-cache>" +
-            "</cache-container></infinispan>";
 
     void onStart(@Observes StartupEvent ev) {
         cacheManager.administration().getOrCreateCache(CACHE_NAME,

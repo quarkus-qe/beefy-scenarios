@@ -13,21 +13,22 @@ import io.vertx.ext.web.RoutingContext;
 @ApplicationScoped
 public class JWTHandler {
 
+    private static final int TOKEN_EXP_MIN = 10;
+    private static final long SECOND_IN_MILLIS = 1000L;
+
     @Inject
     JWTAuth jwt;
 
-    private static final int TOKEN_EXP_MIN = 10;
-
-    public void createJwt(final RoutingContext context){
+    public void createJwt(final RoutingContext context) {
         String name = context.request().getParam("name");
         context.response()
                 .putHeader("Content-Type", "application/json")
-                .end(new JsonObject().put("jwt",  jwt.generateToken(defaultClaims(name, "admin"))).encode());
+                .end(new JsonObject().put("jwt", jwt.generateToken(defaultClaims(name, "admin"))).encode());
     }
 
-    private JsonObject defaultClaims(String name, String... groups){
+    private JsonObject defaultClaims(String name, String... groups) {
         Long now = currentTimeEpoch();
-        Long expiration = currentTimePLusOneEpoch();
+        Long expiration = currentTimePlusOneEpoch();
         return new JsonObject()
                 .put("name", name)
                 .put("sub", "bff")
@@ -39,11 +40,11 @@ public class JWTHandler {
     }
 
     private Long currentTimeEpoch() {
-        return currentTime().toInstant().toEpochMilli() / 1000L;
+        return currentTime().toInstant().toEpochMilli() / SECOND_IN_MILLIS;
     }
 
-    private Long currentTimePLusOneEpoch(){
-        return currentTime().plusMinutes(TOKEN_EXP_MIN).toInstant().toEpochMilli() / 1000L;
+    private Long currentTimePlusOneEpoch() {
+        return currentTime().plusMinutes(TOKEN_EXP_MIN).toInstant().toEpochMilli() / SECOND_IN_MILLIS;
     }
 
     private ZonedDateTime currentTime() {

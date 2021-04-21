@@ -11,6 +11,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import io.netty.handler.codec.http.HttpResponseStatus;
 import io.quarkus.qe.vertx.sql.domain.Basket;
 import io.quarkus.qe.vertx.sql.domain.Record;
 import io.quarkus.qe.vertx.sql.services.DbPoolService;
@@ -30,12 +31,15 @@ public class BasketHandler {
     DbPoolService connection;
 
     @Operation(summary = "save basket")
-    @APIResponse(responseCode = "201", description = "basket id", content = @Content(mediaType = "application/json", schema = @Schema(type = SchemaType.OBJECT, implementation = Record.class)))
+    @APIResponse(responseCode = "201", description = "basket id",
+            content = @Content(mediaType = "application/json",
+            schema = @Schema(type = SchemaType.OBJECT, implementation = Record.class)))
     @Route(methods = HttpMethod.POST, path = "/checkout")
     void search(@Body Basket basket, RoutingContext context) {
         basket.save(connection)
                 .onFailure().invoke(context::fail)
-                .subscribe().with(id -> context.response().setStatusCode(201).end(new Record(id).toJsonStringify()));
+                .subscribe().with(id -> context.response().setStatusCode(HttpResponseStatus.CREATED.code())
+                    .end(new Record(id).toJsonStringify()));
     }
 
 }

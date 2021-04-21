@@ -24,6 +24,8 @@ public abstract class AbstractPingPongResourceTest {
     private static final String PING_RESOURCE = "PingResource";
     private static final String PONG_RESOURCE = "PongResource";
 
+    private static final int ASSERT_TIMEOUT_SECONDS = 5;
+
     @ConfigProperty(name = JaegerTestResource.JAEGER_API_ENDPOINT, defaultValue = "http://localhost:16686/api/traces")
     String jaegerEndpoint;
 
@@ -43,7 +45,7 @@ public abstract class AbstractPingPongResourceTest {
         assertTraceIdWithPongService(pingTraceId);
 
         // Then Jaeger is invoked
-        await().atMost(5, TimeUnit.SECONDS).untilAsserted(() -> given()
+        await().atMost(ASSERT_TIMEOUT_SECONDS, TimeUnit.SECONDS).untilAsserted(() -> given()
                 .when().get(jaegerEndpoint + "/" + pingTraceId)
                 .then().statusCode(HttpStatus.SC_OK)
                 .and().body(allOf(containsString(PING_RESOURCE), containsString(PONG_RESOURCE))));

@@ -62,7 +62,7 @@ public class ManuallyScheduledCounter {
         }
     }
 
-    private static final String caller() {
+    private static String caller() {
         return ManuallyScheduledCounter.class.getName();
     }
 }
