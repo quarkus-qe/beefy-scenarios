@@ -1,20 +1,5 @@
 package io.quarkus.qe.vertx.webclient;
 
-import io.quarkus.qe.vertx.webclient.resources.JaegerTestResource;
-import io.quarkus.qe.vertx.webclient.resources.WireMockChuckNorrisResource;
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.response.Response;
-import java.net.HttpURLConnection;
-import java.time.Duration;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import org.apache.http.HttpStatus;
-import org.hamcrest.Matcher;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
@@ -29,17 +14,34 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Every.everyItem;
 import static org.hamcrest.core.StringContains.containsString;
 
+import java.net.HttpURLConnection;
+import java.time.Duration;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.http.HttpStatus;
+import org.hamcrest.Matcher;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.qe.vertx.webclient.resources.JaegerTestResource;
+import io.quarkus.qe.vertx.webclient.resources.WireMockChuckNorrisResource;
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.response.Response;
+
 @QuarkusTest
 @QuarkusTestResource(WireMockChuckNorrisResource.class)
 @QuarkusTestResource(JaegerTestResource.class)
 public class ChuckNorrisResourceTest {
-    private final static String jaegerEndpoint = "http://localhost:16686/api/traces";
-    static final String EXPECTED_ID = "aBanNLDwR-SAz7iMHuCiyw";
-    static final String EXPECTED_VALUE = "Chuck Norris has already been to mars; that why there's no signs of life";
-    static final int DELAY = 3500; // must be greater than vertx.webclient.timeout-sec
-    static final String QUARKUS_PROFILE = "quarkus.profile";
-    static final String NATIVE = "native";
-    static final boolean IS_NATIVE = System.getProperty(QUARKUS_PROFILE, "").equals(NATIVE);
+    private static final String JAEGER_ENDPOINT = "http://localhost:16686/api/traces";
+    private static final String EXPECTED_ID = "aBanNLDwR-SAz7iMHuCiyw";
+    private static final String EXPECTED_VALUE = "Chuck Norris has already been to mars; that why there's no signs of life";
+    private static final int DELAY = 3500; // must be greater than vertx.webclient.timeout-sec
+    private static final String QUARKUS_PROFILE = "quarkus.profile";
+    private static final String NATIVE = "native";
+    private static final boolean IS_NATIVE = System.getProperty(QUARKUS_PROFILE, "").equals(NATIVE);
 
     private Response resp;
 
@@ -130,7 +132,7 @@ public class ChuckNorrisResourceTest {
                 .queryParam("lookback", lookBack)
                 .queryParam("service", serviceName)
                 .queryParam("operation", operationName)
-                .get(jaegerEndpoint);
+                .get(JAEGER_ENDPOINT);
     }
 
     private void thenStatusCodeMustBe(int expectedStatusCode) {
@@ -162,13 +164,13 @@ public class ChuckNorrisResourceTest {
         stubFor(get(urlEqualTo("/jokes/random"))
                 .willReturn(aResponse()
                         .withHeader("Accept", "application/json")
-                        .withBody(String.format("{\"categories\":[]," +
-                                "\"created_at\":\"2020-01-05 13:42:19.576875\"," +
-                                "\"icon_url\":\"https://assets.chucknorris.host/img/avatar/chuck-norris.png\"," +
-                                "\"id\":\"%s\"," +
-                                "\"updated_at\":\"2020-01-05 13:42:19.576875\"," +
-                                "\"url\":\"https://api.chucknorris.io/jokes/sC09X1xQQymE4SciIjyV0g\"," +
-                                "\"value\":\"%s\"}", EXPECTED_ID, EXPECTED_VALUE))));
+                        .withBody(String.format("{\"categories\":[],"
+                                + "\"created_at\":\"2020-01-05 13:42:19.576875\","
+                                + "\"icon_url\":\"https://assets.chucknorris.host/img/avatar/chuck-norris.png\","
+                                + "\"id\":\"%s\","
+                                + "\"updated_at\":\"2020-01-05 13:42:19.576875\","
+                                + "\"url\":\"https://api.chucknorris.io/jokes/sC09X1xQQymE4SciIjyV0g\","
+                                + "\"value\":\"%s\"}", EXPECTED_ID, EXPECTED_VALUE))));
     }
 
     private String getServiceName() {

@@ -2,7 +2,6 @@ package io.quarkus.qe.non_application.endpoint;
 
 import static io.restassured.RestAssured.given;
 
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,13 +16,14 @@ public abstract class CommonNonAppEndpoint {
     protected static final String QUARKUS_PROFILE = "quarkus.profile";
     protected static final String NATIVE = "native";
     protected static final boolean IS_NATIVE = System.getProperty(QUARKUS_PROFILE, "").equals(NATIVE);
-    private RequestSpecification request;
-    private RequestSpecBuilder spec;
 
-    protected static final List<String> nonAppEndpoints = Arrays.asList(
+    protected static final List<String> NON_APP_ENDPOINTS = Arrays.asList(
             "/openapi", "/metrics/base", "/metrics/application",
             "/metrics/vendor", "/metrics", "/health/group", "/health/well", "/health/ready",
             "/health/live", "/health", "/swagger-ui");
+
+    private RequestSpecification request;
+    private RequestSpecBuilder spec;
 
     protected void givenBasePath(String basePath) {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
@@ -36,7 +36,7 @@ public abstract class CommonNonAppEndpoint {
     }
 
     protected void thenStatusCodeShouldBe(int status) {
-        for (String endpoint : nonAppEndpoints) {
+        for (String endpoint : NON_APP_ENDPOINTS) {
             given().spec(request).log().uri().expect().statusCode(status).when().get(endpoint);
         }
     }

@@ -1,4 +1,4 @@
-package quarkus.qe.providers;
+package io.quarkus.qe.providers;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -39,7 +39,7 @@ public class CustomConfigSource implements ConfigSource {
         return "Custom Config Source";
     }
 
-    public void loadProperties(){
+    public void loadProperties() {
         try {
             InputStream in = CustomConfigSource.class.getResourceAsStream(PROPERTIES_FILE);
             if (in != null) {
@@ -47,8 +47,7 @@ public class CustomConfigSource implements ConfigSource {
             } else {
                 throw new FileNotFoundException("Property file " + PROPERTIES_FILE + " not found in the classpath");
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

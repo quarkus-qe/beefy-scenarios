@@ -25,6 +25,7 @@ import io.quarkus.test.QuarkusProdModeTest;
 public class KafkaGratefulShutdownTest {
 
     private static final int TOTAL_MESSAGES = 10;
+    private static final int ASSERT_TIMEOUT_SECONDS = 3;
     private static final String GRATEFUL_SHUTDOWN_PROPERTY = "mp.messaging.incoming.slow.graceful-shutdown";
     private static final String KAFKA_LOG_PROPERTY = "quarkus.log.category.\"io.smallrye.reactive.messaging.kafka\".level";
     private static final String LAST_MESSAGE_LOG = "Processed Message " + TOTAL_MESSAGES;
@@ -92,7 +93,7 @@ public class KafkaGratefulShutdownTest {
     }
 
     private void thenAssertLogs(Predicate<String> assertion, String message) {
-        await().atMost(3, TimeUnit.SECONDS).untilAsserted(() -> {
+        await().atMost(ASSERT_TIMEOUT_SECONDS, TimeUnit.SECONDS).untilAsserted(() -> {
             List<String> elements = Collections.emptyList();
             try {
                 elements = Files.readAllLines(logfile);

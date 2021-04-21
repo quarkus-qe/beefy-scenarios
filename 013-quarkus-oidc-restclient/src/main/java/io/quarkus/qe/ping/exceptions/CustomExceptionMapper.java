@@ -18,7 +18,7 @@ public class CustomExceptionMapper implements ExceptionMapper<RuntimeException> 
     public Response toResponse(RuntimeException e) {
         LOG.info("Custom exception mapper invoked.");
 
-        if(e instanceof NotFoundException) {
+        if (e instanceof NotFoundException) {
             return status(Status.NOT_FOUND)
                     .entity(toCatalogError(new UnexpectedException(e.getMessage())))
                     .build();

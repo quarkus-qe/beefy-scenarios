@@ -16,8 +16,7 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- * Validates whether the value is uppercase
- *
+ * Validates whether the value is uppercase.
  */
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)

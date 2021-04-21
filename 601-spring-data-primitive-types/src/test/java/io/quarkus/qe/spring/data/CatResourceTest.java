@@ -4,10 +4,10 @@ import static io.restassured.RestAssured.when;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.qe.spring.data.model.Cat;
@@ -20,14 +20,14 @@ public class CatResourceTest {
     @Test
     void testCustomFindPublicationYearObjectBoolean() {
         when().get("/cat/customFindDistinctiveObject/2").then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body(is("true"));
     }
 
     @Test
     void testCustomFindPublicationYearPrimitiveBoolean() {
         when().get("/cat/customFindDistinctivePrimitive/2").then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body(is("true"));
     }
 
@@ -35,7 +35,7 @@ public class CatResourceTest {
     @Test
     void testFindCatsByDeathReason() {
         Response response = when().get("/cat/findCatsByMappedSuperclassField/covid19").then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .contentType(ContentType.JSON).extract().response();
 
         List<Cat> cats = Arrays.asList(response.getBody().as(Cat[].class));

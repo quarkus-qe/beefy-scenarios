@@ -16,13 +16,14 @@ import io.quarkus.test.junit.QuarkusTest;
 @QuarkusTestResource(KafkaTestResource.class)
 public class PriceServiceTest {
 
+    private static final int ASSERT_TIMEOUT_SECONDS = 5;
+
     @Test
     public void testPricesResource() {
-        Awaitility.await().atMost(Duration.ofSeconds(5)).untilAsserted(() -> {
-            get("/prices/poll")
-            .then()
-            .statusCode(HttpStatus.SC_OK);
-        });
-
+        Awaitility.await().atMost(Duration.ofSeconds(ASSERT_TIMEOUT_SECONDS)).untilAsserted(() ->
+                get("/prices/poll")
+                        .then()
+                        .statusCode(HttpStatus.SC_OK)
+        );
     }
 }

@@ -1,5 +1,6 @@
 package io.quarkus.qe.multiplepus;
 
+import io.netty.handler.codec.http.HttpResponseStatus;
 import io.quarkus.panache.common.Sort;
 import io.quarkus.qe.multiplepus.model.vegetable.Vegetable;
 
@@ -44,11 +45,11 @@ public class VegetableResource {
     @Transactional
     public Response create(@Valid Vegetable vegetable) {
         if (vegetable.id != null) {
-            throw new ClientErrorException("unexpected ID in request", 422);
+            throw new ClientErrorException("unexpected ID in request", HttpResponseStatus.UNPROCESSABLE_ENTITY.code());
         }
 
         vegetable.persist();
-        return Response.ok(vegetable).status(201).build();
+        return Response.ok(vegetable).status(Response.Status.CREATED).build();
     }
 
     @PUT
@@ -73,7 +74,7 @@ public class VegetableResource {
             throw new NotFoundException("vegetable '" + id + "' not found");
         }
         vegetable.delete();
-        return Response.status(204).build();
+        return Response.noContent().build();
     }
 
 }

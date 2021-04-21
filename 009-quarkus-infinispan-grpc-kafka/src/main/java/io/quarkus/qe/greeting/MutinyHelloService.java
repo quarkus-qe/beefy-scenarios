@@ -1,11 +1,10 @@
 package io.quarkus.qe.greeting;
 
+import javax.inject.Singleton;
+
 import io.quarkus.example.dto.HelloReply;
 import io.quarkus.example.dto.HelloRequest;
 import io.quarkus.example.mutiny.MutinyGreeterGrpc;
-import javax.inject.Singleton;
-
-
 import io.smallrye.mutiny.Uni;
 
 @Singleton

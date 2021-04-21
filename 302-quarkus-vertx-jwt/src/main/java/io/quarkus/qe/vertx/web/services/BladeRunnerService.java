@@ -1,10 +1,11 @@
 package io.quarkus.qe.vertx.web.services;
 
-import io.quarkus.qe.vertx.web.model.BladeRunner;
 import javax.enterprise.context.ApplicationScoped;
 
+import io.quarkus.qe.vertx.web.model.BladeRunner;
+
 @ApplicationScoped
-public class BladeRunnerService extends AbstractRedisDao<BladeRunner>{
+public class BladeRunnerService extends AbstractRedisDao<BladeRunner> {
 
     private static final String PREFIX = "bladeRunner_";
 

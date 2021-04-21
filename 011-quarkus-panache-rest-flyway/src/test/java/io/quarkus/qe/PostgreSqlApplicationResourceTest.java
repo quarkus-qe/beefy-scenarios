@@ -200,7 +200,7 @@ public class PostgreSqlApplicationResourceTest {
         }
     }
 
-    private static final RequestSpecification applicationPath() {
+    private static RequestSpecification applicationPath() {
         return given().accept(MediaType.APPLICATION_JSON).contentType(ContentType.JSON).when().basePath(APPLICATION_PATH);
     }
 }

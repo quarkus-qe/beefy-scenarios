@@ -27,7 +27,7 @@ public class AnnotationScheduledCounter {
         service.invoke(caller());
     }
 
-    private static final String caller() {
+    private static String caller() {
         return AnnotationScheduledCounter.class.getName();
     }
 

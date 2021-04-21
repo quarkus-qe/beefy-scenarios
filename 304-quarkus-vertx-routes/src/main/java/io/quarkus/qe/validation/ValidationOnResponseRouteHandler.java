@@ -11,6 +11,8 @@ import io.smallrye.mutiny.Uni;
 @RouteBase(path = "/validate")
 public class ValidationOnResponseRouteHandler {
 
+    private static final int SIZE = 3;
+
     @Route(methods = HttpMethod.GET, path = "/response-uni-valid")
     @Valid
     Uni<Response> validateUniResponseWithTypeReturnsValid() {
@@ -27,12 +29,12 @@ public class ValidationOnResponseRouteHandler {
 
     @Route(methods = HttpMethod.GET, path = "/response-uni-invalid-string")
     @Valid
-    @Size(min = 3, max = 3, message = "response must have 3 characters")
+    @Size(min = SIZE, max = SIZE, message = "response must have 3 characters")
     Uni<String> validateUniResponseWithStringReturnsInvalidSize() {
         return Uni.createFrom().item("ASDASD");
     }
 
-    private static final Response createResponse() {
+    private static Response createResponse() {
         Response response = new Response();
         response.setId("identifier");
         response.setCustom("UPPER");

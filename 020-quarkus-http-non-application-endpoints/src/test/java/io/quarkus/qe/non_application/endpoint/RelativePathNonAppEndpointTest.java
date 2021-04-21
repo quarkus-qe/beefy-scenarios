@@ -14,7 +14,7 @@ public class RelativePathNonAppEndpointTest extends CommonNonAppEndpoint {
     private static final String BASE_PATH = "q";
 
     @RegisterExtension
-    static final QuarkusProdModeTest relativePathScenario = new QuarkusProdModeTest()
+    static final QuarkusProdModeTest RELATIVE_PATH_SCENARIO = new QuarkusProdModeTest()
             .setBuildNative(IS_NATIVE)
             .overrideConfigKey("quarkus.http.root-path", "/api")
             .overrideConfigKey("quarkus.http.non-application-root-path", BASE_PATH)

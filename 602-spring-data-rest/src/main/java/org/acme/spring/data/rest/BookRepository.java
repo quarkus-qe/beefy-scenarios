@@ -9,7 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 
-@RepositoryRestResource(exported=false, path = "books", collectionResourceRel = "books")
+@RepositoryRestResource(exported = false, path = "books", collectionResourceRel = "books")
 public interface BookRepository extends PagingAndSortingRepository<Book, Long> {
 
     @Override

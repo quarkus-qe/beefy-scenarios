@@ -22,7 +22,8 @@ public class ValidationOnRequestBodyRouteHandlerTest {
         Request request = new Request();
         request.setFirstCode("MA");
 
-        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response. Reported by https://github.com/quarkusio/quarkus/issues/15159
+        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response.
+        // Reported by https://github.com/quarkusio/quarkus/issues/15159
         ValidationErrorResponse response = given().accept(ContentType.JSON)
                 .when()
                 .body(Json.encode(request))
@@ -44,7 +45,8 @@ public class ValidationOnRequestBodyRouteHandlerTest {
         request.setFirstCode("MA");
         request.setSecondCode("F12");
 
-        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response. Reported by https://github.com/quarkusio/quarkus/issues/15159
+        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response.
+        // Reported by https://github.com/quarkusio/quarkus/issues/15159
         ValidationErrorResponse response = given().accept(ContentType.JSON)
                 .body(Json.encode(request))
                 .post("/validate/request-body")
@@ -65,7 +67,8 @@ public class ValidationOnRequestBodyRouteHandlerTest {
         request.setSecondCode("FR123");
         request.setCustom("lower");
 
-        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response. Reported by https://github.com/quarkusio/quarkus/issues/15159
+        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response.
+        // Reported by https://github.com/quarkusio/quarkus/issues/15159
         ValidationErrorResponse response = given().accept(ContentType.JSON)
                 .when()
                 .body(Json.encode(request))

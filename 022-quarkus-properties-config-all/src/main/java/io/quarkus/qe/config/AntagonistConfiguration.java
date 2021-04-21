@@ -1,4 +1,4 @@
-package quarkus.qe.config;
+package io.quarkus.qe.config;
 
 import io.quarkus.arc.config.ConfigProperties;
 

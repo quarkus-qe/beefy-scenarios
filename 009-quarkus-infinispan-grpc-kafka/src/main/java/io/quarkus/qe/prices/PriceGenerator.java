@@ -16,13 +16,15 @@ import io.smallrye.mutiny.Multi;
 @ApplicationScoped
 public class PriceGenerator {
 
+    private static final int PRICE_MAX = 100;
+
     private Random random = new Random();
 
     @Outgoing("generated-price")
     public Multi<Integer> generate() {
         return Multi.createFrom().ticks().every(Duration.ofSeconds(1))
                 .onOverflow().drop()
-                .map(tick -> random.nextInt(100));
+                .map(tick -> random.nextInt(PRICE_MAX));
     }
 
 }

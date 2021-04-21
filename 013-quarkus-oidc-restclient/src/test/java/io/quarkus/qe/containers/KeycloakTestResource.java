@@ -28,10 +28,10 @@ public class KeycloakTestResource implements QuarkusTestResourceLifecycleManager
 
     private static final String REALM_FILE = "/tmp/realm.json";
     private static final String KEYCLOAK_IMAGE = "quay.io/keycloak/keycloak:11.0.3";
+    private static final int TIMEOUT_MINUTES = 5;
 
     private GenericContainer<?> container;
 
-    @SuppressWarnings("resource")
     @Override
     public Map<String, String> start() {
 
@@ -40,7 +40,7 @@ public class KeycloakTestResource implements QuarkusTestResourceLifecycleManager
                 .withEnv("KEYCLOAK_PASSWORD", PASSWORD)
                 .withEnv("KEYCLOAK_IMPORT", REALM_FILE)
                 .withClasspathResourceMapping("test-realm.json", REALM_FILE, BindMode.READ_ONLY)
-                .waitingFor(Wait.forHttp("/auth").withStartupTimeout(Duration.ofMinutes(5)));
+                .waitingFor(Wait.forHttp("/auth").withStartupTimeout(Duration.ofMinutes(TIMEOUT_MINUTES)));
         container.addExposedPort(PORT);
         container.start();
 

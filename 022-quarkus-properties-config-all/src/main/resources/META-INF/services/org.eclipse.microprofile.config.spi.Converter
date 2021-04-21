@@ -1,1 +1,1 @@
-quarkus.qe.converter.CustomEmailConverter
+io.quarkus.qe.converter.CustomEmailConverter
