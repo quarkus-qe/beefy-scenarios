@@ -28,10 +28,10 @@ jobs:
           git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B -s .github/mvn-settings.xml clean install -Dquickly
       - name: Test in JVM mode
         run: |
-          mvn -fae -V -B -s .github/mvn-settings.xml clean test
+          mvn -fae -V -B -s .github/mvn-settings.xml -Dvalidate-format clean test
       - name: Smoke Test in Native mode
         run: |
-          mvn -V -B -s .github/mvn-settings.xml -fae clean verify -Dnative \
+          mvn -V -B -s .github/mvn-settings.xml -Dvalidate-format -fae clean verify -Dnative \
             -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
             -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }} \
             -pl '003-quarkus-many-extensions'

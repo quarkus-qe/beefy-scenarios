@@ -56,6 +56,10 @@
     <apicurio-registry-utils-serde.version>1.3.2.Final</apicurio-registry-utils-serde.version>
     <confluent.kafka-avro-serializer.version>6.0.0</confluent.kafka-avro-serializer.version>
     <version.quarkiverse.apicurio.registry.client>0.0.2</version.quarkiverse.apicurio.registry.client>
+    <camel-quarkus-support-retrofit.version>1.7.0</camel-quarkus-support-retrofit.version>
+    <formatter-maven-plugin.version>2.15.0</formatter-maven-plugin.version>
+    <impsort-maven-plugin.version>1.6.0</impsort-maven-plugin.version>
+    <xml-format-maven-plugin>3.1.2</xml-format-maven-plugin>
 
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
@@ -150,6 +154,69 @@
           </systemProperties>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>net.revelc.code.formatter</groupId>
+        <artifactId>formatter-maven-plugin</artifactId>
+        <version>${formatter-maven-plugin.version}</version>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>${src.format.goal}</goal>
+                </goals>
+            </execution>
+        </executions>
+        <dependencies>
+            <dependency>
+                <artifactId>quarkus-ide-config</artifactId>
+                <groupId>io.quarkus</groupId>
+                <version>${quarkus.platform.version}</version>
+            </dependency>
+        </dependencies>
+        <configuration>
+            <configFile>eclipse-format.xml</configFile>
+            <lineEnding>LF</lineEnding>
+        </configuration>
+    </plugin>
+    <plugin>
+        <groupId>net.revelc.code</groupId>
+        <artifactId>impsort-maven-plugin</artifactId>
+        <version>${impsort-maven-plugin.version}</version>
+        <configuration>
+            <!-- store outside of target to speed up formatting when mvn clean is used -->
+            <cachedir>.cache</cachedir>
+            <groups>java.,javax.,org.,com.</groups>
+            <staticGroups>*</staticGroups>
+            <removeUnused>true</removeUnused>
+        </configuration>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>${src.sort.goal}</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
+    <plugin>
+        <groupId>au.com.acegi</groupId>
+        <artifactId>xml-format-maven-plugin</artifactId>
+        <version>${xml-format-maven-plugin}</version>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>${xml.format.goal}</goal>
+                </goals>
+                <configuration>
+                    <indentSize>4</indentSize>
+                    <excludes>
+                        <!-- Exclude files from target folder -->
+                        <exclude>**/target/**/*.xml</exclude>
+                        <!-- Exclude Quarkus main repository -->
+                        <exclude>**/quarkus/**/*.xml</exclude>
+                    </excludes>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
     </plugins>
   </build>
   <profiles>
@@ -197,5 +264,29 @@
         <quarkus.package.type>native</quarkus.package.type>
       </properties>
     </profile>
+    <profile>
+      <id>format</id>
+      <activation>
+          <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+          <src.format.goal>format</src.format.goal>
+          <src.sort.goal>sort</src.sort.goal>
+          <xml.format.goal>xml-format</xml.format.goal>
+      </properties>
+  </profile>
+  <profile>
+      <id>validate-format</id>
+      <activation>
+          <property>
+              <name>validate-format</name>
+          </property>
+      </activation>
+      <properties>
+          <src.format.goal>validate</src.format.goal>
+          <src.sort.goal>check</src.sort.goal>
+          <xml.format.goal>xml-check</xml.format.goal>
+      </properties>
+  </profile>
   </profiles>
 </project>
