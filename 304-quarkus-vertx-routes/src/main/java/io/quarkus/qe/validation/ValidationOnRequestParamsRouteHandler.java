@@ -11,18 +11,15 @@ import io.quarkus.vertx.web.RouteBase;
 
 @RouteBase(path = "/validate")
 public class ValidationOnRequestParamsRouteHandler {
-
-    private static final int SIZE = 3;
-
     @Route(methods = HttpMethod.GET, path = "/request-single-param/:firstParam")
     boolean validateRequestSingleParam(
-            @Param("firstParam") @Size(min = SIZE, max = SIZE, message = "Param must have 3 characters") String param) {
+            @Param("firstParam") @Size(min = 3, max = 3, message = "Param must have 3 characters") String param) {
         return true;
     }
 
     @Route(methods = HttpMethod.GET, path = "/request-multiple-param/:firstParam/second/:secondParam")
     boolean validateRequestMultipleParam(
-            @Param("firstParam") @Size(min = SIZE, max = SIZE, message = "First param must have 3 characters") String firstParam,
+            @Param("firstParam") @Size(min = 3, max = 3, message = "First param must have 3 characters") String firstParam,
             @Param("secondParam") @Pattern(regexp = "[A-Z]{2}[0-9]{3}", message = "Second param must match pattern") String secondParam) {
         return true;
     }

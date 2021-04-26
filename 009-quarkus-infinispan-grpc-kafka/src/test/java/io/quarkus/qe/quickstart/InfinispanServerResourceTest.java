@@ -3,7 +3,6 @@ package io.quarkus.qe.quickstart;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
-import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.qe.containers.InfinispanTestResource;
@@ -19,7 +18,7 @@ class InfinispanServerResourceTest {
         given()
                 .when().get("/infinispan")
                 .then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body(is("Hello World, Infinispan is up!"));
     }
 }

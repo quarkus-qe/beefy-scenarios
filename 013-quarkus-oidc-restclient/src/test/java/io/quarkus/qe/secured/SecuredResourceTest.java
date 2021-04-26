@@ -38,9 +38,7 @@ public class SecuredResourceTest {
     }
 
     private String getClaimsInstancesFromPath(String path) {
-        String token = given()
-                .when().get("/generate-token/test-user")
-                .then().statusCode(HttpStatus.SC_OK).extract().asString();
+        String token = given().when().get("/generate-token/test-user").then().statusCode(200).extract().asString();
 
         return given()
                 .auth().preemptive().oauth2(token)

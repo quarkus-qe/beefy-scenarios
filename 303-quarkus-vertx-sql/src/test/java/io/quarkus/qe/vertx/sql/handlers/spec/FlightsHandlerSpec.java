@@ -7,35 +7,23 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import io.netty.handler.codec.http.HttpResponseStatus;
 import java.util.Arrays;
 import java.util.List;
 
-import io.netty.handler.codec.http.HttpResponseStatus;
 import io.quarkus.qe.vertx.sql.domain.Basket;
 import io.quarkus.qe.vertx.sql.domain.Flight;
 import io.quarkus.qe.vertx.sql.domain.QueryFlightSearch;
 import io.restassured.http.ContentType;
 
 public interface FlightsHandlerSpec {
-
-    int EXPECTED_FLIGHTS_COUNT = 89;
-    int EXPECTED_MAD_TO_CDG_FLIGHTS_COUNT = 3;
-    double EXPECTED_MAD_TO_BCN_WITH_INFANT_PRICE = 15.0;
-    double EXPECTED_MAD_TO_BCN_WITH_CHILD_PRICE = 233.16;
-    double EXPECTED_MAD_TO_BCN_WITH_ADULT_PRICE = 348.0;
-    double EXPECTED_MAD_TO_BCN_COMPLEX_QUERY_PRICE = 789.88;
-    double IB9961_PRICE = 437.52;
-    double IB6112_PRICE = 384.08000000000004;
-    double IB7403_PRICE = 855.02;
-    int THIRTY = 30;
-
     default void retrieveAllFlights() {
         given().accept(ContentType.JSON)
                 .when()
                 .get("/flights/")
                 .then()
                 .statusCode(HttpResponseStatus.OK.code())
-                .assertThat().body("size()", is(EXPECTED_FLIGHTS_COUNT));
+                .assertThat().body("size()", is(89));
     }
 
     default void retrieveFlightByOriginDestination() {
@@ -44,7 +32,7 @@ public interface FlightsHandlerSpec {
                 .get("/flights/origin/MAD/destination/CDG")
                 .then()
                 .statusCode(HttpResponseStatus.OK.code())
-                .assertThat().body("size()", is(EXPECTED_MAD_TO_CDG_FLIGHTS_COUNT))
+                .assertThat().body("size()", is(3))
                 .extract().as(Flight[].class);
 
         assertThat(Arrays.asList(flights), hasItems(
@@ -64,7 +52,7 @@ public interface FlightsHandlerSpec {
 
         assertThat(basket, hasItems(
                 hasProperty("flight", is("BA9569")),
-                hasProperty("price", is(EXPECTED_MAD_TO_BCN_WITH_INFANT_PRICE))));
+                hasProperty("price", is(15.0))));
     }
 
     default void retrieveChildFlightPrices() {
@@ -79,7 +67,7 @@ public interface FlightsHandlerSpec {
 
         assertThat(basket, hasItems(
                 hasProperty("flight", is("BA9569")),
-                hasProperty("price", is(EXPECTED_MAD_TO_BCN_WITH_CHILD_PRICE))));
+                hasProperty("price", is(233.16))));
     }
 
     default void retrieveAdultFlightPrices() {
@@ -94,7 +82,7 @@ public interface FlightsHandlerSpec {
 
         assertThat(basket, hasItems(
                 hasProperty("flight", is("BA9569")),
-                hasProperty("price", is(EXPECTED_MAD_TO_BCN_WITH_ADULT_PRICE))));
+                hasProperty("price", is(348.0))));
     }
 
     default void retrieveFlightPrices() {
@@ -102,7 +90,7 @@ public interface FlightsHandlerSpec {
                 .withAdult(2)
                 .withChild(2)
                 .withInfant(1)
-                .withDaysToDeparture(THIRTY)
+                .withDaysToDeparture(30)
                 .withFrom("MAD")
                 .withTo("BCN")
                 .build();
@@ -111,7 +99,7 @@ public interface FlightsHandlerSpec {
 
         assertThat(basket, hasItems(
                 hasProperty("flight", is("BA9569")),
-                hasProperty("price", is(EXPECTED_MAD_TO_BCN_COMPLEX_QUERY_PRICE))));
+                hasProperty("price", is(789.88))));
     }
 
     default void retrieveMultiplesFlightPrices() {
@@ -119,15 +107,15 @@ public interface FlightsHandlerSpec {
                 .withAdult(2)
                 .withChild(2)
                 .withInfant(1)
-                .withDaysToDeparture(THIRTY)
+                .withDaysToDeparture(30)
                 .withFrom("MAD")
                 .withTo("CDG")
                 .build();
 
         List<Basket> expectedBasket = Arrays.asList(
-                new Basket("IB9961", IB9961_PRICE),
-                new Basket("IB6112", IB6112_PRICE),
-                new Basket("IB7403", IB7403_PRICE));
+                new Basket("IB9961", 437.52),
+                new Basket("IB6112", 384.08000000000004),
+                new Basket("IB7403", 855.02));
 
         List<Basket> basket = thenMakeFlightSearchQuery(query, HttpResponseStatus.OK.code(), 3);
         assertEquals(basket, expectedBasket);

@@ -20,8 +20,7 @@ public class WireMockChuckNorrisResource implements QuarkusTestResourceLifecycle
 
     @Override
     public void stop() {
-        if (Objects.nonNull(wireMockServer)) {
+        if (Objects.nonNull(wireMockServer))
             wireMockServer.stop();
-        }
     }
 }

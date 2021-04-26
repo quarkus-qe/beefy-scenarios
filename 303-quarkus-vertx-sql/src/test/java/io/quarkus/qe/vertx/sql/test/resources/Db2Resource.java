@@ -15,22 +15,18 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class Db2Resource implements QuarkusTestResourceLifecycleManager {
 
-    private static final int PORT = 50000;
-    private static final int STARTUP_TIMEOUT_MINUTES = 10;
-
     private GenericContainer<?> db2Container;
 
     @Override
     public Map<String, String> start() {
         Map<String, String> config = new HashMap<>();
         String profile = System.getProperty("quarkus.test.profile");
-        if (profile.equals(PROFILE)) {
-            defaultDb2Container(config);
-        }
+        if(profile.equals(PROFILE)) defaultDb2Container(config);
 
         return config;
     }
 
+    @SuppressWarnings("resource")
     private void defaultDb2Container(Map<String, String> config) {
         db2Container = new GenericContainer<>(DockerImageName.parse("quay.io/pjgg/db2:11.5.5.0"))
                 .withPrivilegedMode(true)
@@ -40,20 +36,17 @@ public class Db2Resource implements QuarkusTestResourceLifecycleManager {
                 .withEnv("AUTOCONFIG", "false")
                 .withEnv("ARCHIVE_LOGS", "false")
                 .withEnv("DBNAME", "amadeus")
-                .withExposedPorts(PORT);
+                .withExposedPorts(50000);
 
         db2Container.waitingFor(new HostPortWaitStrategy()).waitingFor(
-                Wait.forLogMessage(".*Setup has completed\\..*", 1)
-                        .withStartupTimeout(Duration.ofMinutes(STARTUP_TIMEOUT_MINUTES))
+                Wait.forLogMessage(".*Setup has completed\\..*", 1).withStartupTimeout(Duration.ofMinutes(10))
         ).start();
 
-        config.put("quarkus.datasource.db2.jdbc.url",
-                String.format("jdbc:db2://%s:%d/amadeus", db2Container.getHost(), db2Container.getFirstMappedPort()));
-        config.put("quarkus.datasource.db2.reactive.url",
-                String.format("db2://%s:%d/amadeus", db2Container.getHost(), db2Container.getFirstMappedPort()));
-        config.put("app.selected.db", "db2");
-        config.put("quarkus.flyway.migrate-at-start", "false");
-        config.put("quarkus.flyway.mysql.migrate-at-start", "false");
+        config.put("quarkus.datasource.db2.jdbc.url", String.format("jdbc:db2://%s:%d/amadeus", db2Container.getHost(), db2Container.getFirstMappedPort()));
+        config.put("quarkus.datasource.db2.reactive.url", String.format("db2://%s:%d/amadeus", db2Container.getHost(), db2Container.getFirstMappedPort()));
+        config.put("app.selected.db","db2");
+        config.put("quarkus.flyway.migrate-at-start","false");
+        config.put("quarkus.flyway.mysql.migrate-at-start","false");
     }
 
     @Override

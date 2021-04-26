@@ -3,6 +3,7 @@ package io.quarkus.qe.vertx.sql.dbpool;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +36,6 @@ import io.vertx.mutiny.sqlclient.RowSet;
 @TestProfile(MysqlTestProfile.class)
 public class MysqlPoolTest extends AbstractCommons {
 
-    private static final int ASSERT_TIMEOUT_MINUTES = 5;
-    private static final int THREE = 3;
     private static final Logger LOGGER = LoggerFactory.getLogger(MysqlPoolTest.class);
 
     @ConfigProperty(name = "quarkus.datasource.mysql.reactive.idle-timeout")
@@ -55,7 +54,7 @@ public class MysqlPoolTest extends AbstractCommons {
             AtomicInteger at = new AtomicInteger(0);
             Handler<Long> handler = l -> {
                 LOGGER.info("###################################################: ");
-                Multi.createFrom().range(1, THREE)
+                Multi.createFrom().range(1, 3)
                         .concatMap(n -> {
                             LOGGER.info("Connection #" + at.incrementAndGet());
                             return mysql.preparedQuery("SELECT CURRENT_TIMESTAMP")
@@ -74,11 +73,11 @@ public class MysqlPoolTest extends AbstractCommons {
                                         return result;
                                     }).toMulti();
                         }).collect().in(ArrayList::new, List::add).subscribe().with(re -> {
-                    LOGGER.info("Subscribe success: -> " + re.get(0));
-                }, Throwable::printStackTrace);
+                            LOGGER.info("Subscribe success: -> " + re.get(0));
+                        }, Throwable::printStackTrace);
             };
-            Vertx.vertx().setPeriodic(idleMs + THREE, l -> handler.handle(l));
-            await(ASSERT_TIMEOUT_MINUTES, TimeUnit.MINUTES);
+            Vertx.vertx().setPeriodic(idleMs + 3, l -> handler.handle(l));
+            await(5, TimeUnit.MINUTES);
         } catch (IllegalStateException ex) {
         } finally {
             assertEquals(1, latch.getCount(), "An unexpected error was thrown.");

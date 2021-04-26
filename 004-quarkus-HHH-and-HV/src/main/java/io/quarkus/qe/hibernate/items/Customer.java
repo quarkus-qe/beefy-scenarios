@@ -25,8 +25,8 @@ public class Customer {
     @Temporal(TemporalType.TIMESTAMP)
     public Date createdOn;
 
-    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.REMOVE })
+    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     public Account account;
+
 
 }

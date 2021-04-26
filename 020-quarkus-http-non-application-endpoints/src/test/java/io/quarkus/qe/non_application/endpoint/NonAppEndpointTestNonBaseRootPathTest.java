@@ -14,7 +14,7 @@ public class NonAppEndpointTestNonBaseRootPathTest extends CommonNonAppEndpoint 
     private static final String BASE_PATH = "/q";
 
     @RegisterExtension
-    static final QuarkusProdModeTest EMPTY_ROOT_PATH_SCENARIO = new QuarkusProdModeTest()
+    static final QuarkusProdModeTest emptyRootPathScenario = new QuarkusProdModeTest()
             .setBuildNative(IS_NATIVE)
             .overrideConfigKey("quarkus.http.root-path", "/")
             .overrideConfigKey("quarkus.http.non-application-root-path", BASE_PATH)

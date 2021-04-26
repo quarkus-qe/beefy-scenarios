@@ -1,13 +1,11 @@
-package io.quarkus.qe.config;
+package quarkus.qe.config;
+
+import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
-
-import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.Test;
-
-import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 public class VariousConfigurationSourcesTest {
@@ -15,10 +13,10 @@ public class VariousConfigurationSourcesTest {
     @Test
     public void testEnvFile() {
         given()
-                .when().get("/hello")
-                .then()
-                .statusCode(HttpStatus.SC_OK)
-                .body(is("Welcome message from .env file"));
+          .when().get("/hello")
+          .then()
+             .statusCode(200)
+             .body(is("Welcome message from .env file"));
     }
 
     @Test
@@ -27,7 +25,7 @@ public class VariousConfigurationSourcesTest {
         given()
                 .when().get("/hello/protagonist")
                 .then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body(is("Sponge Bob says: Hi, I am Sponge Bob. My hobie is: Jellyfishing"));
     }
 
@@ -36,7 +34,7 @@ public class VariousConfigurationSourcesTest {
         given()
                 .when().get("/hello/protagonist/friend")
                 .then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body(is("Patrick Star says: Hi, I am Patrick Star"));
     }
 
@@ -45,7 +43,7 @@ public class VariousConfigurationSourcesTest {
         given()
                 .when().get("/hello/antagonist")
                 .then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body(is("Sheldon Plankton says: Hi, I am Sheldon Plankton"));
     }
 
@@ -54,7 +52,7 @@ public class VariousConfigurationSourcesTest {
         given()
                 .when().get("/hello/antagonist/wife")
                 .then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body(is("Karen says: Hi, I am Karen"));
     }
 
@@ -64,7 +62,7 @@ public class VariousConfigurationSourcesTest {
         given()
                 .when().get("/hello/emails")
                 .then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body(
                         containsString("spongebob@krustykrab.com"),
                         containsString("squidwardtentacles@krustykrab.com"),

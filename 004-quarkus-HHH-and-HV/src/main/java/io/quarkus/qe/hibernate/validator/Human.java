@@ -18,8 +18,6 @@ import com.sun.istack.NotNull;
 @Entity
 public class Human {
 
-    private static final int GREETINGS_BATCH_SIZE = 30;
-
     @Id
     @GeneratedValue
     private Long id;
@@ -31,7 +29,7 @@ public class Human {
     @NotNull
     @Valid
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "greetedHuman")
-    @BatchSize(size = GREETINGS_BATCH_SIZE)
+    @BatchSize(size = 30)
     private Set<Hello> greetings;
 
     public void addGreeting(Hello hello) {

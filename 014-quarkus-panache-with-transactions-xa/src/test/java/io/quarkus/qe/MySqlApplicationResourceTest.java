@@ -120,11 +120,11 @@ public class MySqlApplicationResourceTest {
         }
     }
 
-    private static RequestSpecification applicationPath() {
+    private static final RequestSpecification applicationPath() {
         return given().accept(MediaType.APPLICATION_JSON).contentType(ContentType.JSON).when().basePath(APPLICATION_PATH);
     }
 
-    private static RequestSpecification dataSourcePath() {
+    private static final RequestSpecification dataSourcePath() {
         return given().accept(MediaType.APPLICATION_JSON).contentType(ContentType.JSON).when().basePath(DATA_SOURCE_PATH);
     }
 }

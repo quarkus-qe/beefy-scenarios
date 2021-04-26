@@ -1,18 +1,6 @@
 package io.quarkus.qe.vertx.sql;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.quarkus.arc.profile.IfBuildProfile;
 import io.quarkus.qe.vertx.sql.services.DbPoolService;
 import io.quarkus.runtime.StartupEvent;
@@ -20,13 +8,21 @@ import io.quarkus.runtime.configuration.ProfileManager;
 import io.vertx.core.json.jackson.DatabindCodec;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
-import io.vertx.mutiny.db2client.DB2Pool;
 import io.vertx.mutiny.mysqlclient.MySQLPool;
 import io.vertx.mutiny.pgclient.PgPool;
+import io.vertx.mutiny.db2client.DB2Pool;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-/**
- * Application is used as a main class in order to setup some global configuration.
- */
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+/** Application is used as a main class in order to setup some global configuration*/
 @ApplicationScoped
 public class Application {
 
@@ -35,13 +31,13 @@ public class Application {
     @ConfigProperty(name = "app.selected.db")
     String selectedDB;
 
-    @ConfigProperty(name = "quarkus.flyway.schemas")
+    @ConfigProperty(name= "quarkus.flyway.schemas")
     String postgresqlDbName;
 
-    @ConfigProperty(name = "quarkus.flyway.mysql.schemas")
+    @ConfigProperty(name= "quarkus.flyway.mysql.schemas")
     String mysqlDbName;
 
-    @ConfigProperty(name = "quarkus.flyway.db2.schemas")
+    @ConfigProperty(name= "quarkus.flyway.db2.schemas")
     String db2DbName;
 
     @Inject
@@ -67,12 +63,12 @@ public class Application {
     @Singleton
     @Produces
     @Named("sqlClient")
-    synchronized DbPoolService pool() {
-        switch (selectedDB) {
+    synchronized DbPoolService pool(){
+        switch(selectedDB) {
             case "mysql":
                 return new DbPoolService(mysql, mysqlDbName, selectedDB);
             case "db2":
-                return new DbPoolService(db2, "\"" + db2DbName + "\"", selectedDB);
+                return new DbPoolService(db2, "\""+db2DbName+"\"", selectedDB);
             default:
                 return new DbPoolService(postgresql, postgresqlDbName, selectedDB);
         }

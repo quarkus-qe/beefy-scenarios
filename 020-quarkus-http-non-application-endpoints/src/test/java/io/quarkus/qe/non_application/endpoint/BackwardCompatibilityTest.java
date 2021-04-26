@@ -1,14 +1,14 @@
 package io.quarkus.qe.non_application.endpoint;
 
 import static io.quarkus.qe.non_application.endpoint.CommonNonAppEndpoint.IS_NATIVE;
-import static io.quarkus.qe.non_application.endpoint.CommonNonAppEndpoint.NON_APP_ENDPOINTS;
+import static io.quarkus.qe.non_application.endpoint.CommonNonAppEndpoint.nonAppEndpoints;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.in;
 
+
 import java.util.Collections;
 
-import org.apache.http.HttpStatus;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +23,7 @@ public class BackwardCompatibilityTest {
     private static final String ROOT_PATH = "/api";
 
     @RegisterExtension
-    static final QuarkusProdModeTest BACKWARD_SCENARIO = new QuarkusProdModeTest()
+    static final QuarkusProdModeTest backwardScenario = new QuarkusProdModeTest()
             .setBuildNative(IS_NATIVE)
             .overrideConfigKey("quarkus.http.root-path", ROOT_PATH)
             .overrideConfigKey("quarkus.http.non-application-root-path", BASE_PATH)
@@ -35,15 +35,12 @@ public class BackwardCompatibilityTest {
     @Test
     @DisplayName("Non-application relative path")
     public void nonAppEndpointsWithRootPathAndNonAppRootPath() {
-        for (String endpoint : NON_APP_ENDPOINTS) {
+        for (String endpoint : nonAppEndpoints) {
             given().redirects().follow(false)
                     .log().uri()
-                    .expect().statusCode(HttpStatus.SC_MOVED_PERMANENTLY)
-                    .header("Location", endsWith(BASE_PATH + endpoint))
-                    .when()
-                    .get(ROOT_PATH + endpoint);
+                    .expect().statusCode(301).header("Location", endsWith(BASE_PATH + endpoint)).when().get(ROOT_PATH + endpoint);
 
-            given().expect().statusCode(in(Collections.singletonList(HttpStatus.SC_OK))).when().get(ROOT_PATH + endpoint);
+            given().expect().statusCode(in(Collections.singletonList(200))).when().get(ROOT_PATH + endpoint);
         }
     }
 }

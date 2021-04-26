@@ -16,25 +16,22 @@ import org.hibernate.annotations.BatchSize;
 @Entity
 public class SomeEntity {
 
-    private static final int CHILD_SIZE = 1;
-    private static final int CHILD_BATCH_SIZE = 30;
-
     @Id
     @GeneratedValue
     private Long id;
 
-    @Size(min = CHILD_SIZE)
+    @Size(min = 1)
     @Valid
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "someEntity")
-    @BatchSize(size = CHILD_BATCH_SIZE)
-    private Set<SomeChildEntity> someChildren;
+    @BatchSize(size = 30)
+    private Set<SomeChildEntity> someChilds;
 
     public void addSomeChild(SomeChildEntity child) {
-        if (someChildren == null) {
-            this.someChildren = new HashSet<>();
+        if (someChilds == null) {
+            this.someChilds = new HashSet<>();
         }
 
-        this.someChildren.add(child);
+        this.someChilds.add(child);
         child.setSomeEntity(this);
     }
 
@@ -46,11 +43,11 @@ public class SomeEntity {
         this.id = id;
     }
 
-    public Set<SomeChildEntity> getSomeChildren() {
-        return someChildren;
+    public Set<SomeChildEntity> getSomeChilds() {
+        return someChilds;
     }
 
-    public void setSomeChildren(Set<SomeChildEntity> someChildren) {
-        this.someChildren = someChildren;
+    public void setSomeChilds(Set<SomeChildEntity> someChilds) {
+        this.someChilds = someChilds;
     }
 }

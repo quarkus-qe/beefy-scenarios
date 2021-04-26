@@ -1,8 +1,8 @@
 package io.quarkus.qe.vertx.webclient.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -22,6 +22,8 @@ public class Joke {
     public void setId(String id) {
         this.id = id;
     }
+
+    public Joke() { }
 
     public String getJokeText() {
         return jokeText;

@@ -12,7 +12,7 @@ import javax.ws.rs.ext.Provider;
 public class ApplicationExceptionMapper implements ExceptionMapper<Exception> {
     @Override
     public Response toResponse(Exception exception) {
-        int code = Response.Status.INTERNAL_SERVER_ERROR.getStatusCode();
+        int code = 500;
         if (exception instanceof WebApplicationException) {
             code = ((WebApplicationException) exception).getResponse().getStatus();
         }

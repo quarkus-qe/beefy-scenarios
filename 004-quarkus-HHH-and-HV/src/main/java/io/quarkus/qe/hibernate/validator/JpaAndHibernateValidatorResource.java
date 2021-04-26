@@ -15,8 +15,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/hello")
 public class JpaAndHibernateValidatorResource {
-
-    private static final int CHILD_SIZE_DEFAULT = 4;
+    // reproducer for https://github.com/quarkusio/quarkus/issues/8323
 
     @Inject
     Validator validator;
@@ -39,7 +38,7 @@ public class JpaAndHibernateValidatorResource {
 
         Hello hello = new Hello();
         hello.setGreetingText(greetingText);
-        hello.setSomeEntity(createSomeEntity(CHILD_SIZE_DEFAULT));
+        hello.setSomeEntity(createSomeEntity(4));
 
         human.addGreeting(hello);
 

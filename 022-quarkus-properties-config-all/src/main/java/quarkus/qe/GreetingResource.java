@@ -1,20 +1,19 @@
-package io.quarkus.qe;
+package quarkus.qe;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import quarkus.qe.config.AntagonistConfiguration;
+import quarkus.qe.config.ProtagonistConfiguration;
+import quarkus.qe.converter.KrustyEmail;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import io.quarkus.qe.config.AntagonistConfiguration;
-import io.quarkus.qe.config.ProtagonistConfiguration;
-import io.quarkus.qe.converter.KrustyEmail;
+import javax.inject.Inject;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/hello")
 public class GreetingResource {
@@ -31,9 +30,10 @@ public class GreetingResource {
     @ConfigProperty(name = "restaurant.employees")
     List<KrustyEmail> employeesEmails;
 
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String welcomeMessage() {
+    public String welcomeMessage(){
         return config.getValue("welcome.message", String.class);
     } // declared in .env
 

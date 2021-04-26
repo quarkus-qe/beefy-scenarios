@@ -6,6 +6,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,22 +20,19 @@ import io.restassured.response.Response;
 
 @QuarkusTest
 public class CommonsHeadersTest {
-
-    private static final int THREE = 3;
-
     //This is for regression test for https://github.com/quarkusio/quarkus/pull/12234
     @Test
     @DisplayName("prototype scope: x-count header must be equal to request amount")
     void testRequestAmount() {
         Set<String> xCount = new HashSet<>();
 
-        for (int index = 0; index < THREE; index++) {
+        for (int index = 0; index < 3; index++) {
             Headers headers = when().get("/cat/customFindDistinctivePrimitive/2").headers();
             xCount.addAll(headers.getValues("x-count"));
         }
 
         assertThat("Unexpected x-count header value(Spring Prototype Scope). Must be the same as HTTP request amount.",
-                xCount.size(), is(THREE));
+                xCount.size(), is(3));
     }
 
     //This is for regression test for https://github.com/quarkusio/quarkus/pull/12234
@@ -42,7 +40,7 @@ public class CommonsHeadersTest {
     @DisplayName("Singleton scope: x-instance-id header must be the same")
     void testInstanceId() {
         Set<String> instanceIds = new HashSet<>();
-        for (int index = 0; index < THREE; index++) {
+        for (int index = 0; index < 3; index++) {
             Headers headers = when().get("/cat/customFindDistinctivePrimitive/2").headers();
             instanceIds.addAll(headers.getValues("x-instance"));
         }
@@ -55,13 +53,13 @@ public class CommonsHeadersTest {
     @DisplayName("request scope: x-request header must be equal to request amount")
     public void testRequestScope() {
         Set<String> requestIds = new HashSet<>();
-        for (int index = 0; index < THREE; index++) {
+        for (int index = 0; index < 3; index++) {
             Headers headers = when().get("/cat/customFindDistinctivePrimitive/2").headers();
             requestIds.addAll(headers.getValues("x-request"));
         }
 
         assertThat("Unexpected x-request header value(Spring Request Scope). Must be the same as HTTP request amount.",
-                requestIds.size(), is(THREE));
+                requestIds.size(), is(3));
     }
 
     //This is for regression test for https://github.com/quarkusio/quarkus/pull/12234
@@ -74,8 +72,7 @@ public class CommonsHeadersTest {
                 .sessionId(sessionId)
                 .get("/cat/customFindDistinctivePrimitive/2")
                 .headers();
-        String msg = "Unexpected x-session header value(Spring Session Scope). "
-                + "Two request from the same http session must have the same x-session header.";
+        String msg = "Unexpected x-session header value(Spring Session Scope). Two request from the same http session must have the same x-session header.";
         assertEquals(first.header("x-session"), headers.getValue("x-session"), msg);
 
         headers = RestAssured.given()

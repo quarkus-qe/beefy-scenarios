@@ -2,6 +2,7 @@ package io.quarkus.qe.spring.data;
 
 import static io.quarkus.qe.spring.data.configuration.AppConfiguration.getAndIncIndex;
 
+
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;

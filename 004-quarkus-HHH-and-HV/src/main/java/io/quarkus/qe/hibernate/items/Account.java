@@ -19,14 +19,12 @@ import javax.validation.constraints.Size;
 @Entity
 public class Account {
 
-    private static final int EMAIL_MAX_LENGTH = 255;
-
     @Id
     public Long id;
 
-    @Column(length = EMAIL_MAX_LENGTH, unique = true, nullable = false)
+    @Column(length = 255, unique = true, nullable = false)
     @NotNull
-    @Size(max = EMAIL_MAX_LENGTH)
+    @Size(max = 255)
     public String email;
 
     @Temporal(TemporalType.TIMESTAMP)

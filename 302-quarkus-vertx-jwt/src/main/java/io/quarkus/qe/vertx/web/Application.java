@@ -1,15 +1,5 @@
 package io.quarkus.qe.vertx.web;
 
-import static io.quarkus.qe.vertx.web.Application.AUTH.NO_SECURE;
-import static io.quarkus.qe.vertx.web.Application.AUTH.SECURE;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.jboss.logging.Logger;
-
 import io.quarkus.qe.vertx.web.auth.AuthZ;
 import io.quarkus.qe.vertx.web.exceptions.FailureHandler;
 import io.quarkus.qe.vertx.web.handlers.BladeRunnerHandler;
@@ -27,6 +17,15 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CorsHandler;
 import io.vertx.ext.web.handler.JWTAuthHandler;
 import io.vertx.ext.web.handler.LoggerHandler;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.logging.Logger;
+
+
+import static io.quarkus.qe.vertx.web.Application.AUTH.NO_SECURE;
+import static io.quarkus.qe.vertx.web.Application.AUTH.SECURE;
 
 @ApplicationScoped
 public class Application {
@@ -87,13 +86,11 @@ public class Application {
                 .handler(CorsHandler.create("*"))
                 .handler(LoggerHandler.create());
 
-        if (method.equals(HttpMethod.POST) || method.equals(HttpMethod.PUT)) {
+        if (method.equals(HttpMethod.POST) || method.equals(HttpMethod.PUT))
             route.handler(BodyHandler.create());
-        }
 
-        if (authEnabled == SECURE) {
+        if (authEnabled == SECURE)
             route.handler(JWTAuthHandler.create(authN)).handler(authZ::authorize);
-        }
 
         route.handler(handler).failureHandler(rc -> failureHandler.handler(rc));
     }

@@ -4,7 +4,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsString;
 
-import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -14,8 +13,7 @@ public class FallbackResourceTest {
 
     private static final String WORK_METHOD = "work";
     private static final String FAIL_METHOD = "fail";
-    private static final String FALLBACK_METRIC = "base_ft_invocations_total{fallback=\"%s\","
-            + "method=\"io.quarkus.qe.core.FallbackResource.%s\",result=\"valueReturned\"} %s.0";
+    private static final String FALLBACK_METRIC = "base_ft_invocations_total{fallback=\"%s\",method=\"io.quarkus.qe.core.FallbackResource.%s\",result=\"valueReturned\"} %s.0";
     private static final String FALLBACK_APPLIED = "applied";
     private static final String FALLBACK_NOT_APPLIED = "notApplied";
     private static final String ONE = "1";
@@ -26,7 +24,7 @@ public class FallbackResourceTest {
         given()
                 .when().get("/fallback/work")
                 .then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body(is(FallbackResource.WORKED));
         assertFallbackWasNotCalledOn(WORK_METHOD);
     }
@@ -36,7 +34,7 @@ public class FallbackResourceTest {
         given()
                 .when().get("/fallback/fail")
                 .then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body(is(FallbackResource.FAILED));
         assertFallbackWasCalledOn(FAIL_METHOD);
     }
@@ -58,7 +56,7 @@ public class FallbackResourceTest {
         given()
                 .when().get("/q/metrics")
                 .then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body(containsString(expectedFallbackNotAppliedInvocationsCount))
                 .body(containsString(expectedFallbackAppliedInvocationsCount));
     }

@@ -1,15 +1,14 @@
 package io.quarkus.qe.core;
 
-import java.io.IOException;
+import org.apache.commons.io.IOUtils;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import org.apache.commons.io.IOUtils;
-import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
+import java.io.IOException;
 
 @Path("/multipart")
 public class MultipartResource {

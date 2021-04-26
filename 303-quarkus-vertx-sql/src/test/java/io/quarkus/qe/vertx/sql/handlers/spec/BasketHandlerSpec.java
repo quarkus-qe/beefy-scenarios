@@ -14,7 +14,7 @@ public interface BasketHandlerSpec {
         Basket basket = new Basket();
         basket.setBillingPassenger(defaultPassenger());
         basket.setFlight("IB9961");
-        basket.setPrice(FlightsHandlerSpec.IB9961_PRICE);
+        basket.setPrice(437.52);
 
         given().accept(ContentType.JSON).body(basket)
                 .when()
@@ -22,6 +22,21 @@ public interface BasketHandlerSpec {
                 .then()
                 .statusCode(HttpResponseStatus.CREATED.code())
                 .assertThat().body("isEmpty()", is(false));
+    }
+
+    default void wrongBasketFormatCheckout() {
+        Basket basket = new Basket();
+        basket.setBillingPassenger(defaultPassenger());
+        basket.setFlight("IB9961");
+        basket.setPrice(437.52);
+
+        basket.getBillingPassenger().setNif(null);
+
+        given().accept(ContentType.JSON).body(basket)
+                .when()
+                .post("/basket/checkout")
+                .then()
+                .statusCode(HttpResponseStatus.BAD_REQUEST.code());
     }
 
     default Passenger defaultPassenger() {

@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
+import io.quarkus.qe.books.persistence.model.Book;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import io.quarkus.qe.books.persistence.model.Book;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -20,81 +20,79 @@ import io.restassured.response.Response;
 @QuarkusTest
 public class BookResourceTest {
 
-    private static final int TITLE_MAX_LENGTH = 10;
-    private static final int AUTHOR_MAX_LENGTH = 15;
     private static final String API_ROOT = "/api/books";
 
     @Test
-    public void whenGetAllBooksThenOK() {
+    public void whenGetAllBooks_thenOK() {
         final Response response = RestAssured.get(API_ROOT);
         assertEquals(HttpStatus.OK.value(), response.getStatusCode());
     }
 
     @Test
-    public void whenGetBooksByTitleThenOK() {
+    public void whenGetBooksByTitle_thenOK() {
         final Book book = createRandomBook();
         createBookAsUri(book);
 
         final Response response = RestAssured.get(API_ROOT + "/title/" + book.getTitle());
         assertEquals(HttpStatus.OK.value(), response.getStatusCode());
         assertTrue(response.as(List.class)
-                .size() > 0);
+            .size() > 0);
     }
 
     @Test
-    public void whenGetCreatedBookByIdThenOK() {
+    public void whenGetCreatedBookById_thenOK() {
         final Book book = createRandomBook();
         final String location = createBookAsUri(book);
 
         final Response response = RestAssured.get(location);
         assertEquals(HttpStatus.OK.value(), response.getStatusCode());
         assertEquals(book.getTitle(), response.jsonPath()
-                .get("title"));
+            .get("title"));
     }
 
     @Test
-    public void whenGetNotExistBookByIdThenNotFound() {
+    public void whenGetNotExistBookById_thenNotFound() {
         final Response response = RestAssured.get(API_ROOT + "/" + randomNumeric(4));
         assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCode());
     }
 
     // POST
     @Test
-    public void whenCreateNewBookThenCreated() {
+    public void whenCreateNewBook_thenCreated() {
         final Book book = createRandomBook();
 
         final Response response = RestAssured.given()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(book)
-                .post(API_ROOT);
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .body(book)
+            .post(API_ROOT);
         assertEquals(HttpStatus.CREATED.value(), response.getStatusCode());
     }
 
     // TODO: https://github.com/quarkusio/quarkus/issues/16321
     @Disabled
     @Test
-    public void whenInvalidBookThenError() {
+    public void whenInvalidBook_thenError() {
         final Book book = createRandomBook();
         book.setAuthor(null);
 
         final Response response = RestAssured.given()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(book)
-                .post(API_ROOT);
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .body(book)
+            .post(API_ROOT);
         assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatusCode());
     }
 
     @Test
-    public void whenUpdateCreatedBookThenUpdated() {
+    public void whenUpdateCreatedBook_thenUpdated() {
         final Book book = createRandomBook();
         final String location = createBookAsUri(book);
 
         book.setId(Long.parseLong(location.split("api/books/")[1]));
         book.setAuthor("newAuthor");
         Response response = RestAssured.given()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(book)
-                .put(location);
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .body(book)
+            .put(location);
         assertEquals(HttpStatus.OK.value(), response.getStatusCode());
 
         response = RestAssured.get(location);
@@ -105,7 +103,7 @@ public class BookResourceTest {
     }
 
     @Test
-    public void whenDeleteCreatedBookThenOk() {
+    public void whenDeleteCreatedBook_thenOk() {
         final Book book = createRandomBook();
         final String location = createBookAsUri(book);
 
@@ -120,8 +118,8 @@ public class BookResourceTest {
 
     private Book createRandomBook() {
         final Book book = new Book();
-        book.setTitle(randomAlphabetic(TITLE_MAX_LENGTH));
-        book.setAuthor(randomAlphabetic(AUTHOR_MAX_LENGTH));
+        book.setTitle(randomAlphabetic(10));
+        book.setAuthor(randomAlphabetic(15));
         return book;
     }
 
