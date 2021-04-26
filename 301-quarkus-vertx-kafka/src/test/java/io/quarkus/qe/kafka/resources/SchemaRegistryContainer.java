@@ -1,10 +1,9 @@
 package io.quarkus.qe.kafka.resources;
 
+import io.strimzi.StrimziKafkaContainer;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.Network;
-
-import io.strimzi.StrimziKafkaContainer;
 
 public class SchemaRegistryContainer extends GenericContainer<SchemaRegistryContainer> {
 
@@ -13,7 +12,7 @@ public class SchemaRegistryContainer extends GenericContainer<SchemaRegistryCont
     private final int port;
 
     public SchemaRegistryContainer(final String image, final String version, final int port) {
-        super(image + ":" + version);
+        super(image + ":"+ version);
         this.image = image;
         this.version = version;
         this.port = port;
@@ -29,7 +28,7 @@ public class SchemaRegistryContainer extends GenericContainer<SchemaRegistryCont
         return withStrimziKafka(kafka.getNetwork(), kafka.getNetworkAliases().get(0) + ":" + kPort);
     }
 
-    protected SchemaRegistryContainer withStrimziKafka(Network network, String bootstrapServers) {
+    protected SchemaRegistryContainer withStrimziKafka(Network network,String bootstrapServers) {
         withNetwork(network);
         withEnv("QUARKUS_PROFILE", "strimzi");
         withEnv("APPLICATION_ID", "registry_id");
@@ -45,6 +44,7 @@ public class SchemaRegistryContainer extends GenericContainer<SchemaRegistryCont
         withEnv("SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS", "PLAINTEXT://" + bootstrapServers);
         return self();
     }
+
 
     /**
      * @return Schema Registry URL

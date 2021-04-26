@@ -12,9 +12,9 @@ import org.jboss.logging.Logger;
 @ApplicationScoped
 public class SlowTopicConsumer {
 
-    public static final int LOOP_TIMEOUT = 100;
-
     private static final Logger LOG = Logger.getLogger(SlowTopicConsumer.class);
+
+    public static final int LOOP_TIMEOUT = 100;
 
     @Incoming("slow")
     @Acknowledgment(Acknowledgment.Strategy.MANUAL)

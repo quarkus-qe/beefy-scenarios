@@ -10,13 +10,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import io.netty.handler.codec.http.HttpResponseStatus;
-
 @Provider
 public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViolationException> {
-
-    private static final int ERROR_CODE = HttpResponseStatus.UNPROCESSABLE_ENTITY.code();
-
     @Override
     public Response toResponse(ConstraintViolationException exception) {
         ObjectMapper mapper = new ObjectMapper();
@@ -28,10 +23,10 @@ public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViol
                     .put("message", constraintViolation.getMessage());
         }
 
-        return Response.status(ERROR_CODE)
+        return Response.status(422)
                 .type(MediaType.APPLICATION_JSON)
                 .entity(mapper.createObjectNode()
-                        .put("code", ERROR_CODE)
+                        .put("code", 422)
                         .set("error", errors)
                 )
                 .build();

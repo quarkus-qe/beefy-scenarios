@@ -3,7 +3,7 @@ package io.quarkus.qe.spring.data.model;
 import javax.persistence.Entity;
 
 @Entity
-public class Cat extends Mammal {
+public class Cat extends Mammal{
 
     private String breed;
 

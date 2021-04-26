@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.qe.spring.data.model.Book;
@@ -27,28 +26,28 @@ public class BookResourceTest {
     @Test
     void testCustomFindPublicationYearPrimitiveInteger() {
         when().get("/book/customPublicationYearPrimitive/1").then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body(is("2011"));
     }
 
     @Test
     void testCustomFindPublicationYearObjectInteger() {
         when().get("/book/customPublicationYearObject/1").then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body(is("2011"));
     }
 
     @Test
     void testCustomFindPublicationIsbnPrimitiveLong() {
         when().get("/book/customPublicationIsbnPrimitive/2").then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body(is("9789295055026"));
     }
 
     @Test
     void testCustomFindPublicationIsbnObjectLong() {
         when().get("/book/customPublicationIsbnObject/2").then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body(is("9789295055026"));
     }
 
@@ -82,12 +81,12 @@ public class BookResourceTest {
 
     private Book updateBook(Book book) {
         return given().contentType(ContentType.JSON).body(book).when().put("/book/" + book.getBid()).then()
-                .statusCode(HttpStatus.SC_OK).contentType(ContentType.JSON).extract().response().getBody().as(Book.class);
+                .statusCode(200).contentType(ContentType.JSON).extract().response().getBody().as(Book.class);
     }
 
     private List<Book> retrieveBooksByZipcode() {
         Response response = when().get("/book/publisher/zipcode/28080").then()
-                .statusCode(HttpStatus.SC_OK).contentType(ContentType.JSON).extract().response();
+                .statusCode(200).contentType(ContentType.JSON).extract().response();
 
         List<Book> books = Arrays.asList(response.getBody().as(Book[].class));
         assertThat(books, is(not(empty())));

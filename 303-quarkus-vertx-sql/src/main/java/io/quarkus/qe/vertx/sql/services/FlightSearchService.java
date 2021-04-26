@@ -50,7 +50,7 @@ public class FlightSearchService {
         return new Basket(flight.getFlightCode(), adultPrice + childPrice + infantPrice);
     }
 
-    private Double infantPrice(Flight flight) {
+    private Double infantPrice(Flight flight){
         return airlines.get(codeFromFlight(flight.getFlightCode())).getInfantPrice();
     }
 
@@ -60,8 +60,8 @@ public class FlightSearchService {
 
     private Double adultPrice(Flight flight, int dayToDeparture) {
         PricingRules pricingRule = pricingRules.stream()
-                .filter(daysToDepartureFilter(dayToDeparture))
-                .findFirst().orElseThrow(() -> new RuntimeException("Unknown PricingRule."));
+                    .filter(daysToDepartureFilter(dayToDeparture))
+                    .findFirst().orElseThrow(()-> new RuntimeException("Unknown PricingRule."));
 
         return pricingRule.applyAdultPercentage(flight.getPrice());
     }

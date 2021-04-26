@@ -7,15 +7,12 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 import io.restassured.http.ContentType;
 
 public interface AirportHandlerSpec {
-
-    int EXPECTED_AIRPORTS_COUNT = 9;
-
     default void retrieveAllAirports() {
         given().accept(ContentType.JSON)
                 .when()
                 .get("/airports/")
                 .then()
                 .statusCode(HttpResponseStatus.OK.code())
-                .assertThat().body("size()", is(EXPECTED_AIRPORTS_COUNT));
+                .assertThat().body("size()", is(9));
     }
 }

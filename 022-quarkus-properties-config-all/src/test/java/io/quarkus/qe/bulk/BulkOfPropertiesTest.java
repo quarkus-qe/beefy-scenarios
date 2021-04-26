@@ -16,15 +16,15 @@ public class BulkOfPropertiesTest {
     private static final String EXPECTED_DEFAULT_HOST = "default.org";
     private static final String EXPECTED_ENDPOINT_PATH = "/endpoint";
     private static final String EXPECTED_CUSTOM_PATH = "/mypath";
-    private static final String EXPECTED_PORT = "8080";
+    private static final String EXPECTED_PORT = ":8080";
     private static final String EXPECTED_SERVER_URL = HTTP + EXPECTED_EXAMPLE_HOST + EXPECTED_ENDPOINT_PATH;
     private static final String EXPECTED_SERVER_HOST_RAW = "${server.host}";
 
     @Test
     public void shouldInjectBulkOfSimpleProperties() {
         assertResponseIs("/url", EXPECTED_SERVER_URL);
-        assertResponseIs("/port", EXPECTED_PORT);
-        assertResponseIs("/repeatedPort", EXPECTED_PORT);
+        assertResponseIs("/port", 8080);
+        assertResponseIs("/repeatedPort", 8080);
         assertResponseIs("/path", "mypath");
     }
 
@@ -37,7 +37,7 @@ public class BulkOfPropertiesTest {
 
     @Test
     public void shouldInjectBulkOfComposedProperties() {
-        assertResponseIs("/urlComposed", HTTP + EXPECTED_EXAMPLE_HOST + ":" + EXPECTED_PORT + EXPECTED_CUSTOM_PATH);
+        assertResponseIs("/urlComposed", HTTP + EXPECTED_EXAMPLE_HOST + EXPECTED_PORT + EXPECTED_CUSTOM_PATH);
     }
 
     @Test

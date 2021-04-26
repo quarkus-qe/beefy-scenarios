@@ -1,19 +1,17 @@
 package io.quarkus.qe.vertx.sql.domain;
 
+import io.quarkus.qe.vertx.sql.services.DbPoolService;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import io.smallrye.mutiny.Uni;
+import io.vertx.mutiny.sqlclient.SqlClientHelper;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
-import io.quarkus.qe.vertx.sql.services.DbPoolService;
-import io.quarkus.runtime.annotations.RegisterForReflection;
-import io.smallrye.mutiny.Uni;
-import io.vertx.mutiny.sqlclient.SqlClientHelper;
-
-@Schema(name = "Basket", description = "Basket entity")
+@Schema(name="Basket", description="Basket entity")
 @RegisterForReflection
 public class Basket extends Record {
 
@@ -26,8 +24,7 @@ public class Basket extends Record {
         this.price = price;
     }
 
-    public Basket() {
-    }
+    public Basket(){}
 
     public String getFlight() {
         return flight;
@@ -53,29 +50,22 @@ public class Basket extends Record {
         this.billingPassenger = billingPassenger;
     }
 
-    public Uni<Long> save(DbPoolService sqlClient) {
+    public Uni<Long> save(DbPoolService sqlClient){
         return SqlClientHelper.inTransactionUni(sqlClient, tx ->
                 billingPassenger.save(sqlClient).onItem().transformToUni(passenger_id -> {
                     List<String> fieldsNames = Arrays.asList("flight,price,created_at,passenger_id".split(","));
-                    List<Object> fieldsValues = Stream.of(getFlight(), getPrice(), getCreatedAt(), passenger_id)
-                            .collect(Collectors.toList());
+                    List<Object> fieldsValues = Stream.of(getFlight(), getPrice(), getCreatedAt(), passenger_id).collect(Collectors.toList());
                     return sqlClient.save("basket", fieldsNames, fieldsValues);
                 }));
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Basket basket = (Basket) o;
-        return Double.compare(basket.price, price) == 0
-                && flight.equals(basket.flight);
+        return Double.compare(basket.price, price) == 0 &&
+                flight.equals(basket.flight);
     }
 
     @Override

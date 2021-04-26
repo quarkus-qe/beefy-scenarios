@@ -1,4 +1,4 @@
-package io.quarkus.qe.config.interfaces;
+package quarkus.qe.config.interfaces;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 

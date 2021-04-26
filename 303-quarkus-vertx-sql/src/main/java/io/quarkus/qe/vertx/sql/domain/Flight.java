@@ -13,25 +13,24 @@ import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.sqlclient.Row;
 import io.vertx.mutiny.sqlclient.RowSet;
 
-@Schema(name = "Flight", description = "Flight entity")
+@Schema(name="Flight", description="Flight entity")
 @RegisterForReflection
-public class Flight extends Record {
+public class Flight extends Record{
 
     private static final String QUALIFIED_ORIGIN_NAME = "origin";
-    private static final String QUALIFIED_DESTINATION_NAME = "destination";
-    private static final String QUALIFIED_AIRLINE_NAME = "flight_code";
-    private static final String QUALIFIED_PRICE_NAME = "base_price";
-
-    @Schema(description = "origin")
+    @Schema(description="origin")
     private String origin;
 
-    @Schema(description = "destination")
+    private static final String QUALIFIED_DESTINATION_NAME = "destination";
+    @Schema(description="destination")
     private String destination;
 
-    @Schema(description = "flightCode")
+    private static final String QUALIFIED_AIRLINE_NAME = "flight_code";
+    @Schema(description="flightCode")
     private String flightCode;
 
-    @Schema(description = "price")
+    private static final String QUALIFIED_PRICE_NAME = "base_price";
+    @Schema(description="price")
     private double price;
 
     public Flight(long id, String origin, String destination, String flightCode, double price) {
@@ -42,22 +41,18 @@ public class Flight extends Record {
         this.price = price;
     }
 
-    public Flight() {
-    }
+    public Flight(){}
 
     protected static Flight from(Row row) {
-        return new Flight(row.getLong(QUALIFIED_ID), row.getString(QUALIFIED_ORIGIN_NAME),
-                row.getString(QUALIFIED_DESTINATION_NAME), row.getString(QUALIFIED_AIRLINE_NAME),
-                row.getDouble(QUALIFIED_PRICE_NAME));
+        return new Flight(row.getLong(QUALIFIED_ID), row.getString(QUALIFIED_ORIGIN_NAME), row.getString(QUALIFIED_DESTINATION_NAME), row.getString(QUALIFIED_AIRLINE_NAME), row.getDouble(QUALIFIED_PRICE_NAME));
     }
 
     protected static Multi<Flight> fromSet(RowSet<Row> rows) {
-        return Multi.createFrom().iterable(rows).onItem().transform(Flight::from);
+        return  Multi.createFrom().iterable(rows).onItem().transform(Flight::from);
     }
 
     public static Multi<Flight> findAll(DbPoolService client) {
-        return client.query("SELECT * FROM " + client.getDatabaseName() + ".flights").execute().onItem()
-                .transformToMulti(Flight::fromSet);
+        return client.query("SELECT * FROM "+client.getDatabaseName()+".flights").execute().onItem().transformToMulti(Flight::fromSet);
     }
 
     public static Uni<List<Flight>> findAllAsList(DbPoolService client) {
@@ -65,8 +60,7 @@ public class Flight extends Record {
     }
 
     public static Multi<Flight> findByOriginDestination(DbPoolService client, String origin, String destination) {
-        String query = String.format("SELECT * FROM " + client.getDatabaseName() + ".flights where %s = '%s' and %s = '%s'",
-                QUALIFIED_ORIGIN_NAME, origin, QUALIFIED_DESTINATION_NAME, destination);
+        String query = String.format("SELECT * FROM "+client.getDatabaseName()+".flights where %s = '%s' and %s = '%s'", QUALIFIED_ORIGIN_NAME, origin, QUALIFIED_DESTINATION_NAME, destination);
         return client.query(query).execute().onItem().transformToMulti(Flight::fromSet);
     }
 
@@ -108,19 +102,13 @@ public class Flight extends Record {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Flight flight = (Flight) o;
-        return Double.compare(flight.price, price) == 0
-                && origin.equals(flight.origin)
-                && destination.equals(flight.destination)
-                &&  flightCode.equals(flight.flightCode);
+        return Double.compare(flight.price, price) == 0 &&
+                origin.equals(flight.origin) &&
+                destination.equals(flight.destination) &&
+                flightCode.equals(flight.flightCode);
     }
 
     @Override

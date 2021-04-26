@@ -14,16 +14,16 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 public class InfinispanTestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final Integer INFINISPAN_PORT = 11222;
-    private static final int STARTUP_TIMEOUT_MILLIS = 20000;
 
     private GenericContainer<?> infinispan;
 
+    @SuppressWarnings("resource")
     @Override
     public Map<String, String> start() {
 
         infinispan = new GenericContainer<>("infinispan/server:11.0.4.Final-2")
                 .waitingFor(new LogMessageWaitStrategy().withRegEx(".*Infinispan Server.*started in.*\\s"))
-                .withStartupTimeout(Duration.ofMillis(STARTUP_TIMEOUT_MILLIS))
+                .withStartupTimeout(Duration.ofMillis(20000))
                 .withClasspathResourceMapping("identities.yaml",
                         "/user-config/identities.yaml", BindMode.READ_ONLY)
                 .withClasspathResourceMapping("config.yaml",

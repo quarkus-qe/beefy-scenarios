@@ -2,14 +2,15 @@ package io.quarkus.qe.kafka;
 
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Every.everyItem;
 import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import io.restassured.response.Response;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -24,15 +25,11 @@ import org.apache.http.HttpStatus;
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
 
-import io.restassured.response.Response;
-
 abstract class KafkaCommonTest {
-
-    private static final String NATIVE = "native";
-    private static final String QUARKUS_PROFILE = "quarkus.profile";
-    private static final boolean IS_NATIVE = System.getProperty(QUARKUS_PROFILE, "").equals(NATIVE);
-
-    private static final String JAEGER_ENDPOINT = "http://localhost:16686/api/traces";
+    private final static String jaegerEndpoint = "http://localhost:16686/api/traces";
+    static final String NATIVE = "native";
+    static final String QUARKUS_PROFILE = "quarkus.profile";
+    static final boolean IS_NATIVE = System.getProperty(QUARKUS_PROFILE, "").equals(NATIVE);
 
     private Response resp;
 
@@ -80,7 +77,7 @@ abstract class KafkaCommonTest {
                 .queryParam("lookback", lookBack)
                 .queryParam("service", serviceName)
                 .queryParam("operation", operationName)
-                .get(JAEGER_ENDPOINT);
+                .get(jaegerEndpoint);
     }
 
     private void thenStatusCodeMustBe(int expectedStatusCode) {

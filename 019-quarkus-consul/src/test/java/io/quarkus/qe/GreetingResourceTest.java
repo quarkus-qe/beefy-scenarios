@@ -26,16 +26,14 @@ import io.quarkus.test.common.QuarkusTestResource;
 @QuarkusTestResource(ConsulTestResource.class)
 public class GreetingResourceTest {
 
+    private static final String APPLICATION_PROPERTIES = "application.properties";
+    private static final String CUSTOM_PROPERTY = "my.property";
     protected static final String QUARKUS_PROFILE = "quarkus.profile";
     protected static final String NATIVE = "native";
     protected static final boolean IS_NATIVE = System.getProperty(QUARKUS_PROFILE, "").equals(NATIVE);
-    private static final String APPLICATION_PROPERTIES = "application.properties";
-    private static final String CUSTOM_PROPERTY = "my.property";
-    private static final int HTTP_PORT = 8081;
-    private static final int ASSERT_TIMEOUT_SECONDS = 5;
 
     @RegisterExtension
-    static final QuarkusProdModeTest APP = new QuarkusProdModeTest()
+    static final QuarkusProdModeTest app = new QuarkusProdModeTest()
             .setBuildNative(IS_NATIVE)
             .setArchiveProducer(
                     () -> ShrinkWrap.create(JavaArchive.class)
@@ -64,13 +62,13 @@ public class GreetingResourceTest {
             fail("Failed to load properties. Caused by " + e.getMessage());
         }
 
-        APP.stop();
-        APP.start();
+        app.stop();
+        app.start();
     }
 
     private void thenGreetingsApiReturns(String expected) {
-        Awaitility.await().atMost(Duration.ofSeconds(ASSERT_TIMEOUT_SECONDS)).untilAsserted(() -> {
-            String actual = given().port(HTTP_PORT).get("/api")
+        Awaitility.await().atMost(Duration.ofSeconds(5)).untilAsserted(() -> {
+            String actual = given().port(8081).get("/api")
                     .then().statusCode(HttpStatus.SC_OK)
                     .extract().asString();
 

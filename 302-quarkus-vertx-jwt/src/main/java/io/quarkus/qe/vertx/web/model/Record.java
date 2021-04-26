@@ -1,10 +1,9 @@
 package io.quarkus.qe.vertx.web.model;
 
-import java.util.UUID;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
+import java.util.UUID;
 
 @RegisterForReflection
 public abstract class Record {
@@ -13,17 +12,17 @@ public abstract class Record {
     private long createdAt;
     private long updatedAt;
 
-    public Record() {
+    public Record(){
         createdAt = System.currentTimeMillis();
         updatedAt = System.currentTimeMillis();
         id = UUID.randomUUID().toString();
     }
 
-    public JsonObject toJson() {
+    public JsonObject toJson(){
         return JsonObject.mapFrom(this);
     }
 
-    public String toJsonEncoded() {
+    public String toJsonEncoded(){
         return toJson().encode();
     }
 

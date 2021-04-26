@@ -21,7 +21,7 @@ public class PongService {
     Vertx vertx;
 
     @ConfigProperty(name = "quarkus.http.port")
-    int port;
+    public int port;
 
     private WebClient client;
     private String basePath;

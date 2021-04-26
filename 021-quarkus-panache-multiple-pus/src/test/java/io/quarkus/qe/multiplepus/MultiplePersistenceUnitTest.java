@@ -1,15 +1,5 @@
 package io.quarkus.qe.multiplepus;
 
-import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.hasSize;
-
-import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import io.quarkus.qe.multiplepus.containers.MariaDbDatabaseTestResource;
 import io.quarkus.qe.multiplepus.containers.PostgreSqlDatabaseTestResource;
 import io.quarkus.qe.multiplepus.model.fruit.Fruit;
@@ -17,21 +7,24 @@ import io.quarkus.qe.multiplepus.model.vegetable.Vegetable;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasSize;
 
 @QuarkusTest
 @QuarkusTestResource(MariaDbDatabaseTestResource.class)
 @QuarkusTestResource(PostgreSqlDatabaseTestResource.class)
 class MultiplePersistenceUnitTest {
 
-    private static final int EXPECTED_FRUITS_COUNT = 7;
-    private static final int EXPECTED_VEGETABLES_COUNT = 7;
-    private static final long INVALID_ID = 999L;
-
     private static boolean shouldCleanupFruit = false;
     private static boolean shouldCleanupVegetable = false;
-
-    private static int latestFruitId = EXPECTED_FRUITS_COUNT;
-    private static int latestVegetableId = EXPECTED_VEGETABLES_COUNT;
+    private static int latestFruitId = 7;
+    private static int latestVegetableId = 7;
 
     @BeforeEach
     public void cleanUp() {
@@ -39,14 +32,14 @@ class MultiplePersistenceUnitTest {
             when()
                     .delete("/fruit/" + latestFruitId)
                     .then()
-                    .statusCode(HttpStatus.SC_NO_CONTENT);
+                    .statusCode(204);
             shouldCleanupFruit = false;
         }
         if (shouldCleanupVegetable) {
             when()
                     .delete("/vegetable/" + latestVegetableId)
                     .then()
-                    .statusCode(HttpStatus.SC_NO_CONTENT);
+                    .statusCode(204);
             shouldCleanupVegetable = false;
         }
     }
@@ -55,17 +48,17 @@ class MultiplePersistenceUnitTest {
     public void getAllFruits() {
         when()
                 .get("/fruit")
-                .then()
-                .statusCode(HttpStatus.SC_OK)
-                .body("", hasSize(EXPECTED_FRUITS_COUNT));
+        .then()
+                .statusCode(200)
+                .body("", hasSize(7));
     }
 
     @Test
     public void getFruitById() {
         when()
                 .get("/fruit/7")
-                .then()
-                .statusCode(HttpStatus.SC_OK)
+        .then()
+                .statusCode(200)
                 .body("name", equalTo("Cranberry"));
     }
 
@@ -77,49 +70,49 @@ class MultiplePersistenceUnitTest {
         latestFruitId++;
 
         given()
-                .when()
+        .when()
                 .contentType(ContentType.JSON)
                 .body(fruit)
                 .post("/fruit")
-                .then()
-                .statusCode(HttpStatus.SC_CREATED)
+        .then()
+                .statusCode(201)
                 .body("id", equalTo(latestFruitId))
                 .body("name", equalTo("Canteloupe"));
         shouldCleanupFruit = true;
 
         when()
                 .get("/fruit/" + latestFruitId)
-                .then()
-                .statusCode(HttpStatus.SC_OK)
+        .then()
+                .statusCode(200)
                 .body("name", equalTo("Canteloupe"));
     }
 
     @Test
     public void createInvalidPayloadFruit() {
         given()
-                .when()
+        .when()
                 .contentType(ContentType.TEXT)
                 .body("")
                 .post("/fruit")
-                .then()
-                .statusCode(HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE)
-                .body("code", equalTo(HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE));
+        .then()
+                .statusCode(415)
+                .body("code", equalTo(415));
     }
 
     @Test
     public void createInvalidIdFruit() {
         Fruit fruit = new Fruit();
-        fruit.id = INVALID_ID;
+        fruit.id = 999L;
         fruit.name = "foo";
 
         given()
-                .when()
+        .when()
                 .contentType(ContentType.JSON)
                 .body(fruit)
                 .post("/fruit")
-                .then()
-                .statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY)
-                .body("code", equalTo(HttpStatus.SC_UNPROCESSABLE_ENTITY))
+        .then()
+                .statusCode(422)
+                .body("code", equalTo(422))
                 .body("error", equalTo("unexpected ID in request"));
     }
 
@@ -136,7 +129,7 @@ class MultiplePersistenceUnitTest {
                 .body(fruit)
                 .post("/fruit")
                 .then()
-                .statusCode(HttpStatus.SC_CREATED)
+                .statusCode(201)
                 .body("id", equalTo(latestFruitId))
                 .body("name", equalTo("Canteloupe"));
 
@@ -145,49 +138,49 @@ class MultiplePersistenceUnitTest {
         updatedFruit.name = "Dragonfruit";
 
         given()
-                .when()
+        .when()
                 .contentType(ContentType.JSON)
                 .body(updatedFruit)
                 .put("/fruit/" + latestFruitId)
-                .then()
-                .statusCode(HttpStatus.SC_OK)
+        .then()
+                .statusCode(200)
                 .body("id", equalTo(latestFruitId))
                 .body("name", equalTo("Dragonfruit"));
         shouldCleanupFruit = true;
         when()
                 .get("/fruit/" + latestFruitId)
-                .then()
-                .statusCode(HttpStatus.SC_OK)
+        .then()
+                .statusCode(200)
                 .body("name", equalTo("Dragonfruit"));
     }
 
     @Test
     public void updateFruitWithUnknownId() {
         Fruit fruit = new Fruit();
-        fruit.id = INVALID_ID;
+        fruit.id = 999L;
         fruit.name = "foo";
 
         given()
-                .when()
+        .when()
                 .contentType(ContentType.JSON)
                 .body(fruit)
-                .put("/fruit/" + INVALID_ID)
-                .then()
-                .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body("code", equalTo(HttpStatus.SC_NOT_FOUND))
-                .body("error", equalTo("fruit '" + INVALID_ID + "' not found"));
+                .put("/fruit/999")
+        .then()
+                .statusCode(404)
+                .body("code", equalTo(404))
+                .body("error", equalTo("fruit '999' not found"));
     }
 
     @Test
     public void updateWithNullFruit() {
         given()
-                .when()
+        .when()
                 .contentType(ContentType.TEXT)
                 .body("")
                 .put("/fruit/" + latestFruitId)
-                .then()
-                .statusCode(HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE)
-                .body("code", equalTo(HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE));
+        .then()
+                .statusCode(415)
+                .body("code", equalTo(415));
     }
 
     @Test
@@ -195,13 +188,13 @@ class MultiplePersistenceUnitTest {
         Fruit fruit = new Fruit();
 
         given()
-                .when()
+        .when()
                 .contentType(ContentType.JSON)
                 .body(fruit)
                 .put("/fruit/" + latestFruitId)
-                .then()
-                .statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY)
-                .body("code", equalTo(HttpStatus.SC_UNPROCESSABLE_ENTITY))
+        .then()
+                .statusCode(422)
+                .body("code", equalTo(422))
                 .body("error.message", contains("Fruit name must be set!"));
     }
 
@@ -218,31 +211,31 @@ class MultiplePersistenceUnitTest {
                 .body(fruit)
                 .post("/fruit")
                 .then()
-                .statusCode(HttpStatus.SC_CREATED)
+                .statusCode(201)
                 .body("id", equalTo(latestFruitId))
                 .body("name", equalTo("Canteloupe"));
 
         when()
                 .delete("/fruit/" + latestFruitId)
-                .then()
-                .statusCode(HttpStatus.SC_NO_CONTENT);
+        .then()
+                .statusCode(204);
 
         when()
                 .get("/fruit/" + latestFruitId)
-                .then()
-                .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body("code", equalTo(HttpStatus.SC_NOT_FOUND))
+        .then()
+                .statusCode(404)
+                .body("code", equalTo(404))
                 .body("error", equalTo("fruit '" + latestFruitId + "' not found"));
     }
 
     @Test
     public void deleteFruitWithUnknownId() {
         when()
-                .delete("/fruit/" + INVALID_ID)
-                .then()
-                .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body("code", equalTo(HttpStatus.SC_NOT_FOUND))
-                .body("error", equalTo("fruit '" + INVALID_ID + "' not found"));
+                .delete("/fruit/999")
+        .then()
+                .statusCode(404)
+                .body("code", equalTo(404))
+                .body("error", equalTo("fruit '999' not found"));
     }
 
     @Test
@@ -250,16 +243,16 @@ class MultiplePersistenceUnitTest {
         when()
                 .get("/vegetable")
                 .then()
-                .statusCode(HttpStatus.SC_OK)
-                .body("", hasSize(EXPECTED_VEGETABLES_COUNT));
+                .statusCode(200)
+                .body("", hasSize(7));
     }
 
     @Test
     public void getVegetableById() {
         when()
-                .get("/vegetable/" + latestVegetableId)
+                .get("/vegetable/7")
                 .then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body("name", equalTo("Garlic"));
     }
 
@@ -276,14 +269,14 @@ class MultiplePersistenceUnitTest {
                 .body(vegetable)
                 .post("/vegetable")
                 .then()
-                .statusCode(HttpStatus.SC_CREATED)
+                .statusCode(201)
                 .body("id", equalTo(latestVegetableId))
                 .body("name", equalTo("Eggplant"));
         shouldCleanupVegetable = true;
         when()
                 .get("/vegetable/" + latestVegetableId)
                 .then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body("name", equalTo("Eggplant"));
     }
 
@@ -295,14 +288,14 @@ class MultiplePersistenceUnitTest {
                 .body("")
                 .post("/vegetable")
                 .then()
-                .statusCode(HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE)
-                .body("code", equalTo(HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE));
+                .statusCode(415)
+                .body("code", equalTo(415));
     }
 
     @Test
     public void createInvalidIdVegetable() {
         Vegetable vegetable = new Vegetable();
-        vegetable.id = INVALID_ID;
+        vegetable.id = 999L;
         vegetable.name = "foo";
 
         given()
@@ -311,8 +304,8 @@ class MultiplePersistenceUnitTest {
                 .body(vegetable)
                 .post("/vegetable")
                 .then()
-                .statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY)
-                .body("code", equalTo(HttpStatus.SC_UNPROCESSABLE_ENTITY))
+                .statusCode(422)
+                .body("code", equalTo(422))
                 .body("error", equalTo("unexpected ID in request"));
     }
 
@@ -329,7 +322,7 @@ class MultiplePersistenceUnitTest {
                 .body(vegetable)
                 .post("/vegetable")
                 .then()
-                .statusCode(HttpStatus.SC_CREATED)
+                .statusCode(201)
                 .body("id", equalTo(latestVegetableId))
                 .body("name", equalTo("Eggplant"));
 
@@ -343,7 +336,7 @@ class MultiplePersistenceUnitTest {
                 .body(updatedVegetable)
                 .put("/vegetable/" + latestVegetableId)
                 .then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body("id", equalTo(latestVegetableId))
                 .body("name", equalTo("Okra"));
 
@@ -351,14 +344,14 @@ class MultiplePersistenceUnitTest {
         when()
                 .get("/vegetable/" + latestVegetableId)
                 .then()
-                .statusCode(HttpStatus.SC_OK)
+                .statusCode(200)
                 .body("name", equalTo("Okra"));
     }
 
     @Test
     public void updateVegetableWithUnknownId() {
         Vegetable vegetable = new Vegetable();
-        vegetable.id = INVALID_ID;
+        vegetable.id = 999L;
         vegetable.name = "foo";
 
         given()
@@ -367,8 +360,8 @@ class MultiplePersistenceUnitTest {
                 .body(vegetable)
                 .put("/vegetable/999")
                 .then()
-                .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body("code", equalTo(HttpStatus.SC_NOT_FOUND))
+                .statusCode(404)
+                .body("code", equalTo(404))
                 .body("error", equalTo("vegetable '999' not found"));
     }
 
@@ -380,8 +373,8 @@ class MultiplePersistenceUnitTest {
                 .body("")
                 .put("/vegetable/" + latestVegetableId)
                 .then()
-                .statusCode(HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE)
-                .body("code", equalTo(HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE));
+                .statusCode(415)
+                .body("code", equalTo(415));
     }
 
     @Test
@@ -394,8 +387,8 @@ class MultiplePersistenceUnitTest {
                 .body(vegetable)
                 .put("/vegetable/" + latestVegetableId)
                 .then()
-                .statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY)
-                .body("code", equalTo(HttpStatus.SC_UNPROCESSABLE_ENTITY))
+                .statusCode(422)
+                .body("code", equalTo(422))
                 .body("error.message", contains("Vegetable name must be set!"));
     }
 
@@ -412,30 +405,30 @@ class MultiplePersistenceUnitTest {
                 .body(vegetable)
                 .post("/vegetable")
                 .then()
-                .statusCode(HttpStatus.SC_CREATED)
+                .statusCode(201)
                 .body("id", equalTo(latestVegetableId))
                 .body("name", equalTo("Eggplant"));
 
         when()
                 .delete("/vegetable/" + latestVegetableId)
                 .then()
-                .statusCode(HttpStatus.SC_NO_CONTENT);
+                .statusCode(204);
 
         when()
                 .get("/vegetable/" + latestVegetableId)
                 .then()
-                .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body("code", equalTo(HttpStatus.SC_NOT_FOUND))
+                .statusCode(404)
+                .body("code", equalTo(404))
                 .body("error", equalTo("vegetable '" + latestVegetableId + "' not found"));
     }
 
     @Test
     public void deleteVegetableWithUnknownId() {
         when()
-                .delete("/vegetable/" + INVALID_ID)
+                .delete("/vegetable/999")
                 .then()
-                .statusCode(HttpStatus.SC_NOT_FOUND)
-                .body("code", equalTo(HttpStatus.SC_NOT_FOUND))
-                .body("error", equalTo("vegetable '" + INVALID_ID + "' not found"));
+                .statusCode(404)
+                .body("code", equalTo(404))
+                .body("error", equalTo("vegetable '999' not found"));
     }
 }

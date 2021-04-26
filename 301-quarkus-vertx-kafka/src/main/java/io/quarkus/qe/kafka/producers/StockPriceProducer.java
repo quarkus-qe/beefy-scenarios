@@ -12,15 +12,14 @@ import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.OnOverflow;
 import org.jboss.logging.Logger;
 
-import io.quarkus.qe.kafka.StockPrice;
 import io.quarkus.qe.kafka.config.VertxKProducerConfig;
+import io.quarkus.qe.kafka.StockPrice;
 import io.quarkus.qe.kafka.status;
 import io.smallrye.mutiny.Uni;
 
 @ApplicationScoped
 public class StockPriceProducer {
 
-    private static final int EMITTER_BUFFER_SIZE = 1000;
     private static final Logger LOG = Logger.getLogger(StockPriceProducer.class);
 
     @Inject
@@ -28,7 +27,7 @@ public class StockPriceProducer {
 
     @Inject
     @Channel("source-stock-price")
-    @OnOverflow(value = OnOverflow.Strategy.BUFFER, bufferSize = EMITTER_BUFFER_SIZE)
+    @OnOverflow(value = OnOverflow.Strategy.BUFFER, bufferSize = 1000)
     Emitter<StockPrice> emitter;
 
     private Random random = new Random();

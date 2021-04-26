@@ -1,12 +1,10 @@
 package io.quarkus.qe.vertx.sql.domain;
 
-import java.util.Objects;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.vertx.core.json.Json;
+import java.util.Objects;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @RegisterForReflection
 public class QueryFlightSearch {
@@ -16,17 +14,17 @@ public class QueryFlightSearch {
     public int child;
     @Min(0)
     public int infant;
-    @NotNull(message = "From must be not empty")
+    @NotNull(message="From must be not empty")
     public String from;
-    @NotNull(message = "To must be not empty")
+    @NotNull(message="To must be not empty")
     public String to;
     @Min(0)
     public int daysToDeparture;
 
-    public QueryFlightSearch() {
-    }
+    public QueryFlightSearch(){}
 
-    public QueryFlightSearch(Builder builder) {
+    public QueryFlightSearch(Builder builder)
+    {
         this.adult = builder.adult;
         this.child = builder.child;
         this.infant = builder.infant;
@@ -35,7 +33,7 @@ public class QueryFlightSearch {
         this.daysToDeparture = builder.daysToDeparture;
     }
 
-    public static final class Builder {
+    public static class Builder {
         private int adult;
         private int child;
         private int infant;
@@ -43,29 +41,26 @@ public class QueryFlightSearch {
         private String to;
         private int daysToDeparture;
 
-        private Builder() {
-        }
+        public static Builder newInstance(){ return new Builder();}
 
-        public static Builder newInstance() {
-            return new Builder();
-        }
+        private Builder() {}
 
-        public Builder withAdult(int adults) {
+        public Builder withAdult(int adults){
             this.adult = adults;
             return this;
         }
 
-        public Builder withChild(int childs) {
+        public Builder withChild(int childs){
             this.child = childs;
             return this;
         }
 
-        public Builder withInfant(int infants) {
+        public Builder withInfant(int infants){
             this.infant = infants;
             return this;
         }
 
-        public Builder withFrom(String from) {
+        public Builder withFrom(String from){
             this.from = from;
             return this;
         }
@@ -80,9 +75,7 @@ public class QueryFlightSearch {
             return this;
         }
 
-        public QueryFlightSearch build() {
-            return new QueryFlightSearch(this);
-        }
+        public QueryFlightSearch build(){return new QueryFlightSearch(this);}
     }
 
     public String toJsonStringify() {
@@ -91,21 +84,15 @@ public class QueryFlightSearch {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         QueryFlightSearch that = (QueryFlightSearch) o;
-        return adult == that.adult
-                && child == that.child
-                && infant == that.infant
-                && daysToDeparture == that.daysToDeparture
-                && from.equals(that.from)
-                && to.equals(that.to);
+        return adult == that.adult &&
+                child == that.child &&
+                infant == that.infant &&
+                daysToDeparture == that.daysToDeparture &&
+                from.equals(that.from) &&
+                to.equals(that.to);
     }
 
     @Override

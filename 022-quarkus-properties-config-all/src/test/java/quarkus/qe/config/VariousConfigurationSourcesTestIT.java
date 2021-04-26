@@ -1,4 +1,4 @@
-package io.quarkus.qe.config;
+package quarkus.qe.config;
 
 import io.quarkus.test.junit.NativeImageTest;
 

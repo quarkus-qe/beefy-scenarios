@@ -6,9 +6,7 @@ import javax.validation.constraints.Size;
 import io.quarkus.qe.validation.annotations.Uppercase;
 
 public class Request {
-    private static final int FIRST_CODE_SIZE = 3;
-
-    @Size(min = FIRST_CODE_SIZE, max = FIRST_CODE_SIZE, message = "First code must have 3 characters")
+    @Size(min = 3, max = 3, message = "First code must have 3 characters")
     private String firstCode;
 
     @Pattern(regexp = "[A-Z]{2}[0-9]{3}", message = "Second second must match pattern")

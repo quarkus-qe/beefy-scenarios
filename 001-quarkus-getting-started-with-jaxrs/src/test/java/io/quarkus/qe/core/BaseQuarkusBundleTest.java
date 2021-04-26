@@ -1,12 +1,10 @@
 package io.quarkus.qe.core;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
-
-import org.apache.http.HttpStatus;
+import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.junit.QuarkusTest;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 public class BaseQuarkusBundleTest {
@@ -14,10 +12,10 @@ public class BaseQuarkusBundleTest {
     @Test
     public void testQuarkusEndpoint() {
         given()
-                .when().get("/hello")
-                .then()
-                .statusCode(HttpStatus.SC_OK)
-                .body(is("hello"));
+          .when().get("/hello")
+          .then()
+             .statusCode(200)
+             .body(is("hello"));
     }
 
 }

@@ -1,6 +1,5 @@
 package io.quarkus.qe.multiplepus;
 
-import io.netty.handler.codec.http.HttpResponseStatus;
 import io.quarkus.panache.common.Sort;
 import io.quarkus.qe.multiplepus.model.fruit.Fruit;
 
@@ -30,7 +29,7 @@ public class FruitResource {
     public List<Fruit> getAll() {
         return Fruit.listAll(Sort.by("name"));
     }
-
+    
     @GET
     @Path("/{id}")
     public Fruit get(@PathParam("id") Long id) {
@@ -45,11 +44,11 @@ public class FruitResource {
     @Transactional
     public Response create(@Valid Fruit fruit) {
         if (fruit.id != null) {
-            throw new ClientErrorException("unexpected ID in request", HttpResponseStatus.UNPROCESSABLE_ENTITY.code());
+            throw new ClientErrorException("unexpected ID in request", 422);
         }
 
         fruit.persist();
-        return Response.ok(fruit).status(Response.Status.CREATED).build();
+        return Response.ok(fruit).status(201).build();
     }
 
     @PUT
@@ -74,7 +73,7 @@ public class FruitResource {
             throw new NotFoundException("fruit '" + id + "' not found");
         }
         fruit.delete();
-        return Response.noContent().build();
+        return Response.status(204).build();
     }
 
 }
