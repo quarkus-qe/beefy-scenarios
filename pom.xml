@@ -55,8 +55,7 @@
     <wiremock.version>2.27.2</wiremock.version>
     <apicurio-registry-utils-serde.version>1.3.2.Final</apicurio-registry-utils-serde.version>
     <confluent.kafka-avro-serializer.version>6.0.0</confluent.kafka-avro-serializer.version>
-    <version.quarkiverse.apicurio.registry.client>0.0.1</version.quarkiverse.apicurio.registry.client>
-    <camel-quarkus-support-retrofit.version>1.7.0</camel-quarkus-support-retrofit.version>
+    <version.quarkiverse.apicurio.registry.client>0.0.2</version.quarkiverse.apicurio.registry.client>
 
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
@@ -107,11 +106,6 @@
         <groupId>io.quarkiverse.apicurio</groupId>
         <artifactId>quarkiverse-apicurio-registry-client</artifactId>
         <version>${version.quarkiverse.apicurio.registry.client}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-support-retrofit</artifactId>
-        <version>${camel-quarkus-support-retrofit.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

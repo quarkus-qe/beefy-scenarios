@@ -70,11 +70,6 @@
             <groupId>io.quarkiverse.apicurio</groupId>
             <artifactId>quarkiverse-apicurio-registry-client</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-retrofit</artifactId>
-        </dependency>
         <!-- quarkiverse-apicurio-registry-client: native mode dependency end-->
 
         <dependency>
@@ -86,12 +81,6 @@
         <dependency>
             <groupId>io.strimzi</groupId>
             <artifactId>test-container</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-client</artifactId>
             <scope>test</scope>
         </dependency>
 
