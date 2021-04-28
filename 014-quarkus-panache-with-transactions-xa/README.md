@@ -9,3 +9,10 @@ Tests:
 - Mock datasources using Testcontainers.
 - Test CRUD operations on `ApplicationEntity` using default datasource.
 - Test whether the `DataSourceResource` returns proper configuration for each datasource.
+
+Additional tests:
+- Rest Data with Panache test according to https://github.com/quarkus-qe/quarkus-test-plans/blob/main/QUARKUS-976.md  
+Additional UserEntity is a simple JPA entity that was created with aim to avoid inheritance of PanacheEntity methods
+and instead test the additional combination of JPA entity + PanacheRepository + PanacheRepositoryResource, where
+PanacheRepository is a facade class. Facade class can override certain methods to change the default behaviour of the
+PanacheRepositoryResource methods.
