@@ -1,4 +1,4 @@
-package io.quarkus.qe.providers;
+package io.quarkus.qe.kafka;
 
 import java.util.HashMap;
 import java.util.Map;
