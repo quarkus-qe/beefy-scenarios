@@ -1,8 +1,8 @@
 package io.quarkus.qe;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,16 +11,16 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.Map;
+
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
+import org.yaml.snakeyaml.Yaml;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.openapi.runtime.io.Format;
 import io.vertx.core.json.JsonObject;
-import org.yaml.snakeyaml.Yaml;
 
 @QuarkusTest
 public class OpenApiTest {
@@ -49,13 +49,13 @@ public class OpenApiTest {
     // QUARKUS-716
     @Test
     public void testYamlOpenApiPathAccessResource() throws IOException, URISyntaxException {
-        assertTrue(Files.exists(YAML_FILE_NAME_FULL_PATH), YAML_FILE_NAME_FULL_PATH +" doesn't exist.");
+        assertTrue(Files.exists(YAML_FILE_NAME_FULL_PATH), YAML_FILE_NAME_FULL_PATH + " doesn't exist.");
         assertContent(toJson(YAML_FILE_NAME_FULL_PATH));
     }
 
     private JsonObject toJson(Path resourceFileName) throws IOException {
         URI resourceUri = resourceFileName.toUri();
-        return (fileExtension(resourceUri.getPath()).equals(YAML))? fromYaml(resourceUri): fromJson(resourceUri);
+        return (fileExtension(resourceUri.getPath()).equals(YAML)) ? fromYaml(resourceUri) : fromJson(resourceUri);
     }
 
     private JsonObject fromYaml(URI openApiYaml) throws IOException {
@@ -74,7 +74,8 @@ public class OpenApiTest {
     private void assertContent(JsonObject content) {
         assertThat(content.getJsonArray("tags").encode(), is(EXPECTED_TAGS));
         assertThat(content.getJsonObject("info").encode(), is(EXPECTED_INFO));
-        assertTrue(content.getJsonObject("components").getJsonObject("schemas").containsKey("Score"), "Expected component.schema.Score object.");
+        assertTrue(content.getJsonObject("components").getJsonObject("schemas").containsKey("Score"),
+                "Expected component.schema.Score object.");
         assertTrue(content.getJsonObject("paths").containsKey("/rest-ping"), "Missing expected path: /rest-ping");
         assertTrue(content.getJsonObject("paths").containsKey("/rest-pong"), "Missing expected path: /rest-pong");
     }

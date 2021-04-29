@@ -33,7 +33,7 @@ import io.vertx.mutiny.sqlclient.RowSet;
 @Disabled("Caused by https://github.com/quarkusio/quarkus/issues/14608")
 @QuarkusTest
 @TestProfile(Db2TestProfile.class)
-public class Db2PoolTest extends AbstractCommons{
+public class Db2PoolTest extends AbstractCommons {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Db2PoolTest.class);
 
@@ -46,7 +46,7 @@ public class Db2PoolTest extends AbstractCommons{
 
     @Test
     @DisplayName("Idle issue: Fail to read any response from the server, the underlying connection might get lost unexpectedly.")
-    public void checkBorderConditionBetweenIdleAndGetConnection(){
+    public void checkBorderConditionBetweenIdleAndGetConnection() {
         try {
             long idleMs = TimeUnit.SECONDS.toMillis(idle);
             latch = new CountDownLatch(1); // ignore, this test will run until Timeout or get an error occurs.
@@ -72,14 +72,14 @@ public class Db2PoolTest extends AbstractCommons{
                                         return result;
                                     }).toMulti();
                         }).collect().in(ArrayList::new, List::add).subscribe().with(re -> {
-                    LOGGER.info("Subscribe success: -> " + re.get(0));
-                }, Throwable::printStackTrace);
+                            LOGGER.info("Subscribe success: -> " + re.get(0));
+                        }, Throwable::printStackTrace);
             };
             Vertx.vertx().setPeriodic(idleMs + 3, l -> handler.handle(l));
             await(5, TimeUnit.MINUTES);
             assertEquals(1, latch.getCount(), "An unexpected error was thrown.");
-        }catch(IllegalStateException ex) {
-        }finally {
+        } catch (IllegalStateException ex) {
+        } finally {
             assertEquals(1, latch.getCount(), "An unexpected error was thrown.");
         }
     }

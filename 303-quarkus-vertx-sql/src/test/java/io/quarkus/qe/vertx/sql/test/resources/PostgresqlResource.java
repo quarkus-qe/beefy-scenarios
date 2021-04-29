@@ -20,7 +20,8 @@ public class PostgresqlResource implements QuarkusTestResourceLifecycleManager {
     public Map<String, String> start() {
         Map<String, String> config = new HashMap<>();
         String profile = System.getProperty("quarkus.test.profile");
-        if(StringUtils.isEmpty(profile) || profile.equals(PROFILE)) defaultPostgresContainer(config);
+        if (StringUtils.isEmpty(profile) || profile.equals(PROFILE))
+            defaultPostgresContainer(config);
 
         return config;
     }
@@ -35,11 +36,13 @@ public class PostgresqlResource implements QuarkusTestResourceLifecycleManager {
 
         postgresContainer.waitingFor(new HostPortWaitStrategy()).start();
 
-        config.put("quarkus.datasource.jdbc.url", String.format("jdbc:postgresql://%s:%d/amadeus", postgresContainer.getHost(), postgresContainer.getFirstMappedPort()));
-        config.put("quarkus.datasource.reactive.url", String.format("postgresql://%s:%d/amadeus", postgresContainer.getHost(), postgresContainer.getFirstMappedPort()));
-        config.put("app.selected.db","postgresql");
-        config.put("quarkus.flyway.mysql.migrate-at-start","false");
-        config.put("quarkus.flyway.db2.migrate-at-start","false");
+        config.put("quarkus.datasource.jdbc.url", String.format("jdbc:postgresql://%s:%d/amadeus", postgresContainer.getHost(),
+                postgresContainer.getFirstMappedPort()));
+        config.put("quarkus.datasource.reactive.url", String.format("postgresql://%s:%d/amadeus", postgresContainer.getHost(),
+                postgresContainer.getFirstMappedPort()));
+        config.put("app.selected.db", "postgresql");
+        config.put("quarkus.flyway.mysql.migrate-at-start", "false");
+        config.put("quarkus.flyway.db2.migrate-at-start", "false");
     }
 
     @Override

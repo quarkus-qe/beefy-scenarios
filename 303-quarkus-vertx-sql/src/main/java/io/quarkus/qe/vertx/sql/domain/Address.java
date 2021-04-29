@@ -1,18 +1,20 @@
 package io.quarkus.qe.vertx.sql.domain;
 
-import io.quarkus.qe.vertx.sql.services.DbPoolService;
-import io.quarkus.runtime.annotations.RegisterForReflection;
-import io.smallrye.mutiny.Uni;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
-@Schema(name="Address", description="Address entity")
+import io.quarkus.qe.vertx.sql.services.DbPoolService;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import io.smallrye.mutiny.Uni;
+
+@Schema(name = "Address", description = "Address entity")
 @RegisterForReflection
-public class Address extends Record{
+public class Address extends Record {
     private String street;
     private String blockNumber;
     private String zipCode;
@@ -59,16 +61,20 @@ public class Address extends Record{
         this.country = country;
     }
 
-    public Uni<Long> save(DbPoolService sqlClient){
-        List<String> fieldsNames =  Arrays.asList("street,block_number,zip_code,city,country,created_at".split(","));
-        List<Object> fieldsValues = Stream.of(getStreet(), getBlockNumber(), getZipCode(), getCity(), getCountry(), getCreatedAt()).collect(Collectors.toList());
+    public Uni<Long> save(DbPoolService sqlClient) {
+        List<String> fieldsNames = Arrays.asList("street,block_number,zip_code,city,country,created_at".split(","));
+        List<Object> fieldsValues = Stream
+                .of(getStreet(), getBlockNumber(), getZipCode(), getCity(), getCountry(), getCreatedAt())
+                .collect(Collectors.toList());
         return sqlClient.save("address", fieldsNames, fieldsValues);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Address address = (Address) o;
         return street.equals(address.street) &&
                 blockNumber.equals(address.blockNumber) &&

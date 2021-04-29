@@ -1,10 +1,10 @@
 package io.quarkus.qe.multiplepus.model.fruit;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 @Entity
 @Table(name = "fruit")

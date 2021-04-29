@@ -1,12 +1,13 @@
 package io.quarkus.qe;
 
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import io.strimzi.StrimziKafkaContainer;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.jboss.logging.Logger;
 import org.testcontainers.containers.Network;
 
-import java.util.HashMap;
-import java.util.Map;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import io.strimzi.StrimziKafkaContainer;
 
 public class StrimziKafkaResource implements QuarkusTestResourceLifecycleManager {
 

@@ -20,7 +20,8 @@ public class MysqlResource implements QuarkusTestResourceLifecycleManager {
     public Map<String, String> start() {
         Map<String, String> config = new HashMap<>();
         String profile = System.getProperty("quarkus.test.profile");
-        if(profile.equals(PROFILE)) defaultMysqlContainer(config);
+        if (profile.equals(PROFILE))
+            defaultMysqlContainer(config);
 
         return config;
     }
@@ -35,14 +36,15 @@ public class MysqlResource implements QuarkusTestResourceLifecycleManager {
                 .withExposedPorts(3306);
 
         mysqlContainer.waitingFor(new HostPortWaitStrategy()).waitingFor(
-                Wait.forLogMessage(".*MySQL Community Server.*", 1)
-        ).start();
+                Wait.forLogMessage(".*MySQL Community Server.*", 1)).start();
 
-        config.put("quarkus.datasource.mysql.jdbc.url", String.format("jdbc:mysql://%s:%d/amadeus", mysqlContainer.getHost(), mysqlContainer.getFirstMappedPort()));
-        config.put("quarkus.datasource.mysql.reactive.url", String.format("mysql://%s:%d/amadeus", mysqlContainer.getHost(), mysqlContainer.getFirstMappedPort()));
-        config.put("app.selected.db","mysql");
-        config.put("quarkus.flyway.migrate-at-start","false");
-        config.put("quarkus.flyway.db2.migrate-at-start","false");
+        config.put("quarkus.datasource.mysql.jdbc.url",
+                String.format("jdbc:mysql://%s:%d/amadeus", mysqlContainer.getHost(), mysqlContainer.getFirstMappedPort()));
+        config.put("quarkus.datasource.mysql.reactive.url",
+                String.format("mysql://%s:%d/amadeus", mysqlContainer.getHost(), mysqlContainer.getFirstMappedPort()));
+        config.put("app.selected.db", "mysql");
+        config.put("quarkus.flyway.migrate-at-start", "false");
+        config.put("quarkus.flyway.db2.migrate-at-start", "false");
     }
 
     @Override

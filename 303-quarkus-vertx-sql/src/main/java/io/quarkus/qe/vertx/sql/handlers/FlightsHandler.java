@@ -29,13 +29,7 @@ import io.quarkus.vertx.web.RouteBase;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.RoutingContext;
 
-@OpenAPIDefinition(
-        info = @Info(
-        title = "Flight Search API",
-        version = "1.0.1",
-        contact = @Contact(name = "Flight Search API Support", email = "techsupport@example.com"),
-        license = @License(name = "Apache 2.0",
-        url = "http://www.apache.org/licenses/LICENSE-2.0.html")))
+@OpenAPIDefinition(info = @Info(title = "Flight Search API", version = "1.0.1", contact = @Contact(name = "Flight Search API Support", email = "techsupport@example.com"), license = @License(name = "Apache 2.0", url = "http://www.apache.org/licenses/LICENSE-2.0.html")))
 @Tag(name = "Flights", description = "Manage flights")
 @Singleton
 @RouteBase(path = "flights", produces = "application/json")
@@ -61,9 +55,9 @@ public class FlightsHandler {
     @APIResponse(responseCode = "200", content = @Content(mediaType = "application/json", schema = @Schema(type = SchemaType.ARRAY, implementation = Flight.class)))
     @Route(methods = HttpMethod.GET, path = "/*")
     void allFlights(RoutingContext context) {
-       Flight.findAllAsList(connection)
-               .onFailure().invoke(context::fail)
-               .subscribe().with(flights -> context.response().end(Record.toJsonStringify(flights)));
+        Flight.findAllAsList(connection)
+                .onFailure().invoke(context::fail)
+                .subscribe().with(flights -> context.response().end(Record.toJsonStringify(flights)));
     }
 
     @Operation(summary = "Retrieve all flights by origin and destination")
@@ -76,4 +70,3 @@ public class FlightsHandler {
     }
 
 }
-

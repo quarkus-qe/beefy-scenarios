@@ -1,7 +1,8 @@
 package io.quarkus.qe.kafka.config;
 
-import io.quarkus.arc.config.ConfigProperties;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import io.quarkus.arc.config.ConfigProperties;
 
 @ConfigProperties(prefix = "vertx.kafka.producer")
 public class VertxKProducerConfig {

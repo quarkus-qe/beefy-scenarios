@@ -4,10 +4,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import io.quarkus.qe.books.persistence.model.Book;
-import io.quarkus.qe.books.persistence.repo.BookRepository;
-import io.quarkus.qe.books.web.exception.BookIdMismatchException;
-import io.quarkus.qe.books.web.exception.BookNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.quarkus.qe.books.persistence.model.Book;
+import io.quarkus.qe.books.persistence.repo.BookRepository;
+import io.quarkus.qe.books.web.exception.BookIdMismatchException;
+import io.quarkus.qe.books.web.exception.BookNotFoundException;
 
 @RestController
 @RequestMapping("/api/books")
@@ -40,7 +41,7 @@ public class BookController {
     @GetMapping("/{id}")
     public Book findOne(@PathVariable long id) {
         return bookRepository.findByIdOptional(id)
-          .orElseThrow(BookNotFoundException::new);
+                .orElseThrow(BookNotFoundException::new);
     }
 
     @PostMapping
@@ -55,7 +56,7 @@ public class BookController {
     @Transactional
     public void delete(@PathVariable long id) {
         bookRepository.findByIdOptional(id)
-          .orElseThrow(BookNotFoundException::new);
+                .orElseThrow(BookNotFoundException::new);
         bookRepository.deleteById(id);
     }
 

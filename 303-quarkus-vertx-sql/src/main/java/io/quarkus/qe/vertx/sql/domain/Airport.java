@@ -13,16 +13,16 @@ import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.sqlclient.Row;
 import io.vertx.mutiny.sqlclient.RowSet;
 
-@Schema(name="Airport", description="Airport entity")
+@Schema(name = "Airport", description = "Airport entity")
 @RegisterForReflection
-public class Airport extends Record{
+public class Airport extends Record {
 
     private static final String QUALIFIED_CODE_NAME = "iata_code";
-    @Schema(description="IATA code")
+    @Schema(description = "IATA code")
     private String code;
 
     private static final String QUALIFIED_CITY_NAME = "city";
-    @Schema(description="City name")
+    @Schema(description = "City name")
     private String city;
 
     public Airport(long id, String code, String city) {
@@ -52,11 +52,12 @@ public class Airport extends Record{
     }
 
     protected static Multi<Airport> fromSet(RowSet<Row> rows) {
-        return  Multi.createFrom().iterable(rows).onItem().transform(Airport::from);
+        return Multi.createFrom().iterable(rows).onItem().transform(Airport::from);
     }
 
     public static Multi<Airport> findAll(DbPoolService client) {
-        return client.query("SELECT * FROM "+client.getDatabaseName()+".airports").execute().onItem().transformToMulti(Airport::fromSet);
+        return client.query("SELECT * FROM " + client.getDatabaseName() + ".airports").execute().onItem()
+                .transformToMulti(Airport::fromSet);
     }
 
     public static Uni<List<Airport>> findAllAsList(DbPoolService client) {
@@ -65,8 +66,10 @@ public class Airport extends Record{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Airport airport = (Airport) o;
         return code.equals(airport.code) &&
                 city.equals(airport.city);

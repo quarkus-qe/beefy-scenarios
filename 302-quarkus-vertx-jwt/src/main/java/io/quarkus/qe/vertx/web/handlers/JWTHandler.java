@@ -18,14 +18,14 @@ public class JWTHandler {
 
     private static final int TOKEN_EXP_MIN = 10;
 
-    public void createJwt(final RoutingContext context){
+    public void createJwt(final RoutingContext context) {
         String name = context.request().getParam("name");
         context.response()
                 .putHeader("Content-Type", "application/json")
-                .end(new JsonObject().put("jwt",  jwt.generateToken(defaultClaims(name, "admin"))).encode());
+                .end(new JsonObject().put("jwt", jwt.generateToken(defaultClaims(name, "admin"))).encode());
     }
 
-    private JsonObject defaultClaims(String name, String... groups){
+    private JsonObject defaultClaims(String name, String... groups) {
         Long now = currentTimeEpoch();
         Long expiration = currentTimePLusOneEpoch();
         return new JsonObject()
@@ -42,7 +42,7 @@ public class JWTHandler {
         return currentTime().toInstant().toEpochMilli() / 1000L;
     }
 
-    private Long currentTimePLusOneEpoch(){
+    private Long currentTimePLusOneEpoch() {
         return currentTime().plusMinutes(TOKEN_EXP_MIN).toInstant().toEpochMilli() / 1000L;
     }
 

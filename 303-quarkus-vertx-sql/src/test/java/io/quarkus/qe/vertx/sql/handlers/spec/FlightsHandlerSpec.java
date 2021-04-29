@@ -7,10 +7,10 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import io.netty.handler.codec.http.HttpResponseStatus;
 import java.util.Arrays;
 import java.util.List;
 
+import io.netty.handler.codec.http.HttpResponseStatus;
 import io.quarkus.qe.vertx.sql.domain.Basket;
 import io.quarkus.qe.vertx.sql.domain.Flight;
 import io.quarkus.qe.vertx.sql.domain.QueryFlightSearch;

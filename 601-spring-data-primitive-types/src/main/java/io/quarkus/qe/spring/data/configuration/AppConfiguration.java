@@ -2,7 +2,9 @@ package io.quarkus.qe.spring.data.configuration;
 
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.enterprise.inject.spi.CDI;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;

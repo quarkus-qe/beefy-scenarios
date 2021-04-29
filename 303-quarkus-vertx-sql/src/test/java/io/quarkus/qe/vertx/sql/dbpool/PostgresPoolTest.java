@@ -46,7 +46,7 @@ import io.vertx.mutiny.sqlclient.RowSet;
 @QuarkusTest
 @TestProfile(PostgresqlTestProfile.class)
 @TestMethodOrder(OrderAnnotation.class)
-public class PostgresPoolTest extends AbstractCommons{
+public class PostgresPoolTest extends AbstractCommons {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PostgresPoolTest.class);
 
@@ -103,9 +103,11 @@ public class PostgresPoolTest extends AbstractCommons{
         CountDownLatch done = new CountDownLatch(events);
 
         for (int i = 0; i < events; i++) {
-            Uni<Long> activeConnectionsAmount = makeHttpReq(httpClient, "airlines/", HTTP_OK).flatMap(body -> activeConnections()
-                    .onItem().ifNull().failWith(() -> new RuntimeException("Oh No! no postgres active connections found!"))
-                    .onItem().ifNotNull().transformToUni(resp -> activeConnections()));
+            Uni<Long> activeConnectionsAmount = makeHttpReq(httpClient, "airlines/", HTTP_OK)
+                    .flatMap(body -> activeConnections()
+                            .onItem().ifNull()
+                            .failWith(() -> new RuntimeException("Oh No! no postgres active connections found!"))
+                            .onItem().ifNotNull().transformToUni(resp -> activeConnections()));
 
             activeConnectionsAmount.subscribe().with(amount -> {
                 // be sure that you have more than 1 connections
@@ -126,7 +128,8 @@ public class PostgresPoolTest extends AbstractCommons{
         activeConnectionAmount.subscribe().with(connectionsAmount -> {
             // At this point you should just have one connection -> SELECT CURRENT_TIMESTAMP
             assertEquals(1, connectionsAmount, "Idle doesn't remove IDLE expired connections!.");
-            if (connectionsAmount == 1) doneIdleExpired.countDown();
+            if (connectionsAmount == 1)
+                doneIdleExpired.countDown();
         });
 
         doneIdleExpired.await(TIMEOUT_SEC, TimeUnit.SECONDS);
@@ -137,46 +140,48 @@ public class PostgresPoolTest extends AbstractCommons{
     @DisplayName("Idle issue: Fail to read any response from the server, the underlying connection might get lost unexpectedly.")
     @Order(3)
     @Disabled("QUARKUS-719")
-    public void checkBorderConditionBetweenIdleAndGetConnection(){
+    public void checkBorderConditionBetweenIdleAndGetConnection() {
         try {
-        long idleMs = TimeUnit.SECONDS.toMillis(idle);
-        latch = new CountDownLatch(1); // ignore, this test will run until Timeout or get an error occurs.
-        AtomicInteger at = new AtomicInteger(0);
-        Handler<Long> handler = l -> {
-            LOGGER.info("###################################################: ");
-            Multi.createFrom().range(1, 3)
-                    .concatMap(n -> {
-                        LOGGER.info("Connection #" + at.incrementAndGet());
-                        return postgresql.preparedQuery("SELECT CURRENT_TIMESTAMP")
-                                .execute().onFailure().invoke(error -> {
-                                    LOGGER.info("Error: " + at.get());
-                                    LOGGER.error("Error on query: '" + error.getMessage() + "'");
-                                    latch.countDown();
-                                    fail(error.getMessage());
-                                }).map(RowSet::iterator).onItem().transform(iterator -> {
-                                    OffsetDateTime result = OffsetDateTime.now();
-                                    if (iterator.hasNext()) {
-                                        Row row = iterator.next();
-                                        LOGGER.info("Result : " + at.get() + " : " + row.getOffsetDateTime(0));
-                                        result = row.getOffsetDateTime(0);
-                                    }
-                                    return result;
-                                }).toMulti();
-                    }).collect().in(ArrayList::new, List::add).subscribe().with(re -> {
-                        LOGGER.info("Subscribe success: -> " + re.get(0));
-                    }, Throwable::printStackTrace);
-        };
-        Vertx.vertx().setPeriodic(idleMs + 3, l -> handler.handle(l));
-        await(5, TimeUnit.MINUTES);
-        }catch(IllegalStateException ex) {
-        }finally {
+            long idleMs = TimeUnit.SECONDS.toMillis(idle);
+            latch = new CountDownLatch(1); // ignore, this test will run until Timeout or get an error occurs.
+            AtomicInteger at = new AtomicInteger(0);
+            Handler<Long> handler = l -> {
+                LOGGER.info("###################################################: ");
+                Multi.createFrom().range(1, 3)
+                        .concatMap(n -> {
+                            LOGGER.info("Connection #" + at.incrementAndGet());
+                            return postgresql.preparedQuery("SELECT CURRENT_TIMESTAMP")
+                                    .execute().onFailure().invoke(error -> {
+                                        LOGGER.info("Error: " + at.get());
+                                        LOGGER.error("Error on query: '" + error.getMessage() + "'");
+                                        latch.countDown();
+                                        fail(error.getMessage());
+                                    }).map(RowSet::iterator).onItem().transform(iterator -> {
+                                        OffsetDateTime result = OffsetDateTime.now();
+                                        if (iterator.hasNext()) {
+                                            Row row = iterator.next();
+                                            LOGGER.info("Result : " + at.get() + " : " + row.getOffsetDateTime(0));
+                                            result = row.getOffsetDateTime(0);
+                                        }
+                                        return result;
+                                    }).toMulti();
+                        }).collect().in(ArrayList::new, List::add).subscribe().with(re -> {
+                            LOGGER.info("Subscribe success: -> " + re.get(0));
+                        }, Throwable::printStackTrace);
+            };
+            Vertx.vertx().setPeriodic(idleMs + 3, l -> handler.handle(l));
+            await(5, TimeUnit.MINUTES);
+        } catch (IllegalStateException ex) {
+        } finally {
             assertEquals(1, latch.getCount(), "An unexpected error was thrown.");
         }
     }
 
     // TODO: double check if we should care about `IDLE` state connections -> https://github.com/quarkusio/quarkus/issues/16444
     private Uni<Long> activeConnections() {
-        return postgresql.query("SELECT count(*) as active_con FROM pg_stat_activity where application_name like '%vertx%' and state = 'active'").execute()
+        return postgresql.query(
+                "SELECT count(*) as active_con FROM pg_stat_activity where application_name like '%vertx%' and state = 'active'")
+                .execute()
                 .onItem().transform(RowSet::iterator).onItem()
                 .transform(iterator -> iterator.hasNext() ? iterator.next().getLong("active_con") : null);
     }

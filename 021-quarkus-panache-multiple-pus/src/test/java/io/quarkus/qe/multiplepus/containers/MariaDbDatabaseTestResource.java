@@ -1,12 +1,13 @@
 package io.quarkus.qe.multiplepus.containers;
 
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.MariaDBContainer;
-
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
+
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.MariaDBContainer;
+
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class MariaDbDatabaseTestResource implements QuarkusTestResourceLifecycleManager {
 

@@ -2,7 +2,6 @@ package io.quarkus.qe.non_application.endpoint;
 
 import static io.restassured.RestAssured.given;
 
-
 import java.util.Arrays;
 import java.util.List;
 

@@ -1,5 +1,14 @@
 package io.quarkus.qe.multiplepus;
 
+import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasSize;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import io.quarkus.qe.multiplepus.containers.MariaDbDatabaseTestResource;
 import io.quarkus.qe.multiplepus.containers.PostgreSqlDatabaseTestResource;
 import io.quarkus.qe.multiplepus.model.fruit.Fruit;
@@ -7,14 +16,6 @@ import io.quarkus.qe.multiplepus.model.vegetable.Vegetable;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.hasSize;
 
 @QuarkusTest
 @QuarkusTestResource(MariaDbDatabaseTestResource.class)
@@ -48,7 +49,7 @@ class MultiplePersistenceUnitTest {
     public void getAllFruits() {
         when()
                 .get("/fruit")
-        .then()
+                .then()
                 .statusCode(200)
                 .body("", hasSize(7));
     }
@@ -57,7 +58,7 @@ class MultiplePersistenceUnitTest {
     public void getFruitById() {
         when()
                 .get("/fruit/7")
-        .then()
+                .then()
                 .statusCode(200)
                 .body("name", equalTo("Cranberry"));
     }
@@ -70,11 +71,11 @@ class MultiplePersistenceUnitTest {
         latestFruitId++;
 
         given()
-        .when()
+                .when()
                 .contentType(ContentType.JSON)
                 .body(fruit)
                 .post("/fruit")
-        .then()
+                .then()
                 .statusCode(201)
                 .body("id", equalTo(latestFruitId))
                 .body("name", equalTo("Canteloupe"));
@@ -82,7 +83,7 @@ class MultiplePersistenceUnitTest {
 
         when()
                 .get("/fruit/" + latestFruitId)
-        .then()
+                .then()
                 .statusCode(200)
                 .body("name", equalTo("Canteloupe"));
     }
@@ -90,11 +91,11 @@ class MultiplePersistenceUnitTest {
     @Test
     public void createInvalidPayloadFruit() {
         given()
-        .when()
+                .when()
                 .contentType(ContentType.TEXT)
                 .body("")
                 .post("/fruit")
-        .then()
+                .then()
                 .statusCode(415)
                 .body("code", equalTo(415));
     }
@@ -106,11 +107,11 @@ class MultiplePersistenceUnitTest {
         fruit.name = "foo";
 
         given()
-        .when()
+                .when()
                 .contentType(ContentType.JSON)
                 .body(fruit)
                 .post("/fruit")
-        .then()
+                .then()
                 .statusCode(422)
                 .body("code", equalTo(422))
                 .body("error", equalTo("unexpected ID in request"));
@@ -138,18 +139,18 @@ class MultiplePersistenceUnitTest {
         updatedFruit.name = "Dragonfruit";
 
         given()
-        .when()
+                .when()
                 .contentType(ContentType.JSON)
                 .body(updatedFruit)
                 .put("/fruit/" + latestFruitId)
-        .then()
+                .then()
                 .statusCode(200)
                 .body("id", equalTo(latestFruitId))
                 .body("name", equalTo("Dragonfruit"));
         shouldCleanupFruit = true;
         when()
                 .get("/fruit/" + latestFruitId)
-        .then()
+                .then()
                 .statusCode(200)
                 .body("name", equalTo("Dragonfruit"));
     }
@@ -161,11 +162,11 @@ class MultiplePersistenceUnitTest {
         fruit.name = "foo";
 
         given()
-        .when()
+                .when()
                 .contentType(ContentType.JSON)
                 .body(fruit)
                 .put("/fruit/999")
-        .then()
+                .then()
                 .statusCode(404)
                 .body("code", equalTo(404))
                 .body("error", equalTo("fruit '999' not found"));
@@ -174,11 +175,11 @@ class MultiplePersistenceUnitTest {
     @Test
     public void updateWithNullFruit() {
         given()
-        .when()
+                .when()
                 .contentType(ContentType.TEXT)
                 .body("")
                 .put("/fruit/" + latestFruitId)
-        .then()
+                .then()
                 .statusCode(415)
                 .body("code", equalTo(415));
     }
@@ -188,11 +189,11 @@ class MultiplePersistenceUnitTest {
         Fruit fruit = new Fruit();
 
         given()
-        .when()
+                .when()
                 .contentType(ContentType.JSON)
                 .body(fruit)
                 .put("/fruit/" + latestFruitId)
-        .then()
+                .then()
                 .statusCode(422)
                 .body("code", equalTo(422))
                 .body("error.message", contains("Fruit name must be set!"));
@@ -217,12 +218,12 @@ class MultiplePersistenceUnitTest {
 
         when()
                 .delete("/fruit/" + latestFruitId)
-        .then()
+                .then()
                 .statusCode(204);
 
         when()
                 .get("/fruit/" + latestFruitId)
-        .then()
+                .then()
                 .statusCode(404)
                 .body("code", equalTo(404))
                 .body("error", equalTo("fruit '" + latestFruitId + "' not found"));
@@ -232,7 +233,7 @@ class MultiplePersistenceUnitTest {
     public void deleteFruitWithUnknownId() {
         when()
                 .delete("/fruit/999")
-        .then()
+                .then()
                 .statusCode(404)
                 .body("code", equalTo(404))
                 .body("error", equalTo("fruit '999' not found"));

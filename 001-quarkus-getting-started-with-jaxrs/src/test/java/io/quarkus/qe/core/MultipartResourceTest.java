@@ -1,24 +1,26 @@
 package io.quarkus.qe.core;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.builder.MultiPartSpecBuilder;
-import io.restassured.http.ContentType;
-import io.restassured.response.ValidatableResponse;
-import io.restassured.specification.MultiPartSpecification;
-import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-import javax.ws.rs.core.MediaType;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import javax.ws.rs.core.MediaType;
+
+import org.apache.commons.io.IOUtils;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.builder.MultiPartSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.response.ValidatableResponse;
+import io.restassured.specification.MultiPartSpecification;
 
 @QuarkusTest
 public class MultipartResourceTest {
@@ -50,8 +52,7 @@ public class MultipartResourceTest {
                         containsString("Content-Disposition: form-data; name=\"text\""),
                         containsString("Content-Disposition: form-data; name=\"data\"; filename=\"random.dat\""),
                         containsString("Content-Disposition: form-data; name=\"image\"; filename=\"quarkus.png\""),
-                        containsString(TEXT_WITH_DIACRITICS)
-                );
+                        containsString(TEXT_WITH_DIACRITICS));
     }
 
     @Test

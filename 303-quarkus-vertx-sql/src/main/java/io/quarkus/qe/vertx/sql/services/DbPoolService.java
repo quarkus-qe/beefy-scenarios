@@ -10,7 +10,7 @@ import io.vertx.sqlclient.PropertyKind;
 
 public class DbPoolService extends Pool {
 
-    private final static PropertyKind<Long> LAST_INSERTED_ID = PropertyKind.create("last-inserted-id",Long.class);
+    private final static PropertyKind<Long> LAST_INSERTED_ID = PropertyKind.create("last-inserted-id", Long.class);
     private final String databaseName;
     private final String selectedDb;
 
@@ -25,7 +25,7 @@ public class DbPoolService extends Pool {
     }
 
     public Uni<Long> save(String tableName, List<String> fieldsNames, List<Object> fieldsValues) {
-        switch(selectedDb) {
+        switch (selectedDb) {
             case "mysql":
                 return saveMysql(tableName, fieldsNames, fieldsValues);
             case "db2":
@@ -40,7 +40,9 @@ public class DbPoolService extends Pool {
             String fields = tableFieldsToString(fieldsNames);
             String values = tableFieldsValuesToString(fieldsValues);
 
-            return tx.preparedQuery("INSERT INTO " + getDatabaseName() + "." + tableName + " (" + fields + ") VALUES (" + values + ") RETURNING id")
+            return tx
+                    .preparedQuery("INSERT INTO " + getDatabaseName() + "." + tableName + " (" + fields + ") VALUES (" + values
+                            + ") RETURNING id")
                     .execute().onItem().transform(id -> id.iterator().next().getLong("id"));
         });
     }
@@ -50,9 +52,11 @@ public class DbPoolService extends Pool {
             String fields = tableFieldsToString(fieldsNames);
             String values = tableFieldsValuesToString(fieldsValues);
 
-            return tx.preparedQuery("INSERT INTO " + getDatabaseName() + "." + tableName + " (" + fields + ") VALUES (" + values + ")")
+            return tx
+                    .preparedQuery(
+                            "INSERT INTO " + getDatabaseName() + "." + tableName + " (" + fields + ") VALUES (" + values + ")")
                     .execute()
-                    .onItem().invoke(r->this.query("SELECT LAST_INSERT_ID();"))
+                    .onItem().invoke(r -> this.query("SELECT LAST_INSERT_ID();"))
                     .onItem().transform(id -> (Long) id.getDelegate().property(LAST_INSERTED_ID));
         });
     }
@@ -62,7 +66,9 @@ public class DbPoolService extends Pool {
             String fields = tableFieldsToString(fieldsNames);
             String values = tableFieldsValuesToString(fieldsValues);
 
-            return tx.preparedQuery("select id from NEW TABLE (INSERT INTO " + getDatabaseName() + "." + tableName + " (" + fields + ") VALUES (" + values + "))")
+            return tx
+                    .preparedQuery("select id from NEW TABLE (INSERT INTO " + getDatabaseName() + "." + tableName + " ("
+                            + fields + ") VALUES (" + values + "))")
                     .execute().onItem().transform(id -> id.iterator().next().getLong("id"));
         });
     }

@@ -1,6 +1,5 @@
 package io.quarkus.qe.ping;
 
-import io.quarkus.qe.model.Score;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -13,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
+import io.quarkus.qe.model.Score;
 import io.quarkus.qe.ping.clients.LookupAuthorizationPongClient;
 
 @Path("/rest-lookup-auth-ping")

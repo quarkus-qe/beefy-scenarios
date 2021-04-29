@@ -1,11 +1,12 @@
 package quarkus.qe.config;
 
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
+
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
 public class VariousConfigurationSourcesTest {
@@ -13,10 +14,10 @@ public class VariousConfigurationSourcesTest {
     @Test
     public void testEnvFile() {
         given()
-          .when().get("/hello")
-          .then()
-             .statusCode(200)
-             .body(is("Welcome message from .env file"));
+                .when().get("/hello")
+                .then()
+                .statusCode(200)
+                .body(is("Welcome message from .env file"));
     }
 
     @Test

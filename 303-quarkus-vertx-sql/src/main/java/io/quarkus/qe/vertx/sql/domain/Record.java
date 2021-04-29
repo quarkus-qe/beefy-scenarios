@@ -1,9 +1,11 @@
 package io.quarkus.qe.vertx.sql.domain;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.vertx.core.json.Json;
-import java.util.List;
 
 @RegisterForReflection
 public class Record {
@@ -15,7 +17,7 @@ public class Record {
     @JsonIgnore
     private long updatedAt;
 
-    public Record(){
+    public Record() {
         createdAt = System.currentTimeMillis();
         updatedAt = System.currentTimeMillis();
     }
@@ -48,7 +50,7 @@ public class Record {
         this.updatedAt = updatedAt;
     }
 
-    public String toJsonStringify(){
+    public String toJsonStringify() {
         return Json.encode(this);
     }
 

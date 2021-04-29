@@ -1,13 +1,14 @@
 package io.quarkus.qe.ping.exceptions;
 
+import static javax.ws.rs.core.Response.status;
+
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
-import org.jboss.logging.Logger;
-import javax.ws.rs.core.Response.Status;
 
-import static javax.ws.rs.core.Response.status;
+import org.jboss.logging.Logger;
 
 @Provider
 public class CustomExceptionMapper implements ExceptionMapper<RuntimeException> {
@@ -18,7 +19,7 @@ public class CustomExceptionMapper implements ExceptionMapper<RuntimeException> 
     public Response toResponse(RuntimeException e) {
         LOG.info("Custom exception mapper invoked.");
 
-        if(e instanceof NotFoundException) {
+        if (e instanceof NotFoundException) {
             return status(Status.NOT_FOUND)
                     .entity(toCatalogError(new UnexpectedException(e.getMessage())))
                     .build();
