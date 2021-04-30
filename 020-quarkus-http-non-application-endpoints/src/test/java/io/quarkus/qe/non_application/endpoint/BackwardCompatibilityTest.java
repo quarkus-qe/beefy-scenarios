@@ -6,7 +6,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.in;
 
-
 import java.util.Collections;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -38,7 +37,8 @@ public class BackwardCompatibilityTest {
         for (String endpoint : nonAppEndpoints) {
             given().redirects().follow(false)
                     .log().uri()
-                    .expect().statusCode(301).header("Location", endsWith(BASE_PATH + endpoint)).when().get(ROOT_PATH + endpoint);
+                    .expect().statusCode(301).header("Location", endsWith(BASE_PATH + endpoint)).when()
+                    .get(ROOT_PATH + endpoint);
 
             given().expect().statusCode(in(Collections.singletonList(200))).when().get(ROOT_PATH + endpoint);
         }

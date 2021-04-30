@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>beefy-scenarios</artifactId>
         <groupId>io.quarkus.qe</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>003-quarkus-many-extensions</artifactId>
-
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -38,7 +34,7 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-spring-data-jpa</artifactId>
         </dependency>
-<!--        https://github.com/quarkusio/quarkus/issues/7185  for pom-deprecated-way.xml  -->
+        <!--        https://github.com/quarkusio/quarkus/issues/7185  for pom-deprecated-way.xml  -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-kubernetes</artifactId>
@@ -88,10 +84,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-spring-web</artifactId>
         </dependency>
-<!--        <dependency>  needs running Keycloak server -->
-<!--            <groupId>io.quarkus</groupId>-->
-<!--            <artifactId>quarkus-keycloak-authorization</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>  needs running Keycloak server -->
+        <!--            <groupId>io.quarkus</groupId>-->
+        <!--            <artifactId>quarkus-keycloak-authorization</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jaxb</artifactId>
@@ -156,10 +152,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-postgresql</artifactId>
         </dependency>
-<!--        <dependency>  needs running Keycloak server -->
-<!--            <groupId>io.quarkus</groupId>-->
-<!--            <artifactId>quarkus-oidc</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>  needs running Keycloak server -->
+        <!--            <groupId>io.quarkus</groupId>-->
+        <!--            <artifactId>quarkus-oidc</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jaxb</artifactId>
@@ -204,12 +200,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-spring-security</artifactId>
         </dependency>
-
         <!-- java.lang.RuntimeException: java.lang.RuntimeException: java.lang.IllegalArgumentException: Multiple matching properties for name "datasource.url" property was matched by both public java.util.Optional io.quarkus.reactive.pg.client.runtime.DataSourceConfig.url and public java.util.Optional io.quarkus.agroal.runtime.DataSourceRuntimeConfig.url. This is likely because you have an incompatible combination of extensions that both define the same properties (e.g. including both reactive and blocking database extensions) -->
         <!-- <dependency>
           <groupId>io.quarkus</groupId>
           <artifactId>quarkus-reactive-pg-client</artifactId>
         </dependency> -->
     </dependencies>
-
 </project>

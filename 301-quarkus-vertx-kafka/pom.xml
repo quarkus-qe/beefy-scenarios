@@ -1,16 +1,12 @@
-<?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>io.quarkus.qe</groupId>
         <artifactId>beefy-scenarios</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>301-quarkus-vertx-kafka</artifactId>
-
     <repositories>
         <repository>
             <id>confluent</id>
@@ -20,19 +16,15 @@
             </snapshots>
         </repository>
     </repositories>
-
     <dependencies>
-
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-opentelemetry</artifactId>
         </dependency>
-
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-opentelemetry-exporter-jaeger</artifactId>
         </dependency>
-
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-vertx</artifactId>
@@ -53,7 +45,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jsonb</artifactId>
         </dependency>
-
         <dependency>
             <groupId>io.apicurio</groupId>
             <artifactId>apicurio-registry-utils-serde</artifactId>
@@ -64,34 +55,28 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
         <!-- quarkiverse-apicurio-registry-client: native mode dependency -->
         <dependency>
             <groupId>io.quarkiverse.apicurio</groupId>
             <artifactId>quarkiverse-apicurio-registry-client</artifactId>
         </dependency>
         <!-- quarkiverse-apicurio-registry-client: native mode dependency end-->
-
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>kafka</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>io.strimzi</groupId>
             <artifactId>test-container</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

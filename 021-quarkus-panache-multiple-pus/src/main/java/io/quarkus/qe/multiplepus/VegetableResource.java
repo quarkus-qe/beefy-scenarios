@@ -1,7 +1,6 @@
 package io.quarkus.qe.multiplepus;
 
-import io.quarkus.panache.common.Sort;
-import io.quarkus.qe.multiplepus.model.vegetable.Vegetable;
+import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -18,7 +17,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import java.util.List;
+import io.quarkus.panache.common.Sort;
+import io.quarkus.qe.multiplepus.model.vegetable.Vegetable;
 
 @Path("vegetable")
 @Consumes(MediaType.APPLICATION_JSON)

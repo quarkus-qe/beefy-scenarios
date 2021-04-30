@@ -24,8 +24,7 @@ public class LibraryRepositoryTest {
                 .then()
                 .statusCode(200)
                 .body(
-                        containsString("Library1")
-                );
+                        containsString("Library1"));
 
         //POST - Create a new Library
         given()
@@ -45,8 +44,7 @@ public class LibraryRepositoryTest {
                 .then()
                 .statusCode(200)
                 .body(
-                        containsString("Library2")
-                );
+                        containsString("Library2"));
 
         //PUT - Update library entry
         given()
@@ -63,8 +61,7 @@ public class LibraryRepositoryTest {
                 .then()
                 .statusCode(200)
                 .body(
-                        containsString("Library Two")
-                );
+                        containsString("Library Two"));
 
         //DELETE - Delete a library
         given()
@@ -74,7 +71,7 @@ public class LibraryRepositoryTest {
     }
 
     @Test
-    void testRepositoryValidator() throws InterruptedException{
+    void testRepositoryValidator() throws InterruptedException {
         //Try to add a library with invalid constraints
         given()
                 .contentType("application/json")

@@ -7,7 +7,8 @@ public class Score {
     private int teamA;
     private int teamB;
 
-    public Score(){}
+    public Score() {
+    }
 
     public Score(int scoreTeamA, int scoreTeamB) {
         this.teamA = scoreTeamA;

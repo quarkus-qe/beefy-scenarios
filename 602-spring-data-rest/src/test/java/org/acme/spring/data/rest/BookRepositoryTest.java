@@ -34,8 +34,7 @@ class BookRepositoryTest {
                         containsString("Aeneid"),
                         containsString("Beach House"),
                         containsString("Cadillac Desert"),
-                        containsString("Dagon and Other Macabre Tales")
-                );
+                        containsString("Dagon and Other Macabre Tales"));
 
         //POST - Create a new Book
         given()
@@ -58,15 +57,13 @@ class BookRepositoryTest {
                 .then()
                 .statusCode(204);
 
-
         //GET{id} - Find new book by id
         given()
                 .when().get("/books/id/5")
                 .then()
                 .statusCode(200)
                 .body(
-                        containsString("Early Asimov 2nd Edition")
-                );
+                        containsString("Early Asimov 2nd Edition"));
 
         //DELETE - Try to delete a book via HTTP (method not allowed)
         given()
@@ -87,8 +84,7 @@ class BookRepositoryTest {
                         containsString("Beach House"),
                         not(containsString("Cadillac Desert")),
                         not(containsString("Dagon and Other Macabre Tales")),
-                        not(containsString("Early Asimov 2nd Edition"))
-                );
+                        not(containsString("Early Asimov 2nd Edition")));
 
         //Test repository sorting
         List<String> bookNamesSortedDesc = new ArrayList<>(Arrays.asList(
@@ -96,8 +92,7 @@ class BookRepositoryTest {
                 "Dagon and Other Macabre Tales",
                 "Cadillac Desert",
                 "Beach House",
-                "Aeneid"
-        ));
+                "Aeneid"));
         Response response = given()
                 .accept("application/json")
                 .queryParam("sort", "-name")
@@ -111,7 +106,7 @@ class BookRepositoryTest {
     }
 
     @Test
-    void testRepositoryValidator() throws InterruptedException{
+    void testRepositoryValidator() throws InterruptedException {
         //Try to add a book with invalid constraints
         given()
                 .contentType("application/json")

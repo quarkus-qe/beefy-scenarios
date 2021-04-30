@@ -2,15 +2,14 @@ package io.quarkus.qe.kafka;
 
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Every.everyItem;
 import static org.hamcrest.core.StringContains.containsString;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import io.restassured.response.Response;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -24,6 +23,8 @@ import javax.ws.rs.sse.SseEventSource;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
+
+import io.restassured.response.Response;
 
 abstract class KafkaCommonTest {
     private final static String jaegerEndpoint = "http://localhost:16686/api/traces";

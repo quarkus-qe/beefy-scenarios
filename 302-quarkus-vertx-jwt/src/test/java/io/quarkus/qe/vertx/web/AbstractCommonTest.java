@@ -50,20 +50,20 @@ public class AbstractCommonTest {
     }
 
     @AfterEach
-    public void teardown(){
+    public void teardown() {
         given().accept(ContentType.JSON)
                 .headers("Authorization", "Bearer " + JWT(Invalidity.EMPTY, "admin"))
                 .when()
                 .delete("/bladeRunner/" + bladeRunner.getId())
                 .then()
-                .statusCode(anyOf(is(204),is(404)));
+                .statusCode(anyOf(is(204), is(404)));
 
         given().accept(ContentType.JSON)
                 .headers("Authorization", "Bearer " + JWT(Invalidity.EMPTY, "admin"))
                 .when()
-                .delete("/replicant/"+replicant.getId())
+                .delete("/replicant/" + replicant.getId())
                 .then()
-                .statusCode(anyOf(is(204),is(404)));
+                .statusCode(anyOf(is(204), is(404)));
     }
 
     protected enum Invalidity {
@@ -80,7 +80,7 @@ public class AbstractCommonTest {
         JsonObject claims = defaultClaims(groups);
         JWTAuth jwt = JWTAuth.create(vertx.getDelegate(), new JWTAuthOptions()
                 .addPubSecKey(getPubSecKeyOptions(authConfig)));
-        switch(invalidity){
+        switch (invalidity) {
             case WRONG_ISSUER:
                 claims.put("iss", "invalid");
                 break;
@@ -114,7 +114,7 @@ public class AbstractCommonTest {
         return new PubSecKeyOptions(authConfig).setBuffer(authConfig.getBuffer("publicKey"));
     }
 
-    private JsonObject defaultClaims(String... groups){
+    private JsonObject defaultClaims(String... groups) {
         Long now = currentTimeEpoch();
         Long expiration = currentTimePLusOneEpoch();
         return new JsonObject()
@@ -131,7 +131,7 @@ public class AbstractCommonTest {
         return currentTime().toInstant().toEpochMilli() / 1000L;
     }
 
-    private Long currentTimePLusOneEpoch(){
+    private Long currentTimePLusOneEpoch() {
         return currentTime().plusMinutes(1).toInstant().toEpochMilli() / 1000L;
     }
 
@@ -139,7 +139,7 @@ public class AbstractCommonTest {
         return ZonedDateTime.now();
     }
 
-    protected BladeRunner defaultBladeRunner(){
+    protected BladeRunner defaultBladeRunner() {
         BladeRunner bladeRunner = new BladeRunner();
         bladeRunner.setDailyRate(2000.00);
         bladeRunner.setRetirements(103);
@@ -151,7 +151,7 @@ public class AbstractCommonTest {
         return bladeRunner;
     }
 
-    protected Replicant defaultReplicant(){
+    protected Replicant defaultReplicant() {
         Replicant replicant = new Replicant();
         replicant.setFugitive(true);
         replicant.setLiveSpanYears(5);

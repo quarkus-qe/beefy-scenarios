@@ -1,6 +1,5 @@
 package io.quarkus.qe.ping;
 
-import io.quarkus.qe.model.Score;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -19,15 +18,10 @@ import org.eclipse.microprofile.openapi.annotations.info.License;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
+import io.quarkus.qe.model.Score;
 import io.quarkus.qe.ping.clients.PongClient;
 
-@OpenAPIDefinition(
-        info = @Info(
-                title = "PingPong API",
-                version = "1.0.1",
-                contact = @Contact(name = "PingPong API Support", email = "techsupport@example.com"),
-                license = @License(name = "Apache 2.0",
-                        url = "http://www.apache.org/licenses/LICENSE-2.0.html")))
+@OpenAPIDefinition(info = @Info(title = "PingPong API", version = "1.0.1", contact = @Contact(name = "PingPong API Support", email = "techsupport@example.com"), license = @License(name = "Apache 2.0", url = "http://www.apache.org/licenses/LICENSE-2.0.html")))
 @Tag(name = "Ping", description = "Ping API")
 @Path("/rest-ping")
 public class PingResource {

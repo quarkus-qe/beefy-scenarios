@@ -1,11 +1,13 @@
 package io.quarkus.qe.vertx.resources;
 
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.utility.DockerImageName;
+
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class RedisResource implements QuarkusTestResourceLifecycleManager {
 
@@ -28,6 +30,7 @@ public class RedisResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public void stop() {
-        if (Objects.nonNull(redisContainer)) redisContainer.stop();
+        if (Objects.nonNull(redisContainer))
+            redisContainer.stop();
     }
 }

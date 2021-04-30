@@ -1,6 +1,5 @@
 package io.quarkus.qe.pong;
 
-import io.quarkus.qe.model.Score;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -11,6 +10,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import io.quarkus.qe.model.Score;
 import io.smallrye.mutiny.Uni;
 
 @Path("/reactive-pong")

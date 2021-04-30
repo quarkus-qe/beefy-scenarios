@@ -1,14 +1,14 @@
 package io.quarkus.qe.multiplepus;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 @Provider
 public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViolationException> {
@@ -27,8 +27,7 @@ public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViol
                 .type(MediaType.APPLICATION_JSON)
                 .entity(mapper.createObjectNode()
                         .put("code", 422)
-                        .set("error", errors)
-                )
+                        .set("error", errors))
                 .build();
     }
 }

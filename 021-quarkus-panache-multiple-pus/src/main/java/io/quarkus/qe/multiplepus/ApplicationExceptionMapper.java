@@ -1,12 +1,12 @@
 package io.quarkus.qe.multiplepus;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Provider
 public class ApplicationExceptionMapper implements ExceptionMapper<Exception> {
@@ -22,8 +22,7 @@ public class ApplicationExceptionMapper implements ExceptionMapper<Exception> {
                 .entity(new ObjectMapper().createObjectNode()
                         .put("code", code)
                         .put("error", exception.getMessage())
-                        .toString()
-                )
+                        .toString())
                 .build();
     }
 }

@@ -1,10 +1,9 @@
 package io.quarkus.qe.kafka.resources;
 
-import io.quarkus.qe.kafka.resources.ConfluentKafkaResource;
-import io.quarkus.test.junit.QuarkusTestProfile;
-
 import java.util.Collections;
 import java.util.List;
+
+import io.quarkus.test.junit.QuarkusTestProfile;
 
 public class ConfluentTestProfile implements QuarkusTestProfile {
 

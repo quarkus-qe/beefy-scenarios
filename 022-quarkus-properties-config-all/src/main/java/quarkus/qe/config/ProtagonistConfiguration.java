@@ -1,9 +1,9 @@
 package quarkus.qe.config;
 
-import quarkus.qe.config.interfaces.ProtagonistConfigurable;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import quarkus.qe.config.interfaces.ProtagonistConfigurable;
 
 @Singleton
 public class ProtagonistConfiguration {
@@ -11,19 +11,23 @@ public class ProtagonistConfiguration {
     @Inject
     ProtagonistConfigurable protagonistConfigurable;
 
-    public String getName(){
+    public String getName() {
         return protagonistConfigurable.name();
     }
 
-    public String getMessage(){
+    public String getMessage() {
         return protagonistConfigurable.message();
     }
 
-    public String getHobby() { return protagonistConfigurable.hobby(); }
+    public String getHobby() {
+        return protagonistConfigurable.hobby();
+    }
 
-    public String getFriendName(){ return protagonistConfigurable.friend().name(); }
+    public String getFriendName() {
+        return protagonistConfigurable.friend().name();
+    }
 
-    public String getFriendMessage(){
+    public String getFriendMessage() {
         return protagonistConfigurable.friend().message();
     }
 }

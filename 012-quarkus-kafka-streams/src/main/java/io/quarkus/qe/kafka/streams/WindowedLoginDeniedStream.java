@@ -1,9 +1,13 @@
 package io.quarkus.qe.kafka.streams;
 
-import io.quarkus.kafka.client.serialization.JsonbSerde;
-import io.quarkus.qe.kafka.model.LoginAggregation;
-import io.quarkus.qe.kafka.model.LoginAttempt;
-import io.smallrye.reactive.messaging.annotations.Broadcast;
+import static javax.ws.rs.core.Response.Status.FORBIDDEN;
+import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
+
+import java.time.Duration;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
+
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -16,12 +20,10 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import java.time.Duration;
-
-import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
-import static javax.ws.rs.core.Response.Status.FORBIDDEN;
+import io.quarkus.kafka.client.serialization.JsonbSerde;
+import io.quarkus.qe.kafka.model.LoginAggregation;
+import io.quarkus.qe.kafka.model.LoginAttempt;
+import io.smallrye.reactive.messaging.annotations.Broadcast;
 
 @ApplicationScoped
 public class WindowedLoginDeniedStream {
@@ -53,7 +55,7 @@ public class WindowedLoginDeniedStream {
                                 .withValueSerde(loginAggregationSerde))
                 .toStream()
                 .filter((k, v) -> (v.code == UNAUTHORIZED.getStatusCode() || v.code == FORBIDDEN.getStatusCode()))
-                .filter((k,v) -> v.count > THRESHOLD)
+                .filter((k, v) -> v.count > THRESHOLD)
                 .to(LOGIN_DENIED_AGGREGATED_TOPIC);
 
         return builder.build();

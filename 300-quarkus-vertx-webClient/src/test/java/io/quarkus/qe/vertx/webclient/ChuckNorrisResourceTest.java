@@ -1,20 +1,5 @@
 package io.quarkus.qe.vertx.webclient;
 
-import io.quarkus.qe.vertx.webclient.resources.JaegerTestResource;
-import io.quarkus.qe.vertx.webclient.resources.WireMockChuckNorrisResource;
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.response.Response;
-import java.net.HttpURLConnection;
-import java.time.Duration;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import org.apache.http.HttpStatus;
-import org.hamcrest.Matcher;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
@@ -28,6 +13,23 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Every.everyItem;
 import static org.hamcrest.core.StringContains.containsString;
+
+import java.net.HttpURLConnection;
+import java.time.Duration;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.http.HttpStatus;
+import org.hamcrest.Matcher;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.qe.vertx.webclient.resources.JaegerTestResource;
+import io.quarkus.qe.vertx.webclient.resources.WireMockChuckNorrisResource;
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.response.Response;
 
 @QuarkusTest
 @QuarkusTestResource(WireMockChuckNorrisResource.class)

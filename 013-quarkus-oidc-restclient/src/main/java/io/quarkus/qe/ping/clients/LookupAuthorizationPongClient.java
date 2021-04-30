@@ -1,6 +1,5 @@
 package io.quarkus.qe.ping.clients;
 
-import io.quarkus.qe.model.Score;
 import java.util.Collections;
 
 import javax.ws.rs.Consumes;
@@ -20,6 +19,8 @@ import org.eclipse.microprofile.rest.client.annotation.ClientHeaderParam;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import org.keycloak.authorization.client.AuthzClient;
 import org.keycloak.authorization.client.Configuration;
+
+import io.quarkus.qe.model.Score;
 
 @RegisterRestClient
 @ClientHeaderParam(name = "Authorization", value = "{lookupAuth}")

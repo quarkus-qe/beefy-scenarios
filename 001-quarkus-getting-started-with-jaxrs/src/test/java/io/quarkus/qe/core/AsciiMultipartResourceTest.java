@@ -1,5 +1,13 @@
 package io.quarkus.qe.core;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
+
+import java.nio.charset.StandardCharsets;
+
+import org.junit.jupiter.api.Test;
+
 import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.QuarkusTestProfile;
@@ -7,13 +15,6 @@ import io.quarkus.test.junit.TestProfile;
 import io.restassured.builder.MultiPartSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.MultiPartSpecification;
-import org.junit.jupiter.api.Test;
-
-import java.nio.charset.StandardCharsets;
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.not;
 
 @QuarkusTest
 @DisabledOnNativeImage // @TestProfile works in JVM mode
@@ -21,7 +22,8 @@ import static org.hamcrest.CoreMatchers.not;
 public class AsciiMultipartResourceTest {
 
     public static final String TEXT_WITH_DIACRITICS = "Přikrášlený žloťoučký kůň úpěl ďábelské ódy.";
-    private static final String EXPECTED_ASCII_TEXT = new String(TEXT_WITH_DIACRITICS.getBytes(StandardCharsets.UTF_8), StandardCharsets.US_ASCII);
+    private static final String EXPECTED_ASCII_TEXT = new String(TEXT_WITH_DIACRITICS.getBytes(StandardCharsets.UTF_8),
+            StandardCharsets.US_ASCII);
 
     @Test
     public void testMultipartText() {

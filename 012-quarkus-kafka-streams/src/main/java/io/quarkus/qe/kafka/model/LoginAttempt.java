@@ -14,5 +14,6 @@ public class LoginAttempt {
         this.code = code;
     }
 
-    public LoginAttempt() { }
+    public LoginAttempt() {
+    }
 }

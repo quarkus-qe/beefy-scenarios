@@ -22,11 +22,11 @@ public class JavaEELikeHealthCheckTest {
                 .then()
                 .statusCode(200)
                 .body("status", is("UP"),
-                        "checks.name", containsInAnyOrder("liveness", "readiness", "greeting", "Database connections health check"),
+                        "checks.name",
+                        containsInAnyOrder("liveness", "readiness", "greeting", "Database connections health check"),
                         "checks.status", hasSize(4),
                         "checks.status", hasItem("UP"),
-                        "checks.status", not(hasItem("DOWN"))
-                );
+                        "checks.status", not(hasItem("DOWN")));
     }
 
     @Test
@@ -52,9 +52,9 @@ public class JavaEELikeHealthCheckTest {
                 .body("status", is("UP"),
                         "checks.name", containsInAnyOrder("readiness", "greeting", "Database connections health check"),
                         "checks.status", hasSize(3),
-                        "checks.status", hasItem("UP")
-                );
+                        "checks.status", hasItem("UP"));
     }
+
     @Test
     public void testLivenessEndpoint() {
         given()
@@ -64,8 +64,7 @@ public class JavaEELikeHealthCheckTest {
                 .body("status", is("UP"),
                         "checks.name", hasItems("liveness"),
                         "checks.status", hasSize(1),
-                        "checks.status", hasItem("UP")
-                );
+                        "checks.status", hasItem("UP"));
     }
 
 }
