@@ -11,18 +11,18 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.quarkus.grpc.runtime.annotations.GrpcService;
+import io.quarkus.grpc.GrpcClient;
 import io.smallrye.mutiny.Uni;
 
 @Path("/hello")
 public class GreetingResource {
 
     @Inject
-    @GrpcService("hello")
+    @GrpcClient("hello")
     GreeterGrpc.GreeterBlockingStub blockingClient;
 
     @Inject
-    @GrpcService("hello")
+    @GrpcClient("hello")
     MutinyGreeterGrpc.MutinyGreeterStub mutinyClient;
 
     @GET
