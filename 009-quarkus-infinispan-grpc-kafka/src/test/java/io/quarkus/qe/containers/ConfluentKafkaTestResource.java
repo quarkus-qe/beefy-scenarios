@@ -6,11 +6,11 @@ import java.util.Optional;
 
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.KafkaContainer;
-
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.utility.DockerImageName;
 
-public class KafkaTestResource implements QuarkusTestResourceLifecycleManager {
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+
+public class ConfluentKafkaTestResource implements QuarkusTestResourceLifecycleManager {
 
     private KafkaContainer container;
 

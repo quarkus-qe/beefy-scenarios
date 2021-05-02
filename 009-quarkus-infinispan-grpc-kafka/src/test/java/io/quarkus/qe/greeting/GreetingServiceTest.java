@@ -13,16 +13,16 @@ public class GreetingServiceTest {
     @Test
     public void testBlockingGreetingResource() {
         given()
-        .when().get("/hello/blocking/neo")
-        .then().statusCode(200)
+                .when().get("/hello/blocking/neo")
+                .then().statusCode(200)
                 .body(is("Hello neo"));
     }
-    
+
     @Test
     public void testMutinyGreetingResource() {
         given()
-        .when().get("/hello/mutiny/neo")
-        .then().statusCode(200)
+                .when().get("/hello/mutiny/neo")
+                .then().statusCode(200)
                 .body(is("Hello neo"));
     }
 

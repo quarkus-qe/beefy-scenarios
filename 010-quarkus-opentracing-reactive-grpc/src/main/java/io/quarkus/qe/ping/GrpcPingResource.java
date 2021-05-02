@@ -1,5 +1,6 @@
 package io.quarkus.qe.ping;
 
+import io.quarkus.grpc.runtime.annotations.GrpcService;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -8,7 +9,6 @@ import javax.ws.rs.core.MediaType;
 
 import io.quarkus.example.PongRequest;
 import io.quarkus.example.PongServiceGrpc;
-import io.quarkus.grpc.runtime.annotations.GrpcService;
 import io.quarkus.qe.traceable.TraceableResource;
 
 @Path("/grpc-ping")
