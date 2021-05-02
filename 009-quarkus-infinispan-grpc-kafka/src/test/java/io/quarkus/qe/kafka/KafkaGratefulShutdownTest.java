@@ -1,4 +1,4 @@
-package io.quarkus.qe.grateful.shutdown;
+package io.quarkus.qe.kafka;
 
 import static io.restassured.RestAssured.post;
 import static org.awaitility.Awaitility.await;
