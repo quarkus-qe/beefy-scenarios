@@ -56,6 +56,10 @@
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
         <quarkus-plugin.version>999-SNAPSHOT</quarkus-plugin.version>
+        <!-- Default values for format -->
+        <src.format.goal>format</src.format.goal>
+        <src.sort.goal>sort</src.sort.goal>
+        <xml.format.goal>xml-format</xml.format.goal>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -249,17 +253,6 @@
             </build>
             <properties>
                 <quarkus.package.type>native</quarkus.package.type>
-            </properties>
-        </profile>
-        <profile>
-            <id>format</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <src.format.goal>format</src.format.goal>
-                <src.sort.goal>sort</src.sort.goal>
-                <xml.format.goal>xml-format</xml.format.goal>
             </properties>
         </profile>
         <profile>
