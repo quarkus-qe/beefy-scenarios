@@ -11,15 +11,13 @@ import org.junit.jupiter.api.Test;
 
 import io.quarkus.qe.validation.utils.ValidationErrorResponse;
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.http.ContentType;
 
 @QuarkusTest
 public class ValidationOnRequestParamRouteHandlerTest {
 
     @Test
     public void shouldGetValidationErrorWhenSingleParamIsWrong() {
-        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response. Reported by https://github.com/quarkusio/quarkus/issues/15159
-        ValidationErrorResponse response = given().accept(ContentType.JSON)
+        ValidationErrorResponse response = given()
                 .when()
                 .get("/validate/request-single-param/MA")
                 .then()
@@ -42,8 +40,7 @@ public class ValidationOnRequestParamRouteHandlerTest {
 
     @Test
     public void shouldGetValidationErrorsWhenAllParamsAreWrong() {
-        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response. Reported by https://github.com/quarkusio/quarkus/issues/15159
-        ValidationErrorResponse response = given().accept(ContentType.JSON)
+        ValidationErrorResponse response = given()
                 .get("/validate/request-multiple-param/MA/second/F12")
                 .then()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
@@ -65,8 +62,7 @@ public class ValidationOnRequestParamRouteHandlerTest {
 
     @Test
     public void shouldGetValidationErrorWhenSingleParamIsLowercase() {
-        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response. Reported by https://github.com/quarkusio/quarkus/issues/15159
-        ValidationErrorResponse response = given().accept(ContentType.JSON)
+        ValidationErrorResponse response = given()
                 .when()
                 .get("/validate/request-single-param-custom-validation/lower")
                 .then()

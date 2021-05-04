@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import io.quarkus.qe.validation.utils.ValidationErrorResponse;
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.http.ContentType;
 import io.vertx.core.json.Json;
 
 @QuarkusTest
@@ -22,8 +21,7 @@ public class ValidationOnRequestBodyRouteHandlerTest {
         Request request = new Request();
         request.setFirstCode("MA");
 
-        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response. Reported by https://github.com/quarkusio/quarkus/issues/15159
-        ValidationErrorResponse response = given().accept(ContentType.JSON)
+        ValidationErrorResponse response = given()
                 .when()
                 .body(Json.encode(request))
                 .post("/validate/request-body")
@@ -44,8 +42,7 @@ public class ValidationOnRequestBodyRouteHandlerTest {
         request.setFirstCode("MA");
         request.setSecondCode("F12");
 
-        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response. Reported by https://github.com/quarkusio/quarkus/issues/15159
-        ValidationErrorResponse response = given().accept(ContentType.JSON)
+        ValidationErrorResponse response = given()
                 .body(Json.encode(request))
                 .post("/validate/request-body")
                 .then()
@@ -65,8 +62,7 @@ public class ValidationOnRequestBodyRouteHandlerTest {
         request.setSecondCode("FR123");
         request.setCustom("lower");
 
-        // TODO: Added workaround ".accept(ContentType.JSON)" to get a JSON response. Reported by https://github.com/quarkusio/quarkus/issues/15159
-        ValidationErrorResponse response = given().accept(ContentType.JSON)
+        ValidationErrorResponse response = given()
                 .when()
                 .body(Json.encode(request))
                 .post("/validate/request-body")
