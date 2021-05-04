@@ -1,13 +1,12 @@
 package io.quarkus.qe.greeting;
 
-import javax.inject.Singleton;
-
 import io.grpc.stub.StreamObserver;
 import io.quarkus.example.blocking.GreeterGrpc;
 import io.quarkus.example.dto.HelloReply;
 import io.quarkus.example.dto.HelloRequest;
+import io.quarkus.grpc.GrpcService;
 
-@Singleton
+@GrpcService
 public class BlockingHelloService extends GreeterGrpc.GreeterImplBase {
 
     @Override
