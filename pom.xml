@@ -124,6 +124,7 @@
                     <execution>
                         <goals>
                             <goal>build</goal>
+                            <goal>generate-code</goal>
                         </goals>
                     </execution>
                 </executions>
