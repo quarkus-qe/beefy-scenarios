@@ -53,7 +53,7 @@
         </dependency>
         <dependency>
             <groupId>io.strimzi</groupId>
-            <artifactId>test-container</artifactId>
+            <artifactId>strimzi-test-container</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
