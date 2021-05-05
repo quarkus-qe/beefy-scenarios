@@ -16,7 +16,7 @@ public class ConfluentKafkaTestResource implements QuarkusTestResourceLifecycleM
 
     @Override
     public Map<String, String> start() {
-        container = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:5.4.3"));
+        container = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:6.1.1"));
         container.start();
 
         final String hosts = container.getContainerIpAddress() + ":" + container.getMappedPort(KafkaContainer.KAFKA_PORT);
