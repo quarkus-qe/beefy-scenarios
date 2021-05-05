@@ -16,7 +16,7 @@ public class StrimziKafkaResource implements QuarkusTestResourceLifecycleManager
     @Override
     public Map<String, String> start() {
         Network network = Network.newNetwork();
-        kafkaContainer = new StrimziKafkaContainer("0.18.0-kafka-2.5.0").withNetwork(network);
+        kafkaContainer = new StrimziKafkaContainer("latest-kafka-2.7.0").withNetwork(network);
         kafkaContainer.start();
 
         String kafkaUrl = kafkaContainer.getBootstrapServers();
