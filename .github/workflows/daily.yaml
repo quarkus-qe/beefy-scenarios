@@ -1,10 +1,11 @@
 name: "Daily Build"
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 23 * * *'
 jobs:
-  build-jvm:
-    name: Daily build - JVM
+  quarkus-main-build:
+    name: Quarkus Main build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -26,20 +27,60 @@ jobs:
       - name: Build Quarkus main
         run: |
           git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B -s .github/mvn-settings.xml clean install -Dquickly
+      - name: Tar Maven Repo
+        shell: bash
+        run: tar -I 'pigz -9' -cf maven-repo.tgz -C ~ .m2/repository
+      - name: Persist Maven Repo
+        uses: actions/upload-artifact@v1
+        with:
+          name: maven-repo
+          path: maven-repo.tgz
+  linux-build-jvm:
+    name: Daily - Linux - JVM build
+    runs-on: ubuntu-latest
+    needs: quarkus-main-build
+    strategy:
+      matrix:
+        java: [ 11 ]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Reclaim Disk Space
+        run: .github/ci-prerequisites.sh
+      - name: Install JDK {{ matrix.java }}
+        uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Download Maven Repo
+        uses: actions/download-artifact@v1
+        with:
+          name: maven-repo
+          path: .
+      - name: Extract Maven Repo
+        shell: bash
+        run: tar -xzf maven-repo.tgz -C ~
       - name: Test in JVM mode
         run: |
-          mvn -fae -V -B -s .github/mvn-settings.xml -Dvalidate-format -fae clean verify
+          mvn -fae -V -B -s .github/mvn-settings.xml -fae clean verify
       - name: Zip Artifacts
+        if: failure()
         run: |
-          zip -R artifacts-jvm${{ matrix.java }}.zip '*-reports/*'
+          zip -R artifacts-linux-jvm${{ matrix.java }}.zip '*-reports/*'
       - name: Archive artifacts
+        if: failure()
         uses: actions/upload-artifact@v1
         with:
           name: ci-artifacts
-          path: artifacts-jvm${{ matrix.java }}.zip
-  build-native:
-    name: Daily build - Native
+          path: artifacts-linux-jvm${{ matrix.java }}.zip
+  linux-build-native:
+    name: Daily - Linux - Native build
     runs-on: ubuntu-latest
+    needs: quarkus-main-build
     strategy:
       matrix:
         java: [ 11 ]
@@ -58,19 +99,129 @@ jobs:
         uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
         with:
           java-version: ${{ matrix.java }}
-      - name: Build Quarkus main
-        run: |
-          git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B -s .github/mvn-settings.xml clean install -Dquickly
+      - name: Download Maven Repo
+        uses: actions/download-artifact@v1
+        with:
+          name: maven-repo
+          path: .
+      - name: Extract Maven Repo
+        shell: bash
+        run: tar -xzf maven-repo.tgz -C ~
       - name: Test in Native mode
         run: |
-          mvn -fae -V -B -s .github/mvn-settings.xml -Dvalidate-format -fae clean verify -Dnative \
+          mvn -fae -V -B -s .github/mvn-settings.xml -fae clean verify -Dnative \
             -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
             -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }}
       - name: Zip Artifacts
+        if: failure()
         run: |
-          zip -R artifacts-native${{ matrix.java }}.zip '*-reports/*'
+          zip -R artifacts-linux-native${{ matrix.java }}.zip '*-reports/*'
       - name: Archive artifacts
+        if: failure()
         uses: actions/upload-artifact@v1
         with:
           name: ci-artifacts
-          path: artifacts-native${{ matrix.java }}.zip
+          path: artifacts-linux-native${{ matrix.java }}.zip
+  windows-build-jvm:
+    name: Daily - Windows - JVM build
+    runs-on: windows-latest
+    needs: quarkus-main-build
+    strategy:
+      matrix:
+        java: [ 11 ]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Install JDK {{ matrix.java }}
+        uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Download Maven Repo
+        uses: actions/download-artifact@v1
+        with:
+          name: maven-repo
+          path: .
+      - name: Extract Maven Repo
+        shell: bash
+        run: tar -xzf maven-repo.tgz -C ~
+      - name: Test in JVM mode
+        shell: bash
+        run: |
+          mvn -fae -V -B -s .github/mvn-settings.xml clean test
+      - name: Zip Artifacts
+        shell: bash
+        if: failure()
+        run: |
+          # Disambiguate windows find from cygwin find
+          /usr/bin/find . -name '*-reports/*' -type d | tar -czf artifacts-windows-jvm${{ matrix.java }}.tar -T -
+      - name: Archive artifacts
+        if: failure()
+        uses: actions/upload-artifact@v1
+        with:
+          name: ci-artifacts
+          path: artifacts-windows-jvm${{ matrix.java }}.tar
+  windows-build-native:
+    name: Daily - Windows - Native build
+    runs-on: windows-latest
+    needs: quarkus-main-build
+    strategy:
+      matrix:
+        java: [ 11 ]
+        graalvm-version: [ "21.0.0.java11"]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Install JDK {{ matrix.java }}
+        uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Download Maven Repo
+        uses: actions/download-artifact@v1
+        with:
+          name: maven-repo
+          path: .
+      - name: Extract Maven Repo
+        shell: bash
+        run: tar -xzf maven-repo.tgz -C ~
+      - name: Install cl.exe
+        uses: ilammy/msvc-dev-cmd@v1
+      - uses: microsoft/setup-msbuild@v1
+      - name: Setup GraalVM
+        id: setup-graalvm
+        uses: DeLaGuardo/setup-graalvm@master
+        with:
+          graalvm-version: ${{ matrix.graalvm-version }}
+      - name: Install native-image component
+        run: |
+          gu.cmd install native-image
+      - name: Configure Pagefile
+        # Increased the page-file size due to memory-consumption of native-image command
+        # For details see https://github.com/actions/virtual-environments/issues/785
+        uses: al-cheb/configure-pagefile-action@v1.2
+      - name: Test in Native mode
+        shell: bash
+        run: |
+          # Build on Native requires a lot of disk space, for now, we'll run only one module.
+          mvn -V -B -s .github/mvn-settings.xml -fae clean verify -Dnative -Dquarkus.native.native-image-xmx=6g -pl '003-quarkus-many-extensions'
+      - name: Zip Artifacts
+        shell: bash
+        if: failure()
+        run: |
+          # Disambiguate windows find from cygwin find
+          /usr/bin/find . -name '*-reports/*' -type d | tar -czf artifacts-windows-native${{ matrix.java }}.tar -T -
+      - name: Archive artifacts
+        if: failure()
+        uses: actions/upload-artifact@v1
+        with:
+          name: ci-artifacts
+          path: artifacts-windows-native${{ matrix.java }}.tar
