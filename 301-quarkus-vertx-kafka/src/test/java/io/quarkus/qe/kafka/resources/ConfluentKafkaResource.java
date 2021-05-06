@@ -23,8 +23,8 @@ public class ConfluentKafkaResource implements QuarkusTestResourceLifecycleManag
     @Override
     public Map<String, String> start() {
         Network network = Network.newNetwork();
-        kafkaContainer = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:5.3.0")).withNetwork(network);
-        schemaRegistry = new SchemaRegistryContainer("confluentinc/cp-schema-registry", "5.3.0", 8081).withNetwork(network)
+        kafkaContainer = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:6.1.1")).withNetwork(network);
+        schemaRegistry = new SchemaRegistryContainer("confluentinc/cp-schema-registry", "6.1.1", 8081).withNetwork(network)
                 .withKafka(kafkaContainer, 9092);
 
         Startables.deepStart(Stream.of(kafkaContainer, schemaRegistry)).join();

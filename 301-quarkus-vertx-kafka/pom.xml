@@ -68,7 +68,7 @@
         </dependency>
         <dependency>
             <groupId>io.strimzi</groupId>
-            <artifactId>test-container</artifactId>
+            <artifactId>strimzi-test-container</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -77,26 +77,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.avro</groupId>
-                <artifactId>avro-maven-plugin</artifactId>
-                <version>1.9.2</version>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>schema</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirectory>src/main/avro</sourceDirectory>
-                            <outputDirectory>${project.build.directory}/generated-sources</outputDirectory>
-                            <stringType>String</stringType>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
