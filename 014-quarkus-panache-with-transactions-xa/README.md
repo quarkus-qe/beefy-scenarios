@@ -16,3 +16,5 @@ Additional UserEntity is a simple JPA entity that was created with aim to avoid 
 and instead test the additional combination of JPA entity + PanacheRepository + PanacheRepositoryResource, where
 PanacheRepository is a facade class. Facade class can override certain methods to change the default behaviour of the
 PanacheRepositoryResource methods.
+
+- AgroalPoolTest, will cover how the db pool is managed in terms of IDLE-timeout, max connections and concurrency. 
