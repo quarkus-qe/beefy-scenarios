@@ -25,7 +25,8 @@ public class MySqlDatabaseTestResource implements QuarkusTestResourceLifecycleMa
 
     @Override
     public Map<String, String> start() {
-        container = new MySQLContainer<>(DockerImageName.parse("mysql/mysql-server:8.0.22").asCompatibleSubstituteFor(MYSQL));
+        container = new MySQLContainer<>(
+                DockerImageName.parse("quay.io/bitnami/mysql:5.7.32").asCompatibleSubstituteFor(MYSQL));
         container.withUrlParam("currentSchema", DEFAULT_SCHEMA);
         container.start();
 

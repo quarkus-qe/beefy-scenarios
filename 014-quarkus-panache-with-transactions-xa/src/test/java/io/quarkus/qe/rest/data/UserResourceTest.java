@@ -4,9 +4,9 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.http.HttpStatus;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.qe.containers.MySqlDatabaseTestResource;
@@ -30,7 +30,7 @@ class UserResourceTest {
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .extract().response().jsonPath().getString("_embedded.user_list.name");
-        Assert.assertEquals("[Alaba, Balaba]", userList);
+        assertEquals("[Alaba, Balaba]", userList);
 
         //POST - Create a new User
         given()
