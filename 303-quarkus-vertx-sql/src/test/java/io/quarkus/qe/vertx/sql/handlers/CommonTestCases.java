@@ -31,8 +31,7 @@ public abstract class CommonTestCases implements
     @Test
     public void basketScenario() {
         basketCheckout();
-        // TODO: Validation stopped being propagated onto error handler. Reported by https://github.com/quarkusio/quarkus/issues/16430
-        // wrongBasketFormatCheckout();
+        wrongBasketFormatCheckout();
     }
 
     @Test
