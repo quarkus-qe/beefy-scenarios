@@ -8,14 +8,15 @@
     </parent>
     <artifactId>300-quarkus-vertx-webclient</artifactId>
     <dependencies>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-opentelemetry</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-opentelemetry-exporter-jaeger</artifactId>
-        </dependency>
+        <!-- TODO: https://github.com/quarkusio/quarkus/issues/17234 -->
+        <!--  <dependency>-->
+        <!--  <groupId>io.quarkus</groupId>-->
+        <!--  <artifactId>quarkus-opentelemetry</artifactId>-->
+        <!--  </dependency>-->
+        <!--  <dependency>-->
+        <!--  <groupId>io.quarkus</groupId>-->
+        <!--  <artifactId>quarkus-opentelemetry-exporter-jaeger</artifactId>-->
+        <!--  </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-vertx-web</artifactId>
