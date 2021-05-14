@@ -87,6 +87,8 @@ public class ChuckNorrisResourceTest {
     }
 
     @Test
+    // TODO: https://github.com/quarkusio/quarkus/issues/17234
+    @Disabled
     public void endpointShouldTrace() {
         final int pageLimit = 50;
         final String expectedOperationName = "trace/ping";
