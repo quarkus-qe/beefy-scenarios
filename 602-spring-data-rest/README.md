@@ -4,6 +4,7 @@
 Used addition features and functionality:
 - Hibernate Validator
 - One-to-Many and Many-to-One relationship
+- DevServices
 
 Used quarkus-spring-data-rest repositories:
 - CrudRepository

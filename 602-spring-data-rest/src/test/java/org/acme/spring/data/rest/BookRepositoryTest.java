@@ -4,22 +4,19 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.acme.spring.data.rest.containers.PostgreSqlDatabaseTestResource;
 import org.apache.http.HttpStatus;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.Response;
 
 @QuarkusTest
-@QuarkusTestResource(PostgreSqlDatabaseTestResource.class)
 class BookRepositoryTest {
 
     @Test
@@ -101,7 +98,7 @@ class BookRepositoryTest {
                 .statusCode(200).extract().response();
         List<String> bookNamesRepositorySortedDesc = response.jsonPath().getList("name");
 
-        Assert.assertEquals(bookNamesSortedDesc, bookNamesRepositorySortedDesc);
+        assertEquals(bookNamesSortedDesc, bookNamesRepositorySortedDesc);
 
     }
 
