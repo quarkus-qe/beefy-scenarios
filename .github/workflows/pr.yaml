@@ -2,13 +2,12 @@ name: "Pull Request Build"
 on:
   - pull_request
 jobs:
-  build:
-    name: PR build
+  quarkus-main-build:
+    name: Quarkus Main build
     runs-on: ubuntu-latest
     strategy:
       matrix:
         java: [ 11 ]
-        image: [ "ubi-quarkus-native-image:20.3.1-java11"]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/cache@v1
@@ -21,6 +20,45 @@ jobs:
         uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
         with:
           java-version: ${{ matrix.java }}
+      - name: Build Quarkus main
+        run: |
+          git clone https://github.com/quarkusio/quarkus.git && cd quarkus && mvn -B -s .github/mvn-settings.xml clean install -Dquickly
+      - name: Tar Maven Repo
+        shell: bash
+        run: tar -I 'pigz -9' -cf maven-repo.tgz -C ~ .m2/repository
+      - name: Persist Maven Repo
+        uses: actions/upload-artifact@v1
+        with:
+          name: maven-repo
+          path: maven-repo.tgz
+  linux-build:
+    name: Linux - PR build
+    runs-on: ubuntu-latest
+    needs: quarkus-main-build
+    strategy:
+      matrix:
+        java: [ 11 ]
+        image: [ "ubi-quarkus-native-image:20.3.2-java11"]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Install JDK {{ matrix.java }}
+        uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Download Maven Repo
+        uses: actions/download-artifact@v1
+        with:
+          name: maven-repo
+          path: .
+      - name: Extract Maven Repo
+        shell: bash
+        run: tar -xzf maven-repo.tgz -C ~
       - name: Test in JVM mode
         run: |
           mvn -V -B -s .github/mvn-settings.xml clean test
@@ -32,9 +70,74 @@ jobs:
             -pl '003-quarkus-many-extensions'
       - name: Zip Artifacts
         run: |
-          zip -R artifacts-jvm${{ matrix.java }}.zip '*-reports/*'
+          zip -R artifacts-linux${{ matrix.java }}.zip '*-reports/*'
       - name: Archive artifacts
         uses: actions/upload-artifact@v1
         with:
           name: ci-artifacts
-          path: artifacts-jvm${{ matrix.java }}.zip
+          path: artifacts-linux${{ matrix.java }}.zip
+  windows-build:
+    name: Windows - PR build
+    runs-on: windows-latest
+    needs: quarkus-main-build
+    strategy:
+      matrix:
+        java: [ 11 ]
+        graalvm-version: [ "20.3.1.java11"]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Install JDK {{ matrix.java }}
+        uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Download Maven Repo
+        uses: actions/download-artifact@v1
+        with:
+          name: maven-repo
+          path: .
+      - name: Extract Maven Repo
+        shell: bash
+        run: tar -xzf maven-repo.tgz -C ~
+      - name: Test in JVM mode
+        shell: bash
+        run: |
+          mvn -fae -V -B -s .github/mvn-settings.xml clean test
+      - name: Install cl.exe
+        uses: ilammy/msvc-dev-cmd@v1
+      - uses: microsoft/setup-msbuild@v1
+      - name: Setup GraalVM
+        id: setup-graalvm
+        uses: DeLaGuardo/setup-graalvm@master
+        with:
+          graalvm-version: ${{ matrix.graalvm-version }}
+      - name: Install native-image component
+        run: |
+          gu.cmd install native-image
+      - name: Configure Pagefile
+        # Increased the page-file size due to memory-consumption of native-image command
+        # For details see https://github.com/actions/virtual-environments/issues/785
+        uses: al-cheb/configure-pagefile-action@v1.2
+      - name: Smoke Test in Native mode
+        shell: bash
+        run: |
+          mvn -V -B -s .github/mvn-settings.xml -fae clean verify -Dnative \
+            -Dquarkus.native.native-image-xmx=6g \
+            -pl '003-quarkus-many-extensions'
+      - name: Zip Artifacts
+        shell: bash
+        if: failure()
+        run: |
+          # Disambiguate windows find from cygwin find
+          /usr/bin/find . -name '*-reports/*' -type d | tar -czf artifacts-windows${{ matrix.java }}.tar -T -
+      - name: Archive artifacts
+        if: failure()
+        uses: actions/upload-artifact@v1
+        with:
+          name: ci-artifacts
+          path: artifacts-windows${{ matrix.java }}.tar
