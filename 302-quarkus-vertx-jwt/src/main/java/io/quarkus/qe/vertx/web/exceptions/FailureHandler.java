@@ -6,7 +6,7 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 import io.quarkus.security.UnauthorizedException;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
-import io.vertx.ext.web.handler.impl.HttpStatusException;
+import io.vertx.ext.web.handler.HttpException;
 
 @ApplicationScoped
 public class FailureHandler {
@@ -22,13 +22,12 @@ public class FailureHandler {
             ctx.response().setStatusCode(notFoundExp.getHttpErrorCode());
         }
 
-        if (ctx.failure() instanceof HttpStatusException) {
-            HttpStatusException httpExp = (HttpStatusException) ctx.failure();
+        if (ctx.failure() instanceof HttpException) {
+            HttpException httpExp = (HttpException) ctx.failure();
             error.put("status", httpExp.getStatusCode());
         }
 
         if (ctx.failure() instanceof UnauthorizedException) {
-            UnauthorizedException exp = (UnauthorizedException) ctx.failure();
             error.put("status", HttpResponseStatus.UNAUTHORIZED.code());
             error.put("error", HttpResponseStatus.valueOf(HttpResponseStatus.UNAUTHORIZED.code()).reasonPhrase());
         }
