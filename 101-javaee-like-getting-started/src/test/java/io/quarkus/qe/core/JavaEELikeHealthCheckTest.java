@@ -18,7 +18,7 @@ public class JavaEELikeHealthCheckTest {
     @Test
     public void testHealthEndpoint() {
         given()
-                .when().get("/health")
+                .when().get("/q/health")
                 .then()
                 .statusCode(200)
                 .body("status", is("UP"),
@@ -33,7 +33,7 @@ public class JavaEELikeHealthCheckTest {
     public void testHealthGroupEndpoint() {
         // TODO: There is an inconsistency about the Health groups path. Reported by https://github.com/quarkusio/quarkus/issues/16389.
         given()
-                .when().get("/health/group/customGroup")
+                .when().get("/q/health/group/customGroup")
                 .then()
                 .statusCode(200)
                 .body("status", is("UP"),
@@ -46,7 +46,7 @@ public class JavaEELikeHealthCheckTest {
     @Test
     public void testReadinessEndpoint() {
         given()
-                .when().get("/health/ready")
+                .when().get("/q/health/ready")
                 .then()
                 .statusCode(200)
                 .body("status", is("UP"),
@@ -58,7 +58,7 @@ public class JavaEELikeHealthCheckTest {
     @Test
     public void testLivenessEndpoint() {
         given()
-                .when().get("/health/live")
+                .when().get("/q/health/live")
                 .then()
                 .statusCode(200)
                 .body("status", is("UP"),
