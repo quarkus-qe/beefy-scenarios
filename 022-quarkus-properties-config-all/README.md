@@ -24,6 +24,8 @@ supported classes (e.x. String, Boolean, Double, etc.)
 
 6. Injecting a `ConfigValue` instance that was introduced in MicroProfile Config 2.0
 
+7. Injecting properties using the `@ConfigMapping` annotation. More info in: https://smallrye.io/docs/smallrye-config/mapping/mapping.html
+
 ___
 #### Wiki:
 **Protagonist**: the leading character in the story, whose purpose is to move story to its final  
