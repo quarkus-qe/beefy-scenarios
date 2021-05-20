@@ -1,4 +1,4 @@
-package quarkus.qe.converter;
+package io.quarkus.qe.converter;
 
 import org.eclipse.microprofile.config.spi.Converter;
 

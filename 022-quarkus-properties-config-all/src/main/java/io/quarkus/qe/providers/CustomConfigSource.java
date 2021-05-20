@@ -1,4 +1,4 @@
-package quarkus.qe.providers;
+package io.quarkus.qe.providers;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
