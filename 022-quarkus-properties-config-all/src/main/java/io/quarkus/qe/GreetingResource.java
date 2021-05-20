@@ -1,4 +1,4 @@
-package quarkus.qe;
+package io.quarkus.qe;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,9 +12,9 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import quarkus.qe.config.AntagonistConfiguration;
-import quarkus.qe.config.ProtagonistConfiguration;
-import quarkus.qe.converter.KrustyEmail;
+import io.quarkus.qe.config.AntagonistConfiguration;
+import io.quarkus.qe.config.ProtagonistConfiguration;
+import io.quarkus.qe.converter.KrustyEmail;
 
 @Path("/hello")
 public class GreetingResource {

@@ -1,4 +1,4 @@
-package quarkus.qe.converter;
+package io.quarkus.qe.converter;
 
 public class KrustyEmail {
 
