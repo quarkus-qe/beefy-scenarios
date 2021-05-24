@@ -1,18 +1,25 @@
 package io.quarkus.qe.vertx.web.config;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithName;
 
-import io.quarkus.arc.config.ConfigProperties;
+@ConfigMapping(prefix = "authN")
+public interface AuthNConfig {
+    String alg();
 
-@ConfigProperties(prefix = "authN")
-public class AuthNConfig {
-    public String alg;
+    String secret();
 
-    public String secret;
+    @WithName("tokenLiveSpanMin")
+    int liveSpan();
 
-    @ConfigProperty(name = "tokenLiveSpanMin")
-    public int liveSpan;
+    @WithName("jwt.claims")
+    JwtClaims claims();
 
-    @ConfigProperty(name = "jwt.claims")
-    public JwtClaims claims;
+    interface JwtClaims {
+        String iss();
+
+        String sub();
+
+        String aud();
+    }
 }

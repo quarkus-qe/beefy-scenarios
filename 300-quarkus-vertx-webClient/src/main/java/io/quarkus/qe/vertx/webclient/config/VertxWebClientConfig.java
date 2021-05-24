@@ -1,15 +1,13 @@
 package io.quarkus.qe.vertx.webclient.config;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithName;
 
-import io.quarkus.arc.config.ConfigProperties;
+@ConfigMapping(prefix = "vertx.webclient")
+public interface VertxWebClientConfig {
 
-@ConfigProperties(prefix = "vertx.webclient")
-public class VertxWebClientConfig {
+    @WithName("timeout-sec")
+    long timeout();
 
-    @ConfigProperty(name = "timeoutSec")
-    public long timeout;
-
-    @ConfigProperty(name = "retries")
-    public long retries;
+    long retries();
 }

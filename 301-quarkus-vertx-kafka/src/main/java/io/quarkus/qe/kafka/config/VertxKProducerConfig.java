@@ -1,16 +1,13 @@
 package io.quarkus.qe.kafka.config;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithName;
 
-import io.quarkus.arc.config.ConfigProperties;
+@ConfigMapping(prefix = "vertx.kafka.producer")
+public interface VertxKProducerConfig {
 
-@ConfigProperties(prefix = "vertx.kafka.producer")
-public class VertxKProducerConfig {
+    @WithName("delay-ms")
+    long delay();
 
-    @ConfigProperty(name = "delayMs")
-    public long delay;
-
-    @ConfigProperty(name = "batchSize")
-    public int batchSize;
-
+    int batchSize();
 }

@@ -21,7 +21,7 @@ public class VerticleDeployer {
     StockPriceProducer producer;
 
     public void run(@Observes StartupEvent e, Vertx vertx, Instance<AbstractVerticle> verticles) {
-        vertx.setPeriodic(config.delay, c -> producer.generate().subscribe());
+        vertx.setPeriodic(config.delay(), c -> producer.generate().subscribe());
 
         // Deploy all abstract verticles example.
         for (AbstractVerticle verticle : verticles) {

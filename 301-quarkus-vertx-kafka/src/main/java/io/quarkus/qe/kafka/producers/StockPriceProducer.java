@@ -33,7 +33,7 @@ public class StockPriceProducer {
     private Random random = new Random();
 
     public Uni<Void> generate() {
-        IntStream.range(0, config.batchSize).forEach(next -> {
+        IntStream.range(0, config.batchSize()).forEach(next -> {
             StockPrice event = StockPrice.newBuilder().setId("IBM").setPrice(random.nextDouble()).setStatus(status.PENDING)
                     .build();
             LOG.infov("PRODUCER -> ID: {0}, PRICE: {1}", event.getId(), event.getPrice());

@@ -47,8 +47,8 @@ public class ChuckNorrisResource {
     @Route(methods = HttpMethod.GET, path = "/")
     public Uni<Joke> getRandomJoke() {
         return getChuckQuoteAsJoke()
-                .ifNoItem().after(Duration.ofSeconds(httpClientConf.timeout)).fail()
-                .onFailure().retry().atMost(httpClientConf.retries);
+                .ifNoItem().after(Duration.ofSeconds(httpClientConf.timeout())).fail()
+                .onFailure().retry().atMost(httpClientConf.retries());
     }
 
     @Route(methods = HttpMethod.GET, path = "/bodyCodec", produces = "application/json")
@@ -59,8 +59,8 @@ public class ChuckNorrisResource {
                 .expect(ResponsePredicate.status(HttpURLConnection.HTTP_OK))
                 .send()
                 .map(HttpResponse::body)
-                .ifNoItem().after(Duration.ofSeconds(httpClientConf.timeout)).fail()
-                .onFailure().retry().atMost(httpClientConf.retries);
+                .ifNoItem().after(Duration.ofSeconds(httpClientConf.timeout())).fail()
+                .onFailure().retry().atMost(httpClientConf.retries());
     }
 
     @Route(methods = HttpMethod.GET, path = "/combine", produces = "application/json")
