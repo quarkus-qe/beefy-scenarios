@@ -31,9 +31,9 @@ import io.quarkus.test.junit.TestProfile;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.Handler;
+import io.vertx.core.impl.logging.Logger;
+import io.vertx.core.impl.logging.LoggerFactory;
 import io.vertx.core.json.JsonArray;
-import io.vertx.core.logging.Logger;
-import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.client.WebClientOptions;
 import io.vertx.mutiny.core.Vertx;
 import io.vertx.mutiny.ext.web.client.HttpResponse;
@@ -74,7 +74,6 @@ public class PostgresPoolTest extends AbstractCommons {
     @Test
     @DisplayName("DB connections are re-used")
     @Order(1)
-    @Disabled("Need to double check. flaky test")
     public void checkDbPoolTurnover() throws InterruptedException {
         final int events = 25000;
         CountDownLatch done = new CountDownLatch(events);
@@ -139,7 +138,7 @@ public class PostgresPoolTest extends AbstractCommons {
     @Test
     @DisplayName("Idle issue: Fail to read any response from the server, the underlying connection might get lost unexpectedly.")
     @Order(3)
-    @Disabled("QUARKUS-719")
+    @Disabled("Takes too much time and is fixed by Vertx 4.1")
     public void checkBorderConditionBetweenIdleAndGetConnection() {
         try {
             long idleMs = TimeUnit.SECONDS.toMillis(idle);
@@ -177,10 +176,9 @@ public class PostgresPoolTest extends AbstractCommons {
         }
     }
 
-    // TODO: double check if we should care about `IDLE` state connections -> https://github.com/quarkusio/quarkus/issues/16444
     private Uni<Long> activeConnections() {
         return postgresql.query(
-                "SELECT count(*) as active_con FROM pg_stat_activity where application_name like '%vertx%' and state = 'active'")
+                "SELECT count(*) as active_con FROM pg_stat_activity where application_name like '%vertx%'")
                 .execute()
                 .onItem().transform(RowSet::iterator).onItem()
                 .transform(iterator -> iterator.hasNext() ? iterator.next().getLong("active_con") : null);
