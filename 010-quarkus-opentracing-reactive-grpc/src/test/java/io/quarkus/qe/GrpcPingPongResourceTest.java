@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.junit.jupiter.api.Disabled;
 
+import io.quarkus.grpc.GrpcService;
 import io.quarkus.qe.pong.GrpcPongService;
 import io.quarkus.test.junit.QuarkusTest;
 
@@ -14,6 +15,7 @@ import io.quarkus.test.junit.QuarkusTest;
 public class GrpcPingPongResourceTest extends AbstractPingPongResourceTest {
 
     @Inject
+    @GrpcService
     GrpcPongService pongService;
 
     @Override
