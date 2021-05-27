@@ -24,6 +24,7 @@
         <module>020-quarkus-http-non-application-endpoints</module>
         <module>021-quarkus-panache-multiple-pus</module>
         <module>022-quarkus-properties-config-all</module>
+        <module>023-quarkus-kamelet</module>
         <module>101-javaee-like-getting-started</module>
         <module>201-large-static-content</module>
         <module>300-quarkus-vertx-webClient</module>
@@ -49,6 +50,7 @@
         <apicurio-registry-utils-serde.version>1.3.2.Final</apicurio-registry-utils-serde.version>
         <confluent.kafka-avro-serializer.version>6.0.0</confluent.kafka-avro-serializer.version>
         <version.quarkiverse.apicurio.registry.client>0.0.2</version.quarkiverse.apicurio.registry.client>
+        <version.quarkus.camel>1.8.1</version.quarkus.camel>
         <formatter-maven-plugin.version>2.15.0</formatter-maven-plugin.version>
         <impsort-maven-plugin.version>1.6.0</impsort-maven-plugin.version>
         <xml-format-maven-plugin>3.1.2</xml-format-maven-plugin>
@@ -104,6 +106,21 @@
                 <groupId>io.quarkiverse.apicurio</groupId>
                 <artifactId>quarkiverse-apicurio-registry-client</artifactId>
                 <version>${version.quarkiverse.apicurio.registry.client}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-kamelet</artifactId>
+                <version>${version.quarkus.camel}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-timer</artifactId>
+                <version>${version.quarkus.camel}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-direct</artifactId>
+                <version>${version.quarkus.camel}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
