@@ -15,7 +15,7 @@ public abstract class CommonNonAppEndpoint {
     protected static final String ROOT_BASE_PATH = "/api/";
     protected static final String QUARKUS_PROFILE = "quarkus.profile";
     protected static final String NATIVE = "native";
-    protected static final boolean IS_NATIVE = System.getProperty(QUARKUS_PROFILE, "").equals(NATIVE);
+    public static final boolean IS_NATIVE = System.getProperty(QUARKUS_PROFILE, "").equals(NATIVE);
     private RequestSpecification request;
     private RequestSpecBuilder spec;
 

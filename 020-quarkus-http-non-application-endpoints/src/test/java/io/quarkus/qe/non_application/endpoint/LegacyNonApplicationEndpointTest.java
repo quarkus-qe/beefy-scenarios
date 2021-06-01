@@ -1,34 +1,29 @@
 package io.quarkus.qe.non_application.endpoint;
 
-import javax.ws.rs.core.Response;
+import static io.quarkus.qe.non_application.endpoint.CommonNonAppEndpoint.IS_NATIVE;
+import static io.restassured.RestAssured.when;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.quarkus.qe.http.non_application.endpoint.HelloResource;
 import io.quarkus.test.QuarkusProdModeTest;
 
-public class RelativePathNonAppEndpointTest extends CommonNonAppEndpoint {
-
-    private static final String BASE_PATH = "q";
+public class LegacyNonApplicationEndpointTest {
 
     @RegisterExtension
-    static final QuarkusProdModeTest relativePathScenario = new QuarkusProdModeTest()
+    static final QuarkusProdModeTest nonApplicationEndpointScenario = new QuarkusProdModeTest()
             .setBuildNative(IS_NATIVE)
             .overrideConfigKey("quarkus.http.root-path", "/api")
-            .overrideConfigKey("quarkus.http.non-application-root-path", BASE_PATH)
+            .overrideConfigKey("quarkus.smallrye-health.root-path", "/health")
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClass(HelloResource.class))
             .setRun(true);
 
-    @Override
-    public int getExpectedHttpStatus() {
-        return Response.Status.OK.getStatusCode();
-    }
-
-    @Override
-    public String getBasePath() {
-        return ROOT_BASE_PATH + BASE_PATH;
+    @Test
+    protected void nonAppEndpointScenario() {
+        when().get("/health").then().statusCode(200);
     }
 }
