@@ -55,14 +55,14 @@ public class GreetingResource {
     @Path("/antagonist")
     @Produces(MediaType.TEXT_PLAIN)
     public String helloAntagonist() {
-        return antagonist.name + " says: " + antagonist.message;
+        return antagonist.name() + " says: " + antagonist.message();
     }
 
     @GET
     @Path("/antagonist/wife")
     @Produces(MediaType.TEXT_PLAIN)
     public String helloAntagonistWife() {
-        return antagonist.wife.name + " says: " + antagonist.wife.message;
+        return antagonist.wife().name() + " says: " + antagonist.wife().message();
     }
 
     @GET

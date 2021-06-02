@@ -1,15 +1,18 @@
 package io.quarkus.qe.config;
 
-import io.quarkus.arc.config.ConfigProperties;
+import io.smallrye.config.ConfigMapping;
 
-@ConfigProperties(prefix = "antagonist")
-public class AntagonistConfiguration {
-    public String message;
-    public String name;
-    public AntagonistWifeConfig wife;
+@ConfigMapping(prefix = "antagonist")
+public interface AntagonistConfiguration {
+    String message();
 
-    public static class AntagonistWifeConfig {
-        public String name;
-        public String message;
+    String name();
+
+    AntagonistWifeConfig wife();
+
+    interface AntagonistWifeConfig {
+        String name();
+
+        String message();
     }
 }

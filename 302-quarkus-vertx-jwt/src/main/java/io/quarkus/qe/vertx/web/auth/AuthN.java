@@ -30,8 +30,8 @@ public class AuthN {
     private PubSecKeyOptions getPubSecKeyOptions() {
         JsonObject authConfig = new JsonObject()
                 .put("symmetric", true)
-                .put("algorithm", authNConf.alg)
-                .put("publicKey", authNConf.secret);
+                .put("algorithm", authNConf.alg())
+                .put("publicKey", authNConf.secret());
 
         return new PubSecKeyOptions(authConfig).setBuffer(authConfig.getBuffer("publicKey"));
     }
@@ -39,11 +39,11 @@ public class AuthN {
     private JWTOptions getJwtOptions() {
         return new JWTOptions()
                 .setIgnoreExpiration(false)
-                .setIssuer(authNConf.claims.iss)
-                .setAudience(Arrays.asList((authNConf.claims.aud)))
-                .setSubject(authNConf.claims.sub)
-                .setExpiresInMinutes(authNConf.liveSpan)
-                .setAlgorithm(authNConf.alg);
+                .setIssuer(authNConf.claims().iss())
+                .setAudience(Arrays.asList((authNConf.claims().aud())))
+                .setSubject(authNConf.claims().sub())
+                .setExpiresInMinutes(authNConf.liveSpan())
+                .setAlgorithm(authNConf.alg());
     }
 
 }
