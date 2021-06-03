@@ -1,6 +1,7 @@
 package io.quarkus.qe.providers;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.Set;
@@ -15,7 +16,7 @@ public class CustomConfigSource implements ConfigSource {
 
     private final Properties customProperties = new Properties();
 
-    public CustomConfigSource() {
+    public CustomConfigSource() throws IOException {
         loadProperties();
     }
 
@@ -39,16 +40,12 @@ public class CustomConfigSource implements ConfigSource {
         return "Custom Config Source";
     }
 
-    public void loadProperties() {
-        try {
-            InputStream in = CustomConfigSource.class.getResourceAsStream(PROPERTIES_FILE);
-            if (in != null) {
-                customProperties.load(in);
-            } else {
-                throw new FileNotFoundException("Property file " + PROPERTIES_FILE + " not found in the classpath");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void loadProperties() throws IOException {
+        InputStream in = CustomConfigSource.class.getResourceAsStream(PROPERTIES_FILE);
+        if (in != null) {
+            customProperties.load(in);
+        } else {
+            throw new FileNotFoundException("Property file " + PROPERTIES_FILE + " not found in the classpath");
         }
     }
 }
