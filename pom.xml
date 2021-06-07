@@ -10,7 +10,9 @@
 
   <modules>
       <module>001-quarkus-getting-started-with-jaxrs</module>
-      <module>002-quarkus-all-extensions</module>
+      <!--
+      Missing productised version of "scala-compiler"
+      <module>002-quarkus-all-extensions</module> -->
       <module>003-quarkus-many-extensions</module>
       <module>004-quarkus-HHH-and-HV</module>
       <module>005-quarkus-and-maven-profiles</module>
