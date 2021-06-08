@@ -29,6 +29,7 @@
       <module>019-quarkus-consul</module> -->
       <module>020-quarkus-http-non-application-endpoints</module>
       <module>021-quarkus-panache-multiple-pus</module>
+      <module>023-quarkus-kamelet</module>
       <module>101-javaee-like-getting-started</module>
       <module>201-large-static-content</module>
       <module>300-quarkus-vertx-webClient</module>
@@ -52,6 +53,7 @@
     <testcontainers.version>1.15.2</testcontainers.version>
     <strimzi.testcontainers.version>0.22.1</strimzi.testcontainers.version>
     <wiremock.version>2.27.2</wiremock.version>
+    <version.quarkus.camel>1.8.1</version.quarkus.camel>
     <apicurio-registry-utils-serde.version>1.2.2.Final</apicurio-registry-utils-serde.version>
     <confluent.kafka-avro-serializer.version>6.0.0</confluent.kafka-avro-serializer.version>
 
@@ -59,7 +61,6 @@
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>1.11.7.Final</quarkus.platform.version>
     <quarkus-plugin.version>1.11.7.Final</quarkus-plugin.version>
-
   </properties>
 
   <dependencyManagement>
@@ -99,6 +100,21 @@
         <groupId>io.confluent</groupId>
         <artifactId>kafka-avro-serializer</artifactId>
         <version>${confluent.kafka-avro-serializer.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-kamelet</artifactId>
+        <version>${version.quarkus.camel}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-timer</artifactId>
+        <version>${version.quarkus.camel}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-direct</artifactId>
+        <version>${version.quarkus.camel}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
