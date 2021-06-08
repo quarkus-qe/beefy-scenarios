@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.AdminClientConfig;
@@ -16,11 +15,13 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
+import io.smallrye.common.annotation.Identifier;
+
 @ApplicationScoped
 public class KafkaProviders {
 
     @Inject
-    @Named("default-kafka-broker")
+    @Identifier("default-kafka-broker")
     Map<String, Object> config;
 
     @Produces
