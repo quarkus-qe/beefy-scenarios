@@ -562,12 +562,6 @@
             <version>5.3.1</version>
         </dependency>
         <!-- end Workaround -->
-        <!-- Workaround for https://github.com/quarkusio/quarkus/issues/15434 -->
-        <dependency>
-            <groupId>com.github.jnr</groupId>
-            <artifactId>jnr-unixsocket</artifactId>
-            <version>0.38.5</version>
-        </dependency>
     </dependencies>
     <profiles>
         <!-- Skipped on Windows as does not support Linux Containers / Testcontainers -->
