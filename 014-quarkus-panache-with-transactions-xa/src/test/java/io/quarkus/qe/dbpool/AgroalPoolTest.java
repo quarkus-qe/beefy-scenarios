@@ -20,7 +20,6 @@ import org.apache.http.HttpStatus;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import io.agroal.api.AgroalDataSource;
@@ -87,45 +86,54 @@ public class AgroalPoolTest {
         });
     }
 
-    @RepeatedTest(500)
+    @Test
     public void borderConditionBetweenIdleAndGetConnectionTest() {
-        AssertSubscriber<Integer> subscriber = Multi.createFrom().range(0, CONCURRENCY_LEVEL).flatMap(n -> Multi
-                .createFrom().ticks()
-                .every(Duration.ofMillis(getIdleMs() + 3))
-                .onOverflow().drop()
-                .onFailure().invoke(e -> Assertions.fail("Unexpected exception " + e.getMessage()))
-                .onItem().transform(i -> makeApplicationQuery()))
-                .subscribe()
-                .withSubscriber(AssertSubscriber.create(CONCURRENCY_LEVEL));
+        final int events = 500;
+        for (int k = 0; k < events; k++) {
+            AssertSubscriber<Integer> subscriber = Multi.createFrom().range(0, CONCURRENCY_LEVEL).flatMap(n -> Multi
+                    .createFrom().ticks()
+                    .every(Duration.ofMillis(getIdleMs() + 3))
+                    .onOverflow().drop()
+                    .onFailure().invoke(e -> Assertions.fail("Unexpected exception " + e.getMessage()))
+                    .onItem().transform(i -> makeApplicationQuery()))
+                    .subscribe()
+                    .withSubscriber(AssertSubscriber.create(CONCURRENCY_LEVEL));
 
-        subscriber
-                .awaitItems(CONCURRENCY_LEVEL)
-                .getItems()
-                .forEach(statusCode -> assertEquals(statusCode, HttpStatus.SC_OK, "Unexpected Application response"));
+            subscriber
+                    .awaitItems(CONCURRENCY_LEVEL)
+                    .getItems()
+                    .forEach(statusCode -> assertEquals(statusCode, HttpStatus.SC_OK, "Unexpected Application response"));
+        }
     }
 
-    @RepeatedTest(100)
+    @Test
     public void concurrentLoadTest() {
-        Multi.createFrom()
-                .range(0, CONCURRENCY_LEVEL).subscribe()
-                .with(n -> assertEquals(2, users.count(), "UnexpectedUser Amount"));
+        final int events = 100;
+        for (int i = 0; i < events; i++) {
+            Multi.createFrom()
+                    .range(0, CONCURRENCY_LEVEL).subscribe()
+                    .with(n -> assertEquals(2, users.count(), "UnexpectedUser Amount"));
+        }
     }
 
-    @RepeatedTest(500)
+    @Test
     public void connectionConcurrencyTest() {
-        AssertSubscriber<String> subscriber = Multi.createFrom().range(0, CONCURRENCY_LEVEL).flatMap(n -> Multi
-                .createFrom().ticks()
-                .every(Duration.ofMillis(getIdleMs() + 3))
-                .onOverflow().drop()
-                .onFailure().invoke(e -> Assertions.fail("Unexpected exception " + e.getMessage()))
-                .onItem().transform(i -> makeAgroalRawQuery()))
-                .subscribe()
-                .withSubscriber(AssertSubscriber.create(CONCURRENCY_LEVEL));
+        final int events = 500;
+        for (int k = 0; k < events; k++) {
+            AssertSubscriber<String> subscriber = Multi.createFrom().range(0, CONCURRENCY_LEVEL).flatMap(n -> Multi
+                    .createFrom().ticks()
+                    .every(Duration.ofMillis(getIdleMs() + 3))
+                    .onOverflow().drop()
+                    .onFailure().invoke(e -> Assertions.fail("Unexpected exception " + e.getMessage()))
+                    .onItem().transform(i -> makeAgroalRawQuery()))
+                    .subscribe()
+                    .withSubscriber(AssertSubscriber.create(CONCURRENCY_LEVEL));
 
-        subscriber
-                .awaitItems(CONCURRENCY_LEVEL)
-                .getItems()
-                .forEach(currentTime -> assertFalse(currentTime.isEmpty(), "Unexpected Application response"));
+            subscriber
+                    .awaitItems(CONCURRENCY_LEVEL)
+                    .getItems()
+                    .forEach(currentTime -> assertFalse(currentTime.isEmpty(), "Unexpected Application response"));
+        }
     }
 
     private long getIdleMs() {
