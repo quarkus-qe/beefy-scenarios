@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +23,6 @@ import javax.persistence.Query;
 import org.apache.http.HttpStatus;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import io.agroal.api.AgroalDataSource;
@@ -93,37 +91,49 @@ public class AgroalPoolTest {
         });
     }
 
-    @RepeatedTest(500)
+    @Test
     public void borderConditionBetweenIdleAndGetConnectionTest() {
-        List<Uni<Integer>> pendingRequests = new ArrayList<>();
-        IntStream.range(0, CONCURRENCY_LEVEL).forEach(i -> pendingRequests.add(Uni.createFrom().item(makeApplicationQuery())));
+        final int events = 500;
+        for (int k = 0; k < events; k++) {
+            List<Uni<Integer>> pendingRequests = new ArrayList<>();
+            IntStream.range(0, CONCURRENCY_LEVEL)
+                    .forEach(i -> pendingRequests.add(Uni.createFrom().item(makeApplicationQuery())));
 
-        Uni.combine()
-                .all()
-                .unis(pendingRequests)
-                .combinedWith(resp -> resp.stream().map(Integer.class::cast).collect(Collectors.toList()))
-                .await().atMost(Duration.ofSeconds(TIMEOUT_SEC))
-                .forEach(statusCode -> assertEquals(statusCode, HttpStatus.SC_OK, "Unexpected Application response"));
+            Uni.combine()
+                    .all()
+                    .unis(pendingRequests)
+                    .combinedWith(resp -> resp.stream().map(Integer.class::cast).collect(Collectors.toList()))
+                    .await().atMost(Duration.ofSeconds(TIMEOUT_SEC))
+                    .forEach(statusCode -> assertEquals(statusCode, HttpStatus.SC_OK, "Unexpected Application response"));
+        }
+
     }
 
-    @RepeatedTest(100)
+    @Test
     public void concurrentLoadTest() {
-        Multi.createFrom()
-                .range(0, CONCURRENCY_LEVEL).subscribe()
-                .with(n -> assertEquals(2, users.count(), "UnexpectedUser Amount"));
+        final int events = 100;
+        for (int i = 0; i < events; i++) {
+            Multi.createFrom()
+                    .range(0, CONCURRENCY_LEVEL).subscribe()
+                    .with(n -> assertEquals(2, users.count(), "UnexpectedUser Amount"));
+        }
     }
 
-    @RepeatedTest(500)
+    @Test
     public void connectionConcurrencyTest() {
-        List<Uni<String>> pendingRequests = new ArrayList<>();
-        IntStream.range(0, CONCURRENCY_LEVEL).forEach(i -> pendingRequests.add(Uni.createFrom().item(makeAgroalRawQuery())));
+        final int events = 500;
+        for (int k = 0; k < events; k++) {
+            List<Uni<String>> pendingRequests = new ArrayList<>();
+            IntStream.range(0, CONCURRENCY_LEVEL)
+                    .forEach(i -> pendingRequests.add(Uni.createFrom().item(makeAgroalRawQuery())));
 
-        Uni.combine()
-                .all()
-                .unis(pendingRequests)
-                .combinedWith(resp -> resp.stream().map(String.class::cast).collect(Collectors.toList()))
-                .await().atMost(Duration.ofSeconds(TIMEOUT_SEC))
-                .forEach(currentTime -> assertFalse(currentTime.isEmpty(), "Unexpected Application response"));
+            Uni.combine()
+                    .all()
+                    .unis(pendingRequests)
+                    .combinedWith(resp -> resp.stream().map(String.class::cast).collect(Collectors.toList()))
+                    .await().atMost(Duration.ofSeconds(TIMEOUT_SEC))
+                    .forEach(currentTime -> assertFalse(currentTime.isEmpty(), "Unexpected Application response"));
+        }
     }
 
     private long getIdleMs() {
