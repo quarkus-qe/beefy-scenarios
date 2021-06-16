@@ -7,12 +7,12 @@ import static org.hamcrest.core.StringContains.containsString;
 
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.qe.containers.StrimziKafkaResource;
+import io.quarkus.qe.containers.StrimziKafkaSSLTestResource;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-@QuarkusTestResource(StrimziKafkaResource.class)
+@QuarkusTestResource(StrimziKafkaSSLTestResource.class)
 public class ApacheKafkaClientTest {
     @Test
     void testBareClients() {
