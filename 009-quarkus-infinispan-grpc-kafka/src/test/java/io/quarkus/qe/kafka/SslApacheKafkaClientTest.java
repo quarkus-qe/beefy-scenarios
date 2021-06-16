@@ -7,31 +7,31 @@ import static org.hamcrest.core.StringContains.containsString;
 
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.qe.containers.StrimziKafkaSSLTestResource;
+import io.quarkus.qe.containers.SslStrimziKafkaTestResource;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-@QuarkusTestResource(StrimziKafkaSSLTestResource.class)
-public class ApacheKafkaClientTest {
+@QuarkusTestResource(SslStrimziKafkaTestResource.class)
+public class SslApacheKafkaClientTest {
     @Test
-    void testBareClients() {
+    void testKafkaClientSSL() {
         await().untilAsserted(() -> {
             given()
                     .queryParam("key", "my-key")
                     .queryParam("value", "my-value")
                     .when()
-                    .post("/kafka")
+                    .post("/kafka/ssl")
                     .then()
                     .statusCode(200);
 
-            get("/kafka")
+            get("/kafka/ssl")
                     .then()
                     .statusCode(200)
                     .body(containsString("my-key-my-value"));
         });
 
-        get("/kafka/topics")
+        get("/kafka/ssl/topics")
                 .then()
                 .statusCode(200)
                 .body(containsString("hello"));

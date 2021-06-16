@@ -7,45 +7,19 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-import io.quarkus.runtime.ShutdownEvent;
-import io.quarkus.runtime.StartupEvent;
-
-@Path("/kafka")
-@ApplicationScoped
-@Produces(MediaType.APPLICATION_JSON)
-public class KafkaEndpoint {
+public abstract class KafkaEndpoint {
 
     public static final String TOPIC = "hello";
-
-    @Inject
-    KafkaConsumer<String, String> consumer;
-
-    @Inject
-    KafkaProducer<String, String> producer;
-
-    @Inject
-    AdminClient admin;
-
     volatile boolean done = false;
     volatile String last;
 
-    public void initialize(@Observes StartupEvent ev) {
+    protected void initialize(KafkaConsumer<String, String> consumer) {
         consumer.subscribe(Collections.singleton(TOPIC));
         new Thread(() -> {
             while (!done) {
@@ -62,29 +36,17 @@ public class KafkaEndpoint {
         }).start();
     }
 
-    public void terminate(@Observes ShutdownEvent ev) {
-        done = false;
-        producer.close();
-        admin.close();
+    protected Set<String> getTopics(AdminClient consumer) throws InterruptedException, ExecutionException, TimeoutException {
+        return consumer.listTopics().names().get(5, TimeUnit.SECONDS);
     }
 
-    @Path("/topics")
-    @GET
-    public Set<String> getTopics() throws InterruptedException, ExecutionException, TimeoutException {
-        return admin.listTopics()
-                .names().get(5, TimeUnit.SECONDS);
-    }
-
-    @POST
-    public long post(@QueryParam("key") String key, @QueryParam("value") String value)
+    protected long produceEvent(KafkaProducer<String, String> producer, String key, String value)
             throws InterruptedException, ExecutionException, TimeoutException {
         return producer.send(new ProducerRecord<>(TOPIC, key, value)).get(5, TimeUnit.SECONDS)
                 .offset();
     }
 
-    @GET
-    public String getLast() {
+    protected String getLast() {
         return last;
     }
-
 }

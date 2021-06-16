@@ -13,6 +13,7 @@ To compile and run this demo you will need:
 
 ## Scope of the testing
 
+### Kafka Streams
 Kafka streams 
 * Kafka producer
 * Kafka consumer
@@ -24,6 +25,12 @@ Kafka streams
 So if the number of wrong access excess a threshold, then a new alert event is thrown. All aggregated events(not only unauthorized) are persisted.   
 
 ![Architecture Diagram](docs/LoginMonitor.png)
+
+
+### Quarkus Grateful Shutdown for Kafka connectors
+
+This scenario covers the fix for [QUARKUS-858](https://issues.redhat.com/browse/QUARKUS-858): Avoid message loss during the graceful shutdown (SIGTERM) of the Kafka connector.
+The test will confirm that no messages are lost when the `grateful-shutdown` is enabled. In the other hand, when this property is disabled, messages might be lost.
 
 ## Live coding with Quarkus
 

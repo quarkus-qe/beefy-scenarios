@@ -1,4 +1,4 @@
-package io.quarkus.qe.kafka;
+package io.quarkus.qe.kafka.shutdown;
 
 import java.util.concurrent.CompletionStage;
 

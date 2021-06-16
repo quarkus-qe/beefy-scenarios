@@ -1,4 +1,4 @@
-package io.quarkus.qe.kafka;
+package io.quarkus.qe.kafka.shutdown;
 
 import javax.inject.Inject;
 import javax.ws.rs.POST;
