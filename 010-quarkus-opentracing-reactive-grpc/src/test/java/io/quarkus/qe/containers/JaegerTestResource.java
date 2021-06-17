@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
@@ -24,7 +25,9 @@ public class JaegerTestResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
 
-        container = new GenericContainer<>("jaegertracing/all-in-one:latest");
+        container = new GenericContainer<>("jaegertracing/all-in-one:latest")
+                .waitingFor(
+                        new LogMessageWaitStrategy().withRegEx(".*\"Health Check state change\",\"status\":\"ready\".*\\s"));
         container.start();
 
         return Collections.singletonMap(QUARKUS_JAEGER_PROPERTY, traceEndpoint());
