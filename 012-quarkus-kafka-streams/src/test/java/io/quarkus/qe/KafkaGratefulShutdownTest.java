@@ -1,4 +1,4 @@
-package io.quarkus.qe.kafka;
+package io.quarkus.qe;
 
 import static io.restassured.RestAssured.post;
 import static org.awaitility.Awaitility.await;
@@ -19,6 +19,8 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import io.quarkus.qe.kafka.shutdown.SlowTopicConsumer;
+import io.quarkus.qe.kafka.shutdown.SlowTopicResource;
 import io.quarkus.test.LogFile;
 import io.quarkus.test.QuarkusProdModeTest;
 
