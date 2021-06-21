@@ -9,6 +9,11 @@ Module that test whether gRPC, Infinispan and Kafka extensions work together:
 - for Infinispan: to check whether the cache persistence is working fine
 - for Kafka: to verify the messages are working in a chain workflow.
 
+## Kafka-client SSL / SASL
+Test SSL and SASL authentication through Quarkus Kafka client extension. 
+We have two endpoints `SaslKafkaEndpoint` and `SslKafkaEndpoint` that are able to produce events into kafka
+and consume events and check topics through `AdminClient` and `KafkaConsumer`.
+
 ## Quarkus SSL/TLS Infinispan scenario 
 
 ##hotrod-client.properties
