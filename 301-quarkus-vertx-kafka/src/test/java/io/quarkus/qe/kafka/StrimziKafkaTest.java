@@ -11,7 +11,7 @@ import io.quarkus.test.junit.TestProfile;
 @QuarkusTestResource(JaegerTestResource.class)
 public class StrimziKafkaTest extends KafkaCommonTest {
 
-    private static final String STOCK_MONITOR_SSE_ENDPOINT = "http://localhost:8083/stock/stream";
+    private static final String STOCK_MONITOR_SSE_ENDPOINT = "http://localhost:8081/stock/stream";
 
     @Override
     protected String getServerSentEventURL() {

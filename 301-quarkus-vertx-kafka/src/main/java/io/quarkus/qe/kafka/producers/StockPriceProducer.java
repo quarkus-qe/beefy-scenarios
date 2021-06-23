@@ -36,7 +36,7 @@ public class StockPriceProducer {
         IntStream.range(0, config.batchSize()).forEach(next -> {
             StockPrice event = StockPrice.newBuilder().setId("IBM").setPrice(random.nextDouble()).setStatus(status.PENDING)
                     .build();
-            LOG.infov("PRODUCER -> ID: {0}, PRICE: {1}", event.getId(), event.getPrice());
+            LOG.debugv("PRODUCER -> ID: {0}, PRICE: {1}", event.getId(), event.getPrice());
             emitter.send(event).whenComplete(handlerEmitterResponse(StockPriceProducer.class.getName()));
         });
 
@@ -46,9 +46,9 @@ public class StockPriceProducer {
     private BiConsumer<Void, Throwable> handlerEmitterResponse(final String owner) {
         return (success, failure) -> {
             if (failure != null) {
-                LOG.info(String.format("D'oh! %s", failure.getMessage()));
+                LOG.debugv("D'oh! {0}", failure.getMessage());
             } else {
-                LOG.info(String.format("Message sent successfully. Owner %s", owner));
+                LOG.debugv("Message sent successfully. Owner {0}", owner);
             }
         };
     }

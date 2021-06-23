@@ -41,15 +41,15 @@ public class KStockPriceConsumer extends AbstractVerticle {
     @Broadcast
     public String process(StockPrice next) {
         next.setStatus(status.COMPLETED);
-        LOG.infov("CONSUMER -> ID: {0}, PRICE: {1}", next.getId(), next.getPrice());
-        emitter.send(next).whenComplete(handlerEmitterResponse(KStockPriceConsumer.class.getName()));
+        LOG.debugv("CONSUMER -> ID: {0}, PRICE: {1}", next.getId(), next.getPrice());
+        emitter.send(next).whenComplete(handlerEmitterResponse());
         return next.getId() + "-" + next.getPrice() + "-" + next.getStatus();
     }
 
-    private BiConsumer<Void, Throwable> handlerEmitterResponse(final String owner) {
+    private BiConsumer<Void, Throwable> handlerEmitterResponse() {
         return (success, failure) -> {
             if (failure != null) {
-                LOG.info(String.format("D'oh! %s", failure.getMessage()));
+                LOG.debugv("D'oh! {0}", failure.getMessage());
             }
         };
     }

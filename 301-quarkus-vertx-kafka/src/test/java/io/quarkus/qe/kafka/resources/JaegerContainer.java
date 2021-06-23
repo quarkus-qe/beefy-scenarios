@@ -6,7 +6,7 @@ import org.testcontainers.containers.GenericContainer;
 
 public class JaegerContainer extends GenericContainer<JaegerContainer> {
     public static final int REST_PORT = 16686;
-    private static final int TRACE_PORT = 14250;
+    public static final int TRACE_PORT = 14250;
 
     private static final int STARTUP_TIMEOUT = 30000;
 

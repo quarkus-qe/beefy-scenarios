@@ -27,10 +27,7 @@ import org.junit.jupiter.api.Test;
 import io.restassured.response.Response;
 
 abstract class KafkaCommonTest {
-    private final static String jaegerEndpoint = "http://localhost:16686/api/traces";
-    static final String NATIVE = "native";
-    static final String QUARKUS_PROFILE = "quarkus.profile";
-    static final boolean IS_NATIVE = System.getProperty(QUARKUS_PROFILE, "").equals(NATIVE);
+    private final static String JAEGER_ENDPOINT = "http://localhost:16686/api/traces";
 
     private Response resp;
 
@@ -46,7 +43,7 @@ abstract class KafkaCommonTest {
         final int pageLimit = 50;
         final String expectedOperationName = "stock-price send";
         await().atMost(1, TimeUnit.MINUTES).pollInterval(Duration.ofSeconds(1)).untilAsserted(() -> {
-            thenRetrieveTraces(pageLimit, "1h", getServiceName(), expectedOperationName);
+            thenRetrieveTraces(pageLimit, "1h", expectedOperationName);
             thenStatusCodeMustBe(HttpStatus.SC_OK);
             thenTraceDataSizeMustBe(greaterThan(0));
             thenTraceSpanSizeMustBe(greaterThan(0));
@@ -62,7 +59,7 @@ abstract class KafkaCommonTest {
         final int pageLimit = 50;
         final String expectedOperationName = "stock-price receive";
         await().atMost(1, TimeUnit.MINUTES).pollInterval(Duration.ofSeconds(1)).untilAsserted(() -> {
-            thenRetrieveTraces(pageLimit, "1h", getServiceName(), expectedOperationName);
+            thenRetrieveTraces(pageLimit, "1h", expectedOperationName);
             thenStatusCodeMustBe(HttpStatus.SC_OK);
             thenTraceDataSizeMustBe(greaterThan(0));
             thenTraceSpanSizeMustBe(greaterThan(0));
@@ -72,13 +69,13 @@ abstract class KafkaCommonTest {
         });
     }
 
-    private void thenRetrieveTraces(int pageLimit, String lookBack, String serviceName, String operationName) {
+    private void thenRetrieveTraces(int pageLimit, String lookBack, String operationName) {
         resp = given().when()
                 .queryParam("limit", pageLimit)
                 .queryParam("lookback", lookBack)
-                .queryParam("service", serviceName)
+                .queryParam("service", getServiceName())
                 .queryParam("operation", operationName)
-                .get(jaegerEndpoint);
+                .get(JAEGER_ENDPOINT);
     }
 
     private void thenStatusCodeMustBe(int expectedStatusCode) {
@@ -108,7 +105,7 @@ abstract class KafkaCommonTest {
 
     private String getServiceName() {
         // TODO https://github.com/quarkusio/quarkus/issues/16499
-        return (IS_NATIVE) ? "301-quarkus-vertx-kafka" : "<<unset>>";
+        return isNativeTest() ? "301-quarkus-vertx-kafka" : "<<unset>>";
     }
 
     private void sendAndReceiveEvents(int timeoutMin, int expectedEventsAmount) throws InterruptedException {
@@ -123,6 +120,10 @@ abstract class KafkaCommonTest {
         boolean completed = latch.await(timeoutMin, TimeUnit.MINUTES);
         assertEquals(true, completed);
         source.close();
+    }
+
+    protected boolean isNativeTest() {
+        return false;
     }
 
     protected abstract String getServerSentEventURL();

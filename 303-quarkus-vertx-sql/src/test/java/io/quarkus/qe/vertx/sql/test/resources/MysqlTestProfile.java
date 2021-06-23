@@ -16,6 +16,6 @@ public class MysqlTestProfile implements QuarkusTestProfile {
 
     @Override
     public List<TestResourceEntry> testResources() {
-        return Collections.singletonList(new TestResourceEntry(io.quarkus.qe.vertx.sql.test.resources.MysqlResource.class));
+        return Collections.singletonList(new TestResourceEntry(MysqlResource.class));
     }
 }

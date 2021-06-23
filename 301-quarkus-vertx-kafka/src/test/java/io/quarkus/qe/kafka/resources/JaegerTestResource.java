@@ -17,7 +17,9 @@ public class JaegerTestResource implements QuarkusTestResourceLifecycleManager {
         container = new JaegerContainer();
         container.start();
 
-        return Collections.emptyMap();
+        return Collections.singletonMap(
+                "quarkus.opentelemetry.tracer.exporter.jaeger.endpoint",
+                String.format("http://%s:%s/api/traces", container.getContainerIpAddress(), JaegerContainer.TRACE_PORT));
     }
 
     @Override
