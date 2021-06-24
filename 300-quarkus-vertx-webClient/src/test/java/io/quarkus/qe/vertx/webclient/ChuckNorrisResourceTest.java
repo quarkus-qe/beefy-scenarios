@@ -6,13 +6,13 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
-import static org.hamcrest.CoreMatchers.containsStringIgnoringCase;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.Every.everyItem;
 import static org.hamcrest.core.StringContains.containsString;
+import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
 
 import java.net.HttpURLConnection;
 import java.time.Duration;
@@ -54,8 +54,8 @@ public class ChuckNorrisResourceTest {
                 .get("/chuck/")
                 .then()
                 .statusCode(HttpURLConnection.HTTP_OK)
-                .body("id", containsStringIgnoringCase(EXPECTED_ID))
-                .body("value", containsStringIgnoringCase(EXPECTED_VALUE));
+                .body("id", equalToIgnoringCase(EXPECTED_ID))
+                .body("value", equalToIgnoringCase(EXPECTED_VALUE));
     }
 
     @Test
@@ -67,8 +67,8 @@ public class ChuckNorrisResourceTest {
                 .get("/chuck/bodyCodec/")
                 .then()
                 .statusCode(HttpURLConnection.HTTP_OK)
-                .body("id", containsStringIgnoringCase(EXPECTED_ID))
-                .body("value", containsStringIgnoringCase(EXPECTED_VALUE));
+                .body("id", equalToIgnoringCase(EXPECTED_ID))
+                .body("value", equalToIgnoringCase(EXPECTED_VALUE));
     }
 
     @Test
@@ -123,7 +123,7 @@ public class ChuckNorrisResourceTest {
         given().when()
                 .get("/trace/ping")
                 .then()
-                .statusCode(HttpStatus.SC_OK).body(containsStringIgnoringCase("ping-pong"));
+                .statusCode(HttpStatus.SC_OK).body(equalToIgnoringCase("ping-pong"));
     }
 
     private void thenRetrieveTraces(int pageLimit, String lookBack, String serviceName, String operationName) {
