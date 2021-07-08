@@ -78,4 +78,25 @@ class UserResourceTest {
                         containsString("Alaba"),
                         not(containsString("Balaba")));
     }
+
+    @Test
+    void testSortAscRepositoryQuery() {
+        String userList = getUsersSorted("name");
+        assertEquals("[Alaba, Balaba]", userList);
+    }
+
+    @Test
+    void testSortDescRepositoryQuery() {
+        String userList = getUsersSorted("-name");
+        assertEquals("[Balaba, Alaba]", userList);
+    }
+
+    private String getUsersSorted(String sortFieldName) {
+        return given()
+                .accept("application/hal+json")
+                .when().get("/users/all?sort=" + sortFieldName)
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract().response().jsonPath().getString("_embedded.user_list.name");
+    }
 }
