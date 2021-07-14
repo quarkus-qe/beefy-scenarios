@@ -1,7 +1,5 @@
 package io.quarkus.qe.vertx.sql.test.resources;
 
-import static io.quarkus.qe.vertx.sql.test.resources.Db2TestProfile.PROFILE;
-
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,16 +17,6 @@ public class Db2Resource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        Map<String, String> config = new HashMap<>();
-        String profile = System.getProperty("quarkus.test.profile");
-        if (profile.equals(PROFILE))
-            defaultDb2Container(config);
-
-        return config;
-    }
-
-    @SuppressWarnings("resource")
-    private void defaultDb2Container(Map<String, String> config) {
         db2Container = new GenericContainer<>(DockerImageName.parse("quay.io/pjgg/db2:11.5.5.0"))
                 .withPrivilegedMode(true)
                 .withEnv("LICENSE", "accept")
@@ -42,13 +30,20 @@ public class Db2Resource implements QuarkusTestResourceLifecycleManager {
         db2Container.waitingFor(new HostPortWaitStrategy()).waitingFor(
                 Wait.forLogMessage(".*Setup has completed\\..*", 1).withStartupTimeout(Duration.ofMinutes(10))).start();
 
+        Map<String, String> config = new HashMap<>();
         config.put("quarkus.datasource.db2.jdbc.url",
                 String.format("jdbc:db2://%s:%d/amadeus", db2Container.getHost(), db2Container.getFirstMappedPort()));
         config.put("quarkus.datasource.db2.reactive.url",
                 String.format("db2://%s:%d/amadeus", db2Container.getHost(), db2Container.getFirstMappedPort()));
         config.put("app.selected.db", "db2");
+        // Enable Flyway for DB2
+        config.put("quarkus.flyway.db2.migrate-at-start", "true");
+        // Disable Flyway for Postgresql
         config.put("quarkus.flyway.migrate-at-start", "false");
+        // Disable Flyway for MySQL
         config.put("quarkus.flyway.mysql.migrate-at-start", "false");
+
+        return config;
     }
 
     @Override

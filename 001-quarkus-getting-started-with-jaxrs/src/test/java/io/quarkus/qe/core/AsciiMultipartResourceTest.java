@@ -8,7 +8,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.QuarkusTestProfile;
 import io.quarkus.test.junit.TestProfile;
@@ -17,7 +16,6 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.MultiPartSpecification;
 
 @QuarkusTest
-@DisabledOnNativeImage // @TestProfile works in JVM mode
 @TestProfile(AsciiMultipartResourceTest.AsciiTestProfile.class)
 public class AsciiMultipartResourceTest {
 
