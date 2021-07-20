@@ -26,6 +26,8 @@ supported classes (e.x. String, Boolean, Double, etc.)
 
 7. Injecting properties using the `@ConfigMapping` annotation. More info in: https://smallrye.io/docs/smallrye-config/mapping/mapping.html
 
+8. Injecting a map using the `@ConfigProperty` annotation. More info in: https://github.com/quarkusio/quarkus/issues/17269
+
 ___
 #### Wiki:
 **Protagonist**: the leading character in the story, whose purpose is to move story to its final  
