@@ -9,7 +9,7 @@ public interface AuthNConfig {
 
     String secret();
 
-    @WithName("tokenLiveSpanMin")
+    @WithName("token-live-span-min")
     int liveSpan();
 
     @WithName("jwt.claims")
