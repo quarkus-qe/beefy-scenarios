@@ -1,4 +1,4 @@
-package io.quarkus.qe;
+package io.quarkus.qe.resources;
 
 import java.util.HashMap;
 import java.util.Map;

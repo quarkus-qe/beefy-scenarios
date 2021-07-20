@@ -32,6 +32,11 @@ So if the number of wrong access excess a threshold, then a new alert event is t
 This scenario covers the fix for [QUARKUS-858](https://issues.redhat.com/browse/QUARKUS-858): Avoid message loss during the graceful shutdown (SIGTERM) of the Kafka connector.
 The test will confirm that no messages are lost when the `grateful-shutdown` is enabled. In the other hand, when this property is disabled, messages might be lost.
 
+### Reactive Kafka and Kafka Streams SSL
+
+All current tests are running under a secured Kafka by SSL. 
+Kafka streams pipeline is configured by `quarkus.kafka-streams.ssl` prefix property, but reactive Kafka producer/consumer is configured by `kafka` prefix as you can see on `SslStrimziKafkaTestResource` 
+
 ## Live coding with Quarkus
 
 Monitor url: `http://localhost:8080/monitor/stream`

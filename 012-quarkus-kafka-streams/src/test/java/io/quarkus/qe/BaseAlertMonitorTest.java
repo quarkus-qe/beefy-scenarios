@@ -12,12 +12,7 @@ import javax.ws.rs.sse.SseEventSource;
 
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.QuarkusTest;
-
-@QuarkusTest
-@QuarkusTestResource(StrimziKafkaResource.class)
-public class AlertMonitorTest {
+public abstract class BaseAlertMonitorTest {
 
     private static final String ALERT_MONITOR_SSE_ENDPOINT = "http://localhost:8081/monitor/stream";
 
