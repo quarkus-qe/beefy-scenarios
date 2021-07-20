@@ -33,8 +33,8 @@ jobs:
         with:
           name: maven-repo
           path: maven-repo.tgz
-  linux-build:
-    name: Linux - PR build
+  linux-build-jvm:
+    name: PR - Linux - JVM build
     runs-on: ubuntu-latest
     needs: quarkus-main-build
     strategy:
@@ -66,20 +66,72 @@ jobs:
       - name: Test in JVM mode
         run: |
           mvn -fae -V -B -s .github/mvn-settings.xml -Dvalidate-format clean test
-      - name: Smoke Test in Native mode
-        run: |
-          mvn -V -B -s .github/mvn-settings.xml -Dvalidate-format -fae clean verify -Dnative \
-            -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
-            -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }} \
-            -pl '003-quarkus-many-extensions'
       - name: Zip Artifacts
         run: |
-          zip -R artifacts-linux${{ matrix.java }}.zip '*-reports/*'
+          zip -R artifacts-linux-jvm${{ matrix.java }}.zip '*-reports/*'
       - name: Archive artifacts
         uses: actions/upload-artifact@v1
         with:
           name: ci-artifacts
-          path: artifacts-linux${{ matrix.java }}.zip
+          path: artifacts-linux-jvm${{ matrix.java }}.zip
+  linux-build-native:
+    name: PR - Linux - Native build
+    runs-on: ubuntu-latest
+    needs: quarkus-main-build
+    strategy:
+      matrix:
+        java: [ 11 ]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Reclaim Disk Space
+        run: .github/ci-prerequisites.sh
+      - name: Install JDK {{ matrix.java }}
+        uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Download Maven Repo
+        uses: actions/download-artifact@v1
+        with:
+          name: maven-repo
+          path: .
+      - name: Extract Maven Repo
+        shell: bash
+        run: tar -xzf maven-repo.tgz -C ~
+      - id: files
+        uses: jitterbit/get-changed-files@v1
+      - name: Test in Native mode
+        run: |
+          MODULES=$(find -name pom.xml | sed -e 's|pom.xml| |' | sed -e 's|./| |')
+          # Always run the module 003-quarkus-many-extensions
+          CHANGED="003-quarkus-many-extensions"
+          MODULES_ARG=""
+
+          for module in $MODULES
+          do
+              if [[ "${{ steps.files.outputs.all }}" =~ ("$module") ]] ; then
+                  CHANGED=$(echo $CHANGED" "$module)
+              fi
+          done
+
+          MODULES_ARG="${CHANGED// /,}"
+          mvn -fae -V -B -s .github/mvn-settings.xml -fae -pl $MODULES_ARG clean verify -Dnative \
+            -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g
+      - name: Zip Artifacts
+        if: failure()
+        run: |
+          zip -R artifacts-linux-native${{ matrix.java }}.zip '*-reports/*'
+      - name: Archive artifacts
+        if: failure()
+        uses: actions/upload-artifact@v1
+        with:
+          name: ci-artifacts
+          path: artifacts-linux-native${{ matrix.java }}.zip
   windows-build:
     name: Windows - PR build
     runs-on: windows-latest
