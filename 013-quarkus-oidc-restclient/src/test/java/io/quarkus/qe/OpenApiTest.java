@@ -37,7 +37,7 @@ public class OpenApiTest {
     private static final Path JSON_FILE_NAME_FULL_PATH = Paths.get(directory + JSON_FILE_NAME);
 
     private static final String EXPECTED_TAGS = "[{\"name\":\"Ping\",\"description\":\"Ping API\"},{\"name\":\"Pong\",\"description\":\"Pong API\"}]";
-    private static final String EXPECTED_INFO = "{\"title\":\"Generated API\",\"version\":\"1.0\"}";
+    private static final String EXPECTED_INFO = "{\"title\":\"013-quarkus-oidc-restclient API\",\"version\":\"1.0.0-SNAPSHOT\"}";
 
     // QUARKUS-716
     @Test
