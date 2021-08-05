@@ -105,6 +105,7 @@ jobs:
         run: tar -xzf maven-repo.tgz -C ~
       - id: files
         uses: jitterbit/get-changed-files@v1
+        continue-on-error: true
       - name: Test in Native mode
         run: |
           MODULES=$(find -name pom.xml | sed -e 's|pom.xml| |' | sed -e 's|./| |')
