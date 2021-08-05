@@ -73,10 +73,14 @@ public class OpenApiTest {
 
     private void assertContent(JsonObject content) {
         assertThat(content.getJsonArray("tags").encode(), is(EXPECTED_TAGS));
-        assertThat(content.getJsonObject("info").encode(), is(EXPECTED_INFO));
+        assertThat(content.getJsonObject("info").encode(), is(getExpectedInfo()));
         assertTrue(content.getJsonObject("components").getJsonObject("schemas").containsKey("Score"),
                 "Expected component.schema.Score object.");
         assertTrue(content.getJsonObject("paths").containsKey("/rest-ping"), "Missing expected path: /rest-ping");
         assertTrue(content.getJsonObject("paths").containsKey("/rest-pong"), "Missing expected path: /rest-pong");
+    }
+
+    String getExpectedInfo() {
+        return EXPECTED_INFO;
     }
 }
