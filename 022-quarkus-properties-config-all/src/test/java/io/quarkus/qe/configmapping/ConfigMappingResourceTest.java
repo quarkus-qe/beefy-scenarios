@@ -19,15 +19,9 @@ public class ConfigMappingResourceTest {
     private static final int EXPECTED_OVERRIDES_PERSON_AGE = 23;
 
     @Test
-    public void shouldInjectFieldWithConfigMapping() {
-        assertResponseIs("/person/name/from-field", EXPECTED_PERSON_NAME);
-        assertResponseIs("/person/age/from-field", EXPECTED_PERSON_AGE);
-    }
-
-    @Test
-    public void shouldInjectFieldUsingOverriddenConfigWithConfigMapping() {
-        assertResponseIs("/person/name/from-overrides-field", EXPECTED_OVERRIDES_PERSON_NAME);
-        assertResponseIs("/person/age/from-overrides-field", EXPECTED_OVERRIDES_PERSON_AGE);
+    public void shouldInjectInterfaceUsingOverriddenConfigWithConfigMapping() {
+        assertResponseIs("/person/name/from-overrides-interface", EXPECTED_OVERRIDES_PERSON_NAME);
+        assertResponseIs("/person/age/from-overrides-interface", EXPECTED_OVERRIDES_PERSON_AGE);
     }
 
     @Test

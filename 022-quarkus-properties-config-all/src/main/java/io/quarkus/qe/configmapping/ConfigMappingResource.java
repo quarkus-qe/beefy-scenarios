@@ -10,37 +10,22 @@ import io.smallrye.config.ConfigMapping;
 @Path("/config-mapping")
 public class ConfigMappingResource {
     @Inject
-    Person personField;
-
-    @Inject
     @ConfigMapping(prefix = "overrides.person")
-    Person personOverridesField;
+    PersonInterface personOverridesInterface;
 
     @Inject
     PersonInterface personInterface;
 
     @GET
-    @Path("/person/name/from-field")
-    public String getPersonNameFromField() {
-        return personField.name;
+    @Path("/person/name/from-overrides-interface")
+    public String getPersonNameFromOverridesInterface() {
+        return personOverridesInterface.name();
     }
 
     @GET
-    @Path("/person/age/from-field")
-    public int getPersonAgeFromField() {
-        return personField.age;
-    }
-
-    @GET
-    @Path("/person/name/from-overrides-field")
-    public String getPersonNameFromOverridesField() {
-        return personOverridesField.name;
-    }
-
-    @GET
-    @Path("/person/age/from-overrides-field")
-    public int getPersonAgeFromOverridesField() {
-        return personOverridesField.age;
+    @Path("/person/age/from-overrides-interface")
+    public int getPersonAgeFromOverridesInterface() {
+        return personOverridesInterface.age();
     }
 
     @GET
