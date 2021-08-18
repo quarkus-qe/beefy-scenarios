@@ -158,6 +158,26 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>default-test</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <excludedGroups>io.quarkus.test.junit.QuarkusTest</excludedGroups>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>quarkus-test</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <groups>io.quarkus.test.junit.QuarkusTest</groups>
+                        </configuration>
+                    </execution>
+                </executions>
                 <configuration>
                     <systemProperties>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
