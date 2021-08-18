@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -168,13 +169,11 @@ public class AgroalPoolTest {
 
     private String makeAgroalRawQuery() {
         String currentTime = "";
-        try {
-            Connection con = agroalDataSource.getConnection();
-            ResultSet rs = con.createStatement().executeQuery("SELECT CURRENT_TIMESTAMP");
+        try (Connection con = agroalDataSource.getConnection();
+                Statement statement = con.createStatement();
+                ResultSet rs = statement.executeQuery("SELECT CURRENT_TIMESTAMP")) {
             rs.next();
             currentTime = rs.getString(1);
-            rs.close();
-            con.close();
         } catch (SQLException e) {
             assertNull(e.getCause(), "makeAgroalRawQuery: Agroal datasource/poolImpl unexpected error");
         }
