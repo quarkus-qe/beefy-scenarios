@@ -17,7 +17,6 @@ public class InfinispanTestResource implements QuarkusTestResourceLifecycleManag
 
     private GenericContainer<?> infinispan;
 
-    @SuppressWarnings("resource")
     @Override
     public Map<String, String> start() {
 
@@ -31,7 +30,8 @@ public class InfinispanTestResource implements QuarkusTestResourceLifecycleManag
                 .withClasspathResourceMapping("server.jks",
                         "/user-config/server.jks", BindMode.READ_ONLY)
                 .withEnv("CONFIG_PATH", "/user-config/config.yaml")
-                .withEnv("IDENTITIES_PATH", "/user-config/identities.yaml");
+                .withEnv("IDENTITIES_PATH", "/user-config/identities.yaml")
+                .withExposedPorts(INFINISPAN_PORT);
 
         infinispan.start();
         final String hosts = infinispan.getContainerIpAddress() + ":" + infinispan.getMappedPort(INFINISPAN_PORT);

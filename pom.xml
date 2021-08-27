@@ -44,7 +44,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <surefire-plugin.version>2.22.1</surefire-plugin.version>
-        <testcontainers.version>1.15.2</testcontainers.version>
+        <testcontainers.version>1.16.0</testcontainers.version>
         <strimzi.testcontainers.version>0.22.1</strimzi.testcontainers.version>
         <wiremock.version>2.27.2</wiremock.version>
         <apicurio-registry-utils-serde.version>1.3.2.Final</apicurio-registry-utils-serde.version>
