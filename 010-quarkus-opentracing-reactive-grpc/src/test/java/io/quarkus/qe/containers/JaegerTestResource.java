@@ -27,7 +27,8 @@ public class JaegerTestResource implements QuarkusTestResourceLifecycleManager {
 
         container = new GenericContainer<>("jaegertracing/all-in-one:latest")
                 .waitingFor(
-                        new LogMessageWaitStrategy().withRegEx(".*\"Health Check state change\",\"status\":\"ready\".*\\s"));
+                        new LogMessageWaitStrategy().withRegEx(".*\"Health Check state change\",\"status\":\"ready\".*\\s"))
+                .withExposedPorts(TRACE_PORT, REST_PORT);
         container.start();
 
         return Collections.singletonMap(QUARKUS_JAEGER_PROPERTY, traceEndpoint());
