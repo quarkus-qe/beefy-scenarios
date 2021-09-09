@@ -125,6 +125,6 @@ public class MySqlApplicationResourceTest {
     }
 
     private static final RequestSpecification dataSourcePath() {
-        return given().accept(MediaType.APPLICATION_JSON).contentType(ContentType.JSON).when().basePath(DATA_SOURCE_PATH);
+        return given().when().basePath(DATA_SOURCE_PATH);
     }
 }
