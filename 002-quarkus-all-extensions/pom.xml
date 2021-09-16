@@ -232,10 +232,6 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-vertx</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-core</artifactId>
         </dependency>
         <dependency>
@@ -475,10 +471,11 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-orm-panache-kotlin</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-hibernate-orm-rest-data-panache</artifactId>
-        </dependency>
+        <!--        Caused by: java.lang.IllegalStateException:  Multiple matching properties for name "security.jaxrs.deny-unannotated-endpoints" -->
+        <!--        <dependency>-->
+        <!--            <groupId>io.quarkus</groupId>-->
+        <!--            <artifactId>quarkus-hibernate-orm-rest-data-panache</artifactId>-->
+        <!--        </dependency>-->
         <!--        Caused by: java.lang.IllegalStateException: Booting an Hibernate Reactive serviceregistry on a non-reactive RecordedState!-->
         <!--        <dependency>-->
         <!--            <groupId>io.quarkus</groupId>-->
