@@ -212,7 +212,7 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-kafka-client</artifactId>
         </dependency>
-        <!-- This dependency is incompatible with mutiny reactive engine implementation. 
+        <!-- This dependency is incompatible with mutiny reactive engine implementation.
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-reactive-streams-operators</artifactId>
@@ -246,10 +246,11 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-elytron-security-properties-file</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-spring-web</artifactId>
-        </dependency>
+        <!-- https://github.com/quarkusio/quarkus/commit/149d5381208fa731914a1de2ab8fc868934cfdd1 -->
+        <!--        <dependency>-->
+        <!--            <groupId>io.quarkus</groupId>-->
+        <!--            <artifactId>quarkus-spring-web</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-derby</artifactId>
@@ -389,7 +390,7 @@
          <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-amazon-lambda-common</artifactId>
-        </dependency> 
+        </dependency>
         -->
         <dependency>
             <groupId>io.quarkus</groupId>

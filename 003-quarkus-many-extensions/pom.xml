@@ -80,10 +80,11 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-narayana-jta</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-spring-web</artifactId>
-        </dependency>
+        <!-- https://github.com/quarkusio/quarkus/commit/149d5381208fa731914a1de2ab8fc868934cfdd1 -->
+        <!--        <dependency>-->
+        <!--            <groupId>io.quarkus</groupId>-->
+        <!--            <artifactId>quarkus-spring-web</artifactId>-->
+        <!--        </dependency>-->
         <!--        <dependency>  needs running Keycloak server -->
         <!--            <groupId>io.quarkus</groupId>-->
         <!--            <artifactId>quarkus-keycloak-authorization</artifactId>-->
