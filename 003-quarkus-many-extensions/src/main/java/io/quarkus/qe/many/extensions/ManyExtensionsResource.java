@@ -1,14 +1,13 @@
 package io.quarkus.qe.many.extensions;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 
-@RestController
-@RequestMapping("/hello")
+@Path("/hello")
 public class ManyExtensionsResource {
 
-    @GetMapping
+    @GET
+    @Path("/")
     public String hello() {
         return "hello";
     }

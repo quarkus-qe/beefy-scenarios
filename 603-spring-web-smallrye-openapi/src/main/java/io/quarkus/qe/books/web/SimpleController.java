@@ -5,6 +5,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.quarkus.qute.Template;
@@ -19,7 +20,7 @@ public class SimpleController {
     @Inject
     Template home;
 
-    @RequestMapping(value = "/", produces = MediaType.TEXT_HTML)
+    @RequestMapping(value = "/", produces = MediaType.TEXT_HTML, method = RequestMethod.GET)
     public TemplateInstance homePage() {
         return home.data("appName", appName);
     }
