@@ -4,11 +4,13 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
+@Disabled("Can't inject beans annotated with @ConfigProperties. Reported in https://github.com/quarkusio/quarkus/issues/20610")
 public class BulkOfPropertiesTest {
 
     private static final String HTTP = "http://";
