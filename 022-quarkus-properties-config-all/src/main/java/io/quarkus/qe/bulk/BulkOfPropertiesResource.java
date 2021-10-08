@@ -5,7 +5,9 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
-@Path("/bulk-properties")
+// TODO: Can't inject beans annotated with @ConfigProperties, see BulkOfPropertiesConfiguration.
+// Reported in https://github.com/quarkusio/quarkus/issues/20610.
+// @Path("/bulk-properties")
 public class BulkOfPropertiesResource {
 
     @Any
