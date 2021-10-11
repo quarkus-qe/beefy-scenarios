@@ -40,7 +40,7 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
-        image: [ "ubi-quarkus-native-image:21.1-java11"]
+        image: [ "ubi-quarkus-native-image:21.2-java11"]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/cache@v1
@@ -140,7 +140,7 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
-        graalvm-version: [ "21.0.0.java11"]
+        graalvm-version: ["21.2.0.java11"]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/cache@v1
