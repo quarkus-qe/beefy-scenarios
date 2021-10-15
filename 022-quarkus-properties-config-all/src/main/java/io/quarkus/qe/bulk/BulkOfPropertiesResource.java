@@ -1,17 +1,14 @@
 package io.quarkus.qe.bulk;
 
-import javax.enterprise.inject.Any;
-import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
-// TODO: Can't inject beans annotated with @ConfigProperties, see BulkOfPropertiesConfiguration.
-// Reported in https://github.com/quarkusio/quarkus/issues/20610.
-// @Path("/bulk-properties")
+import org.eclipse.microprofile.config.inject.ConfigProperties;
+
+@Path("/bulk-properties")
 public class BulkOfPropertiesResource {
 
-    @Any
-    @Inject
+    @ConfigProperties
     BulkOfPropertiesConfiguration config;
 
     @GET
