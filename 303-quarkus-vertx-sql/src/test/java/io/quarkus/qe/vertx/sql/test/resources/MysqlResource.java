@@ -16,7 +16,7 @@ public class MysqlResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        mysqlContainer = new GenericContainer<>(DockerImageName.parse("quay.io/bitnami/mysql:5.7.32"))
+        mysqlContainer = new GenericContainer<>(DockerImageName.parse("quay.io/bitnami/mysql:8.0"))
                 .withEnv("MYSQL_ROOT_PASSWORD", "test")
                 .withEnv("MYSQL_USER", "test")
                 .withEnv("MYSQL_PASSWORD", "test")
@@ -24,7 +24,7 @@ public class MysqlResource implements QuarkusTestResourceLifecycleManager {
                 .withExposedPorts(3306);
 
         mysqlContainer.waitingFor(new HostPortWaitStrategy()).waitingFor(
-                Wait.forLogMessage(".*MySQL Community Server.*", 1)).start();
+                Wait.forLogMessage(".*ready for connections.*", 1)).start();
 
         Map<String, String> config = new HashMap<>();
         config.put("quarkus.datasource.mysql.jdbc.url",
