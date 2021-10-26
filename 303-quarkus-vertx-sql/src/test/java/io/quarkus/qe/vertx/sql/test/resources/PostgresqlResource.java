@@ -1,10 +1,12 @@
 package io.quarkus.qe.vertx.sql.test.resources;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.HostPortWaitStrategy;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
@@ -21,7 +23,10 @@ public class PostgresqlResource implements QuarkusTestResourceLifecycleManager {
                 .withEnv("POSTGRES_DB", "amadeus")
                 .withExposedPorts(5432);
 
-        postgresContainer.waitingFor(new HostPortWaitStrategy()).start();
+        postgresContainer.waitingFor(new HostPortWaitStrategy()).waitingFor(
+                Wait.forLogMessage(".*listening on IPv6.*", 1)
+                        .withStartupTimeout(Duration.ofMinutes(3)))
+                .start();
 
         Map<String, String> config = new HashMap<>();
         config.put("quarkus.datasource.jdbc.url", String.format("jdbc:postgresql://%s:%d/amadeus", postgresContainer.getHost(),
