@@ -1,10 +1,12 @@
 package io.quarkus.qe.quartz;
 
 import static io.restassured.RestAssured.get;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
 
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.BeforeAll;
@@ -42,10 +44,16 @@ public class AnnotationScheduledJobsQuartzTest {
     @Test
     public void testClusteringEnvironmentWithUniqueJobs() throws Exception {
         whenBothNodesAreUpAndRunning();
-        thenJobIsExecutedWithOwner(NODE_ONE_NAME);
+        thenJobIsExecutedWithOwner(NODE_ONE_NAME, NODE_TWO_NAME);
 
         whenShutdownNodeOne();
         thenJobIsExecutedWithOwner(NODE_TWO_NAME);
+
+        whenStartupNodeOne();
+        thenJobIsExecutedWithOwner(NODE_ONE_NAME, NODE_TWO_NAME);
+
+        whenShutdownNoneTwo();
+        thenJobIsExecutedWithOwner(NODE_ONE_NAME);
     }
 
     private void whenBothNodesAreUpAndRunning() {
@@ -57,15 +65,25 @@ public class AnnotationScheduledJobsQuartzTest {
         nodeOneApp.stop();
     }
 
-    private void thenJobIsExecutedWithOwner(String expectedOwner) {
+    private void whenStartupNodeOne() {
+        nodeOneApp.start();
+    }
+
+    private void whenShutdownNoneTwo() {
+        nodeTwoApp.stop();
+    }
+
+    private void thenJobIsExecutedWithOwner(String... possibleOwners) {
         RestAssured.port = REST_PORT;
 
         Awaitility.await().atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
-            ExecutionEntity[] executions = get("/executions")
+            final ExecutionEntity[] executions = get("/executions")
                     .then().statusCode(200)
                     .extract().as(ExecutionEntity[].class);
-
-            assertEquals(expectedOwner, executions[executions.length - 1].owner, "Expected owner not found");
+            final String lastOwner = executions[executions.length - 1].owner;
+            final List<String> possibleOwnersList = Arrays.asList(possibleOwners);
+            assertTrue(possibleOwnersList.contains(lastOwner),
+                    String.format("Owner %s not found in the list of possible owners: %s", lastOwner, possibleOwnersList));
         });
     }
 }
