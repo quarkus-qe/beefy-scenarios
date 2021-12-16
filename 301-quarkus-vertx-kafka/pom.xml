@@ -78,6 +78,20 @@
         </dependency>
     </dependencies>
     <profiles>
+        <profile>
+            <!-- TODO: https://github.com/quarkusio/quarkus/issues/22275 -->
+            <!-- Disable native build on this module -->
+            <id>native</id>
+            <activation>
+                <property>
+                    <name>native</name>
+                </property>
+            </activation>
+            <properties>
+                <!-- To not build the module on Native -->
+                <quarkus.package.type>fast-jar</quarkus.package.type>
+            </properties>
+        </profile>
         <!-- Skipped on Windows as does not support Linux Containers / Testcontainers -->
         <profile>
             <id>skip-tests-on-windows</id>
