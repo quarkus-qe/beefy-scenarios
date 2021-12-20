@@ -5,10 +5,12 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.nio.file.Paths;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.NativeImageTest;
 
+@Disabled("https://github.com/quarkusio/quarkus/issues/22275")
 @NativeImageTest
 public class ChuckNorrisResourceIT extends ChuckNorrisResourceTest {
 
