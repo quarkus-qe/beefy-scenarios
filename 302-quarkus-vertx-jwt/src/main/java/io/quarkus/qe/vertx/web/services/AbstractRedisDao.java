@@ -45,7 +45,7 @@ public abstract class AbstractRedisDao<E extends Record> {
     public Uni<List<E>> get() {
         Multi<E> objects = getKeys().onItem().transformToUniAndMerge(
                 key -> redisClient.get(key).onItem().ifNotNull().transform(item -> Record.decodeJSON(item.toString(), type)));
-        return objects.collectItems().in(ArrayList::new, List::add);
+        return objects.collect().in(ArrayList::new, List::add);
     }
 
     public Uni<Boolean> delete(String... key) {
