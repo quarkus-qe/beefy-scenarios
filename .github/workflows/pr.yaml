@@ -108,7 +108,7 @@ jobs:
         continue-on-error: true
       - name: Test in Native mode
         run: |
-          MODULES=$(find -name pom.xml | sed -e 's|pom.xml| |' | sed -e 's|./| |')
+          MODULES=$(find -name pom.xml | grep -v 002 | sed -e 's|pom.xml| |' | sed -e 's|./| |')
           # Always run the module 003-quarkus-many-extensions
           CHANGED="003-quarkus-many-extensions"
           MODULES_ARG=""
