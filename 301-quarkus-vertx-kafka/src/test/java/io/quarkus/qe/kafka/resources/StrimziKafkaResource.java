@@ -10,7 +10,7 @@ import org.testcontainers.containers.Network;
 import org.testcontainers.lifecycle.Startables;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import io.strimzi.StrimziKafkaContainer;
+import io.strimzi.test.container.StrimziKafkaContainer;
 
 public class StrimziKafkaResource implements QuarkusTestResourceLifecycleManager {
 
@@ -23,7 +23,7 @@ public class StrimziKafkaResource implements QuarkusTestResourceLifecycleManager
     public Map<String, String> start() {
         Network network = Network.newNetwork();
 
-        kafkaContainer = new StrimziKafkaContainer("latest-kafka-2.7.0").withNetwork(network);
+        kafkaContainer = new StrimziKafkaContainer("quay.io/strimzi/kafka:latest-kafka-2.8.0").withNetwork(network);
         schemaRegistry = new SchemaRegistryContainer("apicurio/apicurio-registry-mem", "1.2.2.Final", 8080).withNetwork(network)
                 .withKafka(kafkaContainer, 9092);
 
