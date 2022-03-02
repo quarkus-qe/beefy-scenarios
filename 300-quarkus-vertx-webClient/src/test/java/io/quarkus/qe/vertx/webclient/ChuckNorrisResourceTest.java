@@ -21,7 +21,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matcher;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -89,7 +88,7 @@ public class ChuckNorrisResourceTest {
     @Test
     public void endpointShouldTrace() {
         final int pageLimit = 50;
-        final String expectedOperationName = "trace/ping";
+        final String expectedOperationName = "/trace/ping";
         await().atMost(1, TimeUnit.MINUTES).pollInterval(Duration.ofSeconds(1)).untilAsserted(() -> {
             whenIMakePingRequest();
             thenRetrieveTraces(pageLimit, "1h", getServiceName(), expectedOperationName);
@@ -103,10 +102,9 @@ public class ChuckNorrisResourceTest {
     }
 
     @Test
-    @Disabled("https://github.com/quarkusio/quarkus/issues/16507")
     public void httpClientShouldHaveHisOwnSpan() {
         final int pageLimit = 50;
-        final String expectedOperationName = "trace/ping";
+        final String expectedOperationName = "/trace/ping";
         await().atMost(1, TimeUnit.MINUTES).pollInterval(Duration.ofSeconds(1)).untilAsserted(() -> {
             whenIMakePingRequest();
             thenRetrieveTraces(pageLimit, "1h", getServiceName(), expectedOperationName);
