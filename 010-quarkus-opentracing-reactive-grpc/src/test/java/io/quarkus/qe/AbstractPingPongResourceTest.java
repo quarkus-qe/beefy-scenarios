@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.http.HttpStatus;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Test;
 
+import io.quarkus.qe.containers.JaegerApiEndpointAddress;
 import io.quarkus.qe.containers.JaegerTestResource;
 import io.quarkus.test.common.QuarkusTestResource;
 
@@ -24,7 +24,7 @@ public abstract class AbstractPingPongResourceTest {
     private static final String PING_RESOURCE = "PingResource";
     private static final String PONG_RESOURCE = "PongResource";
 
-    @ConfigProperty(name = JaegerTestResource.JAEGER_API_ENDPOINT, defaultValue = "http://localhost:16686/api/traces")
+    @JaegerApiEndpointAddress
     String jaegerEndpoint;
 
     @Test
