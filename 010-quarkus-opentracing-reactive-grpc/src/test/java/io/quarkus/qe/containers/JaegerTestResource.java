@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
 
@@ -44,8 +43,8 @@ public class JaegerTestResource implements QuarkusTestResourceLifecycleManager {
         Class<?> c = testInstance.getClass();
         while (c != Object.class) {
             for (Field f : c.getDeclaredFields()) {
-                ConfigProperty configProperty = f.getAnnotation(ConfigProperty.class);
-                if (configProperty != null && JAEGER_API_ENDPOINT.equals(configProperty.name())) {
+                JaegerApiEndpointAddress jaegerEndpoint = f.getAnnotation(JaegerApiEndpointAddress.class);
+                if (jaegerEndpoint != null) {
                     setFieldValue(f, testInstance, apiEndpoint());
                 }
             }
