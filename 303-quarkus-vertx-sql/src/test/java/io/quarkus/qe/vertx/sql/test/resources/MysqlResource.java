@@ -24,7 +24,7 @@ public class MysqlResource implements QuarkusTestResourceLifecycleManager {
                 .withExposedPorts(3306);
 
         mysqlContainer.waitingFor(new HostPortWaitStrategy()).waitingFor(
-                Wait.forLogMessage(".*ready for connections.*", 1)).start();
+                Wait.forLogMessage(".*ready for connections.*port: 33060.*", 1)).start();
 
         Map<String, String> config = new HashMap<>();
         config.put("quarkus.datasource.mysql.jdbc.url",
