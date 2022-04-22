@@ -17,7 +17,7 @@ public class PostgresqlResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        postgresContainer = new GenericContainer<>(DockerImageName.parse("quay.io/bitnami/postgresql:13.4.0"))
+        postgresContainer = new GenericContainer<>(DockerImageName.parse("docker.io/postgres:13.6"))
                 .withEnv("POSTGRES_USER", "test")
                 .withEnv("POSTGRES_PASSWORD", "test")
                 .withEnv("POSTGRES_DB", "amadeus")

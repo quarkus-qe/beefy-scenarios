@@ -16,7 +16,7 @@ public class MysqlResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        mysqlContainer = new GenericContainer<>(DockerImageName.parse("quay.io/bitnami/mysql:8.0"))
+        mysqlContainer = new GenericContainer<>(DockerImageName.parse("docker.io/mysql:8.0"))
                 .withEnv("MYSQL_ROOT_PASSWORD", "test")
                 .withEnv("MYSQL_USER", "test")
                 .withEnv("MYSQL_PASSWORD", "test")
