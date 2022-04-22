@@ -16,8 +16,8 @@ public class ValidationAssertions {
         assertEquals("Constraint Violation", response.getTitle());
     }
 
-    public static final void assertValidationErrorDetails(ValidationErrorResponse response) {
-        assertEquals("validation constraint violations", response.getDetails());
+    public static final void assertValidationErrorDetail(ValidationErrorResponse response) {
+        assertEquals("validation constraint violations", response.getDetail());
     }
 
     public static final void assertValidationErrorStatus(ValidationErrorResponse response, int expected) {

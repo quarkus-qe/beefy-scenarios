@@ -1,6 +1,6 @@
 package io.quarkus.qe.validation;
 
-import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidationErrorDetails;
+import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidationErrorDetail;
 import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidationErrorField;
 import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidationErrorStatus;
 import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidationErrorTitle;
@@ -34,7 +34,7 @@ public class ValidationOnResponseRouteHandlerTest {
                 .extract().as(ValidationErrorResponse.class);
 
         assertValidationErrorTitle(response);
-        assertValidationErrorDetails(response);
+        assertValidationErrorDetail(response);
         assertValidationErrorStatus(response, HttpStatus.SC_INTERNAL_SERVER_ERROR);
         assertValidationErrorField(response, "id", "id can't be null");
     }
@@ -50,7 +50,7 @@ public class ValidationOnResponseRouteHandlerTest {
                 .extract().as(ValidationErrorResponse.class);
 
         assertValidationErrorTitle(response);
-        assertValidationErrorDetails(response);
+        assertValidationErrorDetail(response);
         assertValidationErrorStatus(response, HttpStatus.SC_INTERNAL_SERVER_ERROR);
     }
 }

@@ -1,6 +1,6 @@
 package io.quarkus.qe.validation;
 
-import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidationErrorDetails;
+import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidationErrorDetail;
 import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidationErrorField;
 import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidationErrorStatus;
 import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidationErrorTitle;
@@ -25,7 +25,7 @@ public class ValidationOnRequestParamRouteHandlerTest {
                 .extract().as(ValidationErrorResponse.class);
 
         assertValidationErrorTitle(response);
-        assertValidationErrorDetails(response);
+        assertValidationErrorDetail(response);
         assertValidationErrorStatus(response, HttpStatus.SC_BAD_REQUEST);
         assertValidationErrorField(response, "validateRequestSingleParam.param", "Param must have 3 characters");
     }
@@ -46,7 +46,7 @@ public class ValidationOnRequestParamRouteHandlerTest {
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .extract().as(ValidationErrorResponse.class);
         assertValidationErrorTitle(response);
-        assertValidationErrorDetails(response);
+        assertValidationErrorDetail(response);
         assertValidationErrorStatus(response, HttpStatus.SC_BAD_REQUEST);
         assertValidationErrorField(response, "validateRequestMultipleParam.firstParam", "First param must have 3 characters");
         assertValidationErrorField(response, "validateRequestMultipleParam.secondParam", "Second param must match pattern");
@@ -70,7 +70,7 @@ public class ValidationOnRequestParamRouteHandlerTest {
                 .extract().as(ValidationErrorResponse.class);
 
         assertValidationErrorTitle(response);
-        assertValidationErrorDetails(response);
+        assertValidationErrorDetail(response);
         assertValidationErrorStatus(response, HttpStatus.SC_BAD_REQUEST);
         assertValidationErrorField(response, "validateRequestSingleParamUsingCustomValidation.param",
                 "Value must be uppercase");
