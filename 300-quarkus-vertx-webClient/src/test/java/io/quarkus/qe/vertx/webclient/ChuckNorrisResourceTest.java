@@ -172,7 +172,6 @@ public class ChuckNorrisResourceTest {
     }
 
     private String getServiceName() {
-        // TODO https://github.com/quarkusio/quarkus/issues/16499
-        return (IS_NATIVE) ? "300-quarkus-vertx-webclient" : "<<unset>>";
+        return "300-quarkus-vertx-webclient";
     }
 }

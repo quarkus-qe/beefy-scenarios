@@ -104,8 +104,7 @@ abstract class KafkaCommonTest {
     }
 
     private String getServiceName() {
-        // TODO https://github.com/quarkusio/quarkus/issues/16499
-        return isNativeTest() ? "301-quarkus-vertx-kafka" : "<<unset>>";
+        return "301-quarkus-vertx-kafka";
     }
 
     private void sendAndReceiveEvents(int timeoutMin, int expectedEventsAmount) throws InterruptedException {
