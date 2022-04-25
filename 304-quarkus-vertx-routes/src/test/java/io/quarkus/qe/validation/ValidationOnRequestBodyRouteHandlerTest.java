@@ -1,6 +1,6 @@
 package io.quarkus.qe.validation;
 
-import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidationErrorDetails;
+import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidationErrorDetail;
 import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidationErrorField;
 import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidationErrorStatus;
 import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidationErrorTitle;
@@ -30,7 +30,7 @@ public class ValidationOnRequestBodyRouteHandlerTest {
                 .extract().as(ValidationErrorResponse.class);
 
         assertValidationErrorTitle(response);
-        assertValidationErrorDetails(response);
+        assertValidationErrorDetail(response);
         assertValidationErrorStatus(response, HttpStatus.SC_BAD_REQUEST);
         assertValidationErrorField(response, "validateRequestBody.param.firstCode", "First code must have 3 characters");
     }
@@ -49,7 +49,7 @@ public class ValidationOnRequestBodyRouteHandlerTest {
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .extract().as(ValidationErrorResponse.class);
         assertValidationErrorTitle(response);
-        assertValidationErrorDetails(response);
+        assertValidationErrorDetail(response);
         assertValidationErrorStatus(response, HttpStatus.SC_BAD_REQUEST);
         assertValidationErrorField(response, "validateRequestBody.param.firstCode", "First code must have 3 characters");
         assertValidationErrorField(response, "validateRequestBody.param.secondCode", "Second second must match pattern");
@@ -71,7 +71,7 @@ public class ValidationOnRequestBodyRouteHandlerTest {
                 .extract().as(ValidationErrorResponse.class);
 
         assertValidationErrorTitle(response);
-        assertValidationErrorDetails(response);
+        assertValidationErrorDetail(response);
         assertValidationErrorStatus(response, HttpStatus.SC_BAD_REQUEST);
         assertValidationErrorField(response, "validateRequestBody.param.custom", "Value must be uppercase");
     }

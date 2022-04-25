@@ -32,9 +32,8 @@
         <module>300-quarkus-vertx-webClient</module>
         <module>301-quarkus-vertx-kafka</module>
         <module>302-quarkus-vertx-jwt</module>
-        <!-- TODO: https://github.com/quarkusio/quarkus/issues/21516 -->
-        <!--<module>303-quarkus-vertx-sql</module>
-        <module>304-quarkus-vertx-routes</module> -->
+        <module>303-quarkus-vertx-sql</module>
+        <module>304-quarkus-vertx-routes</module>
         <module>601-spring-data-primitive-types</module>
         <module>602-spring-data-rest</module>
         <module>603-spring-web-smallrye-openapi</module>

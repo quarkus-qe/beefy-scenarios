@@ -62,6 +62,10 @@
             <artifactId>smallrye-mutiny-vertx-web-client</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+        </dependency>
     </dependencies>
     <profiles>
         <!-- Skipped on Windows as does not support Linux Containers / Testcontainers -->

@@ -2,7 +2,7 @@ package io.quarkus.qe.validation.utils;
 
 public class ValidationErrorResponse {
     private String title;
-    private String details;
+    private String detail;
     private int status;
     private ValidationError[] violations;
 
@@ -14,12 +14,12 @@ public class ValidationErrorResponse {
         this.title = title;
     }
 
-    public String getDetails() {
-        return details;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
     public int getStatus() {

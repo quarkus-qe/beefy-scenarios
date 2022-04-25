@@ -19,7 +19,7 @@ public class MongoTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        resource = new GenericContainer<>("quay.io/bitnami/mongodb:4.0.23");
+        resource = new GenericContainer<>("docker.io/mongo:4.0.23");
         resource.waitingFor(new LogMessageWaitStrategy().withRegEx("(?i).*waiting for connections.*"));
         resource.addExposedPort(PORT);
         resource.start();

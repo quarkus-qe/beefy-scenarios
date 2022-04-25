@@ -16,7 +16,7 @@ public class RedisResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
 
-        redisContainer = new GenericContainer(DockerImageName.parse("quay.io/bitnami/redis:6.0"))
+        redisContainer = new GenericContainer(DockerImageName.parse("docker.io/redis:6.0"))
                 .withEnv("ALLOW_EMPTY_PASSWORD", "yes").withExposedPorts(6379);
         redisContainer.start();
 
