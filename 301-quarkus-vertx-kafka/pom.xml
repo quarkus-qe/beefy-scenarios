@@ -107,5 +107,17 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <!--        TODO remove - https://github.com/quarkusio/quarkus/issues/25143 -->
+            <id>native</id>
+            <activation>
+                <property>
+                    <name>native</name>
+                </property>
+            </activation>
+            <properties>
+                <quarkus.package.type>native-sources</quarkus.package.type>
+            </properties>
+        </profile>
     </profiles>
 </project>
