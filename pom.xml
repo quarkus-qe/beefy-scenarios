@@ -52,7 +52,7 @@
         <confluent.kafka-avro-serializer.version>6.0.0</confluent.kafka-avro-serializer.version>
         <version.assertj>3.22.0</version.assertj>
         <version.quarkiverse.apicurio.registry.client>0.0.2</version.quarkiverse.apicurio.registry.client>
-        <version.quarkus.camel>1.8.1</version.quarkus.camel>
+        <version.quarkus.camel>2.9.0</version.quarkus.camel>
         <formatter-maven-plugin.version>2.15.0</formatter-maven-plugin.version>
         <impsort-maven-plugin.version>1.6.0</impsort-maven-plugin.version>
         <xml-format-maven-plugin>3.1.2</xml-format-maven-plugin>
