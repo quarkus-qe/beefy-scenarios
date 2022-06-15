@@ -19,6 +19,12 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-consul-config</artifactId>
         </dependency>
+        <!-- https://github.com/quarkiverse/quarkus-config-extensions/issues/70 -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.15.1</version>
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5-internal</artifactId>
