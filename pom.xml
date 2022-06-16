@@ -29,10 +29,8 @@
         <module>023-quarkus-kamelet</module>
         <module>101-javaee-like-getting-started</module>
         <module>201-large-static-content</module>
-        <!-- TODO https://github.com/quarkusio/quarkus/issues/26083 
         <module>300-quarkus-vertx-webClient</module>
         <module>301-quarkus-vertx-kafka</module>
-        -->
         <module>302-quarkus-vertx-jwt</module>
         <module>303-quarkus-vertx-sql</module>
         <module>304-quarkus-vertx-routes</module>
