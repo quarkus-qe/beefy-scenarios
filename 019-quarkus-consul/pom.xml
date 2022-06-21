@@ -16,14 +16,9 @@
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-consul-config</artifactId>
-        </dependency>
-        <!-- https://github.com/quarkiverse/quarkus-config-extensions/issues/70 -->
-        <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.15.1</version>
+            <groupId>io.quarkiverse.config</groupId>
+            <artifactId>quarkus-config-consul</artifactId>
+            <version>${version.quarkiverse.consul}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
