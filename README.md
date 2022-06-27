@@ -5,6 +5,11 @@ Beefy scenarios for Quarkus
  - JDK 11
  - Docker
 
+## Test-suite Execution
+Run `mvn clean verify` command to execute the testsuite
+
+NOTE: Build Quarkus with relocations enabled - e.g. `mvn clean install -Dquickly -Prelocations`
+
 ## Scenarios IDs
 | Range         | Name          | Description  |
 | ------------- |:-------------:| ----- |
