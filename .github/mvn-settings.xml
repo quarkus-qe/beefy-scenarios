@@ -9,16 +9,25 @@
                     <id>google-maven-central</id>
                     <name>GCS Maven Central mirror EU</name>
                     <url>https://maven-central-eu.storage-download.googleapis.com/repos/central/data/</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
                 </repository>
                 <repository>
                     <id>jboss-maven-central-proxy</id>
                     <name>JBoss Maven Central proxy</name>
                     <url>https://repository.jboss.org/nexus/content/repositories/central/</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
                 </repository>
                 <repository>
                     <id>gradle-official-repository</id>
                     <name>Gradle Official Repository</name>
                     <url>https://repo.gradle.org/gradle/libs-releases-local/</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
                 </repository>
             </repositories>
             <pluginRepositories>
