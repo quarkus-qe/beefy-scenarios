@@ -57,7 +57,7 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: maven-repo
           path: .
@@ -100,7 +100,7 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: maven-repo
           path: .
@@ -142,7 +142,7 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: maven-repo
           path: .
@@ -186,7 +186,7 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: maven-repo
           path: .
