@@ -10,7 +10,7 @@ jobs:
         java: [ 11 ]
     steps:
       - uses: actions/checkout@v1
-      - uses: actions/cache@v1
+      - uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -43,7 +43,7 @@ jobs:
         image: [ "ubi-quarkus-native-image:22.2-java17"]
     steps:
       - uses: actions/checkout@v1
-      - uses: actions/cache@v1
+      - uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -83,7 +83,7 @@ jobs:
         java: [ 11 ]
     steps:
       - uses: actions/checkout@v1
-      - uses: actions/cache@v1
+      - uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -143,7 +143,7 @@ jobs:
         graalvm-version: ["22.2.0.java17"]
     steps:
       - uses: actions/checkout@v1
-      - uses: actions/cache@v1
+      - uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
