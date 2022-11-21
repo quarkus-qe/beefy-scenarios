@@ -11,7 +11,7 @@ jobs:
       matrix:
         java: [ 11 ]
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - uses: actions/cache@v1
         with:
           path: ~/.m2/repository
@@ -43,7 +43,7 @@ jobs:
       matrix:
         java: [ 11 ]
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - uses: actions/cache@v1
         with:
           path: ~/.m2/repository
@@ -86,7 +86,7 @@ jobs:
         java: [ 11 ]
         image: [ "ubi-quarkus-native-image:22.2-java17", "ubi-quarkus-mandrel:22.2-java17" ]
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - uses: actions/cache@v1
         with:
           path: ~/.m2/repository
@@ -130,7 +130,7 @@ jobs:
       matrix:
         java: [ 11 ]
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - uses: actions/cache@v1
         with:
           path: ~/.m2/repository
@@ -174,7 +174,7 @@ jobs:
         java: [ 11 ]
         graalvm-version: ["22.2.0.java11"]
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - uses: actions/cache@v1
         with:
           path: ~/.m2/repository
