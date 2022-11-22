@@ -86,7 +86,7 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
-        image: [ "ubi-quarkus-native-image:22.2-java17", "ubi-quarkus-mandrel:22.2-java17" ]
+        image: [ "ubi-quarkus-native-image:22.3-java17", "ubi-quarkus-mandrel:22.3-java17" ]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
@@ -176,7 +176,7 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
-        graalvm-version: [ "22.2.0" ]
+        graalvm-version: [ "22.3.0" ]
         graalvm-java-version: [ "11" ]
     steps:
       - uses: actions/checkout@v3
