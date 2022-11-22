@@ -107,7 +107,7 @@ jobs:
         shell: bash
         run: tar -xzf maven-repo.tgz -C ~
       - id: files
-        uses: jitterbit/get-changed-files@v1
+        uses: tj-actions/changed-files@v34.0.0
         continue-on-error: true
       - name: Test in Native mode
         run: |
@@ -118,7 +118,7 @@ jobs:
 
           for module in $MODULES
           do
-              if [[ "${{ steps.files.outputs.all }}" =~ ("$module") ]] ; then
+              if [[ "${{ steps.files.outputs.all_changed_and_modified_files }}" =~ ("$module") ]] ; then
                   CHANGED=$(echo $CHANGED" "$module)
               fi
           done
@@ -143,7 +143,8 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
-        graalvm-version: ["22.2.0.java17"]
+        graalvm-version: ["22.2.0"]
+        graalvm-java-version: [ "17" ]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
@@ -174,9 +175,11 @@ jobs:
       - uses: microsoft/setup-msbuild@v1
       - name: Setup GraalVM
         id: setup-graalvm
-        uses: DeLaGuardo/setup-graalvm@master
+        uses: graalvm/setup-graalvm@v1
         with:
-          graalvm-version: ${{ matrix.graalvm-version }}
+          version: ${{ matrix.graalvm-version }}
+          java-version: ${{ matrix.graalvm-java-version }}
+          components: 'native-image'
       - name: Install native-image component
         run: |
           gu.cmd install native-image

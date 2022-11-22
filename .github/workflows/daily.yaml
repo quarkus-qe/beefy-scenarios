@@ -176,7 +176,8 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
-        graalvm-version: ["22.2.0.java11"]
+        graalvm-version: [ "22.2.0" ]
+        graalvm-java-version: [ "11" ]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
@@ -203,9 +204,11 @@ jobs:
       - uses: microsoft/setup-msbuild@v1
       - name: Setup GraalVM
         id: setup-graalvm
-        uses: DeLaGuardo/setup-graalvm@master
+        uses: graalvm/setup-graalvm@v1
         with:
-          graalvm-version: ${{ matrix.graalvm-version }}
+          version: ${{ matrix.graalvm-version }}
+          java-version: ${{ matrix.graalvm-java-version }}
+          components: 'native-image'
       - name: Install native-image component
         run: |
           gu.cmd install native-image
