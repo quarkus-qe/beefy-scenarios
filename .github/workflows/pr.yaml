@@ -170,9 +170,6 @@ jobs:
         shell: bash
         run: |
           mvn -fae -V -B -s .github/mvn-settings.xml clean test
-      - name: Install cl.exe
-        uses: ilammy/msvc-dev-cmd@v1
-      - uses: microsoft/setup-msbuild@v1
       - name: Setup GraalVM
         id: setup-graalvm
         uses: graalvm/setup-graalvm@v1
@@ -180,9 +177,6 @@ jobs:
           version: ${{ matrix.graalvm-version }}
           java-version: ${{ matrix.graalvm-java-version }}
           components: 'native-image'
-      - name: Install native-image component
-        run: |
-          gu.cmd install native-image
       - name: Configure Pagefile
         # Increased the page-file size due to memory-consumption of native-image command
         # For details see https://github.com/actions/virtual-environments/issues/785
