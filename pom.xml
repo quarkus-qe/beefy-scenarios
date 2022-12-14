@@ -54,7 +54,7 @@
         <version.assertj>3.23.1</version.assertj>
         <version.quarkiverse.apicurio.registry.client>0.0.2</version.quarkiverse.apicurio.registry.client>
         <version.quarkiverse.consul>1.1.0</version.quarkiverse.consul>
-        <version.quarkus.camel>2.14.0</version.quarkus.camel>
+        <version.quarkus.camel>2.15.0</version.quarkus.camel>
         <formatter-maven-plugin.version>2.21.0</formatter-maven-plugin.version>
         <impsort-maven-plugin.version>1.8.0</impsort-maven-plugin.version>
         <xml-format-maven-plugin>3.2.2</xml-format-maven-plugin>
