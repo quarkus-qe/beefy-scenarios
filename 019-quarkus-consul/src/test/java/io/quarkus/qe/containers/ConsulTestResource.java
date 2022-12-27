@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.apache.commons.io.IOUtils;
+import org.testcontainers.consul.ConsulContainer;
 import org.testcontainers.containers.GenericContainer;
 
 import com.orbitz.consul.Consul;
