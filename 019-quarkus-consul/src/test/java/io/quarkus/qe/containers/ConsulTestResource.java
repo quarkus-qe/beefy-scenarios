@@ -23,7 +23,7 @@ public class ConsulTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        resource = new ConsulContainer();
+        resource = new ConsulContainer("docker.io/consul:1.9.3");
         resource.start();
 
         Consul client = Consul.builder().build();
