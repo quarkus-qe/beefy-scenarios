@@ -118,7 +118,7 @@ jobs:
 
           for module in $MODULES
           do
-              if [[ "${{ steps.files.outputs.all_changed_and_modified_files }}" =~ ("$module") ]] ; then
+              if [[ "${{ steps.changed-files.outputs.all_changed_and_modified_files }}" =~ ("$module") ]] ; then
                   CHANGED=$(echo $CHANGED" "$module)
               fi
           done
