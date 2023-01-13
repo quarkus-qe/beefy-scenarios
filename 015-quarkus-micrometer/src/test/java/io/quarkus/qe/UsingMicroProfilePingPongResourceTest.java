@@ -14,7 +14,7 @@ import io.quarkus.test.junit.QuarkusTest;
 public class UsingMicroProfilePingPongResourceTest {
 
     private static final String PING_PONG_ENDPOINT = "/using-microprofile-pingpong";
-    private static final String COUNTER_FORMAT = "simple_mp_total{scope=\"application\",} %s.0";
+    private static final String COUNTER_FORMAT = "simple_mp_total{scope=\"application\"} %s.0";
 
     @Test
     public void testShouldReturnCountOne() {
