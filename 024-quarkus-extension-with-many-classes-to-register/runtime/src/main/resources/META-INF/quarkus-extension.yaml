@@ -1,0 +1,8 @@
+---
+name: "Some Extension"
+description: "Extension with many classes to register for reflection"
+metadata:
+  categories:
+    - "core"
+  status: "stable"
+  unlisted: true

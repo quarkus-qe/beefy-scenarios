@@ -28,6 +28,7 @@
         <module>022-quarkus-properties-config-all</module>
         <!-- TODO: https://github.com/quarkusio/quarkus/issues/28007 -->
         <!--        <module>023-quarkus-kamelet</module>-->
+        <module>024-quarkus-extension-with-many-classes-to-register</module>
         <module>101-javaee-like-getting-started</module>
         <module>201-large-static-content</module>
         <module>300-quarkus-vertx-webClient</module>
