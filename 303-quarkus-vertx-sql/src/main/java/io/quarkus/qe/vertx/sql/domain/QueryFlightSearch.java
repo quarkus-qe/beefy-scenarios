@@ -2,11 +2,11 @@ package io.quarkus.qe.vertx.sql.domain;
 
 import java.util.Objects;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.vertx.core.json.Json;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @RegisterForReflection
 public class QueryFlightSearch {

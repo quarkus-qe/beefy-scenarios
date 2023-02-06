@@ -1,11 +1,11 @@
 package io.quarkus.qe.validation;
 
-import javax.validation.Valid;
-
 import io.quarkus.vertx.web.Body;
 import io.quarkus.vertx.web.Route;
 import io.quarkus.vertx.web.Route.HttpMethod;
 import io.quarkus.vertx.web.RouteBase;
+
+import jakarta.validation.Valid;
 
 @RouteBase(path = "/validate")
 public class ValidationOnRequestBodyRouteHandler {

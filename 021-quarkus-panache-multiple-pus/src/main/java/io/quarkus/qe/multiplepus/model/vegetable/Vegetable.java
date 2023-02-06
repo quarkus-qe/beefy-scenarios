@@ -1,10 +1,10 @@
 package io.quarkus.qe.multiplepus.model.vegetable;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "vegetable")

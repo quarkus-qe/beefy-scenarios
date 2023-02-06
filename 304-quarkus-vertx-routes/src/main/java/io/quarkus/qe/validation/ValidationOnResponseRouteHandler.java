@@ -1,12 +1,12 @@
 package io.quarkus.qe.validation;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Size;
-
 import io.quarkus.vertx.web.Route;
 import io.quarkus.vertx.web.Route.HttpMethod;
 import io.quarkus.vertx.web.RouteBase;
 import io.smallrye.mutiny.Uni;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Size;
 
 @RouteBase(path = "/validate")
 public class ValidationOnResponseRouteHandler {

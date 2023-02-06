@@ -7,11 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-
 import io.quarkus.qe.vertx.sql.domain.Airline;
 import io.quarkus.qe.vertx.sql.domain.Basket;
 import io.quarkus.qe.vertx.sql.domain.Flight;
@@ -19,6 +14,11 @@ import io.quarkus.qe.vertx.sql.domain.PricingRules;
 import io.quarkus.qe.vertx.sql.domain.QueryFlightSearch;
 import io.quarkus.runtime.StartupEvent;
 import io.smallrye.mutiny.Uni;
+
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 
 @Singleton
 public class FlightSearchService {

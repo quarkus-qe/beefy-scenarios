@@ -2,13 +2,6 @@ package io.quarkus.qe.vertx.sql;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +16,13 @@ import io.vertx.core.json.jackson.DatabindCodec;
 import io.vertx.mutiny.db2client.DB2Pool;
 import io.vertx.mutiny.mysqlclient.MySQLPool;
 import io.vertx.mutiny.pgclient.PgPool;
+
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 
 /** Application is used as a main class in order to setup some global configuration */
 @ApplicationScoped

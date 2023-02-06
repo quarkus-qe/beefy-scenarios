@@ -2,13 +2,13 @@ package io.quarkus.qe;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import javax.inject.Inject;
-
 import org.junit.jupiter.api.Disabled;
 
 import io.quarkus.grpc.GrpcService;
 import io.quarkus.qe.pong.GrpcPongService;
 import io.quarkus.test.junit.QuarkusTest;
+
+import jakarta.inject.Inject;
 
 @Disabled("Caused by https://github.com/quarkusio/quarkus/issues/13224")
 @QuarkusTest

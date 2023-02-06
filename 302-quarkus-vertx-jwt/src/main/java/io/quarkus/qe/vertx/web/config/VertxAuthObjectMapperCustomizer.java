@@ -1,11 +1,11 @@
 package io.quarkus.qe.vertx.web.config;
 
-import javax.inject.Singleton;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import io.quarkus.jackson.ObjectMapperCustomizer;
+
+import jakarta.inject.Singleton;
 
 @Singleton
 public class VertxAuthObjectMapperCustomizer implements ObjectMapperCustomizer {

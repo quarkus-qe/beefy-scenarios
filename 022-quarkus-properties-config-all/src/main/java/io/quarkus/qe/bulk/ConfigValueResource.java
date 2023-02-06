@@ -1,10 +1,10 @@
 package io.quarkus.qe.bulk;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-
 import org.eclipse.microprofile.config.ConfigValue;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
 
 @Path("/config-value")
 public class ConfigValueResource {

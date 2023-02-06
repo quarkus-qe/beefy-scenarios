@@ -1,8 +1,8 @@
 package io.quarkus.qe.vertx.web.services;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import io.quarkus.qe.vertx.web.model.Replicant;
+
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class ReplicantService extends AbstractRedisDao<Replicant> {

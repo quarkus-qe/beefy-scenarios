@@ -1,8 +1,5 @@
 package io.quarkus.qe.books.web;
 
-import javax.inject.Inject;
-import javax.ws.rs.core.MediaType;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,6 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
+
+import jakarta.inject.Inject;
+import jakarta.ws.rs.core.MediaType;
 
 @RestController
 public class SimpleController {

@@ -1,7 +1,5 @@
 package io.quarkus.qe.books.web;
 
-import javax.persistence.PersistenceException;
-
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +8,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import io.quarkus.qe.books.web.exception.BookIdMismatchException;
 import io.quarkus.qe.books.web.exception.BookNotFoundException;
+
+import jakarta.persistence.PersistenceException;
 
 @RestControllerAdvice
 public class RestExceptionHandler {

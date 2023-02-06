@@ -1,9 +1,9 @@
 package io.quarkus.qe.core;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-
 import org.eclipse.microprofile.faulttolerance.Fallback;
+
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
 
 @Path("/fallback")
 public class FallbackResource {

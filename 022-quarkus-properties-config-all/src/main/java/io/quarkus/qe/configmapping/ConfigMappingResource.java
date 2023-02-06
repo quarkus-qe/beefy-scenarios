@@ -1,11 +1,11 @@
 package io.quarkus.qe.configmapping;
 
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-
 import io.smallrye.config.ConfigMapping;
+
+import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 
 @Path("/config-mapping")
 public class ConfigMappingResource {

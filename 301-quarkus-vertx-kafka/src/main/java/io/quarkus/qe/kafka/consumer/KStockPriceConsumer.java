@@ -2,9 +2,6 @@ package io.quarkus.qe.kafka.consumer;
 
 import java.util.function.BiConsumer;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 import org.eclipse.microprofile.reactive.messaging.Acknowledgment;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
@@ -18,6 +15,9 @@ import io.quarkus.qe.kafka.status;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.vertx.core.AbstractVerticle;
 import io.smallrye.reactive.messaging.annotations.Broadcast;
+
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 @ApplicationScoped
 public class KStockPriceConsumer extends AbstractVerticle {

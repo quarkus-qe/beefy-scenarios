@@ -3,8 +3,8 @@ package io.quarkus.qe.providers;
 import java.util.Collections;
 import java.util.Properties;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
 
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.admin.AdminClient;

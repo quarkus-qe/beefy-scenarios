@@ -1,10 +1,5 @@
 package io.quarkus.qe.vertx.sql.handlers;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-import javax.validation.Valid;
-
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -28,6 +23,11 @@ import io.quarkus.vertx.web.Route.HttpMethod;
 import io.quarkus.vertx.web.RouteBase;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.RoutingContext;
+
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
+import jakarta.validation.Valid;
 
 @OpenAPIDefinition(info = @Info(title = "Flight Search API", version = "1.0.1", contact = @Contact(name = "Flight Search API Support", email = "techsupport@example.com"), license = @License(name = "Apache 2.0", url = "http://www.apache.org/licenses/LICENSE-2.0.html")))
 @Tag(name = "Flights", description = "Manage flights")

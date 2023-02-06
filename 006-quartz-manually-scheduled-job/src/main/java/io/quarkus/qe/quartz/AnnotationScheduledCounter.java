@@ -1,11 +1,11 @@
 package io.quarkus.qe.quartz;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 import io.quarkus.qe.quartz.services.CounterService;
 import io.quarkus.scheduler.Scheduled;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 @ApplicationScoped
 public class AnnotationScheduledCounter {

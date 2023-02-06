@@ -2,9 +2,9 @@ package io.quarkus.qe.hibernate.transaction;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.transaction.TransactionScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.transaction.TransactionScoped;
 
 @TransactionScoped
 public class TransactionScopeBean {
