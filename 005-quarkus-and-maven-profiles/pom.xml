@@ -19,6 +19,7 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-spring-di</artifactId>
+            <!-- TODO  switch to 3.something-redhat-0000X based version once available in maven.repository.redhat.com -->
             <version>3.0.0.Alpha3</version>
         </dependency>
     </dependencies>
