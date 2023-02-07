@@ -124,7 +124,7 @@ jobs:
           done
 
           MODULES_ARG="${CHANGED// /,}"
-          mvn -fae -V -B -s .github/mvn-settings.xml -fae -pl $MODULES_ARG clean verify -Dnative \
+          mvn -am -fae -V -B -s .github/mvn-settings.xml -fae -pl $MODULES_ARG clean verify -Dnative \
             -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g
       - name: Zip Artifacts
         if: failure()
