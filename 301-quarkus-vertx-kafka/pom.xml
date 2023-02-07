@@ -82,6 +82,22 @@
         </dependency>
     </dependencies>
     <profiles>
+        <!--
+            Skip native build and run due to stale deps
+            apicurio-registry-utils-serde and quarkiverse-apicurio-registry-client are not developed anymore
+        -->
+        <profile>
+            <id>native</id>
+            <activation>
+                <property>
+                    <name>native</name>
+                </property>
+            </activation>
+            <properties>
+                <quarkus.package.type>jar</quarkus.package.type>
+                <skipITs>true</skipITs>
+            </properties>
+        </profile>
         <!-- Skipped on Windows as does not support Linux Containers / Testcontainers -->
         <profile>
             <id>skip-tests-on-windows</id>
