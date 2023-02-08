@@ -2,11 +2,11 @@ package io.quarkus.qe.rest.data;
 
 import java.util.Map;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Sort;
+
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class UserRepository implements PanacheRepositoryBase<UserEntity, Long> {

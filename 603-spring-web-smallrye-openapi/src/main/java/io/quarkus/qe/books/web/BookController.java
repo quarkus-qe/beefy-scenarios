@@ -2,8 +2,6 @@ package io.quarkus.qe.books.web;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +18,8 @@ import io.quarkus.qe.books.persistence.model.Book;
 import io.quarkus.qe.books.persistence.repo.BookRepository;
 import io.quarkus.qe.books.web.exception.BookIdMismatchException;
 import io.quarkus.qe.books.web.exception.BookNotFoundException;
+
+import jakarta.transaction.Transactional;
 
 @RestController
 @RequestMapping("/api/books")

@@ -1,8 +1,0 @@
----
-jgroups:
-  encrypt: true
-keystore:
-  path: /user-config/server.jks
-  password: changeit
-  type: jks
-  alias: 1

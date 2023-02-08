@@ -2,9 +2,6 @@ package io.quarkus.qe.vertx.web.auth;
 
 import java.util.Arrays;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-
 import io.quarkus.qe.vertx.web.config.AuthNConfig;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.JWTOptions;
@@ -12,6 +9,9 @@ import io.vertx.ext.auth.PubSecKeyOptions;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.auth.jwt.JWTAuthOptions;
 import io.vertx.mutiny.core.Vertx;
+
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
 
 public class AuthN {
 

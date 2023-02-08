@@ -1,9 +1,9 @@
 package io.quarkus.qe.validation;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 import io.quarkus.qe.validation.annotations.Uppercase;
+
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 public class Request {
     @Size(min = 3, max = 3, message = "First code must have 3 characters")

@@ -1,9 +1,9 @@
 package io.quarkus.qe.bulk;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-
 import org.eclipse.microprofile.config.inject.ConfigProperties;
+
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
 
 @Path("/bulk-properties")
 public class BulkOfPropertiesResource {

@@ -8,9 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import io.quarkus.qe.vertx.webclient.config.ChuckEndpointValue;
@@ -24,6 +21,9 @@ import io.vertx.mutiny.ext.web.client.HttpResponse;
 import io.vertx.mutiny.ext.web.client.WebClient;
 import io.vertx.mutiny.ext.web.client.predicate.ResponsePredicate;
 import io.vertx.mutiny.ext.web.codec.BodyCodec;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.inject.Inject;
 
 @RouteBase(path = "/chuck")
 public class ChuckNorrisResource {

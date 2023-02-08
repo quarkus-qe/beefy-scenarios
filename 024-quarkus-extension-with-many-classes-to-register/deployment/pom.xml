@@ -30,6 +30,7 @@
                 <configuration>
                     <annotationProcessorPaths>
                         <path>
+                            <!-- needs to be io.quarkus, not available under platform groupId -->
                             <groupId>io.quarkus</groupId>
                             <artifactId>quarkus-extension-processor</artifactId>
                             <version>${quarkus.platform.version}</version>

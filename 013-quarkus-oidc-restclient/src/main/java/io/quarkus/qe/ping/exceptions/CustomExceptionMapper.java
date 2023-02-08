@@ -1,14 +1,14 @@
 package io.quarkus.qe.ping.exceptions;
 
-import static javax.ws.rs.core.Response.status;
-
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
+import static jakarta.ws.rs.core.Response.status;
 
 import org.jboss.logging.Logger;
+
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
 
 @Provider
 public class CustomExceptionMapper implements ExceptionMapper<RuntimeException> {

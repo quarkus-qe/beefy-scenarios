@@ -2,10 +2,6 @@ package io.quarkus.qe.vertx.webclient.service;
 
 import java.net.HttpURLConnection;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import io.smallrye.mutiny.Uni;
@@ -13,6 +9,10 @@ import io.vertx.mutiny.core.Vertx;
 import io.vertx.mutiny.ext.web.client.HttpResponse;
 import io.vertx.mutiny.ext.web.client.WebClient;
 import io.vertx.mutiny.ext.web.client.predicate.ResponsePredicate;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 @ApplicationScoped
 public class PongService {

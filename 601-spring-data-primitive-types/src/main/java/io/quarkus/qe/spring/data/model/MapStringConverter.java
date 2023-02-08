@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.AttributeConverter;
-
 import org.jboss.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.persistence.AttributeConverter;
 
 class MapStringConverter implements AttributeConverter<Map<String, String>, String> {
     private static final String EMPTY = "{}";

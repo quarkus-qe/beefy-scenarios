@@ -1,12 +1,12 @@
 package io.quarkus.qe.quartz;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import io.quarkus.scheduler.Scheduled;
+
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class AnnotationScheduledJob {

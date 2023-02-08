@@ -2,13 +2,13 @@ package io.quarkus.qe.vertx.webclient.handler;
 
 import java.net.HttpURLConnection;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import io.quarkus.vertx.web.Route;
 import io.smallrye.mutiny.TimeoutException;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
+
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class FailureHandler {

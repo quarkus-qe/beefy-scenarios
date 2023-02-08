@@ -1,11 +1,11 @@
 package io.quarkus.qe.core;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 
 import io.smallrye.health.api.HealthGroup;
+
+import jakarta.enterprise.context.ApplicationScoped;
 
 @HealthGroup("customGroup")
 @ApplicationScoped

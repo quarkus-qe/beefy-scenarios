@@ -1,9 +1,9 @@
 package io.quarkus.qe.config;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import io.quarkus.qe.config.interfaces.ProtagonistConfigurable;
+
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 @Singleton
 public class ProtagonistConfiguration {

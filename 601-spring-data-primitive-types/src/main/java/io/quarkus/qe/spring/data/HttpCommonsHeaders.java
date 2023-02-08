@@ -2,16 +2,16 @@ package io.quarkus.qe.spring.data;
 
 import static io.quarkus.qe.spring.data.configuration.AppConfiguration.getAndIncIndex;
 
-import javax.inject.Inject;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.ext.Provider;
-
 import io.quarkus.qe.spring.data.configuration.InstanceIdBean;
 import io.quarkus.qe.spring.data.configuration.RequestIdBean;
 import io.quarkus.qe.spring.data.configuration.SessionIdBean;
+
+import jakarta.inject.Inject;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.container.ContainerResponseContext;
+import jakarta.ws.rs.container.ContainerResponseFilter;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.ext.Provider;
 
 @Provider
 public class HttpCommonsHeaders implements ContainerResponseFilter {

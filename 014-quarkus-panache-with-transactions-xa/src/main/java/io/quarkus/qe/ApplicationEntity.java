@@ -1,9 +1,9 @@
 package io.quarkus.qe;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 
 @Entity(name = "application")
 public class ApplicationEntity extends PanacheEntity {

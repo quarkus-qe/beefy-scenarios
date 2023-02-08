@@ -4,9 +4,6 @@ import java.util.Random;
 import java.util.function.BiConsumer;
 import java.util.stream.IntStream;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.OnOverflow;
@@ -16,6 +13,9 @@ import io.quarkus.qe.kafka.StockPrice;
 import io.quarkus.qe.kafka.config.VertxKProducerConfig;
 import io.quarkus.qe.kafka.status;
 import io.smallrye.mutiny.Uni;
+
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 @ApplicationScoped
 public class StockPriceProducer {

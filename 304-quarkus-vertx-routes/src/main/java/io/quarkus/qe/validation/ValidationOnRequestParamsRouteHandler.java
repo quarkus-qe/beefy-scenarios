@@ -1,13 +1,13 @@
 package io.quarkus.qe.validation;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 import io.quarkus.qe.validation.annotations.Uppercase;
 import io.quarkus.vertx.web.Param;
 import io.quarkus.vertx.web.Route;
 import io.quarkus.vertx.web.Route.HttpMethod;
 import io.quarkus.vertx.web.RouteBase;
+
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @RouteBase(path = "/validate")
 public class ValidationOnRequestParamsRouteHandler {

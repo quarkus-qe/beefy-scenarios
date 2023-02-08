@@ -1,8 +1,8 @@
 package io.quarkus.qe.validation;
 
-import javax.validation.constraints.NotNull;
-
 import io.quarkus.qe.validation.annotations.Uppercase;
+
+import jakarta.validation.constraints.NotNull;
 
 public class Response {
     @NotNull(message = "id can't be null")

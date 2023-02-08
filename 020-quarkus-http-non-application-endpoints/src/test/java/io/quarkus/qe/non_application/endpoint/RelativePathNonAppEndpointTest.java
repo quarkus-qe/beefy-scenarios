@@ -1,13 +1,13 @@
 package io.quarkus.qe.non_application.endpoint;
 
-import javax.ws.rs.core.Response;
-
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.quarkus.qe.http.non_application.endpoint.HelloResource;
 import io.quarkus.test.QuarkusProdModeTest;
+
+import jakarta.ws.rs.core.Response;
 
 public class RelativePathNonAppEndpointTest extends CommonNonAppEndpoint {
 

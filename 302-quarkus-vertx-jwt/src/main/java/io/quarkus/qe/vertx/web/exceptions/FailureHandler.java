@@ -1,12 +1,12 @@
 package io.quarkus.qe.vertx.web.exceptions;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.quarkus.security.UnauthorizedException;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.HttpException;
+
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class FailureHandler {

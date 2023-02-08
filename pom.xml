@@ -11,12 +11,8 @@
         <module>004-quarkus-HHH-and-HV</module>
         <module>005-quarkus-and-maven-profiles</module>
         <module>006-quartz-manually-scheduled-job</module>
-        <!-- strimzi dev service ++ strimzi testcontainers bump need big rewrite, will be done in main Quarkus QE TS -->
-        <!--        <module>009-quarkus-infinispan-grpc-kafka</module>-->
         <module>010-quarkus-opentracing-reactive-grpc</module>
         <module>011-quarkus-panache-rest-flyway</module>
-        <!-- strimzi dev service ++ strimzi testcontainers bump need big rewrite, will be done in main Quarkus QE TS -->
-        <!--        <module>012-quarkus-kafka-streams</module>-->
         <module>013-quarkus-oidc-restclient</module>
         <module>014-quarkus-panache-with-transactions-xa</module>
         <module>015-quarkus-micrometer</module>
@@ -26,8 +22,6 @@
         <module>020-quarkus-http-non-application-endpoints</module>
         <module>021-quarkus-panache-multiple-pus</module>
         <module>022-quarkus-properties-config-all</module>
-        <!-- TODO: https://github.com/quarkusio/quarkus/issues/28007 -->
-        <!--        <module>023-quarkus-kamelet</module>-->
         <module>024-quarkus-extension-with-many-classes-to-register</module>
         <module>101-javaee-like-getting-started</module>
         <module>201-large-static-content</module>

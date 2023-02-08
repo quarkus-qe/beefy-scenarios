@@ -2,14 +2,14 @@ package io.quarkus.qe.vertx.web.handlers;
 
 import static io.netty.handler.codec.http.HttpResponseStatus.NO_CONTENT;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 import io.quarkus.qe.vertx.web.model.Replicant;
 import io.quarkus.qe.vertx.web.services.ReplicantService;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
+
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 @ApplicationScoped
 public class ReplicantHandler {

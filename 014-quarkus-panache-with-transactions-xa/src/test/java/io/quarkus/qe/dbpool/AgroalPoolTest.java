@@ -13,10 +13,6 @@ import java.sql.Statement;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
 import org.apache.http.HttpStatus;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Assertions;
@@ -31,6 +27,10 @@ import io.quarkus.test.junit.TestProfile;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.helpers.test.AssertSubscriber;
 import io.smallrye.mutiny.tuples.Tuple2;
+
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 /**
  * The aim of these tests is verified agroal and entityManager pool management
