@@ -7,9 +7,9 @@ import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class ChuckNorrisResourceIT extends ChuckNorrisResourceTest {
 
     private static final String DEBUG_SYMBOLS_FILE_NAME = "300-quarkus-vertx-webclient-1.0.0-SNAPSHOT-runner.debug";

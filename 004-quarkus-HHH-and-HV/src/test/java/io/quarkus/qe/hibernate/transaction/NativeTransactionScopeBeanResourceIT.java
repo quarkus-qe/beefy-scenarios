@@ -1,8 +1,8 @@
 package io.quarkus.qe.hibernate.transaction;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class NativeTransactionScopeBeanResourceIT extends TransactionScopeBeanResourceTest {
 
 }

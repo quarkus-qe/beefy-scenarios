@@ -1,7 +1,7 @@
 package org.acme.spring.web;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class NativeOpenApiIT extends OpenApiTest {
 }

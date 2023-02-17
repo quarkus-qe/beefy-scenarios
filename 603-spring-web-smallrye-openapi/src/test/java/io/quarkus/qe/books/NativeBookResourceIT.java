@@ -1,7 +1,7 @@
 package io.quarkus.qe.books;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class NativeBookResourceIT extends BookResourceTest {
 }

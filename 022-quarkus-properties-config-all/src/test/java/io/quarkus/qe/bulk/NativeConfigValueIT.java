@@ -1,8 +1,8 @@
 package io.quarkus.qe.bulk;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class NativeConfigValueIT extends ConfigValueTest {
 
     @Override

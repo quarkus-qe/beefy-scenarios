@@ -1,7 +1,7 @@
 package io.quarkus.qe.core;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class NativeMultipartResourceIT extends MultipartResourceTest {
 }
