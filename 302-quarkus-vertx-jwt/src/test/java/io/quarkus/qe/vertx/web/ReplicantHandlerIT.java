@@ -1,7 +1,7 @@
 package io.quarkus.qe.vertx.web;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class ReplicantHandlerIT extends ReplicantHandlerTest {
 }
