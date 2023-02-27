@@ -24,9 +24,9 @@ import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotEmpty;
 
 @Entity(name = "application")
-@FilterDef(name = "useLikeByName", parameters = { @ParamDef(name = "name", type = "string") })
+@FilterDef(name = "useLikeByName", parameters = { @ParamDef(name = "name", type = String.class) })
 @Filter(name = "useLikeByName", condition = "name like '%' || :name || '%'")
-@FilterDef(name = "useServiceByName", parameters = { @ParamDef(name = "name", type = "string") })
+@FilterDef(name = "useServiceByName", parameters = { @ParamDef(name = "name", type = String.class) })
 public class ApplicationEntity extends PanacheEntity {
     @NotEmpty(message = "name can't be null")
     @Column(unique = true, nullable = false)
