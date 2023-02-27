@@ -47,7 +47,9 @@ public class FruitResource {
             throw new ClientErrorException("unexpected ID in request", 422);
         }
 
+        System.out.println(" => " + fruit.id);
         fruit.persist();
+        System.out.println(" => " + fruit.id);
         return Response.ok(fruit).status(201).build();
     }
 

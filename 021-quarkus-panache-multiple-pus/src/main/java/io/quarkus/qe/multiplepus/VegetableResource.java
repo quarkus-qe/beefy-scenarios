@@ -47,7 +47,9 @@ public class VegetableResource {
             throw new ClientErrorException("unexpected ID in request", 422);
         }
 
+        System.out.println(" v => " + vegetable.id);
         vegetable.persist();
+        System.out.println(" v => " + vegetable.id);
         return Response.ok(vegetable).status(201).build();
     }
 
