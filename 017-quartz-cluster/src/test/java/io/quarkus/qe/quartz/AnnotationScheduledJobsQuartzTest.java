@@ -2,6 +2,7 @@ package io.quarkus.qe.quartz;
 
 import static io.restassured.RestAssured.get;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
@@ -42,7 +43,7 @@ public class AnnotationScheduledJobsQuartzTest {
     }
 
     @Test
-    public void testClusteringEnvironmentWithUniqueJobs() throws Exception {
+    public void testClusteringEnvironmentWithUniqueJobs() {
         whenBothNodesAreUpAndRunning();
         thenJobIsExecutedWithOwner(NODE_ONE_NAME, NODE_TWO_NAME);
 
@@ -80,6 +81,7 @@ public class AnnotationScheduledJobsQuartzTest {
             final ExecutionEntity[] executions = get("/executions")
                     .then().statusCode(200)
                     .extract().as(ExecutionEntity[].class);
+            assertNotEquals(0, executions.length);
             final String lastOwner = executions[executions.length - 1].owner;
             final List<String> possibleOwnersList = Arrays.asList(possibleOwners);
             assertTrue(possibleOwnersList.contains(lastOwner),

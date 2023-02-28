@@ -1,4 +1,4 @@
-CREATE SEQUENCE hibernate_sequence START with 1 increment by 1;
+CREATE SEQUENCE ExecutionEntity_SEQ START with 1 increment by 50;
 
 CREATE TABLE ExecutionEntity
 (
