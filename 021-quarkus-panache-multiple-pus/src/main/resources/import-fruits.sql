@@ -5,4 +5,4 @@ INSERT INTO fruit (id, name) VALUES (4, 'Plum');
 INSERT INTO fruit (id, name) VALUES (5, 'Cherry');
 INSERT INTO fruit (id, name) VALUES (6, 'Berry');
 INSERT INTO fruit (id, name) VALUES (7, 'Cranberry');
-UPDATE hibernate_sequence SET next_val = 8;
+ALTER SEQUENCE fruit_SEQ RESTART WITH 57; -- 7 + pool size TODO: https://github.com/quarkusio/quarkus/issues/31481

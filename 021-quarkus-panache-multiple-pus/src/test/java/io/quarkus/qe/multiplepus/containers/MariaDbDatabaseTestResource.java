@@ -1,6 +1,6 @@
 package io.quarkus.qe.multiplepus.containers;
 
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -19,8 +19,12 @@ public class MariaDbDatabaseTestResource implements QuarkusTestResourceLifecycle
     @Override
     public Map<String, String> start() {
         DATABASE.start();
+        Map<String, String> config = new HashMap<>(4);
 
-        return Collections.singletonMap("quarkus.datasource.\"fruits\".jdbc.url", DATABASE.getJdbcUrl());
+        config.put("quarkus.datasource.\"fruits\".username", DATABASE.getUsername());
+        config.put("quarkus.datasource.\"fruits\".password", DATABASE.getPassword());
+        config.put("quarkus.datasource.\"fruits\".jdbc.url", DATABASE.getJdbcUrl());
+        return config;
     }
 
     @Override
