@@ -88,7 +88,7 @@ public class ChuckNorrisResourceTest {
     @Test
     public void endpointShouldTrace() {
         final int pageLimit = 50;
-        final String expectedOperationName = "/trace/ping";
+        final String expectedOperationName = "GET /trace/ping";
         await().atMost(1, TimeUnit.MINUTES).pollInterval(Duration.ofSeconds(1)).untilAsserted(() -> {
             whenIMakePingRequest();
             thenRetrieveTraces(pageLimit, "1h", getServiceName(), expectedOperationName);
@@ -104,7 +104,7 @@ public class ChuckNorrisResourceTest {
     @Test
     public void httpClientShouldHaveHisOwnSpan() {
         final int pageLimit = 50;
-        final String expectedOperationName = "/trace/ping";
+        final String expectedOperationName = "GET /trace/ping";
         await().atMost(1, TimeUnit.MINUTES).pollInterval(Duration.ofSeconds(1)).untilAsserted(() -> {
             whenIMakePingRequest();
             thenRetrieveTraces(pageLimit, "1h", getServiceName(), expectedOperationName);
