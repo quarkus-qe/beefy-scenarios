@@ -107,7 +107,7 @@ jobs:
         shell: bash
         run: tar -xzf maven-repo.tgz -C ~
       - id: files
-        uses: tj-actions/changed-files@v35.7.0
+        uses: tj-actions/changed-files@v35.7.1
         continue-on-error: true
       - name: Test in Native mode
         run: |
