@@ -24,6 +24,6 @@ public class LegacyNonApplicationEndpointTest {
 
     @Test
     protected void nonAppEndpointScenario() {
-        when().get("/health").then().statusCode(200);
+        when().get("http://localhost:8081/health").then().statusCode(200);
     }
 }
