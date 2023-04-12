@@ -2,7 +2,7 @@ name: "Daily Build"
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 23 * * *'
+    - cron: '0 20 * * *'
 jobs:
   quarkus-main-build:
     name: Quarkus Main build
