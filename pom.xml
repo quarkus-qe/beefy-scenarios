@@ -50,7 +50,7 @@
         <version.quarkiverse.apicurio.registry.client>0.0.2</version.quarkiverse.apicurio.registry.client>
         <version.quarkiverse.consul>2.0.1</version.quarkiverse.consul>
         <version.quarkus.camel>2.16.0</version.quarkus.camel>
-        <formatter-maven-plugin.version>2.22.0</formatter-maven-plugin.version>
+        <formatter-maven-plugin.version>2.23.0</formatter-maven-plugin.version>
         <impsort-maven-plugin.version>1.9.0</impsort-maven-plugin.version>
         <xml-format-maven-plugin>3.2.2</xml-format-maven-plugin>
         <maven-checkstyle-plugin.version>3.3.0</maven-checkstyle-plugin.version>
