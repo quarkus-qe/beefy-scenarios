@@ -37,7 +37,10 @@ public class OpenShiftYamlHealthProbesIT {
 
                 // finalMap.entrySet().forEach(System.out::println);
 
-                assertEquals("demo", finalMap.get("name"), "Deployment name is not expected 'demo'");
+                assertEquals("non-application endpoints", finalMap.get("name"),
+                        "Deployment name is different than expected 'non-application endpoints'");
+                assertEquals("qe/demo:1.0.0", finalMap.get("image"),
+                        "Deployment image is different than expected 'qe/demo:1.0.0'");
                 assertTrue(finalMap.containsKey("livenessProbe"), "livenessProbe is not defined");
                 assertTrue(finalMap.containsKey("readinessProbe"), "readinessProbe is not defined");
             }
