@@ -60,7 +60,7 @@ public class BookResourceTest {
 
     //This is for regression test for https://github.com/quarkusio/quarkus/issues/13234
     @Test
-    void testJpaFieldsMapping() {
+    void testJakartaPersistenceFieldsMapping() {
         Book book = retrieveBooksByZipcode().stream().findFirst().get();
 
         // Post a new comment on an existing book

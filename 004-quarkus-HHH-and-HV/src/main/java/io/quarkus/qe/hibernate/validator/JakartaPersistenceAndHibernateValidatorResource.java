@@ -14,7 +14,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 @Path("/hello")
-public class JpaAndHibernateValidatorResource {
+public class JakartaPersistenceAndHibernateValidatorResource {
     // reproducer for https://github.com/quarkusio/quarkus/issues/8323
 
     @Inject
