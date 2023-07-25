@@ -25,7 +25,7 @@ import io.vertx.core.json.JsonObject;
 @QuarkusTest
 public class OpenApiTest {
 
-    private static String directory = "target/generated/jax-rs/";
+    private static String directory = "target/generated/jakarta-rest/";
     private static final String OPEN_API_DOT = "openapi.";
 
     private static final String YAML = Format.YAML.toString().toLowerCase();

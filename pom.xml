@@ -6,7 +6,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>001-quarkus-getting-started-with-jaxrs</module>
+        <module>001-quarkus-getting-started-with-jakarta-rest</module>
         <module>003-quarkus-many-extensions</module>
         <module>004-quarkus-HHH-and-HV</module>
         <module>005-quarkus-and-maven-profiles</module>

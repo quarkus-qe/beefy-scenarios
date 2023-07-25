@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-public class JpaAndHibernateValidatorResourceTest {
+public class JakartaPersistenceAndHibernateValidatorResourceTest {
 
     @Test
-    public void testJpaAndHibernateValidatorEndpoint() {
+    public void testJakartaPersistenceAndHibernateValidatorEndpoint() {
         given()
                 .when().get("/hello")
                 .then()
