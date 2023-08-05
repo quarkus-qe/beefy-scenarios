@@ -23,48 +23,46 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-opentelemetry-exporter-otlp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-vertx</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
         </dependency>
+        <!-- Kafka -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-kafka-client</artifactId>
+        </dependency>
+        <!-- Avro -->
         <dependency>
             <groupId>io.confluent</groupId>
             <artifactId>kafka-avro-serializer</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-avro</artifactId>
+            <artifactId>quarkus-confluent-registry-avro</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.apicurio</groupId>
+            <artifactId>apicurio-common-rest-client-vertx</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-confluent-registry-avro</artifactId>
+            <artifactId>quarkus-apicurio-registry-avro</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.apicurio</groupId>
+            <artifactId>apicurio-registry-client</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jsonb</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.apicurio</groupId>
-            <artifactId>apicurio-registry-utils-serde</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.spec.javax.interceptor</groupId>
-                    <artifactId>jboss-interceptors-api_1.2_spec</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-rest-client-jsonb</artifactId>
         </dependency>
-        <!-- quarkiverse-apicurio-registry-client: native mode dependency -->
-        <dependency>
-            <groupId>io.quarkiverse.apicurio</groupId>
-            <artifactId>quarkiverse-apicurio-registry-client</artifactId>
-        </dependency>
-        <!-- quarkiverse-apicurio-registry-client: native mode dependency end-->
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>kafka</artifactId>
@@ -83,8 +81,7 @@
     </dependencies>
     <profiles>
         <!--
-            Skip native build and run due to stale deps
-            apicurio-registry-utils-serde and quarkiverse-apicurio-registry-client are not developed anymore
+            Skip native build as Confluent Kafka serializers don't work in native OOTB
         -->
         <profile>
             <id>native</id>

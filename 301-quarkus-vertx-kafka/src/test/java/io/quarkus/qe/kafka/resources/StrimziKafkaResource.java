@@ -23,9 +23,8 @@ public class StrimziKafkaResource implements QuarkusTestResourceLifecycleManager
     public Map<String, String> start() {
         Network network = Network.newNetwork();
 
-        kafkaContainer = new StrimziKafkaContainer("quay.io/strimzi/kafka:latest-kafka-2.8.0").withNetwork(network);
-        schemaRegistry = new SchemaRegistryContainer("apicurio/apicurio-registry-mem", "1.2.2.Final", 8080).withNetwork(network)
-                .withKafka(kafkaContainer, 9092);
+        kafkaContainer = new StrimziKafkaContainer("quay.io/strimzi/kafka:0.34.0-kafka-3.4.0").withNetwork(network);
+        schemaRegistry = new SchemaRegistryContainer("quay.io/apicurio/apicurio-registry-mem", "2.4.2.Final", 8080);
 
         Startables.deepStart(Stream.of(kafkaContainer, schemaRegistry)).join();
 
@@ -38,7 +37,7 @@ public class StrimziKafkaResource implements QuarkusTestResourceLifecycleManager
         Map<String, String> config = new HashMap<>();
         config.put("kafka.bootstrap.servers", kafkaUrl);
         config.put("quarkus.kafka-streams.bootstrap-servers", kafkaUrl);
-        config.put("mp.messaging.connector.smallrye-kafka.apicurio.registry.url", registryUrl + "/api");
+        config.put("mp.messaging.connector.smallrye-kafka.apicurio.registry.url", registryUrl + "/apis/registry/v2");
 
         return config;
     }
