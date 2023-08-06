@@ -50,6 +50,6 @@ public class SchemaRegistryContainer extends GenericContainer<SchemaRegistryCont
      * @return Schema Registry URL
      */
     public String getSchemaRegistryUrl() {
-        return "http://" + getContainerIpAddress() + ":" + getMappedPort(port);
+        return "http://" + getHost() + ":" + getMappedPort(port);
     }
 }

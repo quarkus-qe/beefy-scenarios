@@ -41,7 +41,7 @@ abstract class KafkaCommonTest {
     @Test
     public void kafkaProducerShouldTrace() {
         final int pageLimit = 50;
-        final String expectedOperationName = "stock-price send";
+        final String expectedOperationName = "stock-price publish";
         await().atMost(1, TimeUnit.MINUTES).pollInterval(Duration.ofSeconds(1)).untilAsserted(() -> {
             thenRetrieveTraces(pageLimit, "1h", expectedOperationName);
             thenStatusCodeMustBe(HttpStatus.SC_OK);
@@ -70,7 +70,8 @@ abstract class KafkaCommonTest {
     }
 
     private void thenRetrieveTraces(int pageLimit, String lookBack, String operationName) {
-        resp = given().when()
+        resp = given()
+                .when()
                 .queryParam("limit", pageLimit)
                 .queryParam("lookback", lookBack)
                 .queryParam("service", getServiceName())
