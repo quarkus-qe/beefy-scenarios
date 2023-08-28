@@ -20,6 +20,8 @@ jobs:
             ${{ runner.os }}-maven-
       - name: Reclaim Disk Space
         run: .github/ci-prerequisites.sh
+      - name: Install required tools
+        run: sudo apt update && sudo apt install pigz
       - name: Install JDK {{ matrix.java }}
         uses: actions/setup-java@v3
         with:
