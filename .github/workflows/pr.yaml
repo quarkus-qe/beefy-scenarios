@@ -44,7 +44,7 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
-        image: [ "ubi-quarkus-mandrel-builder-image:22.3-java17"]
+        image: [ "ubi-quarkus-mandrel-builder-image:23.0-java17"]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
@@ -146,7 +146,7 @@ jobs:
     strategy:
       matrix:
         java: [ 11 ]
-        graalvm-version: ["22.3.0"]
+        graalvm-version: ["mandrel-latest"]
         graalvm-java-version: [ "17" ]
     steps:
       - uses: actions/checkout@v3
