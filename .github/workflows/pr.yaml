@@ -9,7 +9,7 @@ jobs:
       matrix:
         java: [ 11 ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/cache@v3
         with:
           path: ~/.m2/repository
@@ -46,7 +46,7 @@ jobs:
         java: [ 11 ]
         image: [ "ubi-quarkus-mandrel-builder-image:23.0-java17"]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/cache@v3
         with:
           path: ~/.m2/repository
@@ -87,7 +87,7 @@ jobs:
       matrix:
         java: [ 11 ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/cache@v3
         with:
           path: ~/.m2/repository
@@ -149,7 +149,7 @@ jobs:
         graalvm-version: ["mandrel-latest"]
         graalvm-java-version: [ "17" ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/cache@v3
         with:
           path: ~/.m2/repository
