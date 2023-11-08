@@ -1,21 +1,20 @@
 /delete-text-plain,delete,text/plain
-# TODO uncomment once https://github.com/quarkusio/quarkus/issues/36297 is fixed
-#/delete/no-type,delete,text/plain
+/delete/no-type,delete,text/plain
 /delete/text-plain,delete,text/plain
 /delete/json,delete,application/json
 /delete/octet-stream,delete,application/octet-stream
 /patch-text-plain,patch,text/plain
-#/patch/no-type,patch,text/plain
+/patch/no-type,patch,text/plain
 /patch/text-plain,patch,text/plain
 /patch/json,patch,application/json
 /patch/octet-stream,patch,application/octet-stream
 /post-text-plain,post,text/plain
-#/post/no-type,post,text/plain
+/post/no-type,post,text/plain
 /post/text-plain,post,text/plain
 /post/json,post,application/json
 /post/octet-stream,post,application/octet-stream
 /put-text-plain,put,text/plain
-#/put/no-type,put,text/plain
+/put/no-type,put,text/plain
 /put/text-plain,put,text/plain
 /put/json,put,application/json
 /put/octet-stream,put,application/octet-stream
