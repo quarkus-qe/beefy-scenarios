@@ -11,7 +11,6 @@
         <module>004-quarkus-HHH-and-HV</module>
         <module>005-quarkus-and-maven-profiles</module>
         <module>006-quartz-manually-scheduled-job</module>
-        <module>010-quarkus-opentracing-reactive-grpc</module>
         <module>011-quarkus-panache-rest-flyway</module>
         <module>013-quarkus-oidc-restclient</module>
         <module>014-quarkus-panache-with-transactions-xa</module>
