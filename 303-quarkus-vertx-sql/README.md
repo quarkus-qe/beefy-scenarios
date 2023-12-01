@@ -6,7 +6,7 @@
 
 To compile and run this demo you will need:
 
-- JDK 11+
+- JDK 17+
 - Docker
 - PostgreSQL
 - MySQL

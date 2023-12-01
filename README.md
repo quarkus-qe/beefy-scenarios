@@ -2,7 +2,7 @@
 Beefy scenarios for Quarkus
 
 ## Prerequisites
- - JDK 11
+ - JDK 17+
  - Docker
 
 ## Test-suite Execution
