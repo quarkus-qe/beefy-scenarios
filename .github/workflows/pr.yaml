@@ -72,12 +72,14 @@ jobs:
         run: |
           mvn -fae -V -B -s .github/mvn-settings.xml -Dvalidate-format clean test
       - name: Zip Artifacts
+        if: failure()
         run: |
           zip -R artifacts-linux-jvm${{ matrix.java }}.zip '*-reports/*'
       - name: Archive artifacts
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: ci-artifacts
+          name: artifacts-linux-jvm${{ matrix.java }}
           path: artifacts-linux-jvm${{ matrix.java }}.zip
   linux-build-native:
     name: PR - Linux - Native build
@@ -137,7 +139,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: ci-artifacts
+          name: artifacts-linux-native${{ matrix.java }}
           path: artifacts-linux-native${{ matrix.java }}.zip
   windows-build:
     name: Windows - PR build
@@ -201,5 +203,5 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: ci-artifacts
+          name: artifacts-windows${{ matrix.java }}
           path: artifacts-windows${{ matrix.java }}.tar

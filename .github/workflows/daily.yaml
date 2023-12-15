@@ -80,7 +80,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: ci-artifacts
+          name: artifacts-linux-jvm${{ matrix.java }}
           path: artifacts-linux-jvm${{ matrix.java }}.zip
   linux-build-native:
     name: Daily - Linux - Native build
@@ -126,7 +126,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: ci-artifacts
+          name: artifacts-linux-native${{ matrix.java }}
           path: artifacts-linux-native${{ matrix.java }}.zip
   windows-build-jvm:
     name: Daily - Windows - JVM build
@@ -170,7 +170,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: ci-artifacts
+          name: artifacts-windows-jvm${{ matrix.java }}
           path: artifacts-windows-jvm${{ matrix.java }}.tar
   windows-build-native:
     name: Daily - Windows - Native build
@@ -229,5 +229,5 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: ci-artifacts
+          name: artifacts-windows-native${{ matrix.java }}
           path: artifacts-windows-native${{ matrix.java }}.tar
