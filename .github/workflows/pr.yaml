@@ -32,7 +32,7 @@ jobs:
         shell: bash
         run: tar -I 'pigz -9' -cf maven-repo.tgz -C ~ .m2/repository
       - name: Persist Maven Repo
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: maven-repo
           path: maven-repo.tgz
@@ -61,7 +61,7 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: .
@@ -72,12 +72,14 @@ jobs:
         run: |
           mvn -fae -V -B -s .github/mvn-settings.xml -Dvalidate-format clean test
       - name: Zip Artifacts
+        if: failure()
         run: |
           zip -R artifacts-linux-jvm${{ matrix.java }}.zip '*-reports/*'
       - name: Archive artifacts
-        uses: actions/upload-artifact@v3
+        if: failure()
+        uses: actions/upload-artifact@v4
         with:
-          name: ci-artifacts
+          name: artifacts-linux-jvm${{ matrix.java }}
           path: artifacts-linux-jvm${{ matrix.java }}.zip
   linux-build-native:
     name: PR - Linux - Native build
@@ -102,7 +104,7 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: .
@@ -135,9 +137,9 @@ jobs:
           zip -R artifacts-linux-native${{ matrix.java }}.zip '*-reports/*'
       - name: Archive artifacts
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: ci-artifacts
+          name: artifacts-linux-native${{ matrix.java }}
           path: artifacts-linux-native${{ matrix.java }}.zip
   windows-build:
     name: Windows - PR build
@@ -162,7 +164,7 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: .
@@ -199,7 +201,7 @@ jobs:
           /usr/bin/find . -name '*-reports/*' -type d | tar -czf artifacts-windows${{ matrix.java }}.tar -T -
       - name: Archive artifacts
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: ci-artifacts
+          name: artifacts-windows${{ matrix.java }}
           path: artifacts-windows${{ matrix.java }}.tar
