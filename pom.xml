@@ -44,7 +44,7 @@
         <testcontainers.version>1.19.5</testcontainers.version>
         <wiremock.version>2.35.1</wiremock.version>
         <confluent.kafka-avro-serializer.version>7.4.0</confluent.kafka-avro-serializer.version>
-        <version.assertj>3.25.2</version.assertj>
+        <version.assertj>3.25.3</version.assertj>
         <version.quarkiverse.consul>2.3.0</version.quarkiverse.consul>
         <version.quarkus.camel>3.7.0</version.quarkus.camel>
         <formatter-maven-plugin.version>2.23.0</formatter-maven-plugin.version>
