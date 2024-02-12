@@ -213,7 +213,7 @@ jobs:
       - name: Configure Pagefile
         # Increased the page-file size due to memory-consumption of native-image command
         # For details see https://github.com/actions/virtual-environments/issues/785
-        uses: al-cheb/configure-pagefile-action@v1.3
+        uses: al-cheb/configure-pagefile-action@v1.4
       - name: Test in Native mode
         shell: bash
         run: |
