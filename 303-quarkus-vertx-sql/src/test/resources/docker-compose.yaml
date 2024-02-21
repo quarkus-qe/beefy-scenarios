@@ -12,7 +12,7 @@ services:
       POSTGRES_DB: amadeus
 
   mysql:
-    image: docker.io/mysql:5.7.32
+    image: docker.io/library/mysql:8.0
     hostname: mysql
     container_name: mysql
     ports:
