@@ -82,7 +82,7 @@
                 </property>
             </activation>
             <properties>
-                <quarkus.package.type>jar</quarkus.package.type>
+                <quarkus.native.enabled>false</quarkus.native.enabled>
                 <skipITs>true</skipITs>
             </properties>
         </profile>
