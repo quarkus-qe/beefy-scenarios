@@ -17,7 +17,7 @@ public class Db2Resource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        db2Container = new GenericContainer<>(DockerImageName.parse("docker.io/ibmcom/db2:11.5.8.0"))
+        db2Container = new GenericContainer<>(DockerImageName.parse("icr.io/db2_community/db2:11.5.8.0"))
                 .withPrivilegedMode(true)
                 .withEnv("LICENSE", "accept")
                 .withEnv("DB2INST1_PASSWORD", "test")
