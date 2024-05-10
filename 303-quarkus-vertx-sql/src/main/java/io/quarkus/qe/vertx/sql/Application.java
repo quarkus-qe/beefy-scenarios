@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.arc.profile.IfBuildProfile;
 import io.quarkus.qe.vertx.sql.services.DbPoolService;
 import io.quarkus.runtime.StartupEvent;
-import io.quarkus.runtime.configuration.ProfileManager;
+import io.quarkus.runtime.configuration.ConfigUtils;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
 import io.vertx.core.json.jackson.DatabindCodec;
@@ -56,7 +56,7 @@ public class Application {
     DB2Pool db2;
 
     void onStart(@Observes StartupEvent ev) {
-        LOGGER.info("The application is starting with profile " + ProfileManager.getActiveProfile());
+        LOGGER.info("The application is starting with profiles " + ConfigUtils.getProfiles());
 
         ObjectMapper mapper = DatabindCodec.mapper();
         mapper.setSerializationInclusion(Include.NON_NULL);
