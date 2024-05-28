@@ -88,21 +88,6 @@
                 <version>${confluent.kafka-avro-serializer.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-kamelet</artifactId>
-                <version>${version.quarkus.camel}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-timer</artifactId>
-                <version>${version.quarkus.camel}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-direct</artifactId>
-                <version>${version.quarkus.camel}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>${version.assertj}</version>
