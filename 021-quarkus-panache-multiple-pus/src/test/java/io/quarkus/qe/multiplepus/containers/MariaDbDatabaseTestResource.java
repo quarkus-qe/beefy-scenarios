@@ -11,7 +11,7 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class MariaDbDatabaseTestResource implements QuarkusTestResourceLifecycleManager {
 
-    private static final MariaDBContainer<?> DATABASE = new MariaDBContainer<>()
+    private static final MariaDBContainer<?> DATABASE = new MariaDBContainer<>("mariadb:10.11")
             .withDatabaseName("mariadb")
             .withUsername("mariadb")
             .withPassword("mariadb");
