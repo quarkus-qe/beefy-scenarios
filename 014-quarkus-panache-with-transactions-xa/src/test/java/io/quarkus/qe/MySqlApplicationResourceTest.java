@@ -13,7 +13,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.qe.containers.MySqlDatabaseTestResource;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
@@ -21,7 +21,7 @@ import io.restassured.specification.RequestSpecification;
 import jakarta.ws.rs.core.MediaType;
 
 @QuarkusTest
-@QuarkusTestResource(MySqlDatabaseTestResource.class)
+@WithTestResource(MySqlDatabaseTestResource.class)
 public class MySqlApplicationResourceTest {
 
     private static final String APPLICATION_PATH = "/application";

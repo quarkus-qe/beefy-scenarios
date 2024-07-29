@@ -10,11 +10,11 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.qe.containers.MySqlDatabaseTestResource;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-@QuarkusTestResource(MySqlDatabaseTestResource.class)
+@WithTestResource(MySqlDatabaseTestResource.class)
 class UserResourceTest {
 
     private final static String NEW_USER_ID = "3";

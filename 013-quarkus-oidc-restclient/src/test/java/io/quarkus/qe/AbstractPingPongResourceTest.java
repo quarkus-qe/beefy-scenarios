@@ -14,12 +14,12 @@ import org.keycloak.authorization.client.AuthzClient;
 
 import io.quarkus.qe.containers.KeycloakTestResource;
 import io.quarkus.qe.model.Score;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.http.ContentType;
 
-@QuarkusTestResource(KeycloakTestResource.class)
+@WithTestResource(value = KeycloakTestResource.class, restrictToAnnotatedClass = false)
 public abstract class AbstractPingPongResourceTest {
 
     private static final String PING_ENDPOINT = "/%s-ping";
