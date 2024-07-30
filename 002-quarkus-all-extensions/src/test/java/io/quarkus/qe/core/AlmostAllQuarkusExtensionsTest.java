@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import io.quarkus.qe.core.containers.MongoTestResource;
 import io.quarkus.qe.core.containers.PostgreSqlDatabaseTestResource;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-@QuarkusTestResource(value = MongoTestResource.class)
-@QuarkusTestResource(value = PostgreSqlDatabaseTestResource.class)
+@WithTestResource(value = MongoTestResource.class)
+@WithTestResource(value = PostgreSqlDatabaseTestResource.class)
 public class AlmostAllQuarkusExtensionsTest {
 
     @Test

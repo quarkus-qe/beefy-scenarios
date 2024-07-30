@@ -17,11 +17,11 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import io.quarkus.qe.quartz.resources.QuartzNodeApplicationResource;
 import io.quarkus.qe.quartz.resources.RestApplicationResource;
 import io.quarkus.test.QuarkusProdModeTest;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.restassured.RestAssured;
 
-@QuarkusTestResource(H2DatabaseTestResource.class)
+@WithTestResource(H2DatabaseTestResource.class)
 public class AnnotationScheduledJobsQuartzTest {
 
     private static final int REST_PORT = 8081;

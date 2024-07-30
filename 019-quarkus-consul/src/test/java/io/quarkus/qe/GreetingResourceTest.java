@@ -21,9 +21,9 @@ import com.orbitz.consul.KeyValueClient;
 
 import io.quarkus.qe.containers.ConsulTestResource;
 import io.quarkus.test.QuarkusProdModeTest;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 
-@QuarkusTestResource(ConsulTestResource.class)
+@WithTestResource(ConsulTestResource.class)
 public class GreetingResourceTest {
 
     private static final String APPLICATION_PROPERTIES = "application.properties";

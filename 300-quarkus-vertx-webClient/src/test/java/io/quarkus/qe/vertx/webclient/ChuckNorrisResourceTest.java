@@ -26,13 +26,13 @@ import org.junit.jupiter.api.Test;
 
 import io.quarkus.qe.vertx.webclient.resources.JaegerTestResource;
 import io.quarkus.qe.vertx.webclient.resources.WireMockChuckNorrisResource;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.Response;
 
 @QuarkusTest
-@QuarkusTestResource(WireMockChuckNorrisResource.class)
-@QuarkusTestResource(JaegerTestResource.class)
+@WithTestResource(WireMockChuckNorrisResource.class)
+@WithTestResource(JaegerTestResource.class)
 public class ChuckNorrisResourceTest {
     private final static String jaegerEndpoint = "http://localhost:16686/api/traces";
     static final String EXPECTED_ID = "aBanNLDwR-SAz7iMHuCiyw";

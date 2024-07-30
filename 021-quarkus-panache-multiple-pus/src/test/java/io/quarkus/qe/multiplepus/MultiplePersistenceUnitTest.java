@@ -13,13 +13,13 @@ import io.quarkus.qe.multiplepus.containers.MariaDbDatabaseTestResource;
 import io.quarkus.qe.multiplepus.containers.PostgreSqlDatabaseTestResource;
 import io.quarkus.qe.multiplepus.model.fruit.Fruit;
 import io.quarkus.qe.multiplepus.model.vegetable.Vegetable;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 
 @QuarkusTest
-@QuarkusTestResource(MariaDbDatabaseTestResource.class)
-@QuarkusTestResource(PostgreSqlDatabaseTestResource.class)
+@WithTestResource(MariaDbDatabaseTestResource.class)
+@WithTestResource(PostgreSqlDatabaseTestResource.class)
 class MultiplePersistenceUnitTest {
 
     private static boolean shouldCleanupFruit = false;
