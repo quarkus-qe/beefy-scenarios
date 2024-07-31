@@ -41,7 +41,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <surefire-plugin.version>3.3.0</surefire-plugin.version>
-        <testcontainers.version>1.20.0</testcontainers.version>
+        <testcontainers.version>1.20.1</testcontainers.version>
         <wiremock.version>2.35.2</wiremock.version>
         <confluent.kafka-avro-serializer.version>7.4.0</confluent.kafka-avro-serializer.version>
         <version.assertj>3.26.3</version.assertj>
