@@ -44,7 +44,6 @@ jobs:
     strategy:
       matrix:
         java: [ 17 ]
-        image: [ "ubi-quarkus-mandrel-builder-image:jdk-21"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache@v4
@@ -88,6 +87,7 @@ jobs:
     strategy:
       matrix:
         java: [ 17 ]
+        image: [ "ubi-quarkus-mandrel-builder-image:jdk-21"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache@v4
@@ -130,7 +130,8 @@ jobs:
 
           MODULES_ARG="${CHANGED// /,}"
           mvn -am -fae -V -B -s .github/mvn-settings.xml -fae -pl $MODULES_ARG clean verify -Dnative \
-            -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g
+            -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
+            -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }}
       - name: Zip Artifacts
         if: failure()
         run: |
@@ -181,7 +182,6 @@ jobs:
         with:
           version: ${{ matrix.graalvm-version }}
           java-version: ${{ matrix.graalvm-java-version }}
-          components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Configure Pagefile
         # Increased the page-file size due to memory-consumption of native-image command

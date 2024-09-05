@@ -208,7 +208,6 @@ jobs:
         with:
           version: ${{ matrix.graalvm-version }}
           java-version: ${{ matrix.graalvm-java-version }}
-          components: 'native-image'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Configure Pagefile
         # Increased the page-file size due to memory-consumption of native-image command
