@@ -78,7 +78,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
+            <artifactId>quarkus-messaging-kafka</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -154,7 +154,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-smallrye-reactive-messaging-amqp</artifactId>
+            <artifactId>quarkus-messaging-amqp</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -198,7 +198,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-smallrye-reactive-messaging</artifactId>
+            <artifactId>quarkus-messaging</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -367,7 +367,7 @@
         <!--        </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-smallrye-reactive-messaging-mqtt</artifactId>
+            <artifactId>quarkus-messaging-mqtt</artifactId>
         </dependency>
         <!-- New extensions in 1.7.1 comparing to 1.3.4 -->
         <!--        <dependency>-->
