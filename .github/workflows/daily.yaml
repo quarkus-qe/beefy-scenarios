@@ -29,7 +29,7 @@ jobs:
           java-version: ${{ matrix.java }}
       - name: Build Quarkus main
         run: |
-          git clone https://github.com/quarkusio/quarkus.git && cd quarkus && ./mvnw -B -s .github/mvn-settings.xml clean install -Dquickly -Prelocations -Dno-test-modules
+          git clone https://github.com/quarkusio/quarkus.git && cd quarkus && ./mvnw -B --no-transfer-progress -s .github/mvn-settings.xml clean install -Dquickly -Prelocations -Dno-test-modules
       - name: Tar Maven Repo
         shell: bash
         run: tar -I 'pigz -9' -cf maven-repo.tgz -C ~ .m2/repository
@@ -71,7 +71,7 @@ jobs:
         run: tar -xzf maven-repo.tgz -C ~
       - name: Test in JVM mode
         run: |
-          mvn -fae -V -B -s .github/mvn-settings.xml -fae clean verify
+          mvn -fae -V -B --no-transfer-progress -s .github/mvn-settings.xml -fae clean verify
       - name: Zip Artifacts
         if: failure()
         run: |
@@ -115,7 +115,7 @@ jobs:
         run: tar -xzf maven-repo.tgz -C ~
       - name: Test in Native mode
         run: |
-          mvn -fae -V -B -s .github/mvn-settings.xml -fae clean verify -Dnative \
+          mvn -fae -V -B --no-transfer-progress -s .github/mvn-settings.xml -fae clean verify -Dnative \
             -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
             -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }}
       - name: Zip Artifacts
@@ -159,7 +159,7 @@ jobs:
       - name: Test in JVM mode
         shell: bash
         run: |
-          mvn -fae -V -B -s .github/mvn-settings.xml clean test
+          mvn -fae -V -B --no-transfer-progress -s .github/mvn-settings.xml clean test
       - name: Zip Artifacts
         shell: bash
         if: failure()
@@ -217,7 +217,7 @@ jobs:
         shell: bash
         run: |
           # Build on Native requires a lot of disk space, for now, we'll run only one module.
-          mvn -V -B -s .github/mvn-settings.xml -fae clean verify -Dnative -Dquarkus.native.native-image-xmx=6g -pl '003-quarkus-many-extensions'
+          mvn -V -B --no-transfer-progress -s .github/mvn-settings.xml -fae clean verify -Dnative -Dquarkus.native.native-image-xmx=6g -pl '003-quarkus-many-extensions'
       - name: Zip Artifacts
         shell: bash
         if: failure()
