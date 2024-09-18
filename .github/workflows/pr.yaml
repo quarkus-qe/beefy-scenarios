@@ -183,10 +183,6 @@ jobs:
           version: ${{ matrix.graalvm-version }}
           java-version: ${{ matrix.graalvm-java-version }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Configure Pagefile
-        # Increased the page-file size due to memory-consumption of native-image command
-        # For details see https://github.com/actions/virtual-environments/issues/785
-        uses: al-cheb/configure-pagefile-action@v1.4
       - name: Smoke Test in Native mode
         shell: bash
         run: |
