@@ -31,7 +31,6 @@ public class JavaEELikeHealthCheckTest {
 
     @Test
     public void testHealthGroupEndpoint() {
-        // TODO: There is an inconsistency about the Health groups path. Reported by https://github.com/quarkusio/quarkus/issues/16389.
         given()
                 .when().get("/q/health/group/customGroup")
                 .then()
