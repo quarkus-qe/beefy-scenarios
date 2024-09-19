@@ -17,7 +17,7 @@ class SomeExtensionProcessor {
     @BuildStep
     void registerManyClassesForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         for (int i = 0; i < 30_000; i++) {
-            reflectiveClass.produce(new ReflectiveClassBuildItem(false, true, String.format("io.quarkus.qe.SomeClass%d", i)));
+            reflectiveClass.produce(ReflectiveClassBuildItem.builder(String.format("io.quarkus.qe.SomeClass%d", i)).build());
         }
     }
 }
