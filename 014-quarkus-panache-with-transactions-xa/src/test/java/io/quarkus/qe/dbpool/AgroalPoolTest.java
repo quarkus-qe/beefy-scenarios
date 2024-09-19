@@ -16,7 +16,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.http.HttpStatus;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.agroal.api.AgroalDataSource;
@@ -41,6 +40,7 @@ import jakarta.persistence.Query;
 public class AgroalPoolTest {
 
     private final int CONCURRENCY_LEVEL = 20;
+    private final int SAFETY_INTERVAL = 200;
 
     @Inject
     EntityManager em;
@@ -54,6 +54,9 @@ public class AgroalPoolTest {
     @ConfigProperty(name = "quarkus.datasource.jdbc.idle-removal-interval")
     String idleSec;
 
+    @ConfigProperty(name = "quarkus.datasource.jdbc.background-validation-interval")
+    String idleBackgroundValidationSec;
+
     @ConfigProperty(name = "quarkus.datasource.jdbc.max-size")
     int datasourceMaxSize;
 
@@ -61,10 +64,9 @@ public class AgroalPoolTest {
     int datasourceMinSize;
 
     @Test
-    @Disabled("Pending Zulip conversation about quarkus.datasource.jdbc.idle-removal-interval")
     public void idleTimeoutTest() throws InterruptedException {
         makeApplicationQuery();
-        Thread.sleep(Duration.ofMillis(getIdleMs() + 1).toMillis());
+        Thread.sleep(getIdleMs() + getIdleBackgroundValidationMs() + SAFETY_INTERVAL);
         assertEquals(1, activeConnections(), "agroalCheckIdleTimeout: Expected " + datasourceMinSize + " active connections");
     }
 
@@ -138,8 +140,13 @@ public class AgroalPoolTest {
     }
 
     private long getIdleMs() {
-        int idle = Integer.parseInt(idleSec.replaceAll("[A-Z]", ""));
-        return Duration.ofSeconds(idle).toMillis();
+        float idle = Float.parseFloat(idleSec.replaceAll("[A-Z]", ""));
+        return Duration.ofMillis(Math.round(1000 * idle)).toMillis();
+    }
+
+    private long getIdleBackgroundValidationMs() {
+        float idleBg = Float.parseFloat(idleBackgroundValidationSec.replaceAll("[A-Z]", ""));
+        return Duration.ofMillis(Math.round(1000 * idleBg)).toMillis();
     }
 
     private Multi<Long> activeConnectionsAsync(int events) {
