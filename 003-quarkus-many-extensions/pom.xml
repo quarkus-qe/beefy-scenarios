@@ -22,10 +22,6 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-artemis-jms</artifactId>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-elytron-security</artifactId>
@@ -34,7 +30,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-spring-data-jpa</artifactId>
         </dependency>
-        <!--        https://github.com/quarkusio/quarkus/issues/7185  for pom-deprecated-way.xml  -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-kubernetes</artifactId>
@@ -80,11 +75,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-narayana-jta</artifactId>
         </dependency>
-        <!-- https://github.com/quarkusio/quarkus/commit/149d5381208fa731914a1de2ab8fc868934cfdd1 -->
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-spring-web</artifactId>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-spring-web</artifactId>
+        </dependency>
         <!--        <dependency>  needs running Keycloak server -->
         <!--            <groupId>io.quarkus</groupId>-->
         <!--            <artifactId>quarkus-keycloak-authorization</artifactId>-->
@@ -201,11 +195,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-spring-security</artifactId>
         </dependency>
-        <!-- java.lang.RuntimeException: java.lang.RuntimeException: java.lang.IllegalArgumentException: Multiple matching properties for name "datasource.url" property was matched by both public java.util.Optional io.quarkus.reactive.pg.client.runtime.DataSourceConfig.url and public java.util.Optional io.quarkus.agroal.runtime.DataSourceRuntimeConfig.url. This is likely because you have an incompatible combination of extensions that both define the same properties (e.g. including both reactive and blocking database extensions) -->
-        <!-- <dependency>
-          <groupId>io.quarkus</groupId>
-          <artifactId>quarkus-reactive-pg-client</artifactId>
-        </dependency> -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-reactive-pg-client</artifactId>
+        </dependency>
     </dependencies>
     <profiles>
         <!-- Skipped on Windows as does not support Linux Containers / Testcontainers -->
