@@ -39,15 +39,14 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-swagger-ui</artifactId>
         </dependency>
-        <!--        To be able to run in native  -  https://github.com/quarkusio/quarkus/issues/7362 -->
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-amazon-lambda</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-amazon-lambda-http</artifactId>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-amazon-lambda</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-amazon-lambda-http</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-scheduler</artifactId>
@@ -104,15 +103,14 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-metrics</artifactId>
         </dependency>
-        <!--        <dependency>  needs running Keycloak server -->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-keycloak-authorization</artifactId>-->
-        <!--        </dependency>-->
-        <!--  NATIVE mode issue -->
-        <!-- <dependency>
-          <groupId>io.quarkus</groupId>
-          <artifactId>quarkus-hibernate-search-orm-elasticsearch</artifactId>
-        </dependency> -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-keycloak-authorization</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-oidc</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-undertow</artifactId>
@@ -125,20 +123,9 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-jwt</artifactId>
         </dependency>
-        <!-- <dependency>  trouble in NATIVE
-          <groupId>io.quarkus</groupId>
-          <artifactId>quarkus-jdbc-mariadb</artifactId>
-        </dependency> -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-narayana-jta</artifactId>
-        </dependency>
-        <!--  Exception: Provider com.ctc.wstx.stax.WstxInputFactory not found  -->
-        <!-- https://github.com/quarkusio/quarkus/issues/7359  -->
-        <dependency>
-            <groupId>com.fasterxml.woodstox</groupId>
-            <artifactId>woodstox-core</artifactId>
-            <version>7.0.0</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -168,14 +155,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-elytron-security</artifactId>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-amazon-dynamodb</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-tika</artifactId>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-vertx</artifactId>
@@ -238,11 +217,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-elytron-security-properties-file</artifactId>
         </dependency>
-        <!-- https://github.com/quarkusio/quarkus/commit/149d5381208fa731914a1de2ab8fc868934cfdd1 -->
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-spring-web</artifactId>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-spring-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-derby</artifactId>
@@ -251,15 +229,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-spring-security</artifactId>
         </dependency>
-        <!-- 2020-03-27 09:23:35,830 ERROR [io.qua.ver.htt.run.QuarkusErrorHandler] (vert.x-eventloop-thread-15) HTTP Request to /hello
-        failed, error id: aa6dc63d-c1d5-4242-822d-30287a84457b-1: java.lang.RuntimeException: Multiple mechanisms present that use the
-         same credential transport HttpCredentialTransport{transportType=AUTHORIZATION, typeTarget='bearer'}.
-          Mechanisms are io.quarkus.elytron.security.oauth2.runtime.auth.OAuth2AuthMechanism@3a1587a5 and
-          io.quarkus.smallrye.jwt.runtime.auth.JWTAuthMechanism@256c0690 -->
-        <!--      <dependency>-->
-        <!--        <groupId>io.quarkus</groupId>-->
-        <!--        <artifactId>quarkus-elytron-security-oauth2</artifactId>-->
-        <!--      </dependency>-->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-elytron-security-oauth2</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jackson</artifactId>
@@ -276,10 +249,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jaxb</artifactId>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-vault</artifactId>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-mongodb-panache</artifactId>
@@ -296,10 +265,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jaxb</artifactId>
         </dependency>
-        <!--        <dependency>  needs running Keycloak server -->
-        <!--        <groupId>io.quarkus</groupId>-->
-        <!--        <artifactId>quarkus-oidc</artifactId>-->
-        <!--      </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-quartz</artifactId>
@@ -308,10 +273,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jdbc-mariadb</artifactId>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-artemis-jms</artifactId>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-logging-gelf</artifactId>
@@ -336,15 +297,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-spring-data-jpa</artifactId>
         </dependency>
-        <!--        Caused by: java.lang.RuntimeException: java.lang.ClassCastException: io.sentry.servlet.SentryServletContainerInitializer cannot be cast to javax.servlet.ServletContainerInitializer-->
-        <!--      <dependency>-->
-        <!--        <groupId>io.quarkus</groupId>-->
-        <!--        <artifactId>quarkus-logging-sentry</artifactId>-->
-        <!--      </dependency>-->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-azure-functions-http</artifactId>
-        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-qute</artifactId>
@@ -359,55 +311,25 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-infinispan-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-vertx-graphql</artifactId>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-jgit</artifactId>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-messaging-mqtt</artifactId>
         </dependency>
-        <!-- New extensions in 1.7.1 comparing to 1.3.4 -->
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-amazon-alexa</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-amazon-kms</artifactId>-->
-        <!--        </dependency>-->
         <!-- The Amazon Lambda extensions is not compatible with uber-jar package type.
          <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-amazon-lambda-common</artifactId>
-        </dependency>
-        -->
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-amazon-s3</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-amazon-ses</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-amazon-sns</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-amazon-sqs</artifactId>-->
-        <!--        </dependency>-->
+        </dependency> -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-avro</artifactId>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-consul-config</artifactId>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-elasticsearch-rest-client</artifactId>
@@ -470,15 +392,18 @@
         <!--            <groupId>io.quarkus</groupId>-->
         <!--            <artifactId>quarkus-hibernate-reactive</artifactId>-->
         <!--        </dependency>-->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jdbc-db2</artifactId>
-        </dependency>
-        <!--        OIDC / Keycloak stuff disabled as it would require running server-->
         <!--        <dependency>-->
         <!--            <groupId>io.quarkus</groupId>-->
-        <!--            <artifactId>quarkus-keycloak-admin-client</artifactId>-->
+        <!--            <artifactId>quarkus-jdbc-db2</artifactId>-->
         <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.quarkus</groupId>-->
+        <!--            <artifactId>quarkus-reactive-db2-client</artifactId>-->
+        <!--        </dependency>-->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-keycloak-admin-resteasy-client</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-kubernetes-config</artifactId>
@@ -486,15 +411,6 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-minikube</artifactId>
-        </dependency>
-        <!--  We cannot have picocli and REST assured at the same time.
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-picocli</artifactId>
-        </dependency> -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-reactive-db2-client</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -526,29 +442,37 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-webjars-locator</artifactId>
+            <artifactId>quarkus-web-dependency-locator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-apicurio-registry-avro</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-apicurio-registry-json-schema</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-awt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-info</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jacoco</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-security-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- TODO: Workaround for https://github.com/quarkusio/quarkus/issues/6327 -->
-        <dependency>
-            <groupId>jakarta.security.jacc</groupId>
-            <artifactId>jakarta.security.jacc-api</artifactId>
-            <version>1.6.1</version>
-        </dependency>
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna-platform</artifactId>
-            <version>5.14.0</version>
-        </dependency>
-        <!-- end Workaround -->
     </dependencies>
     <profiles>
         <!-- Skipped on Windows as does not support Linux Containers / Testcontainers -->
