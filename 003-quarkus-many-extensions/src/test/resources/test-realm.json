@@ -1,0 +1,12 @@
+{
+  "realm": "test-realm",
+  "enabled": true,
+  "sslRequired": "none",
+  "roles": {
+    "realm": [
+      {
+        "name": "test-user-role"
+      }
+    ]
+  }
+}
