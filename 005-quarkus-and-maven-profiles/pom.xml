@@ -8,8 +8,9 @@
     </parent>
     <artifactId>005-quarkus-and-maven-profiles</artifactId>
     <properties>
-        <quarkus.platform.version>9999999-SNAPSHOT</quarkus.platform.version>
-        <quarkus-plugin.version>9999999-SNAPSHOT</quarkus-plugin.version>
+        <!-- Using invalid Quarkus BOM to make sure the one defined in profile gets picked -->
+        <!-- Quarkus maven plugin had troubles to use stuff defined in profile -->
+        <quarkus.platform.artifact-id>non-existing-bom</quarkus.platform.artifact-id>
     </properties>
     <dependencies>
         <dependency>
@@ -18,9 +19,8 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-spring-di</artifactId>
-            <!-- TODO  switch to 3.something-redhat-0000X based version once available in maven.repository.redhat.com -->
-            <version>3.0.0.Alpha3</version>
+            <artifactId>quarkus-spring-core-api</artifactId>
+            <version>5.2.0.SP7-redhat-00001</version>
         </dependency>
     </dependencies>
     <profiles>
@@ -32,8 +32,7 @@
                 </property>
             </activation>
             <properties>
-                <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
-                <quarkus-plugin.version>999-SNAPSHOT</quarkus-plugin.version>
+                <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
             </properties>
             <repositories>
                 <repository>
