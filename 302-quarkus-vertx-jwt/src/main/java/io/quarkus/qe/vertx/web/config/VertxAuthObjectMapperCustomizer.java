@@ -12,7 +12,6 @@ public class VertxAuthObjectMapperCustomizer implements ObjectMapperCustomizer {
 
     @Override
     public void customize(ObjectMapper objectMapper) {
-        // TODO https://github.com/quarkusio/quarkus/issues/16555
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
     }
 }
