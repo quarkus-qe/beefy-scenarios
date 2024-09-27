@@ -7,7 +7,6 @@ import static io.quarkus.qe.validation.utils.ValidationAssertions.assertValidati
 import static io.restassured.RestAssured.given;
 
 import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.qe.validation.utils.ValidationErrorResponse;
@@ -37,20 +36,5 @@ public class ValidationOnResponseRouteHandlerTest {
         assertValidationErrorDetail(response);
         assertValidationErrorStatus(response, HttpStatus.SC_INTERNAL_SERVER_ERROR);
         assertValidationErrorField(response, "id", "id can't be null");
-    }
-
-    @Disabled("Not validating Java types. Reported in: https://github.com/quarkusio/quarkus/issues/15168")
-    @Test
-    public void shouldGetValidationErrorWhenUniResponseStringIsWrong() {
-        ValidationErrorResponse response = given()
-                .when()
-                .get("/validate/response-uni-invalid-string")
-                .then()
-                .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
-                .extract().as(ValidationErrorResponse.class);
-
-        assertValidationErrorTitle(response);
-        assertValidationErrorDetail(response);
-        assertValidationErrorStatus(response, HttpStatus.SC_INTERNAL_SERVER_ERROR);
     }
 }
