@@ -7,6 +7,7 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.keycloak.client.KeycloakTestClient;
 
 @QuarkusTest
 public class SecuredResourceTest {
@@ -14,6 +15,8 @@ public class SecuredResourceTest {
     private static final String SECURED_PATH = "/secured";
     private static final String CLAIMS_FROM_BEANS_PATH = "/getClaimsFromBeans";
     private static final String CLAIMS_FROM_TOKEN_PATH = "/getClaimsFromToken";
+
+    private KeycloakTestClient keycloakClient = new KeycloakTestClient();
 
     @Test
     public void verifySecuredEndpointIsProtected() {
@@ -38,7 +41,7 @@ public class SecuredResourceTest {
     }
 
     private String getClaimsInstancesFromPath(String path) {
-        String token = given().when().get("/generate-token/test-user").then().statusCode(200).extract().asString();
+        String token = keycloakClient.getAccessToken("alice");
 
         return given()
                 .auth().preemptive().oauth2(token)

@@ -1,14 +1,11 @@
 package io.quarkus.qe.ping.clients;
 
-import java.util.Collections;
-
-import org.apache.http.impl.client.HttpClients;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.rest.client.annotation.ClientHeaderParam;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
-import org.keycloak.authorization.client.AuthzClient;
-import org.keycloak.authorization.client.Configuration;
+import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.KeycloakBuilder;
 
 import io.quarkus.qe.model.Score;
 
@@ -61,13 +58,17 @@ public interface LookupAuthorizationPongClient {
         String clientId = config.getValue("quarkus.oidc.client-id", String.class);
         String clientSecret = config.getValue("quarkus.oidc.credentials.secret", String.class);
 
-        AuthzClient authzClient = AuthzClient.create(new Configuration(
-                authUrl,
-                realm,
-                clientId,
-                Collections.singletonMap("secret", clientSecret),
-                HttpClients.createDefault()));
+        Keycloak keycloak = KeycloakBuilder.builder()
+                .serverUrl(authUrl)
+                .realm(realm)
+                .clientId(clientId)
+                .clientSecret(clientSecret)
+                .grantType("password")
+                .username("alice")
+                .password("alice")
+                .build();
 
-        return "Bearer " + authzClient.obtainAccessToken("test-user", "test-user").getToken();
+        String keycloakToken = keycloak.tokenManager().getAccessToken().getToken();
+        return "Bearer " + keycloakToken;
     }
 }
