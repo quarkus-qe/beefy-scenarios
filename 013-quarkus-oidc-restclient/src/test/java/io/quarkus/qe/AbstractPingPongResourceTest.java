@@ -1,46 +1,25 @@
 package io.quarkus.qe;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.config.HttpClientConfig.httpClientConfig;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 
 import java.util.UUID;
 
 import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.keycloak.authorization.client.AuthzClient;
 
-import io.quarkus.qe.containers.KeycloakTestResource;
 import io.quarkus.qe.model.Score;
-import io.quarkus.test.common.TestResourceScope;
-import io.quarkus.test.common.WithTestResource;
-import io.restassured.RestAssured;
-import io.restassured.config.RestAssuredConfig;
+import io.quarkus.test.keycloak.client.KeycloakTestClient;
 import io.restassured.http.ContentType;
 
-@WithTestResource(value = KeycloakTestResource.class, scope = TestResourceScope.MATCHING_RESOURCES)
 public abstract class AbstractPingPongResourceTest {
 
     private static final String PING_ENDPOINT = "/%s-ping";
     private static final String PONG_ENDPOINT = "/%s-pong";
-    private static final String USER = "test-user";
     private static final String WRONG_TOKEN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    private static final String HTTP_SOCKET_TIMEOUT_PROPERTY = "http.socket.timeout";
-    private static final String HTTP_CONNECTION_TIMEOUT_PROPERTY = "http.connection.timeout";
-    private static final int TIMEOUT_IN_SECONDS = 1000;
-
-    AuthzClient authzClient;
-
-    @BeforeEach
-    public void setup() {
-        RestAssured.config = RestAssuredConfig.config()
-                .httpClient(httpClientConfig()
-                        .setParam(HTTP_SOCKET_TIMEOUT_PROPERTY, TIMEOUT_IN_SECONDS)
-                        .setParam(HTTP_CONNECTION_TIMEOUT_PROPERTY, TIMEOUT_IN_SECONDS));
-    }
+    private KeycloakTestClient keycloakTestClient = new KeycloakTestClient();
 
     @Test
     public void testPingUnauthorized() {
@@ -152,6 +131,6 @@ public abstract class AbstractPingPongResourceTest {
     }
 
     private String createToken() {
-        return authzClient.obtainAccessToken(USER, USER).getToken();
+        return keycloakTestClient.getAccessToken("alice");
     }
 }
