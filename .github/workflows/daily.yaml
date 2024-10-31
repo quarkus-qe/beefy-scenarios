@@ -116,7 +116,7 @@ jobs:
       - name: Test in Native mode
         run: |
           mvn -fae -V -B --no-transfer-progress -s .github/mvn-settings.xml -fae clean verify -Dnative \
-            -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=4g \
+            -Dquarkus.native.container-build=true -Dquarkus.native.native-image-xmx=7g \
             -Dquarkus.native.builder-image=quay.io/quarkus/${{ matrix.image }}
       - name: Zip Artifacts
         if: failure()
@@ -213,7 +213,7 @@ jobs:
         shell: bash
         run: |
           # Build on Native requires a lot of disk space, for now, we'll run only one module.
-          mvn -V -B --no-transfer-progress -s .github/mvn-settings.xml -fae clean verify -Dnative -Dquarkus.native.native-image-xmx=6g -pl '003-quarkus-many-extensions'
+          mvn -V -B --no-transfer-progress -s .github/mvn-settings.xml -fae clean verify -Dnative -Dquarkus.native.native-image-xmx=7g -pl '003-quarkus-many-extensions'
       - name: Zip Artifacts
         shell: bash
         if: failure()
