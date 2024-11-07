@@ -12,12 +12,16 @@ import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import io.quarkus.test.common.TestResourceScope;
+import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 
 @QuarkusTest
+@WithTestResource(value = H2DatabaseTestResource.class, scope = TestResourceScope.MATCHING_RESOURCES)
 public class CommonsHeadersTest {
     //This is for regression test for https://github.com/quarkusio/quarkus/pull/12234
     @Test

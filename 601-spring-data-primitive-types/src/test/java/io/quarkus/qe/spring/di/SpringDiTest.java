@@ -12,11 +12,15 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.InjectableBean;
+import io.quarkus.test.common.TestResourceScope;
+import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 import jakarta.enterprise.inject.spi.CDI;
 
 @QuarkusTest
+@WithTestResource(value = H2DatabaseTestResource.class, scope = TestResourceScope.MATCHING_RESOURCES)
 public class SpringDiTest {
 
     private static Stream<Class<?>> beanClassProvider() {

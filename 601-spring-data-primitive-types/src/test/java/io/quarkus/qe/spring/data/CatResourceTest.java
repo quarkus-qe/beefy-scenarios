@@ -10,11 +10,15 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.qe.spring.data.model.Cat;
+import io.quarkus.test.common.TestResourceScope;
+import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
 @QuarkusTest
+@WithTestResource(value = H2DatabaseTestResource.class, scope = TestResourceScope.MATCHING_RESOURCES)
 public class CatResourceTest {
     @Test
     void testCustomFindPublicationYearObjectBoolean() {

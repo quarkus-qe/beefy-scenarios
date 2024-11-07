@@ -6,9 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import io.quarkus.test.common.TestResourceScope;
+import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
+@WithTestResource(value = H2DatabaseTestResource.class, scope = TestResourceScope.RESTRICTED_TO_CLASS)
 public class TransactionScopeBeanResourceTest {
 
     private static final String TRANSACTION_SCOPE_BASE_PATH = "/transaction-scope";
