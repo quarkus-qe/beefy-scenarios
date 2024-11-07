@@ -20,7 +20,7 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-spring-core-api</artifactId>
-            <version>5.2.0.SP7-redhat-00001</version>
+            <version>6.1.0.SP3-redhat-00001</version>
         </dependency>
     </dependencies>
     <profiles>
