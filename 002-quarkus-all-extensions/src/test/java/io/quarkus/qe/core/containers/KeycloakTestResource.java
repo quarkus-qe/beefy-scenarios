@@ -19,7 +19,7 @@ public class KeycloakTestResource implements QuarkusTestResourceLifecycleManager
     private static final int PORT = 8080;
 
     private static final String REALM_FILE = "/test-realm.json";
-    private static final String KEYCLOAK_IMAGE = "quay.io/keycloak/keycloak:25.0";
+    private static final String KEYCLOAK_IMAGE = "quay.io/keycloak/keycloak:26.0";
 
     private GenericContainer<?> container;
 
