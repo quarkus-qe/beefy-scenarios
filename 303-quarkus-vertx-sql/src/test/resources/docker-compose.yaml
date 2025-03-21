@@ -22,18 +22,3 @@ services:
       MYSQL_USER: test
       MYSQL_PASSWORD: test
       MYSQL_DATABASE: amadeus
-
-  db2:
-    image: docker.io/ibmcom/db2:11.5.8.0
-    hostname: db2
-    container_name: db2
-    privileged: true
-    ports:
-      - "50000:50000"
-    environment:
-      LICENSE: accept
-      DB2INST1_PASSWORD: test
-      DB2INSTANCE: test
-      AUTOCONFIG: "false"
-      ARCHIVE_LOGS: "false"
-      DBNAME: amadeus
