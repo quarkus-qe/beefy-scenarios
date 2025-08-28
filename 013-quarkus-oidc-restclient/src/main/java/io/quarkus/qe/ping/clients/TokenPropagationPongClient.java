@@ -2,7 +2,7 @@ package io.quarkus.qe.ping.clients;
 
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
-import io.quarkus.oidc.token.propagation.AccessToken;
+import io.quarkus.oidc.token.propagation.common.AccessToken;
 import io.quarkus.qe.model.Score;
 
 import jakarta.ws.rs.Consumes;
