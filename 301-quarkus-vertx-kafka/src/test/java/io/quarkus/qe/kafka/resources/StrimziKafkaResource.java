@@ -23,7 +23,7 @@ public class StrimziKafkaResource implements QuarkusTestResourceLifecycleManager
     public Map<String, String> start() {
         Network network = Network.newNetwork();
 
-        kafkaContainer = new StrimziKafkaContainer("quay.io/strimzi/kafka:0.34.0-kafka-3.4.0").withNetwork(network);
+        kafkaContainer = new StrimziKafkaContainer("quay.io/strimzi/kafka:latest-kafka-4.1.0").withNetwork(network);
         schemaRegistry = new SchemaRegistryContainer("quay.io/apicurio/apicurio-registry-mem", "2.4.2.Final", 8080);
 
         Startables.deepStart(Stream.of(kafkaContainer, schemaRegistry)).join();
