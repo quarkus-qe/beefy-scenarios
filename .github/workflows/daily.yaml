@@ -34,7 +34,7 @@ jobs:
         shell: bash
         run: tar -I 'pigz -9' -cf maven-repo.tgz -C ~ .m2/repository
       - name: Persist Maven Repo
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: maven-repo
           path: maven-repo.tgz
@@ -78,7 +78,7 @@ jobs:
           zip -R artifacts-linux-jvm${{ matrix.java }}.zip '*-reports/*'
       - name: Archive artifacts
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: artifacts-linux-jvm${{ matrix.java }}
           path: artifacts-linux-jvm${{ matrix.java }}.zip
@@ -124,7 +124,7 @@ jobs:
           zip -R artifacts-linux-native${{ matrix.java }}.zip '*-reports/*'
       - name: Archive artifacts
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: artifacts-linux-native${{ matrix.java }}
           path: artifacts-linux-native${{ matrix.java }}.zip
@@ -168,7 +168,7 @@ jobs:
           /usr/bin/find . -name '*-reports/*' -type d | tar -czf artifacts-windows-jvm${{ matrix.java }}.tar -T -
       - name: Archive artifacts
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: artifacts-windows-jvm${{ matrix.java }}
           path: artifacts-windows-jvm${{ matrix.java }}.tar
@@ -222,7 +222,7 @@ jobs:
           /usr/bin/find . -name '*-reports/*' -type d | tar -czf artifacts-windows-native${{ matrix.java }}.tar -T -
       - name: Archive artifacts
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: artifacts-windows-native${{ matrix.java }}
           path: artifacts-windows-native${{ matrix.java }}.tar
