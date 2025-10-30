@@ -36,8 +36,9 @@ public class ConfigValueTest {
     }
 
     // Clarification: https://github.com/quarkusio/quarkus/issues/27231#issuecomment-1211783882
+    // See also: https://github.com/quarkusio/quarkus/pull/50745
     private String getExpectedSourceNameValue() {
-        return isNativeExecution() ? "DefaultValuesConfigSource" : "PropertiesConfigSource";
+        return isNativeExecution() ? "Runtime Values" : "PropertiesConfigSource";
     }
 
     protected boolean isNativeExecution() {
