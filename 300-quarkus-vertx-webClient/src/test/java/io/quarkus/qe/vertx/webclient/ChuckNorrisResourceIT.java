@@ -1,6 +1,6 @@
 package io.quarkus.qe.vertx.webclient;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -17,6 +17,6 @@ public class ChuckNorrisResourceIT extends ChuckNorrisResourceTest {
     @Test
     public void checkNativeDebugSymbols() {
         File debugFile = Paths.get("target", DEBUG_SYMBOLS_FILE_NAME).toFile();
-        assertTrue("Missing debug symbols file: " + DEBUG_SYMBOLS_FILE_NAME, debugFile.exists());
+        assertTrue(debugFile.exists(), "Missing debug symbols file: " + DEBUG_SYMBOLS_FILE_NAME);
     }
 }
