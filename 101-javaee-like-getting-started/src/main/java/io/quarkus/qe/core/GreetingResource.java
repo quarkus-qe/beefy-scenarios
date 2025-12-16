@@ -1,6 +1,6 @@
 package io.quarkus.qe.core;
 
-import org.eclipse.microprofile.metrics.annotation.Counted;
+import io.micrometer.core.annotation.Counted;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -12,7 +12,7 @@ public class GreetingResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    @Counted(name = "hello_invocation_count", absolute = true)
+    @Counted(value = "hello_invocation_count")
     public String hello() {
         return "hello";
     }
