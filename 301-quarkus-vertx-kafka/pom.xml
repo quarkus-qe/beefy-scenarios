@@ -44,16 +44,12 @@
             <artifactId>quarkus-confluent-registry-avro</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.apicurio</groupId>
-            <artifactId>apicurio-common-rest-client-vertx</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-apicurio-registry-avro</artifactId>
         </dependency>
         <dependency>
             <groupId>io.apicurio</groupId>
-            <artifactId>apicurio-registry-client</artifactId>
+            <artifactId>apicurio-registry-java-sdk</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
