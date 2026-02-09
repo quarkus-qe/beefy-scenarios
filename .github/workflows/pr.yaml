@@ -59,7 +59,7 @@ jobs:
             ${{ runner.os }}-maven-
       - name: Reclaim Disk Space
         run: .github/ci-prerequisites.sh
-      - name: Install JDK {{ matrix.java }}
+      - name: Install JDK ${{ matrix.java }}
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
@@ -103,7 +103,7 @@ jobs:
             ${{ runner.os }}-maven-
       - name: Reclaim Disk Space
         run: .github/ci-prerequisites.sh
-      - name: Install JDK {{ matrix.java }}
+      - name: Install JDK ${{ matrix.java }}
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
@@ -164,7 +164,7 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: Install JDK {{ matrix.java }}
+      - name: Install JDK ${{ matrix.java }}
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
