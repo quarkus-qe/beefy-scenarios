@@ -1,6 +1,11 @@
 name: "Pull Request Build"
 on:
   - pull_request
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   quarkus-main-build:
     name: Quarkus Main build
