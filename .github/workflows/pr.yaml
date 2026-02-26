@@ -65,7 +65,7 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: maven-repo
           path: .
@@ -109,7 +109,7 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: maven-repo
           path: .
@@ -170,7 +170,7 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: maven-repo
           path: .
