@@ -92,7 +92,7 @@ jobs:
     strategy:
       matrix:
         java: [ 17 ]
-        image: [ "ubi-quarkus-mandrel-builder-image:jdk-21"]
+        image: [ "ubi-quarkus-mandrel-builder-image:jdk-25"]
     steps:
       - uses: actions/checkout@v6
       - uses: actions/cache@v5
