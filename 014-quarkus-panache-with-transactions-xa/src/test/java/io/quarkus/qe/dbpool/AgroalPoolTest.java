@@ -16,6 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.http.HttpStatus;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import io.agroal.api.AgroalDataSource;
@@ -64,6 +65,7 @@ public class AgroalPoolTest {
     int datasourceMinSize;
 
     @Test
+    @Order(1)
     public void idleTimeoutTest() throws InterruptedException {
         makeApplicationQuery();
         Thread.sleep(getIdleMs() + getIdleBackgroundValidationMs() + SAFETY_INTERVAL);
@@ -71,6 +73,7 @@ public class AgroalPoolTest {
     }
 
     @Test
+    @Order(2)
     public void poolTurnoverTest() throws InterruptedException {
         final int events = 500;
         final AtomicInteger max = new AtomicInteger(0);
@@ -90,6 +93,7 @@ public class AgroalPoolTest {
     }
 
     @Test
+    @Order(3)
     public void borderConditionBetweenIdleAndGetConnectionTest() {
         final int events = 500;
         for (int k = 0; k < events; k++) {
@@ -110,6 +114,7 @@ public class AgroalPoolTest {
     }
 
     @Test
+    @Order(4)
     public void concurrentLoadTest() {
         final int events = 100;
         for (int i = 0; i < events; i++) {
@@ -120,6 +125,7 @@ public class AgroalPoolTest {
     }
 
     @Test
+    @Order(5)
     public void connectionConcurrencyTest() {
         final int events = 500;
         for (int k = 0; k < events; k++) {
