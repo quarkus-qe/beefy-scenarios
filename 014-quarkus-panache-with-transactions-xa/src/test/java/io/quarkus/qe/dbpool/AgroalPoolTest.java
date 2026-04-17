@@ -16,8 +16,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.http.HttpStatus;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import io.agroal.api.AgroalDataSource;
 import io.quarkus.qe.containers.MysqlTestProfile;
@@ -36,6 +38,7 @@ import jakarta.persistence.Query;
  * The aim of these tests is verified agroal and entityManager pool management
  * Some of these tests required some extra load, in order to reproduce concurrency issues.
  */
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class) // enforce order to run 'connectionConcurrencyTest' last
 @QuarkusTest
 @TestProfile(MysqlTestProfile.class)
 public class AgroalPoolTest {
