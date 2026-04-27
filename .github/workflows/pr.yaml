@@ -155,7 +155,7 @@ jobs:
       matrix:
         java: [ 17 ]
         graalvm-version: ["mandrel-latest"]
-        graalvm-java-version: [ "21" ]
+        graalvm-java-version: [ "25" ]
     steps:
       - uses: actions/checkout@v6
       - uses: actions/cache@v5
