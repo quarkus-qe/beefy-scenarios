@@ -187,6 +187,7 @@ jobs:
         with:
           version: ${{ matrix.graalvm-version }}
           java-version: ${{ matrix.graalvm-java-version }}
+          distribution: 'mandrel'
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Smoke Test in Native mode
         shell: bash
