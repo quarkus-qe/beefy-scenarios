@@ -23,7 +23,7 @@ public class PostgreSqlDatabaseTestResource implements QuarkusTestResourceLifecy
 
     @Override
     public Map<String, String> start() {
-        container = new PostgreSQLContainer<>("postgres:13.1");
+        container = new PostgreSQLContainer<>("postgres:17");
         container.withUrlParam("currentSchema", DEFAULT_SCHEMA);
         container.start();
 

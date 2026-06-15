@@ -11,7 +11,7 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class PostgreSqlDatabaseTestResource implements QuarkusTestResourceLifecycleManager {
 
-    private static final PostgreSQLContainer<?> DATABASE = new PostgreSQLContainer<>("postgres:13.1")
+    private static final PostgreSQLContainer<?> DATABASE = new PostgreSQLContainer<>("postgres:17")
             .withDatabaseName("postgresql")
             .withUsername("postgresql")
             .withPassword("postgresql");
