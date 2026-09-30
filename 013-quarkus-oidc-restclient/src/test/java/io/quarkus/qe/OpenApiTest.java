@@ -16,11 +16,12 @@ import java.util.Map;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
-import org.yaml.snakeyaml.Yaml;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.openapi.runtime.io.Format;
 import io.vertx.core.json.JsonObject;
+
+import tools.jackson.dataformat.yaml.YAMLMapper;
 
 @QuarkusTest
 public class OpenApiTest {
@@ -59,7 +60,9 @@ public class OpenApiTest {
     }
 
     private JsonObject fromYaml(URI openApiYaml) throws IOException {
-        return JsonObject.mapFrom(new Yaml().loadAs(openApiYaml.toURL().openStream(), Map.class));
+        try (var input = openApiYaml.toURL().openStream()) {
+            return JsonObject.mapFrom(YAMLMapper.shared().readValue(input, Map.class));
+        }
     }
 
     private JsonObject fromJson(URI openApiJson) throws IOException {
