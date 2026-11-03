@@ -10,9 +10,9 @@ public class Score {
     public Score() {
     }
 
-    public Score(int scoreTeamA, int scoreTeamB) {
-        this.teamA = scoreTeamA;
-        this.teamB = scoreTeamB;
+    public Score(int teamA, int teamB) {
+        this.teamA = teamA;
+        this.teamB = teamB;
     }
 
     public int getTeamA() {
